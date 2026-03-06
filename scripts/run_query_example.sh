@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --job-name=run_query_example
 #SBATCH --nodes=1
-#SBATCH --partition=b40x4-long
+#SBATCH --partition=long-28core
 #SBATCH --mem=4G
 #SBATCH --cpus-per-task=4
 #SBATCH --time=1-00:00:00
@@ -10,20 +10,21 @@
 
 timestamp=$(date +"%y%m%d_%H%M%S")
 
-# Activate conda env (module load first in SLURM; then activate by prefix)
+# Activate conda env
 if command -v module &>/dev/null; then
-  module load miniconda/3
+  module load anaconda/3
 fi
-source "$(conda info --base)/bin/activate" /lustre/nvwulf/scratch/solhapark/envs/infinigram
+source "$(conda info --base)/etc/profile.d/conda.sh"
+conda activate /gpfs/home/solhapark/envs/infinigram
 
 # Load HF_TOKEN for meta-llama/Llama-2-7b-hf (gated model)
-if [[ -f /lustre/nvwulf/scratch/solhapark/pretrain-trace/.env ]]; then
+if [[ -f /gpfs/scratch/solhapark/pretraining-trace/.env ]]; then
   set -a
-  source /lustre/nvwulf/scratch/solhapark/pretrain-trace/.env
+  source /gpfs/scratch/solhapark/pretraining-trace/.env
   set +a
 fi
 
-cd /lustre/nvwulf/scratch/solhapark/pretrain-trace
+cd /gpfs/scratch/solhapark/pretraining-trace
 echo "=== Job started at $(date) ==="
 START_TIME=$(date +%s)
 

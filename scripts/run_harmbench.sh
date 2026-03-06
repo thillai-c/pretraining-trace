@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --job-name=harmbench_contextual
 #SBATCH --nodes=1
-#SBATCH --partition=b40x4-long
+#SBATCH --partition=long-28core
 #SBATCH --gres=gpu:1
 #SBATCH --mem=32000
 #SBATCH --cpus-per-task=8
@@ -12,21 +12,22 @@
 timestamp=$(date +"%y%m%d_%H%M%S")
 CONFIG="contextual"  # Change this to "copyright", "standard", etc.
 
-# Activate conda env (module load first in SLURM; then activate by prefix)
+# Activate conda env
 if command -v module &>/dev/null; then
-  module load miniconda/3
+  module load anaconda/3
 fi
-source "$(conda info --base)/bin/activate" /lustre/nvwulf/home/solhapark/envs/infinigram
+source "$(conda info --base)/etc/profile.d/conda.sh"
+conda activate /gpfs/home/solhapark/envs/infinigram
 
 # Load HF_TOKEN for EleutherAI/gpt-j-6B (if needed)
-if [[ -f /lustre/nvwulf/scratch/solhapark/pretrain-trace/.env ]]; then
+if [[ -f /gpfs/scratch/solhapark/pretraining-trace/.env ]]; then
   set -a
-  source /lustre/nvwulf/scratch/solhapark/pretrain-trace/.env
+  source /gpfs/scratch/solhapark/pretraining-trace/.env
   set +a
 fi
 
-# Run harmbench_test.py
-cd /lustre/nvwulf/scratch/solhapark/pretrain-trace
+# Run harmbench.py
+cd /gpfs/scratch/solhapark/pretraining-trace
 echo "=== Job started at $(date) ==="
 START_TIME=$(date +%s)
 
