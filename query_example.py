@@ -3,6 +3,7 @@
 import logging
 import os
 import sys
+import time
 from datetime import datetime
 
 from dotenv import load_dotenv
@@ -27,8 +28,9 @@ QUERY_STR = "natural language processing"
 
 def setup_logger():
     os.makedirs("logs", exist_ok=True)
-    timestamp = datetime.now().strftime("%Y%m%d-%H%M%S")
-    log_filepath = f"logs/run_query_example_{timestamp}.log"
+    # timestamp = datetime.now().strftime("%Y%m%d-%H%M%S")
+    # log_filepath = f"logs/run_query_example_{timestamp}.log"
+    log_filepath = "logs/run_query_example.log"
 
     logging.basicConfig(
         level=logging.INFO,
@@ -45,6 +47,9 @@ def setup_logger():
 
 def main():
     logger = setup_logger()
+    
+    logger.info("=== Job started at %s ===", datetime.now().strftime("%a %b %d %I:%M:%S %p %Z %Y"))
+    start_time = time.time()
 
     if not os.path.isdir(INDEX_DIR):
         logger.error("Index directory not found: %s", INDEX_DIR)
@@ -106,6 +111,18 @@ def main():
             logger.info("First matching doc (shard %s, rank %s): %s", s, rank, doc)
         else:
             logger.warning("Doc retrieval: %s", doc.get("error", doc))
+    
+    end_time = time.time()
+    elapsed_float = end_time - start_time
+    elapsed = int(elapsed_float)
+    days = elapsed // 86400
+    hours = (elapsed % 86400) // 3600
+    minutes = (elapsed % 3600) // 60
+    seconds = elapsed % 60
+    
+    logger.info("=== Job finished at %s ===", datetime.now().strftime("%a %b %d %I:%M:%S %p %Z %Y"))
+    logger.info("=== Elapsed time: %d days %02d:%02d:%02d (total %.3f seconds) ===", 
+                days, hours, minutes, seconds, elapsed_float)
 
 
 if __name__ == "__main__":

@@ -1,0 +1,16 @@
+2026-03-06 17:58:47,871 - __main__ - INFO - Logging to file: logs/run_query_example.log
+2026-03-06 17:58:47,872 - __main__ - INFO - === Job started at Fri Mar 06 05:58:47 PM  2026 ===
+2026-03-06 17:58:47,872 - __main__ - INFO - Loading tokenizer: meta-llama/Llama-2-7b-hf
+2026-03-06 17:58:47,943 - httpx - INFO - HTTP Request: HEAD https://huggingface.co/meta-llama/Llama-2-7b-hf/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-03-06 17:58:47,983 - httpx - INFO - HTTP Request: HEAD https://huggingface.co/meta-llama/Llama-2-7b-hf/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-03-06 17:58:48,017 - httpx - INFO - HTTP Request: HEAD https://huggingface.co/meta-llama/Llama-2-7b-hf/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-03-06 17:58:48,049 - httpx - INFO - HTTP Request: GET https://huggingface.co/api/models/meta-llama/Llama-2-7b-hf/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-03-06 17:58:48,078 - httpx - INFO - HTTP Request: GET https://huggingface.co/api/models/meta-llama/Llama-2-7b-hf/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-03-06 17:58:48,408 - __main__ - INFO - Loading engine from index: /gpfs/scratch/solhapark/pretraining-trace/index
+2026-03-06 17:58:48,422 - __main__ - INFO - Query: 'natural language processing'
+2026-03-06 17:58:48,423 - __main__ - INFO - Token IDs: [5613, 4086, 9068]
+2026-03-06 17:58:48,425 - __main__ - INFO - Count: {'count': 81461, 'approx': False}
+2026-03-06 17:58:48,425 - __main__ - INFO - Find (segment_by_shard): {'cnt': 81461, 'segment_by_shard': [(355528230711, 355528312172)]}
+2026-03-06 17:58:48,426 - __main__ - INFO - First matching doc (shard 0, rank 355528230711): {'doc_ix': 46832028, 'doc_len': 1620, 'disp_len': 20, 'needle_offset': 10, 'metadata': '', 'token_ids': [13, 13, 23869, 5722, 11763, 1316, 408, 6601, 18551, 322, 5613, 4086, 9068, 2304, 278, 2888, 1891, 7271, 29889, 23861], 'blocked': False}
+2026-03-06 17:58:48,426 - __main__ - INFO - === Job finished at Fri Mar 06 05:58:48 PM  2026 ===
+2026-03-06 17:58:48,426 - __main__ - INFO - === Elapsed time: 0 days 00:00:00 (total 0.554 seconds) ===

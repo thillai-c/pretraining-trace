@@ -1,0 +1,24 @@
+2026-03-06 17:58:50,124 - __main__ - INFO - Logging to file: logs/run_query_example_api.log
+2026-03-06 17:58:50,124 - __main__ - INFO - === Job started at Fri Mar 06 05:58:50 PM  2026 ===
+2026-03-06 17:58:50,124 - __main__ - INFO - Using infini-gram API endpoint: https://api.infini-gram.io/
+2026-03-06 17:58:50,124 - __main__ - INFO - Index: v4_piletrain_llama
+2026-03-06 17:58:50,124 - __main__ - INFO - Query: 'natural language processing'
+2026-03-06 17:58:50,125 - __main__ - INFO - === Step 1: Count query ===
+2026-03-06 17:58:50,296 - __main__ - INFO - Count result: {'approx': False, 'count': 81461, 'latency': 0.5140304565429688, 'token_ids': [5613, 4086, 9068], 'tokens': ['▁natural', '▁language', '▁processing']}
+2026-03-06 17:58:50,297 - __main__ - INFO - Count: 81461 (approx: False)
+2026-03-06 17:58:50,297 - __main__ - INFO - Token IDs: [5613, 4086, 9068]
+2026-03-06 17:58:50,297 - __main__ - INFO - Tokens: ['▁natural', '▁language', '▁processing']
+2026-03-06 17:58:50,297 - __main__ - INFO - Latency: 0.5140304565429688 ms
+2026-03-06 17:58:50,297 - __main__ - INFO - === Step 2: Find query ===
+2026-03-06 17:58:50,403 - __main__ - INFO - Find result: {'cnt': 81461, 'latency': 0.4773139953613281, 'segment_by_shard': [[355528195411, 355528276872]], 'token_ids': [5613, 4086, 9068], 'tokens': ['▁natural', '▁language', '▁processing']}
+2026-03-06 17:58:50,404 - __main__ - INFO - Count: 81461
+2026-03-06 17:58:50,404 - __main__ - INFO - Segment by shard: [[355528195411, 355528276872]]
+2026-03-06 17:58:50,404 - __main__ - INFO - === Step 3: Get document by rank ===
+2026-03-06 17:58:50,486 - __main__ - INFO - Document (shard 0, rank 355528195411): {'blocked': False, 'disp_len': 20, 'doc_ix': 46832028, 'doc_len': 1620, 'latency': 0.46062469482421875, 'metadata': '{"path": "06.jsonl", "linenum": 4708722, "metadata": {"meta": {"pile_set_name": "OpenWebText2"}}}\n', 'needle_offset': 10, 'spans': [['\n\nAI technologies such as computer vision and', None], ['natural language processing', '0'], ['support the customized experience. Users', None]], 'token_ids': [5613, 4086, 9068], 'tokens': ['▁natural', '▁language', '▁processing']}
+2026-03-06 17:58:50,486 - __main__ - INFO - Doc index: 46832028
+2026-03-06 17:58:50,486 - __main__ - INFO - Doc length: 1620
+2026-03-06 17:58:50,486 - __main__ - INFO - Display length: 20
+2026-03-06 17:58:50,486 - __main__ - INFO - Token IDs: [5613, 4086, 9068]
+2026-03-06 17:58:50,486 - __main__ - INFO - Spans: [['\n\nAI technologies such as computer vision and', None], ['natural language processing', '0'], ['support the customized experience. Users', None]]
+2026-03-06 17:58:50,486 - __main__ - INFO - === Job finished at Fri Mar 06 05:58:50 PM  2026 ===
+2026-03-06 17:58:50,486 - __main__ - INFO - === Elapsed time: 0 days 00:00:00 (total 0.362 seconds) ===

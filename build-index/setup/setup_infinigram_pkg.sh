@@ -5,7 +5,7 @@ set -euo pipefail
 
 SCRATCH="${SCRATCH:-/gpfs/scratch/solhapark}"
 ENV_DIR="/gpfs/home/solhapark/envs/infinigram"
-PKG_DIR="${SCRATCH}/pretrain-trace/infini-gram/pkg"
+PKG_DIR="${SCRATCH}/pretraining-trace/infini-gram/pkg"
 
 if [[ ! -d "${PKG_DIR}" ]]; then
   echo "Missing infini-gram/pkg. Run: git submodule update --init"

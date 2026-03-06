@@ -7,6 +7,7 @@ import logging
 import os
 import random
 import sys
+import time
 from datetime import datetime
 
 import numpy as np
@@ -30,12 +31,20 @@ def safe_value(v):
 
 
 def setup_logger():
+    os.makedirs("logs", exist_ok=True)
+    timestamp = datetime.now().strftime("%Y%m%d-%H%M%S")
+    log_filepath = f"logs/harmbench_{timestamp}.log"
+
     logging.basicConfig(
         level=logging.INFO,
         format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-        handlers=[logging.StreamHandler(sys.stdout)],
+        handlers=[
+            logging.StreamHandler(sys.stdout),
+            logging.FileHandler(log_filepath, encoding="utf-8"),
+        ],
     )
     logger = logging.getLogger(__name__)
+    logger.info("Logging to file: %s", log_filepath)
     return logger
 
 
@@ -53,6 +62,9 @@ def parse_args():
 def main():
     logger = setup_logger()
     args = parse_args()
+    
+    logger.info("=== Job started at %s ===", datetime.now().strftime("%a %b %d %I:%M:%S %p %Z %Y"))
+    start_time = time.time()
     
     # Set seed
     random.seed(args.seed)
@@ -140,6 +152,18 @@ def main():
         fout.write("\n]\n")
     
     logger.info("Results saved to: %s", args.out_json)
+    
+    end_time = time.time()
+    elapsed_float = end_time - start_time
+    elapsed = int(elapsed_float)
+    days = elapsed // 86400
+    hours = (elapsed % 86400) // 3600
+    minutes = (elapsed % 3600) // 60
+    seconds = elapsed % 60
+    
+    logger.info("=== Job finished at %s ===", datetime.now().strftime("%a %b %d %I:%M:%S %p %Z %Y"))
+    logger.info("=== Elapsed time: %d days %02d:%02d:%02d (total %.3f seconds) ===", 
+                days, hours, minutes, seconds, elapsed_float)
 
 
 if __name__ == "__main__":
