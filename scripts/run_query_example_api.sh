@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=run_query_example
+#SBATCH --job-name=run_query_example_api
 #SBATCH --nodes=1
 #SBATCH --partition=short-96core
 #SBATCH --mem=4G
@@ -23,4 +23,4 @@ if [[ -f /gpfs/scratch/solhapark/pretraining-trace/.env ]]; then
 fi
 
 cd /gpfs/scratch/solhapark/pretraining-trace
-python query_example.py
+python query_example_api.py
