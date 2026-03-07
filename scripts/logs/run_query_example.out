@@ -1,0 +1,50 @@
+=== Module Info ===
+GCC version: gcc (GCC) 12.3.0
+GLIBC version: ldd (GNU libc) 2.28
+===================
+=== Checking cpp_engine ===
+WARNING: cpp_engine import failed (likely GLIBC version mismatch)
+Recompiling cpp_engine for current node...
+Obtaining file:///gpfs/scratch/solhapark/pretraining-trace/infini-gram/pkg
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Checking if build backend supports build_editable: started
+  Checking if build backend supports build_editable: finished with status 'done'
+  Getting requirements to build editable: started
+  Getting requirements to build editable: finished with status 'done'
+  Preparing editable metadata (pyproject.toml): started
+  Preparing editable metadata (pyproject.toml): finished with status 'done'
+Building wheels for collected packages: infini-gram
+  Building editable for infini-gram (pyproject.toml): started
+  Building editable for infini-gram (pyproject.toml): finished with status 'done'
+  Created wheel for infini-gram: filename=infini_gram-2.6.1-0.editable-cp311-cp311-linux_x86_64.whl size=3303 sha256=f57d91375d72c6ec9b48c8969ba0432a290773996d44aed13cc2f62f75b63f34
+  Stored in directory: /tmp/pip-ephem-wheel-cache-r_vu57an/wheels/c6/5b/a5/85c5ee616c425a8651a16010f6b6ffafce0b76817361ed80f5
+Successfully built infini-gram
+Installing collected packages: infini-gram
+  Attempting uninstall: infini-gram
+    Found existing installation: infini-gram 2.6.1
+    Uninstalling infini-gram-2.6.1:
+      Successfully uninstalled infini-gram-2.6.1
+Successfully installed infini-gram-2.6.1
+Recompilation complete
+cpp_engine OK after recompilation
+============================
+2026-03-06 21:09:27,881 - __main__ - INFO - Logging to file: logs/run_query_example_20260306-210927.log
+2026-03-06 21:09:27,881 - __main__ - INFO - === Job started at Fri Mar 06 09:09:27 PM  2026 ===
+2026-03-06 21:09:27,882 - __main__ - INFO - Loading tokenizer: meta-llama/Llama-2-7b-hf
+2026-03-06 21:09:27,971 - httpx - INFO - HTTP Request: HEAD https://huggingface.co/meta-llama/Llama-2-7b-hf/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-03-06 21:09:28,031 - httpx - INFO - HTTP Request: HEAD https://huggingface.co/meta-llama/Llama-2-7b-hf/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-03-06 21:09:28,059 - httpx - INFO - HTTP Request: HEAD https://huggingface.co/meta-llama/Llama-2-7b-hf/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-03-06 21:09:28,087 - httpx - INFO - HTTP Request: GET https://huggingface.co/api/models/meta-llama/Llama-2-7b-hf/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-03-06 21:09:28,119 - httpx - INFO - HTTP Request: GET https://huggingface.co/api/models/meta-llama/Llama-2-7b-hf/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-03-06 21:09:28,336 - __main__ - INFO - Loading engine from index: /gpfs/scratch/solhapark/pretraining-trace/index
+2026-03-06 21:09:28,343 - __main__ - INFO - Query: 'natural language processing'
+2026-03-06 21:09:28,344 - __main__ - INFO - Token IDs: [5613, 4086, 9068]
+2026-03-06 21:09:28,424 - __main__ - INFO - Count: {'count': 81461, 'approx': False}
+2026-03-06 21:09:28,424 - __main__ - INFO - Find (segment_by_shard): {'cnt': 81461, 'segment_by_shard': [(355528230711, 355528312172)]}
+2026-03-06 21:09:28,437 - __main__ - INFO - First matching doc (shard 0, rank 355528230711): {'doc_ix': 46832028, 'doc_len': 1620, 'disp_len': 20, 'needle_offset': 10, 'metadata': '', 'token_ids': [13, 13, 23869, 5722, 11763, 1316, 408, 6601, 18551, 322, 5613, 4086, 9068, 2304, 278, 2888, 1891, 7271, 29889, 23861], 'blocked': False}
+2026-03-06 21:09:28,437 - __main__ - INFO - Decoded text: 
+
+AI technologies such as computer vision and natural language processing support the customized experience. Users
+2026-03-06 21:09:28,437 - __main__ - INFO - === Job finished at Fri Mar 06 09:09:28 PM  2026 ===
+2026-03-06 21:09:28,437 - __main__ - INFO - === Elapsed time: 0 days 00:00:00 (total 0.556 seconds) ===
