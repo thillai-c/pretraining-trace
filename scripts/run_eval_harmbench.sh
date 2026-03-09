@@ -37,6 +37,8 @@ if [[ "$CONFIG" == "copyright" ]]; then
     # --limit 10
 else
   # standard or contextual: uses HarmBench classifier (cais/HarmBench-Llama-2-13b-cls) on GPU
+  # VLLM_WORKER_MULTIPROC_METHOD=spawn: prevents "Cannot re-initialize CUDA in forked subprocess"
+  export VLLM_WORKER_MULTIPROC_METHOD=spawn
   python eval_harmbench_labels.py \
     --data_dir data/gpt_j_6b/harmbench_${CONFIG}.json \
     --output_dir results/gpt_j_6b/harmbench_${CONFIG}_labeled.json \

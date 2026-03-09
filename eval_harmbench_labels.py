@@ -80,7 +80,7 @@ def main():
             from vllm import LLM, SamplingParams
             from transformers import AutoTokenizer
 
-            logger.info("Loading classifier tokenizer from %s...", args.cls_path)
+            logger.info("Loading classifier tokenizer from %s ...", args.cls_path)
             cls_tokenizer = AutoTokenizer.from_pretrained(
                 args.cls_path,
                 use_fast=False,
@@ -88,8 +88,10 @@ def main():
                 padding_side="left",
             )
 
-            logger.info("Loading classifier model from %s...", args.cls_path)
-            cls = LLM(model=args.cls_path, tensor_parallel_size=1)
+            logger.info("Loading classifier model from %s ...", args.cls_path)
+            # enforce_eager=True: disables CUDAGraph compilation in vLLM V1 engine,
+            # which avoids "Cannot re-initialize CUDA in forked subprocess" error.
+            cls = LLM(model=args.cls_path, tensor_parallel_size=1, enforce_eager=True)
             cls.llm_engine.tokenizer.tokenizer.truncation_side = "left"
             cls_params = SamplingParams(temperature=0.0, max_tokens=1)
             logger.info("Classifier loaded successfully")
@@ -104,7 +106,7 @@ def main():
     try:
         # Load input JSON using absolute path (CWD has been changed)
         input_path = Path(original_cwd) / args.data_dir if not os.path.isabs(args.data_dir) else Path(args.data_dir)
-        logger.info("Loading input JSON from %s...", input_path)
+        logger.info("Loading input JSON from %s ...", input_path)
         with open(input_path, "r", encoding="utf-8") as f:
             records = json.load(f)
         logger.info("Loaded %d records", len(records))
