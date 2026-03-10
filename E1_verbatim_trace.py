@@ -44,9 +44,7 @@ from datetime import datetime
 
 from dotenv import load_dotenv
 
-# ---------------------------------------------------------------------------
 # Path setup: load .env and add infini-gram pkg to path BEFORE importing
-# ---------------------------------------------------------------------------
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 load_dotenv(os.path.join(SCRIPT_DIR, ".env"))
 
@@ -57,13 +55,11 @@ if PKG_DIR not in sys.path:
 from transformers import AutoTokenizer
 
 
-# ===========================================================================
 # Logger setup
-# ===========================================================================
 def setup_logger():
     os.makedirs("logs", exist_ok=True)
     timestamp = datetime.now().strftime("%Y%m%d-%H%M%S")
-    log_filepath = f"logs/e1_verbatim_trace_{timestamp}.log"
+    log_filepath = f"logs/E1_verbatim_trace_{timestamp}.log"
 
     logging.basicConfig(
         level=logging.INFO,
@@ -78,9 +74,7 @@ def setup_logger():
     return logger
 
 
-# ===========================================================================
 # Argument parsing
-# ===========================================================================
 def parse_args():
     parser = argparse.ArgumentParser(
         description="E1 Verbatim Trace: maximal matching spans + metrics"
@@ -128,37 +122,11 @@ def parse_args():
 
 
 # ===========================================================================
-# Core: Compute maximal matching spans (OLMoTrace Algorithm 1)
+# Compute maximal matching spans (OLMoTrace Algorithm 1)
 # ===========================================================================
 def get_longest_prefix_len(engine, suffix_ids, num_shards):
     """Find the longest prefix of suffix_ids that appears in the corpus.
-
-    This implements GETLONGESTPREFIXLEN from OLMoTrace Algorithm 1.
-
-    Strategy:
-      1. Call engine.find() with the full suffix as the query.
-      2. If count > 0 (non-empty segment), the entire suffix is found → len = len(suffix).
-      3. If count == 0 (empty segment), the FIND returns a 0-length segment at position
-         (l, l) in each shard. The two neighboring suffixes in the suffix array (at ranks
-         l-1 and l) are the lexicographically closest entries. The longest common prefix
-         (LCP) with either neighbor gives us the longest matching prefix length.
-         We use get_doc_by_rank to retrieve neighbor suffixes and compute LCP.
-
-    Simplified fallback:
-      Since computing LCP with neighbors requires low-level SA access that may not be
-      exposed via the Python API, we use binary search on the prefix length:
-      - Binary search on length k in [1, len(suffix_ids)]
-      - For each k, check engine.count(suffix_ids[:k]) > 0
-      - Find the largest k where count > 0
-
-    Args:
-        engine: InfiniGramEngine instance
-        suffix_ids: list of token IDs (the suffix to query)
-        num_shards: number of index shards
-
-    Returns:
-        int: length of the longest matching prefix (0 if nothing matches)
-    """
+    This implements GETLONGESTPREFIXLEN from OLMoTrace Algorithm 1."""
     if not suffix_ids:
         return 0
 
@@ -192,30 +160,7 @@ def get_longest_prefix_len(engine, suffix_ids, num_shards):
 
 def compute_maximal_matching_spans(engine, response_ids, num_shards, logger):
     """Compute all maximal matching spans in the response.
-
-    Implements OLMoTrace Algorithm 1: GETMAXIMALMATCHINGSPANS.
-
-    Steps:
-      1. For each starting position b in response_ids, compute the longest
-         matching prefix of the suffix response_ids[b:].
-      2. Collect all spans (b, b + len).
-      3. Suppress non-maximal spans: keep only spans whose end position exceeds
-         the maximum end position seen so far.
-
-    Note: OLMoTrace only starts from "begin-of-word" tokens and enforces
-    self-contained constraints (no period/newline mid-span). We simplify:
-    - We start from every position (not just begin-of-word) for completeness.
-    - We skip the delimiter constraint for now (can add later).
-
-    Args:
-        engine: InfiniGramEngine instance
-        response_ids: list of token IDs for the full response
-        num_shards: number of index shards
-        logger: logging.Logger
-
-    Returns:
-        list of tuples: [(begin, end), ...] where each span is response_ids[begin:end]
-    """
+    Implements OLMoTrace Algorithm 1: GETMAXIMALMATCHINGSPANS."""
     L = len(response_ids)
     logger.info("  Computing longest matching prefix for %d positions...", L)
 
@@ -256,43 +201,20 @@ def compute_maximal_matching_spans(engine, response_ids, num_shards, logger):
 # ===========================================================================
 # Span filtering: keep top-K by span unigram probability (OLMoTrace Step 2)
 # ===========================================================================
-def compute_unigram_probs(engine, vocab_size):
-    """Pre-compute unigram probabilities for the entire vocabulary.
-
-    The unigram probability of token t is: count(t) / total_tokens.
-    We use engine.count() for each token ID.
-
-    Returns:
-        dict: {token_id: unigram_probability}
-        int: total_tokens (sum of all unigram counts)
-    """
-    # First pass: count all unigram occurrences
-    # For efficiency, we count a few common tokens to estimate total,
-    # then compute individual probabilities.
-    # Alternative: use the unigram file if available in the index.
-
-    # Simple approach: count token 0 to get a baseline, then rely on
-    # the fact that infini-gram stores unigram counts.
-    # Actually, total tokens = sum of all unigram counts.
-    # This is expensive for large vocab. Instead, we'll compute on-the-fly
-    # per span (only for tokens that appear in the response).
-    return None, None
-
-
 def compute_span_unigram_prob(engine, span_ids, unigram_cache):
     """Compute span unigram probability = product of token unigram probs.
 
     For numerical stability, we compute in log space:
-      log(span_unigram_prob) = sum of log(unigram_prob(token)) for each token in span
+      log(span_unigram_prob) = sum of log(unigram_prob(token)) for each token in span """
 
-    Args:
-        engine: InfiniGramEngine instance
-        span_ids: list of token IDs in the span
-        unigram_cache: dict to cache {token_id: count} to avoid redundant queries
+    # Args:
+    #     engine: InfiniGramEngine instance
+    #     span_ids: list of token IDs in the span
+    #     unigram_cache: dict to cache {token_id: count} to avoid redundant queries
 
-    Returns:
-        float: log(span_unigram_prob)  (more negative = more unique/long)
-    """
+    # Returns:
+    #     float: log(span_unigram_prob)  (more negative = more unique/long)
+    
     log_prob = 0.0
     for tid in span_ids:
         if tid not in unigram_cache:
@@ -312,18 +234,7 @@ def filter_top_k_spans(engine, response_ids, maximal_spans, top_k_ratio, logger)
     """Filter to keep top-K spans with smallest span unigram probability.
 
     Implements OLMoTrace Step 2.
-    K = ceil(top_k_ratio * L) where L = len(response_ids).
-
-    Args:
-        engine: InfiniGramEngine instance
-        response_ids: list of token IDs
-        maximal_spans: list of (begin, end) tuples
-        top_k_ratio: fraction of L to keep
-        logger: logging.Logger
-
-    Returns:
-        list of (begin, end) tuples: filtered top-K spans
-    """
+    K = ceil(top_k_ratio * L) where L = len(response_ids)."""
     L = len(response_ids)
     K = math.ceil(top_k_ratio * L)
     logger.info("  Filtering to top-K=%d spans (from %d maximal spans, L=%d)",
@@ -559,9 +470,7 @@ def main():
         logger.warning("No records to process. Exiting.")
         sys.exit(0)
 
-    # -----------------------------------------------------------------------
     # Initialize tokenizer
-    # -----------------------------------------------------------------------
     logger.info("Loading tokenizer: %s", args.tokenizer_name)
     tokenizer = AutoTokenizer.from_pretrained(
         args.tokenizer_name,
@@ -571,9 +480,7 @@ def main():
         add_eos_token=False,
     )
 
-    # -----------------------------------------------------------------------
     # Initialize infini-gram engine
-    # -----------------------------------------------------------------------
     index_dir = args.index_dir or os.path.join(SCRIPT_DIR, "index")
     logger.info("Loading infini-gram engine from: %s", index_dir)
 
@@ -598,9 +505,7 @@ def main():
                       if f.startswith("tokenized.")])
     logger.info("Detected %d shard(s) in index", num_shards)
 
-    # -----------------------------------------------------------------------
     # Process each record
-    # -----------------------------------------------------------------------
     results = []
 
     for rec_idx, record in enumerate(target_records):
@@ -708,9 +613,7 @@ def main():
 
         results.append(result)
 
-    # -----------------------------------------------------------------------
     # Save output
-    # -----------------------------------------------------------------------
     os.makedirs(os.path.dirname(args.output) or ".", exist_ok=True)
     logger.info("Saving %d results to %s ...", len(results), args.output)
     with open(args.output, "w", encoding="utf-8") as f:
