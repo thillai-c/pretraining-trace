@@ -57,7 +57,7 @@ from transformers import AutoTokenizer
 def setup_logger():
     os.makedirs("logs", exist_ok=True)
     timestamp = datetime.now().strftime("%Y%m%d-%H%M%S")
-    log_filepath = f"logs/E1_verbatim_trace_{timestamp}.log"
+    log_filepath = f"logs/1_verbatim_trace_{timestamp}.log"
 
     logging.basicConfig(
         level=logging.INFO,
