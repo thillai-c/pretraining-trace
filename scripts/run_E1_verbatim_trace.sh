@@ -30,7 +30,7 @@ cd /gpfs/scratch/solhapark/pretraining-trace
 # ===========================================================================
 # Phase 1 only (metrics, no snippet retrieval) — faster, start here
 # ===========================================================================
-# python E1_verbatim_trace.py \
+# python e1_verbatim_trace.py \
 #     --input results/gpt_j_6b/harmbench_standard_labeled.json \
 #     --output results/gpt_j_6b/E1_verbatim_standard.json \
 #     --l_min 20 \
@@ -52,7 +52,7 @@ cd /gpfs/scratch/solhapark/pretraining-trace
 # ===========================================================================
 # For testing: process only first 2 records
 # ===========================================================================
-python E1_verbatim_trace.py \
+python e1_verbatim_trace.py \
     --input results/gpt_j_6b/harmbench_standard_labeled.json \
     --output results/gpt_j_6b/e1_verbatim_standard_test.json \
     --l_min 20 \
