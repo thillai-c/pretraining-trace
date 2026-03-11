@@ -39,4 +39,5 @@ python e1_verbatim_trace.py \
     --input results/gpt_j_6b/harmbench_standard_labeled.json \
     --output results/gpt_j_6b/e1_verbatim_standard.json \
     --top_k_ratio 0.05 \
-    --retrieve_snippets
+    --retrieve_snippets \
+    --all_records
