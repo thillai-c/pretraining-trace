@@ -57,7 +57,7 @@ from transformers import AutoTokenizer
 def setup_logger():
     os.makedirs("logs", exist_ok=True)
     timestamp = datetime.now().strftime("%Y%m%d-%H%M%S")
-    log_filepath = f"logs/1_verbatim_trace_{timestamp}.log"
+    log_filepath = f"logs/e1_verbatim_trace_{timestamp}.log"
 
     logging.basicConfig(
         level=logging.INFO,
@@ -189,19 +189,22 @@ def compute_maximal_matching_spans(engine, response_ids, num_shards, logger):
 # ===========================================================================
 def compute_span_score(engine, span_ids, unigram_cache):
     """
-    Compute per-token average log unigram count for a span.
-      - score = sum(log(count(t_i))) / len(span)
-      - Lower score → tokens are rarer on average → more unique/interesting span.
-      - Per-token normalization prevents short spans from being trivially favored over long spans.
+    Compute span unigram probability (OLMoTrace Step 2).
+      - score = sum(log(count(t_i) / N))
+      - Lower score → span is longer and/or contains rarer tokens → more unique.
+      - NO per-token normalization: longer spans naturally get lower scores
+        because each additional token contributes a negative log-probability term.
     """
+    CORPUS_SIZE = 383_299_358_652  # Pile-train, Llama-2 tokenizer (from engine.count([]))
+
     log_prob = 0.0
     for tid in span_ids:
         if tid not in unigram_cache:
             result = engine.count(input_ids=[tid])
             unigram_cache[tid] = result.get("count", 1)
-        log_prob += math.log(max(unigram_cache[tid], 1))
+        log_prob += math.log(max(unigram_cache[tid], 1) / CORPUS_SIZE)
 
-    return log_prob / len(span_ids) if span_ids else 0.0
+    return log_prob if span_ids else 0.0
 
 
 def filter_top_k_spans(engine, response_ids, maximal_spans, top_k_ratio, logger):
