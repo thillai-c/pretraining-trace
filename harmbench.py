@@ -167,10 +167,10 @@ def format_prompt(prompt_text, model_info, tokenizer):
 def load_model_and_tokenizer(model_info, logger):
     """Load model and tokenizer with size-appropriate strategy.
 
-    <= 13B: single GPU, fp16, .to(device)
-    32B:    device_map="auto" for multi-GPU sharding (requires accelerate)
+    All models (including 32B) fit on single GPU (96GB VRAM), so use explicit
+    device placement (.to(device)) for better performance.
 
-    Returns (model, tokenizer, device). device is None when device_map="auto".
+    Returns (model, tokenizer, device).
     """
     hf_id = model_info["hf_id"]
     device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -182,26 +182,17 @@ def load_model_and_tokenizer(model_info, logger):
         tokenizer.pad_token = tokenizer.eos_token
 
     logger.info("Loading model: %s ...", hf_id)
-    is_large_model = "32b" in model_info["out_dir_name"]
-
-    if is_large_model and device == "cuda":
-        logger.info("  Large model — using device_map='auto' for multi-GPU sharding")
-        model = AutoModelForCausalLM.from_pretrained(
-            hf_id,
-            torch_dtype=torch.float16,
-            device_map="auto",
-            low_cpu_mem_usage=True,
-        )
-        device = None
-    else:
-        dtype = torch.float16 if device == "cuda" else torch.float32
-        model = AutoModelForCausalLM.from_pretrained(
-            hf_id,
-            torch_dtype=dtype,
-            low_cpu_mem_usage=True,
-        )
-        if device == "cuda":
-            model = model.to(device)
+    
+    # All models fit on single GPU (96GB VRAM), so use explicit device placement
+    # instead of device_map="auto" for better performance
+    dtype = torch.float16 if device == "cuda" else torch.float32
+    model = AutoModelForCausalLM.from_pretrained(
+        hf_id,
+        dtype=dtype,
+        low_cpu_mem_usage=True,
+    )
+    if device == "cuda":
+        model = model.to(device)
 
     model.eval()
     logger.info("Model loaded successfully: %s", hf_id)
@@ -294,10 +285,7 @@ def main():
                 ).input_ids
 
                 # Route input to correct device
-                if device is None:
-                    input_ids = input_ids.to(model.device)
-                else:
-                    input_ids = input_ids.to(device)
+                input_ids = input_ids.to(device)
 
                 prompt_len = input_ids.shape[1]
 

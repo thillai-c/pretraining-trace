@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --job-name=harmbench_olmo2
-#SBATCH --output=logs/olmo2_1b/run_harmbench.out
-#SBATCH --error=logs/olmo2_1b/run_harmbench.err
+#SBATCH --output=logs/olmo2_32b/run_harmbench.out
+#SBATCH --error=logs/olmo2_32b/run_harmbench.err
 #SBATCH --partition=b40x4-long
 #SBATCH --gres=gpu:1
 #SBATCH --cpus-per-task=4
@@ -19,13 +19,13 @@
 # sbatch --mem=16G  --time=4:00:00    --export=MODEL_KEY=olmo2-1b  run_harmbench_olmo2.sh
 # sbatch --mem=32G  --time=12:00:00   --export=MODEL_KEY=olmo2-7b  run_harmbench_olmo2.sh
 # sbatch --mem=48G  --time=1-00:00:00 --export=MODEL_KEY=olmo2-13b run_harmbench_olmo2.sh
-# sbatch --mem=96G  --time=1-00:00:00 --export=MODEL_KEY=olmo2-32b run_harmbench_olmo2.sh
+# sbatch --mem=128G  --time=2-00:00:00 --export=MODEL_KEY=olmo2-32b run_harmbench_olmo2.sh
 #
 # --- Instruct models ---
 # sbatch --mem=16G  --time=4:00:00    --export=MODEL_KEY=olmo2-1b-instruct  run_harmbench_olmo2.sh
 # sbatch --mem=32G  --time=12:00:00   --export=MODEL_KEY=olmo2-7b-instruct  run_harmbench_olmo2.sh
 # sbatch --mem=48G  --time=1-00:00:00 --export=MODEL_KEY=olmo2-13b-instruct run_harmbench_olmo2.sh
-# sbatch --mem=96G  --time=1-00:00:00 --export=MODEL_KEY=olmo2-32b-instruct run_harmbench_olmo2.sh
+# sbatch --mem=128G  --time=2-00:00:00 --export=MODEL_KEY=olmo2-32b-instruct run_harmbench_olmo2.sh
 # =============================================================================
 
 set -euo pipefail

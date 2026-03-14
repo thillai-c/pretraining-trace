@@ -1,0 +1,30 @@
+2026-03-12 20:21:01,390 - __main__ - INFO - Logging to file: logs/olmo2-7b-instruct/harmbench_standard.log
+2026-03-12 20:21:01,392 - __main__ - INFO - ======================================================================
+2026-03-12 20:21:01,392 - __main__ - INFO - === Job started at Thu Mar 12 08:21:01 PM  2026 ===
+2026-03-12 20:21:01,392 - __main__ - INFO - ======================================================================
+2026-03-12 20:21:01,392 - __main__ - INFO - Model key       : olmo2-7b-instruct
+2026-03-12 20:21:01,392 - __main__ - INFO - HuggingFace ID  : allenai/OLMo-2-1124-7B-Instruct
+2026-03-12 20:21:01,392 - __main__ - INFO - Model type      : instruct
+2026-03-12 20:21:01,392 - __main__ - INFO - Max context len : 4096
+2026-03-12 20:21:01,392 - __main__ - INFO - Max new tokens  : 1024
+2026-03-12 20:21:01,392 - __main__ - INFO - Config (category): standard
+2026-03-12 20:21:01,392 - __main__ - INFO - Output JSON     : data/olmo2_7b_instruct/harmbench_standard.json
+2026-03-12 20:21:01,392 - __main__ - INFO - Seed            : 42
+2026-03-12 20:21:01,665 - __main__ - INFO - Total rows in CSV: 400, After filtering 'standard': 200
+2026-03-12 20:21:01,667 - __main__ - INFO - Device: cuda
+2026-03-12 20:21:01,667 - __main__ - INFO - Loading tokenizer: allenai/OLMo-2-1124-7B-Instruct ...
+2026-03-12 20:21:03,340 - __main__ - INFO - Loading model: allenai/OLMo-2-1124-7B-Instruct ...
+2026-03-12 20:25:06,306 - __main__ - INFO - Model loaded successfully: allenai/OLMo-2-1124-7B-Instruct
+2026-03-12 20:37:34,296 - __main__ - INFO - Results saved to: data/olmo2_7b_instruct/harmbench_standard.json
+2026-03-12 20:37:34,298 - __main__ - INFO - ======================================================================
+2026-03-12 20:37:34,298 - __main__ - INFO - SUMMARY
+2026-03-12 20:37:34,298 - __main__ - INFO - ======================================================================
+2026-03-12 20:37:34,298 - __main__ - INFO -   Model          : olmo2-7b-instruct (allenai/OLMo-2-1124-7B-Instruct)
+2026-03-12 20:37:34,298 - __main__ - INFO -   Config         : standard
+2026-03-12 20:37:34,298 - __main__ - INFO -   Total records  : 200
+2026-03-12 20:37:34,298 - __main__ - INFO -   Successful     : 200
+2026-03-12 20:37:34,298 - __main__ - INFO -   Errors         : 0
+2026-03-12 20:37:34,299 - __main__ - INFO -   Finish reason  : eos=200, length=0
+2026-03-12 20:37:34,299 - __main__ - INFO -   Response tokens: min=47, max=866, mean=271.3
+2026-03-12 20:37:34,299 - __main__ - INFO - === Job finished at Thu Mar 12 08:37:34 PM  2026 ===
+2026-03-12 20:37:34,299 - __main__ - INFO - === Elapsed time: 0 days 00:16:32 (total 992.906 seconds) ===
