@@ -25,3 +25,21 @@
 2026-03-15 16:38:29,516 - __main__ - INFO -     Position 200 / 1144 done (current prefix_len=4)
 2026-03-15 17:14:22,489 - __main__ - INFO -     Position 400 / 1144 done (current prefix_len=5)
 2026-03-15 17:50:43,432 - __main__ - INFO -     Position 600 / 1144 done (current prefix_len=4)
+2026-03-15 18:25:42,750 - __main__ - INFO -     Position 800 / 1144 done (current prefix_len=4)
+2026-03-15 18:57:32,585 - __main__ - INFO -     Position 1000 / 1144 done (current prefix_len=5)
+2026-03-15 19:14:45,313 - __main__ - INFO -   Raw spans before suppression: 1144
+2026-03-15 19:14:45,313 - __main__ - INFO -   Maximal spans after suppression: 631
+2026-03-15 19:14:45,313 - __main__ - INFO -   Filtering to top-K=58 spans (from 631 maximal spans, L=1144)
+2026-03-15 19:15:23,736 - __main__ - INFO -   Top-K spans selected: 58
+2026-03-15 19:15:23,737 - __main__ - INFO -   E1 results: LongestMatchLen=10, VerbatimCoverage=1.0000, spans=58/631, elapsed=11568.0s
+2026-03-15 19:15:23,747 - __main__ - INFO - Saving 1 results to results/olmo2_1b/e1_verbatim_standard.json ...
+2026-03-15 19:15:23,762 - __main__ - INFO - ======================================================================
+2026-03-15 19:15:23,762 - __main__ - INFO - SUMMARY
+2026-03-15 19:15:23,762 - __main__ - INFO - ======================================================================
+2026-03-15 19:15:23,762 - __main__ - INFO -   Total processed: 1
+2026-03-15 19:15:23,762 - __main__ - INFO -   Successful: 1
+2026-03-15 19:15:23,763 - __main__ - INFO -   Errors: 0
+2026-03-15 19:15:23,763 - __main__ - INFO -   LongestMatchLen:  min=10, max=10, mean=10.0
+2026-03-15 19:15:23,763 - __main__ - INFO -   VerbatimCoverage: min=1.0000, max=1.0000, mean=1.0000
+2026-03-15 19:15:23,763 - __main__ - INFO - === Job finished at Sun Mar 15 07:15:23 PM  2026 ===
+2026-03-15 19:15:23,763 - __main__ - INFO - === Elapsed time: 0 days 03:12:49 (total 11569.610 seconds) ===
