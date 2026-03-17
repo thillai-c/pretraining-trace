@@ -276,46 +276,65 @@ def parse_args():
 # ===========================================================================
 # Compute maximal matching spans (OLMoTrace Algorithm 1)
 # ===========================================================================
-def get_longest_prefix_len(engine, suffix_ids, num_shards, max_len=None):
+def get_longest_prefix_len(engine, suffix_ids, num_shards):
     """
     Find the longest prefix of suffix_ids that appears in the corpus. (OLMoTrace Algorithm 1GETLONGESTPREFIXLEN)
-      - Uses engine.find() first; if full suffix not found, binary search on prefix length using engine.count().
-      - max_len: upper bound on prefix length (optimization: use previous position's result)
+      - For API: probe from small lengths to find tight upper bound, then binary search.
+      - For local engine: uses find() first, then binary search if needed.
     """
     if not suffix_ids:
         return 0
 
-    # Apply upper bound: no need to search beyond max_len
-    if max_len is not None:
-        suffix_ids = suffix_ids[:max_len]
+    if isinstance(engine, InfiniGramAPIEngine):
+        # API mode: probe to find tight upper bound, then binary search.
+        # Skip find() since it almost always fails on long suffixes.
+        if len(suffix_ids) > 500:
+            suffix_ids = suffix_ids[:500]
 
-    # API has a 500-token limit per query; local engine has no limit.
-    if isinstance(engine, InfiniGramAPIEngine) and len(suffix_ids) > 500:
-        suffix_ids = suffix_ids[:500]
+        # Probe progressively larger lengths to find where count drops to 0
+        hi = len(suffix_ids)
+        for probe in [8, 16, 32, 64, 128, 256]:
+            if probe >= hi:
+                break
+            count_result = engine.count(input_ids=suffix_ids[:probe])
+            if count_result.get("count", 0) == 0:
+                hi = probe  # matching prefix is shorter than probe
+                break
 
-    # Try the full suffix first
-    find_result = engine.find(input_ids=suffix_ids)
-    total_count = find_result.get("cnt", 0)
-    if total_count is None or total_count == 0:
-        total_count = 0
-        for seg in find_result.get("segment_by_shard", []):
-            total_count += seg[1] - seg[0]
+        # Binary search within tighter range [0, hi]
+        lo = 0
+        while lo < hi:
+            mid = (lo + hi + 1) // 2
+            count_result = engine.count(input_ids=suffix_ids[:mid])
+            if count_result.get("count", 0) > 0:
+                lo = mid
+            else:
+                hi = mid - 1
 
-    if total_count > 0:
-        return len(suffix_ids)
+        return lo
 
-    # Binary search for the longest prefix that exists
-    lo, hi = 0, len(suffix_ids)
-    while lo < hi:
-        mid = (lo + hi + 1) // 2
-        count_result = engine.count(input_ids=suffix_ids[:mid])
-        if count_result.get("count", 0) > 0:
-            lo = mid
-        else:
-            hi = mid - 1
+    else:
+        # Local engine: original algorithm (find first, then binary search)
+        find_result = engine.find(input_ids=suffix_ids)
+        total_count = find_result.get("cnt", 0)
+        if total_count is None or total_count == 0:
+            total_count = 0
+            for seg in find_result.get("segment_by_shard", []):
+                total_count += seg[1] - seg[0]
 
-    return lo
+        if total_count > 0:
+            return len(suffix_ids)
 
+        lo, hi = 0, len(suffix_ids)
+        while lo < hi:
+            mid = (lo + hi + 1) // 2
+            count_result = engine.count(input_ids=suffix_ids[:mid])
+            if count_result.get("count", 0) > 0:
+                lo = mid
+            else:
+                hi = mid - 1
+
+        return lo
 
 def compute_maximal_matching_spans(engine, response_ids, num_shards, logger):
     """
@@ -327,22 +346,11 @@ def compute_maximal_matching_spans(engine, response_ids, num_shards, logger):
     logger.info("  Computing longest matching prefix for %d positions...", L)
 
     # Step 1: For each position, get longest matching prefix length
-    # Optimization: position b's prefix_len <= (position b-1's prefix_len) + 1
-    # because removing the first token can extend the match by at most 1.
-    # In practice, it usually decreases, so we use prev_plen as upper bound.
-    prefix_lens = []
-    prev_plen = None
-    for b in range(L):
-        # Upper bound: previous position's result (shifted by 1)
-        if prev_plen is not None:
-            max_len = prev_plen  # prev was for [b-1:], now [b:] loses first token
-        else:
-            max_len = None  # first position: no bound
 
-        plen = get_longest_prefix_len(engine, response_ids[b:], num_shards,
-                                       max_len=max_len)
+    prefix_lens = []
+    for b in range(L):
+        plen = get_longest_prefix_len(engine, response_ids[b:], num_shards)
         prefix_lens.append(plen)
-        prev_plen = plen + 1  # next position can match at most plen+1
 
         if (b + 1) % 200 == 0:
             logger.info("    Position %d / %d done (current prefix_len=%d)", b + 1, L, plen)
