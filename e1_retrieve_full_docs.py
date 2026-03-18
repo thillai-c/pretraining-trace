@@ -94,7 +94,7 @@ def retrieve_full_doc(engine, tokenizer, doc_ix, expected_doc_len):
             'doc_len': result.get('doc_len', len(token_ids)),
             'disp_len': result.get('disp_len', 0),
             'metadata': metadata,
-            'full_token_ids': token_ids,
+            # 'full_token_ids': token_ids,
             'full_text': full_text
         }
     except Exception as e:
