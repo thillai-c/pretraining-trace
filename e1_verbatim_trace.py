@@ -87,8 +87,8 @@ class InfiniGramAPIEngine:
 
     API_URL = "https://api.infini-gram.io/"
 
-    def __init__(self, index: str, max_retries: int = 5,
-                 retry_delay: float = 2.0):
+    def __init__(self, index: str, max_retries: int = 8,
+                 retry_delay: float = 5.0):
         self.index = index
         self.max_retries = max_retries
         self.retry_delay = retry_delay

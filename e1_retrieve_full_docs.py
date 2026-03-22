@@ -58,7 +58,7 @@ def parse_args():
     parser.add_argument(
         "--output_json", type=str, required=True,
         help="Path to save full documents JSON"
-    )g
+    )
     parser.add_argument(
         "--tokenizer", type=str, default="meta-llama/Llama-2-7b-hf",
         help="Tokenizer name — must match the tokenizer used to build the infini-gram index (default: meta-llama/Llama-2-7b-hf)"

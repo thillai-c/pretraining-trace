@@ -30,6 +30,8 @@ import sys
 import time
 from datetime import datetime
 
+import requests
+
 from dotenv import load_dotenv
 
 # Path setup
@@ -148,37 +150,97 @@ def main():
                         rec_idx + 1, len(results), rec_id)
             continue
 
-        if "ExampleSnippets" in e1:
-            logger.info("[%d/%d] Skipping record id=%s (snippets already exist)",
-                        rec_idx + 1, len(results), rec_id)
-            continue
-
         top_k_spans = e1.get("top_k_spans", [])
         if not top_k_spans:
             logger.info("[%d/%d] Skipping record id=%s (no top_k_spans)",
                         rec_idx + 1, len(results), rec_id)
             continue
 
+        # Resume support: reuse already completed spans
+        existing_snippets = e1.get("ExampleSnippets", [])
+        if len(existing_snippets) >= len(top_k_spans):
+            logger.info("[%d/%d] Skipping record id=%s (all %d spans done)",
+                        rec_idx + 1, len(results), rec_id, len(top_k_spans))
+            continue
+
         response_ids = tokenizer.encode(rec.get("response", ""))
 
+        start_span_idx = len(existing_snippets)
         logger.info("=" * 70)
-        logger.info("[%d/%d] Retrieving snippets for record id=%s (%d spans)",
-                    rec_idx + 1, len(results), rec_id, len(top_k_spans))
+        logger.info("[%d/%d] Retrieving snippets for record id=%s "
+                    "(%d spans, resuming from %d)",
+                    rec_idx + 1, len(results), rec_id,
+                    len(top_k_spans), start_span_idx)
 
         rec_start = time.time()
-        snippets_by_span = []
+        snippets_by_span = list(existing_snippets)  # keep previous results
 
+        RATE_LIMIT_COOLDOWN = 300   # 5 minutes
+        MAX_SPAN_RETRIES = 5        # retry each span up to 5 times
+
+        abort = False
         for span_idx, span in enumerate(top_k_spans):
+            if span_idx < start_span_idx:
+                continue
+
             b = span["begin"]
             e_pos = span["end"]
             span_ids = response_ids[b:e_pos]
 
-            snippets = retrieve_snippets_for_span(
-                engine, span_ids,
-                max_docs=args.max_docs_per_span,
-                max_disp_len=args.max_disp_len,
-                tokenizer=tokenizer,
-            )
+            for span_attempt in range(1, MAX_SPAN_RETRIES + 1):
+                try:
+                    snippets = retrieve_snippets_for_span(
+                        engine, span_ids,
+                        max_docs=args.max_docs_per_span,
+                        max_disp_len=args.max_disp_len,
+                        tokenizer=tokenizer,
+                    )
+                    break  # success
+                except requests.exceptions.HTTPError as exc:
+                    if exc.response is not None and exc.response.status_code in (403, 429):
+                        if span_attempt < MAX_SPAN_RETRIES:
+                            logger.warning(
+                                "  Rate limit at span %d / %d (attempt %d/%d). "
+                                "Cooling down %ds ...",
+                                span_idx + 1, len(top_k_spans),
+                                span_attempt, MAX_SPAN_RETRIES,
+                                RATE_LIMIT_COOLDOWN)
+                            time.sleep(RATE_LIMIT_COOLDOWN)
+                            continue
+                        else:
+                            logger.error(
+                                "  Rate limit at span %d / %d exhausted %d retries. "
+                                "Saving partial results and stopping.",
+                                span_idx + 1, len(top_k_spans), MAX_SPAN_RETRIES)
+                            e1["ExampleSnippets"] = snippets_by_span
+                            e1["snippet_error"] = f"{type(exc).__name__}: {exc}"
+                            abort = True
+                            break
+                    else:
+                        logger.error("  Non-retryable error at span %d / %d: %s",
+                                     span_idx + 1, len(top_k_spans), exc)
+                        e1["ExampleSnippets"] = snippets_by_span
+                        e1["snippet_error"] = f"{type(exc).__name__}: {exc}"
+                        abort = True
+                        break
+                except Exception as exc:
+                    logger.error("  Unexpected error at span %d / %d: %s",
+                                 span_idx + 1, len(top_k_spans), exc)
+                    e1["ExampleSnippets"] = snippets_by_span
+                    e1["snippet_error"] = f"{type(exc).__name__}: {exc}"
+                    abort = True
+                    break
+
+            if abort:
+                # Save partial results and stop the script
+                logger.info("  Saving partial results (%d / %d spans) to %s ...",
+                            len(snippets_by_span), len(top_k_spans), args.input)
+                with open(args.input, "w", encoding="utf-8") as f:
+                    json.dump(results, f, ensure_ascii=False, indent=2)
+                logger.error("Exiting due to unrecoverable error. "
+                             "Re-run to resume from span %d.",
+                             len(snippets_by_span))
+                sys.exit(1)
 
             snippets_by_span.append({
                 "span_begin": b,
@@ -193,12 +255,15 @@ def main():
                 logger.info("  Span %d / %d done",
                             span_idx + 1, len(top_k_spans))
 
+        # All spans completed successfully
         e1["ExampleSnippets"] = snippets_by_span
+        e1.pop("snippet_error", None)
 
         rec_elapsed = time.time() - rec_start
-        total_snippets = sum(s["num_snippets"] for s in snippets_by_span)
-        logger.info("  Done: %d spans, %d snippets, %.1fs",
-                    len(snippets_by_span), total_snippets, rec_elapsed)
+        total_snippets = sum(s.get("num_snippets", 0) for s in snippets_by_span)
+        logger.info("  Done: %d / %d spans, %d snippets, %.1fs",
+                    len(snippets_by_span), len(top_k_spans),
+                    total_snippets, rec_elapsed)
 
         # Incremental save after each record
         logger.info("  Saving to %s ...", args.input)
