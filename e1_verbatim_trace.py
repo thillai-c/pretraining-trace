@@ -215,7 +215,7 @@ def parse_args():
     # I/O (auto-generated if not specified)
     parser.add_argument("--input", type=str, default=None,
                         help="Input JSON (labeled HarmBench results). "
-                             "Default: results/{model_dir}/harmbench_{config}_labeled.json")
+                             "Default: data/{model_dir}/harmbench_{config}_labeled.json")
     parser.add_argument("--output", type=str, default=None,
                         help="Output JSON with E1 results. "
                              "Default: results/{model_dir}/e1_verbatim_{config}.json")
@@ -261,7 +261,7 @@ def parse_args():
     model_dir = MODEL_CONFIGS[args.model]["out_dir"]
     if args.input is None:
         args.input = os.path.join(
-            "results", model_dir,
+            "data", model_dir,
             f"harmbench_{args.config}_labeled.json"
         )
     if args.output is None:

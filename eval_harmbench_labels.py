@@ -17,7 +17,7 @@ Usage:
     python eval_harmbench_labels.py \
         --model gpt-j \
         --data_dir data/gpt_j_6b/harmbench_standard.json \
-        --output_dir results/gpt_j_6b/harmbench_standard_labeled.json \
+        --output_dir data/gpt_j_6b/harmbench_standard_labeled.json \
         --cls_path cais/HarmBench-Llama-2-13b-cls
 """
 
@@ -62,7 +62,7 @@ def parse_args():
                              "data/{model}/harmbench_{config}.json")
     parser.add_argument("--output_dir", type=str, default=None,
                         help="Output JSON file. Auto-generated if not specified: "
-                             "results/{model}/harmbench_{config}_labeled.json")
+                             "data/{model}/harmbench_{config}_labeled.json")
     parser.add_argument("--config", type=str, default="standard",
                         help="HarmBench category (e.g., 'standard', 'copyright', 'contextual')")
     parser.add_argument("--limit", type=int, default=None, help="Limit number of records to process")
@@ -84,7 +84,7 @@ def main():
     if args.data_dir is None:
         args.data_dir = os.path.join("data", model_dir, f"harmbench_{args.config}.json")
     if args.output_dir is None:
-        args.output_dir = os.path.join("results", model_dir, f"harmbench_{args.config}_labeled.json")
+        args.output_dir = os.path.join("data", model_dir, f"harmbench_{args.config}_labeled.json")
 
     logger.info("=== Job started at %s ===", datetime.now().strftime("%a %b %d %I:%M:%S %p %Z %Y"))
     logger.info("Model key  : %s", args.model)
