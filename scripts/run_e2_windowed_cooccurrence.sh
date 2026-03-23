@@ -1,8 +1,8 @@
 #!/bin/bash
 #SBATCH --job-name=E2_cooccurrence
 #SBATCH --nodes=1
-#SBATCH --partition=short-40core
-#SBATCH --mem=8G
+#SBATCH --partition=short-96core
+#SBATCH --mem=16G
 #SBATCH --cpus-per-task=4
 #SBATCH --time=4:00:00
 #SBATCH --output=logs/e2_windowed_cooccurrence.out
@@ -27,17 +27,9 @@ fi
 
 cd /gpfs/scratch/solhapark/pretraining-trace
 
-# Test run (first 5 records, compliant only)
-python e2_windowed_cooccurrence.py \
-    --input results/gpt_j_6b/e1_verbatim_standard.json \
-    --output results/gpt_j_6b/e2_cooccurrence_test.json \
-    --windows 100 500 1000 \
-    --compliant_only \
-    --limit 10
-
 # # Full run (all 200 records, multiple windows)
-# python e2_windowed_cooccurrence.py \
-#     --input results/gpt_j_6b/e1_verbatim_standard.json \
-#     --output results/gpt_j_6b/e2_cooccurrence_standard.json \
-#     --windows 100 500 1000 \
-#     --all_records
+python e2_windowed_cooccurrence.py \
+    --model gpt-j \
+    --index_dir ./index \
+    --windows 100 500 1000 1024 2048 \
+    --all_records

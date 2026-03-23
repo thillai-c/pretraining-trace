@@ -2,6 +2,10 @@
 """E2 Windowed Co-occurrence: Quantify co-occurrence of enabling concepts
 from model responses within pretraining corpus using infini-gram CNF queries.
 
+Supports both local infini-gram engine (GPT-J / The Pile) and HTTP API
+(OLMo 2 / olmo-mix-1124), mirroring the dual-backend architecture of
+e1_verbatim_trace.py.
+
 Intuition: Even if a response is not copied verbatim, the corpus may contain
 co-occurring 'enabling concepts' (key phrases/entities/verbs) within a context
 window, making recombination plausible.
@@ -12,35 +16,36 @@ Method:
     count_cnf([[phrase_A], [phrase_B]], max_diff_tokens=w)
   - This counts how many times phrase_A AND phrase_B appear within w tokens
     of each other in the corpus.
-  - Repeat for multiple window sizes (e.g., 100, 500, 1000 tokens).
+  - Repeat for multiple window sizes (e.g., 100, 500, 1000, 2048 tokens).
 
 Reference:
   - Project Overview: E2 definitions (Windowed Co-occurrence)
   - infini-gram CNF query API: count_cnf, find_cnf, search_docs_cnf
 
 Usage:
+    # GPT-J (local engine, Pile-train index)
+    python e2_windowed_cooccurrence.py \
+        --model gpt-j \
+        --index_dir ./index
+
+    # GPT-J (local engine, compliant only, custom windows)
+    python e2_windowed_cooccurrence.py \
+        --model gpt-j \
+        --index_dir ./index \
+        --windows 100 500 1000 1024 2048
+
+    # OLMo 2 (API engine)
+    python e2_windowed_cooccurrence.py \
+        --model olmo2-1b \
+        --api_index v4_olmo-mix-1124_llama \
+        --compliant_only \
+        --windows 100 500 1000
+
     # Test run (first 5 records)
     python e2_windowed_cooccurrence.py \
-        --input results/gpt_j_6b/e1_verbatim_standard.json \
-        --output results/gpt_j_6b/e2_cooccurrence_standard.json \
+        --model gpt-j \
+        --index_dir ./index \
         --limit 5
-
-    # Full run (all records)
-    python e2_windowed_cooccurrence.py \
-        --input results/gpt_j_6b/e1_verbatim_standard.json \
-        --output results/gpt_j_6b/e2_cooccurrence_standard.json
-
-    # Custom windows
-    python e2_windowed_cooccurrence.py \
-        --input results/gpt_j_6b/e1_verbatim_standard.json \
-        --output results/gpt_j_6b/e2_cooccurrence_standard.json \
-        --windows 50 100 500 1000 5000
-
-    # Compliant only
-    python e2_windowed_cooccurrence.py \
-        --input results/gpt_j_6b/e1_verbatim_standard.json \
-        --output results/gpt_j_6b/e2_cooccurrence_standard.json \
-        --compliant_only
 """
 
 import argparse
@@ -50,10 +55,10 @@ import math
 import os
 import sys
 import time
-from collections import Counter
 from datetime import datetime
 from itertools import combinations
 
+import requests
 from dotenv import load_dotenv
 
 # Path setup
@@ -67,10 +72,161 @@ if PKG_DIR not in sys.path:
 from transformers import AutoTokenizer
 
 
-def setup_logger():
-    os.makedirs("logs", exist_ok=True)
-    timestamp = datetime.now().strftime("%Y%m%d-%H%M%S")
-    log_filepath = f"logs/e2_windowed_cooccurrence_{timestamp}.log"
+# ===========================================================================
+# Model configuration (identical to e1_verbatim_trace.py)
+# ===========================================================================
+MODEL_CONFIGS = {
+    "gpt-j":              {"out_dir": "gpt_j_6b"},
+    "olmo2-1b":           {"out_dir": "olmo2_1b"},
+    "olmo2-7b":           {"out_dir": "olmo2_7b"},
+    "olmo2-13b":          {"out_dir": "olmo2_13b"},
+    "olmo2-32b":          {"out_dir": "olmo2_32b"},
+    "olmo2-1b-instruct":  {"out_dir": "olmo2_1b_instruct"},
+    "olmo2-7b-instruct":  {"out_dir": "olmo2_7b_instruct"},
+    "olmo2-13b-instruct": {"out_dir": "olmo2_13b_instruct"},
+    "olmo2-32b-instruct": {"out_dir": "olmo2_32b_instruct"},
+}
+
+
+# ===========================================================================
+# InfiniGramAPIEngine: HTTP API wrapper matching local engine interface
+# ===========================================================================
+class InfiniGramAPIEngine:
+    """Wrapper around the infini-gram HTTP API that mimics the local
+    InfiniGramEngine interface for the methods used in E2:
+      - count(input_ids)    : count occurrences of a token sequence
+      - count_cnf(cnf, ...) : count co-occurrence of multiple clauses within
+                              a window (AND query)
+
+    The API endpoint accepts JSON POST requests.  We use ``query_ids``
+    (list of token IDs) rather than ``query`` (string) so that tokenization
+    stays under our control.
+    """
+
+    API_URL = "https://api.infini-gram.io/"
+
+    def __init__(self, index: str, max_retries: int = 5,
+                 retry_delay: float = 2.0):
+        self.index = index
+        self.max_retries = max_retries
+        self.retry_delay = retry_delay
+        self.session = requests.Session()
+
+    # Internal helper: POST with retry
+    def _post(self, payload: dict) -> dict:
+        """Send a POST request to the API with exponential-backoff retry."""
+        delay = self.retry_delay
+        for attempt in range(1, self.max_retries + 1):
+            try:
+                resp = self.session.post(
+                    self.API_URL,
+                    json=payload,
+                    timeout=60,
+                )
+                if resp.status_code == 200:
+                    data = resp.json()
+                    if "error" in data:
+                        raise RuntimeError(
+                            f"API returned error: {data['error']}")
+                    time.sleep(1)  # rate-limit courtesy delay
+                    return data
+
+                # Retryable status codes (including 403 for rate limiting)
+                if resp.status_code in (403, 429, 500, 502, 503, 504):
+                    if attempt < self.max_retries:
+                        time.sleep(delay)
+                        delay *= 2
+                        continue
+                    resp.raise_for_status()
+
+                # Non-retryable error
+                resp.raise_for_status()
+
+            except requests.exceptions.ConnectionError:
+                if attempt < self.max_retries:
+                    time.sleep(delay)
+                    delay *= 2
+                    continue
+                raise
+
+        raise RuntimeError("API request failed after all retries")
+
+    def count(self, input_ids: list) -> dict:
+        """Count occurrences of the token ID sequence in the corpus.
+        If ``input_ids`` is empty, returns the total number of tokens
+        (used to obtain CORPUS_SIZE)."""
+        if len(input_ids) == 0:
+            payload = {
+                "index": self.index,
+                "query_type": "count",
+                "query": "",
+            }
+        else:
+            payload = {
+                "index": self.index,
+                "query_type": "count",
+                "query_ids": input_ids,
+            }
+        return self._post(payload)
+
+    def count_cnf(self, cnf: list, max_clause_freq: int = None,
+                  max_diff_tokens: int = 1000) -> dict:
+        """Count co-occurrences using a CNF (AND) query via the HTTP API.
+
+        IMPORTANT — API vs. local engine difference:
+          - Local engine: uses a separate method ``engine.count_cnf(cnf=...)``
+          - HTTP API: uses ``query_type: "count"`` with ``query_ids`` set to
+            the CNF (triply-nested list).  The API auto-detects CNF format
+            from the nesting depth of ``query_ids``.
+
+        API constraints:
+          - max_diff_tokens must be in [1, 1000] (API hard limit).
+            Values > 1000 are clamped to 1000 with a warning.
+
+        Parameters
+        ----------
+        cnf : list of list of list[int]
+            CNF clauses. Each clause is a list of disjuncts, each disjunct
+            is a list of token IDs.
+            Example: [[[101, 102]], [[201, 202]]]
+              = (token seq [101,102]) AND (token seq [201,202])
+        max_clause_freq : int or None
+            Maximum allowed clause frequency.  If a clause exceeds this,
+            the API may return an approximation.  Range: [1, 500000].
+        max_diff_tokens : int
+            Maximum distance (in tokens) between the matched clauses.
+            API limit: [1, 1000].  Values > 1000 are clamped.
+
+        Returns
+        -------
+        dict with at least {"count": int} and optionally {"approx": bool}.
+        """
+        # Clamp max_diff_tokens to API limit
+        api_max_diff = min(max_diff_tokens, 1000)
+
+        payload = {
+            "index": self.index,
+            "query_type": "count",
+            "query_ids": cnf,
+            "max_diff_tokens": api_max_diff,
+        }
+        if max_clause_freq is not None:
+            payload["max_clause_freq"] = max_clause_freq
+        return self._post(payload)
+
+
+# ===========================================================================
+# Logger setup (model-based directory, matching e1_verbatim_trace.py)
+# ===========================================================================
+def setup_logger(model_key: str, config: str = "standard"):
+    """Create logger with model-based log directory.
+    Log file: ``logs/{model_key}/e2_windowed_cooccurrence.log``
+    """
+    log_dir = os.path.join("logs", model_key)
+    os.makedirs(log_dir, exist_ok=True)
+    log_filepath = os.path.join(
+        log_dir, "e2_windowed_cooccurrence.log"
+    )
 
     logging.basicConfig(
         level=logging.INFO,
@@ -87,17 +243,36 @@ def setup_logger():
 
 def parse_args():
     parser = argparse.ArgumentParser(
-        description="E2 Windowed Co-occurrence: CNF-based corpus co-occurrence analysis"
+        description="E2 Windowed Co-occurrence: CNF-based corpus "
+                    "co-occurrence analysis"
     )
-    # I/O
-    parser.add_argument("--input", type=str, required=True,
-                        help="Input JSON (E1 results with e1 field, or raw labeled results)")
-    parser.add_argument("--output", type=str, required=True,
-                        help="Output JSON with E2 results appended")
 
-    # Index config
+    # Model selection (required) — same as e1_verbatim_trace.py
+    parser.add_argument("--model", type=str, required=True,
+                        choices=list(MODEL_CONFIGS.keys()),
+                        help="Model key (determines auto paths and log dir)")
+    parser.add_argument("--config", type=str, default="standard",
+                        help="HarmBench config name (default: standard)")
+
+    # I/O (auto-generated if not specified)
+    parser.add_argument("--input", type=str, default=None,
+                        help="Input JSON (E1 results with e1 field). "
+                             "Default: results/{model_dir}/"
+                             "e1_verbatim_{config}.json")
+    parser.add_argument("--output", type=str, default=None,
+                        help="Output JSON with E2 results appended. "
+                             "Default: results/{model_dir}/"
+                             "e2_cooccurrence_{config}.json")
+
+    # Index config — local vs API (same pattern as e1_verbatim_trace.py)
     parser.add_argument("--index_dir", type=str, default=None,
-                        help="Path to local infini-gram index directory (default: ./index)")
+                        help="Path to local infini-gram index directory. "
+                             "If provided, use local InfiniGramEngine. "
+                             "If omitted, use HTTP API.")
+    parser.add_argument("--api_index", type=str,
+                        default="v4_olmo-mix-1124_llama",
+                        help="API index name (only used when --index_dir is "
+                             "not provided). Default: v4_olmo-mix-1124_llama")
     parser.add_argument("--tokenizer_name", type=str,
                         default="meta-llama/Llama-2-7b-hf",
                         help="Tokenizer matching the infini-gram index")
@@ -112,13 +287,14 @@ def parse_args():
                         help="N-gram sizes to extract as enabling concepts "
                              "(default: 2 3 4)")
     parser.add_argument("--max_concepts", type=int, default=20,
-                        help="Maximum number of enabling concepts to extract per record "
-                             "(default: 20)")
+                        help="Maximum number of enabling concepts to extract "
+                             "per record (default: 20)")
     parser.add_argument("--max_pairs", type=int, default=50,
-                        help="Maximum number of concept pairs to query per record "
-                             "(default: 50)")
+                        help="Maximum number of concept pairs to query "
+                             "per record (default: 50)")
     parser.add_argument("--max_clause_freq", type=int, default=None,
-                        help="Max clause frequency for CNF queries (default: None = no limit)")
+                        help="Max clause frequency for CNF queries "
+                             "(default: None = no limit)")
 
     # Processing
     parser.add_argument("--limit", type=int, default=None,
@@ -126,31 +302,111 @@ def parse_args():
     parser.add_argument("--compliant_only", action="store_true",
                         help="Process only compliant (hb_label=1) records")
     parser.add_argument("--all_records", action="store_true",
-                        help="Process all records regardless of hb_label (default)")
+                        help="Process all records regardless of hb_label "
+                             "(default behavior)")
 
-    return parser.parse_args()
+    args = parser.parse_args()
+
+    # Auto-generate input/output paths if not specified
+    model_dir = MODEL_CONFIGS[args.model]["out_dir"]
+    if args.input is None:
+        args.input = os.path.join(
+            "results", model_dir,
+            f"e1_verbatim_{args.config}.json"
+        )
+    if args.output is None:
+        args.output = os.path.join(
+            "results", model_dir,
+            f"e2_cooccurrence_{args.config}.json"
+        )
+
+    return args
+
+
+# ===========================================================================
+# Engine initialization helper (matching e1_verbatim_trace.py pattern)
+# ===========================================================================
+def init_engine(args, tokenizer, logger):
+    """Initialize either a local InfiniGramEngine or an InfiniGramAPIEngine.
+
+    Returns
+    -------
+    (engine, corpus_size) : tuple
+        engine     — local InfiniGramEngine or InfiniGramAPIEngine
+        corpus_size — total token count of the indexed corpus
+    """
+    if args.index_dir is not None:
+        # ---- Local engine (GPT-J / Pile-train) ----
+        index_dir = args.index_dir
+        logger.info("Using LOCAL engine from: %s", index_dir)
+
+        if not os.path.isdir(index_dir):
+            logger.error("Index directory not found: %s", index_dir)
+            sys.exit(1)
+
+        from infini_gram.engine import InfiniGramEngine
+
+        engine = InfiniGramEngine(
+            s3_names=[],
+            index_dir=index_dir,
+            eos_token_id=tokenizer.eos_token_id,
+            version=4,
+            token_dtype="u16",
+        )
+
+        # Get corpus size from engine
+        corpus_result = engine.count(input_ids=[])
+        corpus_size = corpus_result.get("count", 0)
+        logger.info("Corpus size (local): %d tokens", corpus_size)
+
+        if corpus_size == 0:
+            logger.warning(
+                "Corpus size is 0! Falling back to hardcoded "
+                "Pile-train size: 383,299,358,652"
+            )
+            corpus_size = 383_299_358_652
+
+    else:
+        # ---- API engine (OLMo 2 / olmo-mix-1124) ----
+        logger.info("Using API engine: index=%s", args.api_index)
+        engine = InfiniGramAPIEngine(index=args.api_index)
+
+        # Get corpus size via empty-string count query
+        logger.info("Querying corpus size from API (empty-string count)...")
+        corpus_result = engine.count(input_ids=[])
+        corpus_size = corpus_result.get("count", 0)
+        logger.info("Corpus size (API, %s): %d tokens",
+                     args.api_index, corpus_size)
+
+        if corpus_size == 0:
+            logger.error(
+                "Failed to retrieve corpus size from API. "
+                "Cannot compute concept rarity scores."
+            )
+            sys.exit(1)
+
+    return engine, corpus_size
 
 
 # ===========================================================================
 # Enabling concept extraction
 # ===========================================================================
-CORPUS_SIZE = 383_299_358_652  # Pile-train, Llama-2 tokenizer
-
-
 def extract_enabling_concepts(engine, response_ids, tokenizer, ngram_sizes,
-                              max_concepts, logger):
+                              max_concepts, corpus_size, logger):
     """
     Extract 'enabling concepts' from the response as token n-grams.
 
     Strategy:
       1. Generate all n-grams of specified sizes from the response token IDs.
-      2. Score each n-gram by rarity: score = sum(log(count(t)/N)) for each token.
-         Lower score = rarer = more informative.
+      2. Score each n-gram by rarity: score = sum(log(count(t)/N)) for each
+         token.  Lower score = rarer = more informative.
       3. Deduplicate (keep first occurrence of each unique n-gram).
       4. Return the top max_concepts rarest n-grams.
 
     Returns:
-      List of dicts: [{"ngram_ids": [...], "text": "...", "score": float, "position": int}, ...]
+      List of dicts:
+        [{"ngram_ids": [...], "text": "...", "score": float,
+          "position": int, "length": int}, ...]
     """
     L = len(response_ids)
     unigram_cache = {}
@@ -164,7 +420,8 @@ def extract_enabling_concepts(engine, response_ids, tokenizer, ngram_sizes,
             ngram_ids = tuple(response_ids[i:i + n])
             candidates.append((ngram_ids, i, n))
 
-    logger.info("    Generated %d n-gram candidates (sizes=%s)", len(candidates), ngram_sizes)
+    logger.info("    Generated %d n-gram candidates (sizes=%s)",
+                len(candidates), ngram_sizes)
 
     # Step 2: Score each unique n-gram by rarity
     seen_ngrams = set()
@@ -180,7 +437,7 @@ def extract_enabling_concepts(engine, response_ids, tokenizer, ngram_sizes,
             if tid not in unigram_cache:
                 result = engine.count(input_ids=[tid])
                 unigram_cache[tid] = result.get("count", 1)
-            score += math.log(max(unigram_cache[tid], 1) / CORPUS_SIZE)
+            score += math.log(max(unigram_cache[tid], 1) / corpus_size)
         scored.append((ngram_ids, pos, score))
 
     # Step 3: Sort by score ascending (most rare first)
@@ -196,7 +453,8 @@ def extract_enabling_concepts(engine, response_ids, tokenizer, ngram_sizes,
     for (ngram_ids, pos, score) in top_concepts:
         text = ""
         try:
-            text = tokenizer.decode(list(ngram_ids), skip_special_tokens=False)
+            text = tokenizer.decode(list(ngram_ids),
+                                    skip_special_tokens=False)
         except Exception:
             pass
         concepts.append({
@@ -216,13 +474,17 @@ def extract_enabling_concepts(engine, response_ids, tokenizer, ngram_sizes,
 def compute_pairwise_cooccurrence(engine, concepts, windows, max_pairs,
                                   max_clause_freq, logger):
     """
-    For each pair of enabling concepts, query co-occurrence count at each window size.
+    For each pair of enabling concepts, query co-occurrence count at each
+    window size.
 
     CNF query format for infini-gram:
       cnf = [[phrase_A_ids], [phrase_B_ids]]
       count_cnf(cnf, max_diff_tokens=w)
 
-    This counts documents where phrase_A AND phrase_B appear within w tokens.
+    This counts positions where phrase_A AND phrase_B appear within w tokens.
+
+    Works identically for local engine and API engine — both expose
+    count_cnf() with the same interface.
 
     Returns:
       {
@@ -230,12 +492,12 @@ def compute_pairwise_cooccurrence(engine, concepts, windows, max_pairs,
           {
             "concept_a": {"text": ..., "ngram_ids": ...},
             "concept_b": {"text": ..., "ngram_ids": ...},
-            "counts_by_window": {100: count, 500: count, 1000: count}
+            "counts_by_window": {100: {"count": N, "approx": bool}, ...}
           },
           ...
         ],
         "summary_by_window": {
-          100: {"total_pairs": N, "nonzero_pairs": M, "max_count": K, "mean_count": ...},
+          100: {"total_pairs": N, "nonzero_pairs": M, "max_count": K, ...},
           ...
         }
       }
@@ -243,7 +505,7 @@ def compute_pairwise_cooccurrence(engine, concepts, windows, max_pairs,
     # Generate all pairs, limit to max_pairs
     all_pairs = list(combinations(range(len(concepts)), 2))
     if len(all_pairs) > max_pairs:
-        # Prioritize pairs of the rarest concepts (they're already sorted by rarity)
+        # Prioritize pairs of the rarest concepts (already sorted by rarity)
         all_pairs = all_pairs[:max_pairs]
 
     logger.info("    Querying %d concept pairs across %d windows...",
@@ -337,7 +599,8 @@ def compute_e2_metrics(cooccurrence_result, windows):
       - E2_cooc(w): max co-occurrence count across all pairs at window w
       - E2_nonzero_frac(w): fraction of pairs with nonzero co-occurrence
       - E2_mean(w): mean co-occurrence count
-      - E2_support_score: max_w log(1 + E2_cooc(w)) (from Project Overview §7.2)
+      - E2_support_score: max_w log(1 + E2_cooc(w))
+                          (from Project Overview §7.2)
     """
     summary = cooccurrence_result["summary_by_window"]
 
@@ -347,7 +610,8 @@ def compute_e2_metrics(cooccurrence_result, windows):
         total = s.get("total_pairs", 0)
         metrics_by_window[w] = {
             "E2_cooc": s.get("max_count", 0),
-            "E2_nonzero_frac": round(s.get("nonzero_pairs", 0) / total, 4) if total > 0 else 0.0,
+            "E2_nonzero_frac": (round(s.get("nonzero_pairs", 0) / total, 4)
+                                if total > 0 else 0.0),
             "E2_mean": s.get("mean_count", 0),
             "E2_median": s.get("median_count", 0),
             "total_pairs": total,
@@ -372,13 +636,19 @@ def compute_e2_metrics(cooccurrence_result, windows):
 # Main
 # ===========================================================================
 def main():
-    logger = setup_logger()
     args = parse_args()
+    logger = setup_logger(args.model, args.config)
 
     logger.info("=== E2 Windowed Co-occurrence started at %s ===",
                 datetime.now().strftime("%a %b %d %I:%M:%S %p %Z %Y"))
     logger.info("Arguments: %s", vars(args))
     start_time = time.time()
+
+    # Determine backend mode for logging
+    if args.index_dir is not None:
+        logger.info("Backend: LOCAL engine (--index_dir=%s)", args.index_dir)
+    else:
+        logger.info("Backend: HTTP API (--api_index=%s)", args.api_index)
 
     # Load input data
     logger.info("Loading input from %s ...", args.input)
@@ -389,7 +659,8 @@ def main():
     # Filter records
     if args.compliant_only:
         target_records = [r for r in records if r.get("hb_label") == 1]
-        logger.info("Filtered to %d compliant (hb_label=1) records", len(target_records))
+        logger.info("Filtered to %d compliant (hb_label=1) records",
+                     len(target_records))
     elif args.all_records:
         target_records = records
         logger.info("Processing ALL records (--all_records)")
@@ -415,35 +686,57 @@ def main():
         add_eos_token=False,
     )
 
-    # Initialize infini-gram engine
-    index_dir = args.index_dir or os.path.join(SCRIPT_DIR, "index")
-    logger.info("Loading infini-gram engine from: %s", index_dir)
+    # Initialize engine (local or API)
+    engine, corpus_size = init_engine(args, tokenizer, logger)
+    logger.info("CORPUS_SIZE = %d", corpus_size)
 
-    if not os.path.isdir(index_dir):
-        logger.error("Index directory not found: %s", index_dir)
-        sys.exit(1)
-
-    from infini_gram.engine import InfiniGramEngine
-
-    engine = InfiniGramEngine(
-        s3_names=[],
-        index_dir=index_dir,
-        eos_token_id=tokenizer.eos_token_id,
-        version=4,
-        token_dtype="u16",
-    )
+    # Warn about API max_diff_tokens limit
+    is_api_mode = args.index_dir is None
+    if is_api_mode:
+        over_limit = [w for w in args.windows if w > 1000]
+        if over_limit:
+            logger.warning(
+                "API max_diff_tokens limit is 1000. "
+                "Windows %s will be clamped to 1000. "
+                "Use local engine (--index_dir) for windows > 1000.",
+                over_limit)
 
     logger.info("Windows: %s", args.windows)
     logger.info("N-gram sizes: %s", args.ngram_sizes)
     logger.info("Max concepts per record: %d", args.max_concepts)
     logger.info("Max pairs per record: %d", args.max_pairs)
 
-    # Process each record
-    results = []
+    # Resume: load existing results if output file exists
+    os.makedirs(os.path.dirname(args.output) or ".", exist_ok=True)
 
+    results = []
+    completed_ids = set()
+    if os.path.isfile(args.output):
+        try:
+            with open(args.output, "r", encoding="utf-8") as f:
+                results = json.load(f)
+            for r in results:
+                if "error" not in r.get("e2", {}):
+                    completed_ids.add(r.get("id"))
+            logger.info(
+                "Resumed from %s: %d existing results (%d successful)",
+                args.output, len(results), len(completed_ids))
+        except (json.JSONDecodeError, Exception) as e:
+            logger.warning(
+                "Could not load existing output (%s), starting fresh.", e)
+            results = []
+            completed_ids = set()
+
+    # Process each record
     for rec_idx, record in enumerate(target_records):
         rec_id = record.get("id", rec_idx)
         response = record.get("response", "")
+
+        # Skip if already successfully completed
+        if rec_id in completed_ids:
+            logger.info("[%d/%d] Skipping record id=%s (already completed)",
+                        rec_idx + 1, len(target_records), rec_id)
+            continue
 
         logger.info("=" * 70)
         logger.info("[%d/%d] Processing record id=%s",
@@ -464,12 +757,14 @@ def main():
                 engine, response_ids, tokenizer,
                 ngram_sizes=args.ngram_sizes,
                 max_concepts=args.max_concepts,
+                corpus_size=corpus_size,
                 logger=logger,
             )
 
             if len(concepts) < 2:
-                logger.warning("  Only %d concepts extracted, skipping co-occurrence",
-                               len(concepts))
+                logger.warning(
+                    "  Only %d concepts extracted, skipping co-occurrence",
+                    len(concepts))
                 e2_metrics = {
                     "metrics_by_window": {w: {} for w in args.windows},
                     "E2_support_score": 0.0,
@@ -478,7 +773,6 @@ def main():
                     "num_pairs_queried": 0,
                     "note": "Too few concepts for pairwise queries",
                 }
-                concepts_output = concepts
                 cooc_result = {"pairs": [], "summary_by_window": {}}
             else:
                 # Step 2: Pairwise co-occurrence queries
@@ -494,7 +788,6 @@ def main():
                 e2_metrics = compute_e2_metrics(cooc_result, args.windows)
                 e2_metrics["num_concepts"] = len(concepts)
                 e2_metrics["num_pairs_queried"] = len(cooc_result["pairs"])
-                concepts_output = concepts
 
             # Build result record
             result = {
@@ -507,7 +800,7 @@ def main():
                 "e1": record.get("e1", {}),
                 "e2": {
                     **e2_metrics,
-                    "enabling_concepts": concepts_output,
+                    "enabling_concepts": concepts,
                     "pairwise_cooccurrence": cooc_result,
                 },
             }
@@ -517,12 +810,13 @@ def main():
             # Log summary per window
             for w in args.windows:
                 wm = e2_metrics.get("metrics_by_window", {}).get(w, {})
-                logger.info("  Window w=%d: E2_cooc=%s, nonzero=%s/%s, mean=%s",
-                            w,
-                            wm.get("E2_cooc", "N/A"),
-                            wm.get("nonzero_pairs", "N/A"),
-                            wm.get("total_pairs", "N/A"),
-                            wm.get("E2_mean", "N/A"))
+                logger.info(
+                    "  Window w=%d: E2_cooc=%s, nonzero=%s/%s, mean=%s",
+                    w,
+                    wm.get("E2_cooc", "N/A"),
+                    wm.get("nonzero_pairs", "N/A"),
+                    wm.get("total_pairs", "N/A"),
+                    wm.get("E2_mean", "N/A"))
             logger.info("  E2_support_score=%.4f, elapsed=%.1fs",
                         e2_metrics.get("E2_support_score", 0), rec_elapsed)
 
@@ -542,11 +836,11 @@ def main():
 
         results.append(result)
 
-    # Save output
-    os.makedirs(os.path.dirname(args.output) or ".", exist_ok=True)
-    logger.info("Saving %d results to %s ...", len(results), args.output)
-    with open(args.output, "w", encoding="utf-8") as f:
-        json.dump(results, f, ensure_ascii=False, indent=2)
+        # Incremental save after each record
+        logger.info("  Saving %d results to %s ...",
+                     len(results), args.output)
+        with open(args.output, "w", encoding="utf-8") as f:
+            json.dump(results, f, ensure_ascii=False, indent=2)
 
     # Summary
     logger.info("=" * 70)
@@ -560,16 +854,20 @@ def main():
 
     if successful:
         for w in args.windows:
-            scores = [r["e2"]["metrics_by_window"].get(w, {}).get("E2_cooc", 0)
-                      for r in successful
-                      if w in r["e2"].get("metrics_by_window", {})]
+            scores = [
+                r["e2"]["metrics_by_window"].get(w, {}).get("E2_cooc", 0)
+                for r in successful
+                if w in r["e2"].get("metrics_by_window", {})
+            ]
             if scores:
-                logger.info("  Window w=%d: E2_cooc max=%d, mean=%.1f, "
-                            "nonzero=%d/%d records",
-                            w, max(scores), sum(scores) / len(scores),
-                            sum(1 for s in scores if s > 0), len(scores))
+                logger.info(
+                    "  Window w=%d: E2_cooc max=%d, mean=%.1f, "
+                    "nonzero=%d/%d records",
+                    w, max(scores), sum(scores) / len(scores),
+                    sum(1 for s in scores if s > 0), len(scores))
 
-        support_scores = [r["e2"].get("E2_support_score", 0) for r in successful]
+        support_scores = [r["e2"].get("E2_support_score", 0)
+                          for r in successful]
         logger.info("  E2_support_score: min=%.4f, max=%.4f, mean=%.4f",
                     min(support_scores), max(support_scores),
                     sum(support_scores) / len(support_scores))
@@ -584,8 +882,10 @@ def main():
 
     logger.info("=== Job finished at %s ===",
                 datetime.now().strftime("%a %b %d %I:%M:%S %p %Z %Y"))
-    logger.info("=== Elapsed time: %d days %02d:%02d:%02d (total %.3f seconds) ===",
-                days, hours, minutes, seconds, elapsed_float)
+    logger.info(
+        "=== Elapsed time: %d days %02d:%02d:%02d "
+        "(total %.3f seconds) ===",
+        days, hours, minutes, seconds, elapsed_float)
 
 
 if __name__ == "__main__":
