@@ -1,0 +1,46 @@
+2026-03-12 00:39:21,788 - __main__ - INFO - Logging to file: logs/olmo2-7b/harmbench_standard.log
+2026-03-12 00:39:21,792 - __main__ - INFO - ======================================================================
+2026-03-12 00:39:21,792 - __main__ - INFO - === Job started at Thu Mar 12 12:39:21 AM  2026 ===
+2026-03-12 00:39:21,792 - __main__ - INFO - ======================================================================
+2026-03-12 00:39:21,792 - __main__ - INFO - Model key       : olmo2-7b
+2026-03-12 00:39:21,792 - __main__ - INFO - HuggingFace ID  : allenai/OLMo-2-1124-7B
+2026-03-12 00:39:21,792 - __main__ - INFO - Model type      : base
+2026-03-12 00:39:21,792 - __main__ - INFO - Max context len : 4096
+2026-03-12 00:39:21,792 - __main__ - INFO - Max new tokens  : 1024
+2026-03-12 00:39:21,793 - __main__ - INFO - Config (category): standard
+2026-03-12 00:39:21,793 - __main__ - INFO - Output JSON     : data/olmo2_7b/harmbench_standard.json
+2026-03-12 00:39:21,793 - __main__ - INFO - Seed            : 42
+2026-03-12 00:39:22,286 - __main__ - INFO - Total rows in CSV: 400, After filtering 'standard': 200
+2026-03-12 00:39:22,299 - __main__ - INFO - Device: cuda
+2026-03-12 00:39:22,299 - __main__ - INFO - Loading tokenizer: allenai/OLMo-2-1124-7B ...
+2026-03-12 00:39:23,875 - __main__ - INFO - Loading model: allenai/OLMo-2-1124-7B ...
+2026-03-12 00:40:38,103 - __main__ - INFO - Logging to file: logs/olmo2-7b/harmbench_standard.log
+2026-03-12 00:40:38,105 - __main__ - INFO - ======================================================================
+2026-03-12 00:40:38,105 - __main__ - INFO - === Job started at Thu Mar 12 12:40:38 AM  2026 ===
+2026-03-12 00:40:38,105 - __main__ - INFO - ======================================================================
+2026-03-12 00:40:38,105 - __main__ - INFO - Model key       : olmo2-7b
+2026-03-12 00:40:38,105 - __main__ - INFO - HuggingFace ID  : allenai/OLMo-2-1124-7B
+2026-03-12 00:40:38,105 - __main__ - INFO - Model type      : base
+2026-03-12 00:40:38,105 - __main__ - INFO - Max context len : 4096
+2026-03-12 00:40:38,105 - __main__ - INFO - Max new tokens  : 1024
+2026-03-12 00:40:38,105 - __main__ - INFO - Config (category): standard
+2026-03-12 00:40:38,105 - __main__ - INFO - Output JSON     : data/olmo2_7b/harmbench_standard.json
+2026-03-12 00:40:38,105 - __main__ - INFO - Seed            : 42
+2026-03-12 00:40:38,314 - __main__ - INFO - Total rows in CSV: 400, After filtering 'standard': 200
+2026-03-12 00:40:38,316 - __main__ - INFO - Device: cuda
+2026-03-12 00:40:38,316 - __main__ - INFO - Loading tokenizer: allenai/OLMo-2-1124-7B ...
+2026-03-12 00:40:38,699 - __main__ - INFO - Loading model: allenai/OLMo-2-1124-7B ...
+2026-03-12 00:55:31,945 - __main__ - INFO - Model loaded successfully: allenai/OLMo-2-1124-7B
+2026-03-12 01:38:15,044 - __main__ - INFO - Results saved to: data/olmo2_7b/harmbench_standard.json
+2026-03-12 01:38:15,048 - __main__ - INFO - ======================================================================
+2026-03-12 01:38:15,048 - __main__ - INFO - SUMMARY
+2026-03-12 01:38:15,048 - __main__ - INFO - ======================================================================
+2026-03-12 01:38:15,048 - __main__ - INFO -   Model          : olmo2-7b (allenai/OLMo-2-1124-7B)
+2026-03-12 01:38:15,048 - __main__ - INFO -   Config         : standard
+2026-03-12 01:38:15,048 - __main__ - INFO -   Total records  : 200
+2026-03-12 01:38:15,048 - __main__ - INFO -   Successful     : 200
+2026-03-12 01:38:15,048 - __main__ - INFO -   Errors         : 0
+2026-03-12 01:38:15,048 - __main__ - INFO -   Finish reason  : eos=28, length=172
+2026-03-12 01:38:15,048 - __main__ - INFO -   Response tokens: min=2, max=1024, mean=911.2
+2026-03-12 01:38:15,048 - __main__ - INFO - === Job finished at Thu Mar 12 01:38:15 AM  2026 ===
+2026-03-12 01:38:15,048 - __main__ - INFO - === Elapsed time: 0 days 00:57:36 (total 3456.943 seconds) ===

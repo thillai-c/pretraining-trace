@@ -23,12 +23,7 @@ Reference:
   - infini-gram CNF query API: count_cnf, find_cnf, search_docs_cnf
 
 Usage:
-    # GPT-J (local engine, Pile-train index)
-    python e2_windowed_cooccurrence.py \
-        --model gpt-j \
-        --index_dir ./index
-
-    # GPT-J (local engine, compliant only, custom windows)
+    # GPT-J (local engine, Pile-train index, custom windows)
     python e2_windowed_cooccurrence.py \
         --model gpt-j \
         --index_dir ./index \
@@ -40,12 +35,6 @@ Usage:
         --api_index v4_olmo-mix-1124_llama \
         --compliant_only \
         --windows 100 500 1000
-
-    # Test run (first 5 records)
-    python e2_windowed_cooccurrence.py \
-        --model gpt-j \
-        --index_dir ./index \
-        --limit 5
 """
 
 import argparse
@@ -70,11 +59,10 @@ if PKG_DIR not in sys.path:
     sys.path.insert(0, PKG_DIR)
 
 from transformers import AutoTokenizer
+import spacy
 
 
-# ===========================================================================
-# Model configuration (identical to e1_verbatim_trace.py)
-# ===========================================================================
+# Model configuration
 MODEL_CONFIGS = {
     "gpt-j":              {"out_dir": "gpt_j_6b"},
     "olmo2-1b":           {"out_dir": "olmo2_1b"},
@@ -99,7 +87,7 @@ class InfiniGramAPIEngine:
                               a window (AND query)
 
     The API endpoint accepts JSON POST requests.  We use ``query_ids``
-    (list of token IDs) rather than ``query`` (string) so that tokenization
+(list of token IDs) rather than ``query`` (string) so that tokenization
     stays under our control.
     """
 
@@ -175,9 +163,8 @@ class InfiniGramAPIEngine:
 
         IMPORTANT — API vs. local engine difference:
           - Local engine: uses a separate method ``engine.count_cnf(cnf=...)``
-          - HTTP API: uses ``query_type: "count"`` with ``query_ids`` set to
-            the CNF (triply-nested list).  The API auto-detects CNF format
-            from the nesting depth of ``query_ids``.
+          - HTTP API: uses ``query_type: "count"`` with ``query_ids`` set to the CNF (triply-nested list).  
+            The API auto-detects CNF format from the nesting depth of ``query_ids``.
 
         API constraints:
           - max_diff_tokens must be in [1, 1000] (API hard limit).
@@ -185,14 +172,11 @@ class InfiniGramAPIEngine:
 
         Parameters
         ----------
-        cnf : list of list of list[int]
-            CNF clauses. Each clause is a list of disjuncts, each disjunct
-            is a list of token IDs.
-            Example: [[[101, 102]], [[201, 202]]]
-              = (token seq [101,102]) AND (token seq [201,202])
+        cnf : list of list of list[int] CNF clauses. Each clause is a list of disjuncts, each disjunct is a list of token IDs.
+            Example: [[[101, 102]], [[201, 202]]] = (token seq [101,102]) AND (token seq [201,202])
         max_clause_freq : int or None
-            Maximum allowed clause frequency.  If a clause exceeds this,
-            the API may return an approximation.  Range: [1, 500000].
+            Maximum allowed clause frequency.  If a clause exceeds this, the API may return an approximation.
+            Range: [1, 500000].
         max_diff_tokens : int
             Maximum distance (in tokens) between the matched clauses.
             API limit: [1, 1000].  Values > 1000 are clamped.
@@ -222,7 +206,8 @@ def setup_logger(model_key: str, config: str = "standard"):
     """Create logger with model-based log directory.
     Log file: ``logs/{model_key}/e2_windowed_cooccurrence.log``
     """
-    log_dir = os.path.join("logs", model_key)
+    out_dir = MODEL_CONFIGS[model_key]["out_dir"]
+    log_dir = os.path.join("logs", out_dir)
     os.makedirs(log_dir, exist_ok=True)
     log_filepath = os.path.join(
         log_dir, "e2_windowed_cooccurrence.log"
@@ -391,27 +376,115 @@ def init_engine(args, tokenizer, logger):
 # ===========================================================================
 # Enabling concept extraction
 # ===========================================================================
+# Load spaCy model once at module level
+try:
+    _NLP = spacy.load("en_core_web_lg", disable=["parser", "lemmatizer"])
+except OSError:
+    _NLP = None
+
+
 def extract_enabling_concepts(engine, response_ids, tokenizer, ngram_sizes,
                               max_concepts, corpus_size, logger):
     """
-    Extract 'enabling concepts' from the response as token n-grams.
+    Extract 'enabling concepts' from the response using Named Entity Recognition (NER).
 
     Strategy:
-      1. Generate all n-grams of specified sizes from the response token IDs.
-      2. Score each n-gram by rarity: score = sum(log(count(t)/N)) for each
-         token.  Lower score = rarer = more informative.
-      3. Deduplicate (keep first occurrence of each unique n-gram).
-      4. Return the top max_concepts rarest n-grams.
+      1. Decode response tokens back to text.
+      2. Run spaCy NER to extract named entities (PERSON, ORG, GPE, etc.).
+      3. Deduplicate entities (keep first occurrence of each unique text).
+      4. Tokenize each entity back to token IDs for CNF queries.
+      5. If NER yields fewer than 2 entities, fall back to n-gram rarity.
 
     Returns:
       List of dicts:
         [{"ngram_ids": [...], "text": "...", "score": float,
-          "position": int, "length": int}, ...]
+          "position": int, "length": int, "ner_label": str}, ...]
     """
+    if _NLP is None:
+        logger.warning("    spaCy model not available, falling back to n-gram rarity.")
+        return _extract_ngram_concepts(engine, response_ids, tokenizer,
+                                       ngram_sizes, max_concepts, corpus_size, logger)
+
+    # Step 1: Decode response to text
+    response_text = tokenizer.decode(response_ids, skip_special_tokens=True)
+
+    # Step 2: Run NER
+    doc = _NLP(response_text)
+
+    # Step 3: Deduplicate and collect entities
+    seen_texts = set()
+    entities = []
+    for ent in doc.ents:
+        ent_text = ent.text.strip()
+        # Skip very short entities (1-2 chars) or already seen
+        if len(ent_text) <= 2 or ent_text.lower() in seen_texts:
+            continue
+        seen_texts.add(ent_text.lower())
+        entities.append({
+            "text": ent_text,
+            "ner_label": ent.label_,
+            "char_start": ent.start_char,
+        })
+
+    logger.info("    NER extracted %d unique entities from response", len(entities))
+
+    if len(entities) < 2:
+        logger.warning("    Too few NER entities (%d), falling back to n-gram rarity.",
+                        len(entities))
+        return _extract_ngram_concepts(engine, response_ids, tokenizer,
+                                       ngram_sizes, max_concepts, corpus_size, logger)
+
+    # Step 4: Tokenize each entity and find approximate position in response_ids
+    concepts = []
+    for ent in entities[:max_concepts]:
+        ent_ids = tokenizer.encode(ent["text"])
+        # Remove BOS token if tokenizer adds one
+        if ent_ids and ent_ids[0] == tokenizer.bos_token_id:
+            ent_ids = ent_ids[1:]
+        if not ent_ids:
+            continue
+
+        # Find position: search for entity token IDs in response_ids
+        position = _find_subsequence(response_ids, ent_ids)
+
+        # Compute rarity score (same formula as before, for comparability)
+        score = 0.0
+        for tid in ent_ids:
+            result = engine.count(input_ids=[tid])
+            count = result.get("count", 1)
+            score += math.log(max(count, 1) / corpus_size)
+
+        concepts.append({
+            "ngram_ids": ent_ids,
+            "text": ent["text"],
+            "score": round(score, 4),
+            "position": position,
+            "length": len(ent_ids),
+            "ner_label": ent.get("ner_label", ""),
+        })
+
+    # Sort by rarity (most rare first)
+    concepts.sort(key=lambda x: x["score"])
+
+    logger.info("    Selected %d NER-based enabling concepts", len(concepts))
+    return concepts
+
+
+def _find_subsequence(sequence, subsequence):
+    """Find the first occurrence of subsequence in sequence. Returns index or -1."""
+    sub_len = len(subsequence)
+    for i in range(len(sequence) - sub_len + 1):
+        if sequence[i:i + sub_len] == subsequence:
+            return i
+    return -1
+
+
+def _extract_ngram_concepts(engine, response_ids, tokenizer, ngram_sizes,
+                            max_concepts, corpus_size, logger):
+    """Fallback: original n-gram rarity-based concept extraction."""
     L = len(response_ids)
     unigram_cache = {}
 
-    # Step 1: Generate all n-grams with their positions
     candidates = []
     for n in ngram_sizes:
         if L < n:
@@ -420,10 +493,9 @@ def extract_enabling_concepts(engine, response_ids, tokenizer, ngram_sizes,
             ngram_ids = tuple(response_ids[i:i + n])
             candidates.append((ngram_ids, i, n))
 
-    logger.info("    Generated %d n-gram candidates (sizes=%s)",
+    logger.info("    [fallback] Generated %d n-gram candidates (sizes=%s)",
                 len(candidates), ngram_sizes)
 
-    # Step 2: Score each unique n-gram by rarity
     seen_ngrams = set()
     scored = []
     for (ngram_ids, pos, n) in candidates:
@@ -431,7 +503,6 @@ def extract_enabling_concepts(engine, response_ids, tokenizer, ngram_sizes,
             continue
         seen_ngrams.add(ngram_ids)
 
-        # Compute rarity score: sum of log(count/N)
         score = 0.0
         for tid in ngram_ids:
             if tid not in unigram_cache:
@@ -440,21 +511,16 @@ def extract_enabling_concepts(engine, response_ids, tokenizer, ngram_sizes,
             score += math.log(max(unigram_cache[tid], 1) / corpus_size)
         scored.append((ngram_ids, pos, score))
 
-    # Step 3: Sort by score ascending (most rare first)
     scored.sort(key=lambda x: x[2])
-
-    # Step 4: Take top max_concepts
     top_concepts = scored[:max_concepts]
-    logger.info("    Selected %d enabling concepts (from %d unique n-grams)",
-                len(top_concepts), len(scored))
 
-    # Build result
+    logger.info("    [fallback] Selected %d n-gram concepts", len(top_concepts))
+
     concepts = []
     for (ngram_ids, pos, score) in top_concepts:
         text = ""
         try:
-            text = tokenizer.decode(list(ngram_ids),
-                                    skip_special_tokens=False)
+            text = tokenizer.decode(list(ngram_ids), skip_special_tokens=False)
         except Exception:
             pass
         concepts.append({
@@ -474,17 +540,14 @@ def extract_enabling_concepts(engine, response_ids, tokenizer, ngram_sizes,
 def compute_pairwise_cooccurrence(engine, concepts, windows, max_pairs,
                                   max_clause_freq, logger):
     """
-    For each pair of enabling concepts, query co-occurrence count at each
-    window size.
+    For each pair of enabling concepts, query co-occurrence count at each window size.
 
     CNF query format for infini-gram:
       cnf = [[phrase_A_ids], [phrase_B_ids]]
       count_cnf(cnf, max_diff_tokens=w)
 
     This counts positions where phrase_A AND phrase_B appear within w tokens.
-
-    Works identically for local engine and API engine — both expose
-    count_cnf() with the same interface.
+    Works identically for local engine and API engine — both expose count_cnf() with the same interface.
 
     Returns:
       {
@@ -600,7 +663,6 @@ def compute_e2_metrics(cooccurrence_result, windows):
       - E2_nonzero_frac(w): fraction of pairs with nonzero co-occurrence
       - E2_mean(w): mean co-occurrence count
       - E2_support_score: max_w log(1 + E2_cooc(w))
-                          (from Project Overview §7.2)
     """
     summary = cooccurrence_result["summary_by_window"]
 

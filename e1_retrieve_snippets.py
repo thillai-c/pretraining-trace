@@ -54,7 +54,8 @@ from e1_verbatim_trace import (
 
 
 def setup_logger(model_key: str, config: str = "standard"):
-    log_dir = os.path.join("logs", model_key)
+    out_dir = MODEL_CONFIGS[model_key]["out_dir"]
+    log_dir = os.path.join("logs", out_dir)
     os.makedirs(log_dir, exist_ok=True)
     # timestamp = datetime.now().strftime("%Y%m%d-%H%M%S")
     log_filepath = os.path.join(log_dir, f"e1_retrieve_snippets.log")

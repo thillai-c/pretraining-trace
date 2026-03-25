@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --job-name=E2_cooccurrence
 #SBATCH --nodes=1
-#SBATCH --partition=short-96core
+#SBATCH --partition=short-40core
 #SBATCH --mem=16G
 #SBATCH --cpus-per-task=4
 #SBATCH --time=4:00:00

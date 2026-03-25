@@ -1,0 +1,30 @@
+2026-03-11 23:46:21,164 - __main__ - INFO - Logging to file: logs/olmo2-1b/harmbench_standard.log
+2026-03-11 23:46:21,166 - __main__ - INFO - ======================================================================
+2026-03-11 23:46:21,166 - __main__ - INFO - === Job started at Wed Mar 11 11:46:21 PM  2026 ===
+2026-03-11 23:46:21,166 - __main__ - INFO - ======================================================================
+2026-03-11 23:46:21,166 - __main__ - INFO - Model key       : olmo2-1b
+2026-03-11 23:46:21,166 - __main__ - INFO - HuggingFace ID  : allenai/OLMo-2-0425-1B
+2026-03-11 23:46:21,166 - __main__ - INFO - Model type      : base
+2026-03-11 23:46:21,166 - __main__ - INFO - Max context len : 4096
+2026-03-11 23:46:21,166 - __main__ - INFO - Max new tokens  : 1024
+2026-03-11 23:46:21,166 - __main__ - INFO - Config (category): standard
+2026-03-11 23:46:21,166 - __main__ - INFO - Output JSON     : data/olmo2_1b/harmbench_standard.json
+2026-03-11 23:46:21,166 - __main__ - INFO - Seed            : 42
+2026-03-11 23:46:21,645 - __main__ - INFO - Total rows in CSV: 400, After filtering 'standard': 200
+2026-03-11 23:46:21,668 - __main__ - INFO - Device: cuda
+2026-03-11 23:46:21,668 - __main__ - INFO - Loading tokenizer: allenai/OLMo-2-0425-1B ...
+2026-03-11 23:46:23,543 - __main__ - INFO - Loading model: allenai/OLMo-2-0425-1B ...
+2026-03-11 23:47:35,690 - __main__ - INFO - Model loaded successfully: allenai/OLMo-2-0425-1B
+2026-03-12 00:06:38,879 - __main__ - INFO - Results saved to: data/olmo2_1b/harmbench_standard.json
+2026-03-12 00:06:38,883 - __main__ - INFO - ======================================================================
+2026-03-12 00:06:38,883 - __main__ - INFO - SUMMARY
+2026-03-12 00:06:38,883 - __main__ - INFO - ======================================================================
+2026-03-12 00:06:38,883 - __main__ - INFO -   Model          : olmo2-1b (allenai/OLMo-2-0425-1B)
+2026-03-12 00:06:38,883 - __main__ - INFO -   Config         : standard
+2026-03-12 00:06:38,883 - __main__ - INFO -   Total records  : 200
+2026-03-12 00:06:38,883 - __main__ - INFO -   Successful     : 200
+2026-03-12 00:06:38,883 - __main__ - INFO -   Errors         : 0
+2026-03-12 00:06:38,883 - __main__ - INFO -   Finish reason  : eos=48, length=152
+2026-03-12 00:06:38,883 - __main__ - INFO -   Response tokens: min=2, max=1024, mean=789.1
+2026-03-12 00:06:38,883 - __main__ - INFO - === Job finished at Thu Mar 12 12:06:38 AM  2026 ===
+2026-03-12 00:06:38,883 - __main__ - INFO - === Elapsed time: 0 days 00:20:17 (total 1217.717 seconds) ===

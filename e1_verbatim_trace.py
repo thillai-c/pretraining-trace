@@ -180,7 +180,8 @@ def setup_logger(model_key: str, config: str = "standard"):
     """Create logger with model-based log directory.
     Log file: ``logs/{model_key}/e1_verbatim_trace.log``
     """
-    log_dir = os.path.join("logs", model_key)
+    out_dir = MODEL_CONFIGS[model_key]["out_dir"]
+    log_dir = os.path.join("logs", out_dir)
     os.makedirs(log_dir, exist_ok=True)
     # timestamp = datetime.now().strftime("%Y%m%d-%H%M%S")
     log_filepath = os.path.join(

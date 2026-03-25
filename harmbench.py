@@ -107,7 +107,8 @@ def safe_value(v):
 
 
 def setup_logger(model_key, config):
-    log_dir = os.path.join("logs", model_key)
+    out_dir = MODEL_CONFIGS[model_key]["out_dir"]
+    log_dir = os.path.join("logs", out_dir)
     os.makedirs(log_dir, exist_ok=True)
     log_filepath = os.path.join(log_dir, f"harmbench_{config}.log")
 
