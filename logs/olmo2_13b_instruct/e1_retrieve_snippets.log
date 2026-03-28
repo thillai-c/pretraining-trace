@@ -1,0 +1,82 @@
+2026-03-27 21:52:15,770 - __main__ - INFO - Logging to file: logs/olmo2_13b_instruct/e1_retrieve_snippets.log
+2026-03-27 21:52:15,770 - __main__ - INFO - === E1 Phase 2: Snippet Retrieval started at Fri Mar 27 09:52:15 PM  2026 ===
+2026-03-27 21:52:15,770 - __main__ - INFO - Arguments: {'model': 'olmo2-13b-instruct', 'config': 'standard', 'input': 'results/olmo2_13b_instruct/e1_verbatim_standard.json', 'index_dir': None, 'api_index': 'v4_olmo-mix-1124_llama', 'tokenizer_name': 'meta-llama/Llama-2-7b-hf', 'max_docs_per_span': 10, 'max_disp_len': 150}
+2026-03-27 21:52:15,770 - __main__ - INFO - Loading Phase 1 results from results/olmo2_13b_instruct/e1_verbatim_standard.json ...
+2026-03-27 21:52:15,799 - __main__ - INFO - Loaded 8 records
+2026-03-27 21:52:15,799 - __main__ - INFO - Loading tokenizer: meta-llama/Llama-2-7b-hf
+2026-03-27 21:52:15,880 - httpx - INFO - HTTP Request: HEAD https://huggingface.co/meta-llama/Llama-2-7b-hf/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-03-27 21:52:15,930 - httpx - INFO - HTTP Request: HEAD https://huggingface.co/meta-llama/Llama-2-7b-hf/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-03-27 21:52:15,968 - httpx - INFO - HTTP Request: HEAD https://huggingface.co/meta-llama/Llama-2-7b-hf/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-03-27 21:52:15,998 - httpx - INFO - HTTP Request: GET https://huggingface.co/api/models/meta-llama/Llama-2-7b-hf/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-03-27 21:52:16,029 - httpx - INFO - HTTP Request: GET https://huggingface.co/api/models/meta-llama/Llama-2-7b-hf/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-03-27 21:52:16,198 - __main__ - INFO - Using API engine: index=v4_olmo-mix-1124_llama
+2026-03-27 21:52:16,199 - __main__ - INFO - Querying corpus size from API (empty-string count)...
+2026-03-27 21:52:17,337 - __main__ - INFO - Corpus size (API, v4_olmo-mix-1124_llama): 4575475702047 tokens
+2026-03-27 21:52:17,340 - __main__ - INFO - ======================================================================
+2026-03-27 21:52:17,340 - __main__ - INFO - [1/8] Retrieving snippets for record id=30 (45 spans, resuming from 0)
+2026-03-27 21:53:37,332 - __main__ - INFO -   Span 10 / 45 done
+2026-03-27 21:55:04,689 - __main__ - INFO -   Span 20 / 45 done
+2026-03-27 21:56:22,512 - __main__ - INFO -   Span 30 / 45 done
+2026-03-27 21:57:54,044 - __main__ - INFO -   Span 40 / 45 done
+2026-03-27 21:58:26,050 - __main__ - INFO -   Done: 45 / 45 spans, 301 snippets, 368.7s
+2026-03-27 21:58:26,050 - __main__ - INFO -   Saving to results/olmo2_13b_instruct/e1_verbatim_standard.json ...
+2026-03-27 21:58:26,080 - __main__ - INFO - ======================================================================
+2026-03-27 21:58:26,080 - __main__ - INFO - [2/8] Retrieving snippets for record id=34 (46 spans, resuming from 0)
+2026-03-27 21:59:37,412 - __main__ - INFO -   Span 10 / 46 done
+2026-03-27 22:01:24,061 - __main__ - INFO -   Span 20 / 46 done
+2026-03-27 22:02:41,817 - __main__ - INFO -   Span 30 / 46 done
+2026-03-27 22:03:49,024 - __main__ - INFO -   Span 40 / 46 done
+2026-03-27 22:04:50,735 - __main__ - INFO -   Done: 46 / 46 spans, 315 snippets, 384.7s
+2026-03-27 22:04:50,735 - __main__ - INFO -   Saving to results/olmo2_13b_instruct/e1_verbatim_standard.json ...
+2026-03-27 22:04:50,774 - __main__ - INFO - ======================================================================
+2026-03-27 22:04:50,774 - __main__ - INFO - [3/8] Retrieving snippets for record id=38 (44 spans, resuming from 0)
+2026-03-27 22:06:09,580 - __main__ - INFO -   Span 10 / 44 done
+2026-03-27 22:07:35,819 - __main__ - INFO -   Span 20 / 44 done
+2026-03-27 22:09:03,161 - __main__ - INFO -   Span 30 / 44 done
+2026-03-27 22:10:13,543 - __main__ - INFO -   Span 40 / 44 done
+2026-03-27 22:11:00,362 - __main__ - INFO -   Done: 44 / 44 spans, 303 snippets, 369.6s
+2026-03-27 22:11:00,363 - __main__ - INFO -   Saving to results/olmo2_13b_instruct/e1_verbatim_standard.json ...
+2026-03-27 22:11:00,420 - __main__ - INFO - ======================================================================
+2026-03-27 22:11:00,420 - __main__ - INFO - [4/8] Retrieving snippets for record id=39 (44 spans, resuming from 0)
+2026-03-27 22:11:58,927 - __main__ - INFO -   Span 10 / 44 done
+2026-03-27 22:13:29,536 - __main__ - INFO -   Span 20 / 44 done
+2026-03-27 22:14:33,629 - __main__ - INFO -   Span 30 / 44 done
+2026-03-27 22:16:02,060 - __main__ - INFO -   Span 40 / 44 done
+2026-03-27 22:16:32,992 - __main__ - INFO -   Done: 44 / 44 spans, 268 snippets, 332.6s
+2026-03-27 22:16:32,992 - __main__ - INFO -   Saving to results/olmo2_13b_instruct/e1_verbatim_standard.json ...
+2026-03-27 22:16:33,047 - __main__ - INFO - ======================================================================
+2026-03-27 22:16:33,047 - __main__ - INFO - [5/8] Retrieving snippets for record id=44 (47 spans, resuming from 0)
+2026-03-27 22:17:50,756 - __main__ - INFO -   Span 10 / 47 done
+2026-03-27 22:18:50,607 - __main__ - INFO -   Span 20 / 47 done
+2026-03-27 22:19:56,794 - __main__ - INFO -   Span 30 / 47 done
+2026-03-27 22:21:02,093 - __main__ - INFO -   Span 40 / 47 done
+2026-03-27 22:21:54,313 - __main__ - INFO -   Done: 47 / 47 spans, 254 snippets, 321.3s
+2026-03-27 22:21:54,313 - __main__ - INFO -   Saving to results/olmo2_13b_instruct/e1_verbatim_standard.json ...
+2026-03-27 22:21:54,363 - __main__ - INFO - ======================================================================
+2026-03-27 22:21:54,363 - __main__ - INFO - [6/8] Retrieving snippets for record id=98 (38 spans, resuming from 0)
+2026-03-27 22:23:31,112 - __main__ - INFO -   Span 10 / 38 done
+2026-03-27 22:24:43,627 - __main__ - INFO -   Span 20 / 38 done
+2026-03-27 22:26:03,520 - __main__ - INFO -   Span 30 / 38 done
+2026-03-27 22:27:32,568 - __main__ - INFO -   Done: 38 / 38 spans, 270 snippets, 338.2s
+2026-03-27 22:27:32,568 - __main__ - INFO -   Saving to results/olmo2_13b_instruct/e1_verbatim_standard.json ...
+2026-03-27 22:27:32,622 - __main__ - INFO - ======================================================================
+2026-03-27 22:27:32,622 - __main__ - INFO - [7/8] Retrieving snippets for record id=178 (38 spans, resuming from 0)
+2026-03-27 22:28:44,060 - __main__ - INFO -   Span 10 / 38 done
+2026-03-27 22:30:00,792 - __main__ - INFO -   Span 20 / 38 done
+2026-03-27 22:31:04,953 - __main__ - INFO -   Span 30 / 38 done
+2026-03-27 22:32:00,425 - __main__ - INFO -   Done: 38 / 38 spans, 213 snippets, 267.8s
+2026-03-27 22:32:00,425 - __main__ - INFO -   Saving to results/olmo2_13b_instruct/e1_verbatim_standard.json ...
+2026-03-27 22:32:00,481 - __main__ - INFO - ======================================================================
+2026-03-27 22:32:00,481 - __main__ - INFO - [8/8] Retrieving snippets for record id=182 (41 spans, resuming from 0)
+2026-03-27 22:33:01,236 - __main__ - INFO -   Span 10 / 41 done
+2026-03-27 22:33:40,799 - __main__ - INFO -   Span 20 / 41 done
+2026-03-27 22:34:20,288 - __main__ - INFO -   Span 30 / 41 done
+2026-03-27 22:35:17,912 - __main__ - INFO -   Span 40 / 41 done
+2026-03-27 22:35:20,039 - __main__ - INFO -   Done: 41 / 41 spans, 146 snippets, 199.6s
+2026-03-27 22:35:20,040 - __main__ - INFO -   Saving to results/olmo2_13b_instruct/e1_verbatim_standard.json ...
+2026-03-27 22:35:20,099 - __main__ - INFO - ======================================================================
+2026-03-27 22:35:20,099 - __main__ - INFO - SUMMARY
+2026-03-27 22:35:20,099 - __main__ - INFO - ======================================================================
+2026-03-27 22:35:20,099 - __main__ - INFO -   Records with snippets: 8 / 8
+2026-03-27 22:35:20,099 - __main__ - INFO - === Finished at Fri Mar 27 10:35:20 PM  2026 ===
+2026-03-27 22:35:20,099 - __main__ - INFO - === Elapsed time: 0 days 00:43:04 (total 2584.329 seconds) ===
