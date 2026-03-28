@@ -157,16 +157,18 @@ def main():
                         rec_idx + 1, len(results), rec_id)
             continue
 
-        # Resume support: reuse already completed spans
+        # Resume support: reuse already completed spans (only count filled ones)
         existing_snippets = e1.get("ExampleSnippets", [])
-        if len(existing_snippets) >= len(top_k_spans):
+        filled = [s for s in existing_snippets if len(s.get("snippets", [])) > 0]
+        if len(filled) >= len(top_k_spans):
             logger.info("[%d/%d] Skipping record id=%s (all %d spans done)",
                         rec_idx + 1, len(results), rec_id, len(top_k_spans))
             continue
 
         response_ids = tokenizer.encode(rec.get("response", ""))
 
-        start_span_idx = len(existing_snippets)
+        start_span_idx = len(filled)
+
         logger.info("=" * 70)
         logger.info("[%d/%d] Retrieving snippets for record id=%s "
                     "(%d spans, resuming from %d)",
@@ -174,8 +176,8 @@ def main():
                     len(top_k_spans), start_span_idx)
 
         rec_start = time.time()
-        snippets_by_span = list(existing_snippets)  # keep previous results
-
+        snippets_by_span = list(filled)  # keep only filled results
+        
         RATE_LIMIT_COOLDOWN = 300   # 5 minutes
         MAX_SPAN_RETRIES = 5        # retry each span up to 5 times
 

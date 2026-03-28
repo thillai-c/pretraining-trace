@@ -161,8 +161,7 @@ class InfiniGramAPIEngine:
         }
         return self._post(payload)
 
-    def get_doc_by_rank(self, s: int, rank: int, max_disp_len: int = 80) -> dict:
-        """Retrieve a document snippet by shard index and rank."""
+    def get_doc_by_rank(self, s: int, rank: int, max_disp_len: int = 80, query_ids: list = None) -> dict:
         payload = {
             "index": self.index,
             "query_type": "get_doc_by_rank",
@@ -170,6 +169,8 @@ class InfiniGramAPIEngine:
             "rank": rank,
             "max_disp_len": max_disp_len,
         }
+        if query_ids is not None:
+            payload["query_ids"] = query_ids
         return self._post(payload)
 
 
@@ -462,7 +463,11 @@ def retrieve_snippets_for_span(engine, span_ids, max_docs, max_disp_len, tokeniz
             if docs_retrieved >= max_docs:
                 break
             try:
-                doc = engine.get_doc_by_rank(s=s, rank=rank, max_disp_len=max_disp_len)
+                if isinstance(engine, InfiniGramAPIEngine):
+                    doc = engine.get_doc_by_rank(s=s, rank=rank, max_disp_len=max_disp_len, query_ids=span_ids)
+                else:
+                    doc = engine.get_doc_by_rank(s=s, rank=rank, max_disp_len=max_disp_len)
+                    
                 if "error" in doc:
                     continue
 
