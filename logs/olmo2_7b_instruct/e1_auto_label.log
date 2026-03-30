@@ -1,0 +1,59 @@
+2026-03-29 20:54:43,868 - INFO - Logging to logs\olmo2_7b_instruct\e1_auto_label.log
+2026-03-29 20:54:43,868 - INFO - ======================================================================
+2026-03-29 20:54:43,868 - INFO - E1 LLM-Assisted Span-Level Safety Labeling
+2026-03-29 20:54:43,868 - INFO -   Model: olmo2-7b-instruct
+2026-03-29 20:54:43,868 - INFO -   LLM: gpt-5-mini
+2026-03-29 20:54:43,868 - INFO - ======================================================================
+2026-03-29 20:54:44,078 - INFO - Loaded 6 records from E1 results
+2026-03-29 20:54:44,081 - INFO - Compliant records: 6
+2026-03-29 20:54:44,082 - INFO -   id=30, rep_ratio=0.0319, pairs=98
+2026-03-29 20:54:44,084 - INFO -   id=31, rep_ratio=0.0156, pairs=127
+2026-03-29 20:54:44,085 - INFO -   id=38, rep_ratio=0.0215, pairs=124
+2026-03-29 20:54:44,086 - INFO -   id=39, rep_ratio=0.0242, pairs=78
+2026-03-29 20:54:44,088 - INFO -   id=182, rep_ratio=0.0327, pairs=99
+2026-03-29 20:54:44,089 - INFO -   id=196, rep_ratio=0.0024, pairs=105
+2026-03-29 20:54:44,100 - INFO - Batch JSONL written: results\olmo2_7b_instruct\batch\batch_input.jsonl
+2026-03-29 20:54:44,100 - INFO -   Records: 6, Total (span, snippet) pairs: 631
+2026-03-29 20:54:44,100 - INFO - Uploading batch file to OpenAI...
+2026-03-29 20:54:45,504 - INFO - HTTP Request: POST https://api.openai.com/v1/files "HTTP/1.1 200 OK"
+2026-03-29 20:54:45,507 - INFO -   File uploaded: id=file-E9233cvLLUQwAqxPyZg4Ry
+2026-03-29 20:54:45,507 - INFO - Creating batch...
+2026-03-29 20:54:46,246 - INFO - HTTP Request: POST https://api.openai.com/v1/batches "HTTP/1.1 200 OK"
+2026-03-29 20:54:46,250 - INFO -   Batch created: id=batch_69c9c9d595908190a9325f73c08ef66a, status=validating
+2026-03-29 20:54:46,250 - INFO - 
+2026-03-29 20:54:46,250 - INFO - ======================================================================
+2026-03-29 20:54:46,251 - INFO - BATCH SUBMITTED SUCCESSFULLY
+2026-03-29 20:54:46,251 - INFO -   Batch ID: batch_69c9c9d595908190a9325f73c08ef66a
+2026-03-29 20:54:46,251 - INFO -   To collect results, run:
+2026-03-29 20:54:46,251 - INFO -     python e1_auto_label.py --model olmo2-7b-instruct --collect --batch_id batch_69c9c9d595908190a9325f73c08ef66a
+2026-03-29 20:54:46,251 - INFO - ======================================================================
+2026-03-29 20:54:46,252 - INFO -   Batch metadata saved to results\olmo2_7b_instruct\batch\batch_metadata.json
+2026-03-29 21:42:07,366 - INFO - Logging to logs\olmo2_7b_instruct\e1_auto_label.log
+2026-03-29 21:42:07,366 - INFO - ======================================================================
+2026-03-29 21:42:07,366 - INFO - E1 LLM-Assisted Span-Level Safety Labeling
+2026-03-29 21:42:07,367 - INFO -   Model: olmo2-7b-instruct
+2026-03-29 21:42:07,367 - INFO -   LLM: gpt-5-mini
+2026-03-29 21:42:07,367 - INFO - ======================================================================
+2026-03-29 21:42:07,589 - INFO - Loaded 6 records from E1 results
+2026-03-29 21:42:07,590 - INFO - Compliant records: 6
+2026-03-29 21:42:07,592 - INFO -   id=30, rep_ratio=0.0319, pairs=98
+2026-03-29 21:42:07,593 - INFO -   id=31, rep_ratio=0.0156, pairs=127
+2026-03-29 21:42:07,595 - INFO -   id=38, rep_ratio=0.0215, pairs=124
+2026-03-29 21:42:07,597 - INFO -   id=39, rep_ratio=0.0242, pairs=78
+2026-03-29 21:42:07,598 - INFO -   id=182, rep_ratio=0.0327, pairs=99
+2026-03-29 21:42:07,599 - INFO -   id=196, rep_ratio=0.0024, pairs=105
+2026-03-29 21:42:07,606 - INFO - Loaded batch_id from metadata: batch_69c9c9d595908190a9325f73c08ef66a
+2026-03-29 21:42:07,607 - INFO - Checking batch status for batch_69c9c9d595908190a9325f73c08ef66a ...
+2026-03-29 21:42:08,252 - INFO - HTTP Request: GET https://api.openai.com/v1/batches/batch_69c9c9d595908190a9325f73c08ef66a "HTTP/1.1 200 OK"
+2026-03-29 21:42:08,256 - INFO -   Status: completed
+2026-03-29 21:42:08,256 - INFO -   Request counts: BatchRequestCounts(completed=6, failed=0, total=6)
+2026-03-29 21:42:08,256 - INFO -   Downloading output file: file-5Vbmz1j2SZ3NmW7xMWHkF4
+2026-03-29 21:42:08,776 - INFO - HTTP Request: GET https://api.openai.com/v1/files/file-5Vbmz1j2SZ3NmW7xMWHkF4/content "HTTP/1.1 200 OK"
+2026-03-29 21:42:09,367 - INFO -   Raw output saved to results\olmo2_7b_instruct\batch\batch_output.jsonl
+2026-03-29 21:42:09,387 - WARNING - Expected 99 labels, got 98
+2026-03-29 21:42:09,396 - INFO - ======================================================================
+2026-03-29 21:42:09,396 - INFO - COLLECTION COMPLETE
+2026-03-29 21:42:09,396 - INFO -   Total rows: 630
+2026-03-29 21:42:09,396 - INFO -   Errors: 0
+2026-03-29 21:42:09,397 - INFO -   CSV saved to: results\olmo2_7b_instruct\span_safety_labels.csv
+2026-03-29 21:42:09,397 - INFO - ======================================================================

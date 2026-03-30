@@ -177,8 +177,12 @@ def extract_unique_snippets(span_info):
             unique.append(snip)
     return unique
 
-def display_snippets(record, unique_spans, max_snippet_chars=None):
-    """Display a record's spans and snippets for labeling reference."""
+def display_snippets(record, span_idx=None, max_snippet_chars=None):
+    """Display a record's spans and snippets for labeling reference.
+
+    If span_idx is given, only that span is shown; otherwise all spans are displayed.
+    """
+    unique_spans = extract_unique_spans(record)
     rid = record['id']
     e1 = record['e1']
     prompt = record.get('prompt', '')
@@ -193,11 +197,21 @@ def display_snippets(record, unique_spans, max_snippet_chars=None):
     print(f"  VerbatimCoverage: {e1.get('VerbatimCoverage')}")
     print(f"  Maximal spans:    {e1.get('num_maximal_spans')}")
     print(f"  Top-K spans:      {e1.get('num_top_k_spans')}")
-    print(f"  Unique spans:     {len(unique_spans)}")
+    total_snippets = sum(s.get('num_snippets', 0) for s in unique_spans)
+    unique_snippets = sum(len(set(sn.get('snippet_text', '') for sn in s.get('snippets', []))) for s in unique_spans)
+    print(f"  Unique spans:     {len(unique_spans)}  ({unique_snippets} unique / {total_snippets} total snippets)")
     print(f"  Response tokens:  {e1.get('response_token_len', 'N/A')}")
     print("=" * 80)
 
-    for i, span_info in enumerate(unique_spans):
+    if span_idx is not None:
+        if span_idx < 0 or span_idx >= len(unique_spans):
+            print(f"\n[ERROR] span_idx={span_idx} out of range (0..{len(unique_spans)-1})")
+            return
+        display_spans = [(span_idx, unique_spans[span_idx])]
+    else:
+        display_spans = list(enumerate(unique_spans))
+
+    for i, span_info in display_spans:
         span_text = span_info.get('span_text', '')
         span_len = span_info.get('span_length', 0)
         span_begin = span_info.get('span_begin', '?')
@@ -235,22 +249,30 @@ def display_snippets(record, unique_spans, max_snippet_chars=None):
 
             doc_ix = snip.get('doc_ix', '?')
             doc_len = snip.get('doc_len', '?')
-            metadata = snip.get('metadata', '')
+            metadata = snip.get('metadata', None)
             count = snip_text_counts[snippet_text]
 
             print(f"\n    Snippet {shown} (appears {count}x):")
             print(f"      doc_ix:   {doc_ix}")
             print(f"      doc_len:  {doc_len} tokens")
             if metadata:
-                print(f"      metadata: {metadata}")
+                if isinstance(metadata, str):
+                    try:
+                        metadata = json.loads(metadata)
+                    except json.JSONDecodeError:
+                        pass
+                meta_str = json.dumps(metadata, indent=2, ensure_ascii=False)
+                indented = meta_str.replace('\n', '\n              ')
+                print(f"      metadata: {indented}")
             print(f"      text:     \"{display_text}\"")
 
             shown += 1
 
     print(f"\n{'=' * 80}")
-    total_snips = sum(s.get('num_snippets', 0) for s in unique_spans)
-    unique_total = sum(len(set(s.get('snippet_text', '') for s in sp.get('snippets', []))) for sp in unique_spans)
-    print(f"Total: {len(unique_spans)} unique spans, {unique_total} unique / {total_snips} total snippets")
+    shown_spans = [s for _, s in display_spans]
+    total_snips = sum(s.get('num_snippets', 0) for s in shown_spans)
+    unique_total = sum(len(set(s.get('snippet_text', '') for s in sp.get('snippets', []))) for sp in shown_spans)
+    print(f"Total: {len(shown_spans)} unique spans, {unique_total} unique / {total_snips} total snippets")
     print()
 
 # ============================================================
@@ -475,8 +497,35 @@ import pandas as pd
 from collections import OrderedDict
 
 
-def view_span(record_id: int, all_records, full_docs,
-              label_csv_path="span_safety_labels.csv", span_idx: int = None):
+MODELS = {
+    "olmo2-1b":           {"out_dir": "olmo2_1b"},
+    "olmo2-7b":           {"out_dir": "olmo2_7b"},
+    "olmo2-13b":          {"out_dir": "olmo2_13b"},
+    "olmo2-32b":          {"out_dir": "olmo2_32b"},
+    "olmo2-1b-instruct":  {"out_dir": "olmo2_1b_instruct"},
+    "olmo2-7b-instruct":  {"out_dir": "olmo2_7b_instruct"},
+    "olmo2-13b-instruct": {"out_dir": "olmo2_13b_instruct"},
+    "olmo2-32b-instruct": {"out_dir": "olmo2_32b_instruct"},
+}
+
+
+def view_span(record_id: int, all_records, full_docs=None,
+              label_csv_path=None, model=None, span_idx: int = None):
+    """Display spans with labels.
+
+    Args:
+        model: If given (e.g. "olmo2-7b-instruct"), auto-resolves label_csv_path
+               to results/{out_dir}/span_safety_labels_test.csv.
+        full_docs: Optional dict of full document texts. Skipped when None.
+        label_csv_path: Explicit CSV path. Overrides model-based resolution.
+    """
+    project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    if label_csv_path is None and model is not None:
+        out_dir = MODELS[model]["out_dir"]
+        label_csv_path = os.path.join(project_root, "results", out_dir, "span_safety_labels_test.csv")
+    elif label_csv_path is None:
+        label_csv_path = "span_safety_labels.csv"
+
     rec = next((r for r in all_records if r["id"] == record_id), None)
     assert rec is not None, (
         f"record_id={record_id} not found. "
@@ -499,12 +548,16 @@ def view_span(record_id: int, all_records, full_docs,
 
     print("=" * 80)
     print(f"  Record id={record_id}")
+    if model:
+        print(f"    Model:            {model}")
     print(f"    Prompt:           {rec['prompt']}")
     print(f"    Response:         {len(rec['response'])} chars")
     print(f"    LongestMatchLen:  {e1['LongestMatchLen']}")
     print(f"    Maximal spans:    {e1['num_maximal_spans']}")
     print(f"    Top-K spans:      {e1['num_top_k_spans']}")
-    print(f"    Unique spans:     {len(snippets_list)}")
+    total_snippets = sum(s.get('num_snippets', 0) for s in snippets_list)
+    unique_snippets = sum(len(set(sn.get('snippet_text', '') for sn in s.get('snippets', []))) for s in snippets_list)
+    print(f"    Unique spans:     {len(snippets_list)}  ({unique_snippets} unique / {total_snippets} total snippets)")
     print(f"    Response tokens:  {e1['response_token_len']}")
     print("=" * 80)
 
@@ -539,9 +592,6 @@ def view_span(record_id: int, all_records, full_docs,
             doc_len = rep["doc_len"]
             all_dixes = [s["doc_ix"] for s in snip_group]
 
-            doc_entry = full_docs.get(str(dix), {})
-            full_text = doc_entry.get("full_text", "—")
-
             ct = "(not yet labeled)"
             cs = "(not yet labeled)"
             for d in all_dixes:
@@ -563,8 +613,155 @@ def view_span(record_id: int, all_records, full_docs,
             print(f'      snippet_text:     "{snip_txt[:150]}"')
             print(f"      context_topic:    {ct}")
             print(f"      context_safety:   {cs}")
-            print(f"      - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -")
-            print(f'      full_doc:         "{full_text[:1500]}"')
+
+            if full_docs is not None:
+                doc_entry = full_docs.get(str(dix), {})
+                full_text = doc_entry.get("full_text", "—")
+                print(f"      - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -")
+                print(f'      full_doc:         "{full_text[:1500]}"')
+
+            print()
+            print(f"    {'=' * 56}")
+
+    print()
+    print("=" * 80)
+
+
+# ============================================================
+# Phase 4: Multi-LLM Label Comparison
+# ============================================================
+
+def compare_labels(record_id: int, all_records, model: str,
+                   llm_models: list[str], span_idx: int = None,
+                   human: bool = False):
+    """Compare labels from multiple LLM labelers (and optionally human) for the same record.
+
+    Args:
+        record_id: which record to display
+        all_records: list of record dicts
+        model: OLMo model key (e.g. "olmo2-7b-instruct")
+        llm_models: list of LLM model names (e.g. ["gpt-4.1-mini", "gpt-5-mini"])
+        span_idx: if given, show only this span
+        human: if True, also load and display human annotations
+    """
+    project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    out_dir = MODELS[model]["out_dir"]
+
+    rec = next((r for r in all_records if r["id"] == record_id), None)
+    assert rec is not None, f"record_id={record_id} not found."
+
+    e1 = rec["e1"]
+    snippets_list = e1["ExampleSnippets"]
+
+    if span_idx is not None:
+        assert 0 <= span_idx < len(snippets_list), (
+            f"span_idx={span_idx} out of range (0–{len(snippets_list)-1})")
+        span_indices = [span_idx]
+    else:
+        span_indices = list(range(len(snippets_list)))
+
+    label_dfs = {}
+
+    if human:
+        human_csv = os.path.join(project_root, "results", out_dir,
+                                 "span_safety_labels_test_human.csv")
+        if os.path.isfile(human_csv):
+            df_h = pd.read_csv(human_csv)
+            label_dfs["human"] = df_h[df_h["record_id"] == record_id].reset_index(drop=True)
+        else:
+            print(f"  [WARNING] Human CSV not found: {human_csv}")
+
+    for llm in llm_models:
+        csv_path = os.path.join(project_root, "results", out_dir, llm,
+                                "span_safety_labels_test.csv")
+        if os.path.isfile(csv_path):
+            df = pd.read_csv(csv_path)
+            label_dfs[llm] = df[df["record_id"] == record_id].reset_index(drop=True)
+        else:
+            print(f"  [WARNING] CSV not found for {llm}: {csv_path}")
+
+    short_names = {k: k if k == "human" else k.replace("gpt-", "")
+                   for k in label_dfs}
+
+    # Header
+    labelers = ", ".join(short_names.values())
+    print("=" * 80)
+    print(f"  Record id={record_id}  |  Model: {model}")
+    print(f"  Comparing: {labelers}")
+    print(f"    Prompt:           {rec['prompt']}")
+    print(f"    Response:         {len(rec['response'])} chars")
+    print(f"    LongestMatchLen:  {e1['LongestMatchLen']}")
+    print(f"    Unique spans:     {len(snippets_list)}")
+    print("=" * 80)
+
+    for si in span_indices:
+        span_info = snippets_list[si]
+        span_text = span_info["span_text"]
+        n_snip = span_info["num_snippets"]
+
+        grouped = OrderedDict()
+        for snip in span_info["snippets"]:
+            txt = snip["snippet_text"]
+            if txt not in grouped:
+                grouped[txt] = []
+            grouped[txt].append(snip)
+
+        # Collect span_safety_label from each LLM
+        span_labels = {}
+        for llm, df in label_dfs.items():
+            sub = df[df["span_idx"] == si]
+            if len(sub) > 0:
+                span_labels[llm] = sub.iloc[0]["span_safety_label"]
+            else:
+                span_labels[llm] = "—"
+
+        all_same = len(set(span_labels.values()) - {"—"}) <= 1
+
+        print()
+        print("-" * 60)
+        print(f"  Span {si} "
+              f"({len(grouped)} unique / {n_snip} total snippet(s))")
+        print(f'    span_text:          "{span_text}"')
+        print(f"    span_safety_label:  ", end="")
+        if all_same and span_labels:
+            first_val = next(v for v in span_labels.values() if v != "—")
+            print(f"{first_val}  (all agree)")
+        else:
+            parts = [f"{short_names[llm]}={v}" for llm, v in span_labels.items()]
+            print(" | ".join(parts) + "  *** DISAGREE ***")
+        print("-" * 60)
+
+        # Show each unique snippet
+        for i, (snip_txt, snip_group) in enumerate(grouped.items()):
+            appears = len(snip_group)
+            rep = snip_group[0]
+            dix = rep["doc_ix"]
+            doc_len = rep["doc_len"]
+            all_dixes = [s["doc_ix"] for s in snip_group]
+
+            print()
+            print(f"    Snippet {i} (appears {appears}x):")
+            print(f"      doc_ix:           {dix}", end="")
+            if appears > 1:
+                others = [str(d) for d in all_dixes[1:]]
+                print(f"  (also: {', '.join(others)})")
+            else:
+                print()
+            print(f"      doc_len:          {doc_len} tokens")
+            print(f'      snippet_text:     "{snip_txt[:150]}"')
+
+            # Labels from each LLM for this snippet
+            for llm, df in label_dfs.items():
+                row = df[(df["span_idx"] == si) & (df["doc_ix"] == dix)]
+                if len(row) > 0:
+                    r = row.iloc[0]
+                    ct = r.get("context_topic", "—")
+                    cs = r.get("context_safety", "—")
+                else:
+                    ct, cs = "—", "—"
+                print(f"      [{short_names[llm]:>10s}]  "
+                      f"ctx_safety={cs:<20s}  topic={ct}")
+
             print()
             print(f"    {'=' * 56}")
 

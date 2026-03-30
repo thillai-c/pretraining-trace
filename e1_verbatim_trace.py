@@ -481,7 +481,7 @@ def retrieve_snippets_for_span(engine, span_ids, max_docs, max_disp_len, tokeniz
                     # API mode: snippet text is in spans[0][0]
                     spans_data = doc.get("spans", [])
                     if spans_data and spans_data[0][0]:
-                        snippet_info["snippet_text"] = spans_data[0][0]
+                        snippet_info["snippet_text"] = "".join(spans_data[0])
                     else:
                         snippet_info["snippet_text"] = ""
                     snippet_info["snippet_token_ids"] = doc.get("token_ids", [])

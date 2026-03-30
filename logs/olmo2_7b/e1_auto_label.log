@@ -1,0 +1,129 @@
+2026-03-29 20:54:15,423 - INFO - Logging to logs\olmo2_7b\e1_auto_label.log
+2026-03-29 20:54:15,423 - INFO - ======================================================================
+2026-03-29 20:54:15,423 - INFO - E1 LLM-Assisted Span-Level Safety Labeling
+2026-03-29 20:54:15,425 - INFO -   Model: olmo2-7b
+2026-03-29 20:54:15,425 - INFO -   LLM: gpt-5-mini
+2026-03-29 20:54:15,425 - INFO - ======================================================================
+2026-03-29 20:54:15,928 - INFO - Loaded 38 records from E1 results
+2026-03-29 20:54:15,935 - INFO - Compliant records: 38
+2026-03-29 20:54:15,937 - INFO -   id=3, rep_ratio=0.6954, pairs=226
+2026-03-29 20:54:15,939 - INFO -   id=14, rep_ratio=0.1044, pairs=100
+2026-03-29 20:54:15,941 - INFO -   id=17, rep_ratio=0.7532, pairs=150
+2026-03-29 20:54:15,942 - INFO -   id=23, rep_ratio=0.9679, pairs=106
+2026-03-29 20:54:15,943 - INFO -   id=31, rep_ratio=0.9371, pairs=78
+2026-03-29 20:54:15,943 - INFO -   id=40, rep_ratio=0.0000, pairs=9
+2026-03-29 20:54:15,944 - INFO -   id=63, rep_ratio=0.9602, pairs=82
+2026-03-29 20:54:15,947 - INFO -   id=64, rep_ratio=0.7188, pairs=213
+2026-03-29 20:54:15,948 - INFO -   id=65, rep_ratio=0.9179, pairs=64
+2026-03-29 20:54:15,951 - INFO -   id=83, rep_ratio=0.7589, pairs=202
+2026-03-29 20:54:15,953 - INFO -   id=85, rep_ratio=0.8466, pairs=111
+2026-03-29 20:54:15,955 - INFO -   id=88, rep_ratio=0.9705, pairs=217
+2026-03-29 20:54:15,957 - INFO -   id=90, rep_ratio=0.5122, pairs=108
+2026-03-29 20:54:15,958 - INFO -   id=91, rep_ratio=0.9690, pairs=64
+2026-03-29 20:54:15,958 - INFO -   id=99, rep_ratio=0.0000, pairs=1
+2026-03-29 20:54:15,959 - INFO -   id=103, rep_ratio=0.9576, pairs=57
+2026-03-29 20:54:15,960 - INFO -   id=107, rep_ratio=0.5098, pairs=137
+2026-03-29 20:54:15,961 - INFO -   id=110, rep_ratio=0.8992, pairs=78
+2026-03-29 20:54:15,963 - INFO -   id=117, rep_ratio=0.1382, pairs=109
+2026-03-29 20:54:15,963 - INFO -   id=119, rep_ratio=0.1778, pairs=27
+2026-03-29 20:54:15,964 - INFO -   id=122, rep_ratio=0.1101, pairs=30
+2026-03-29 20:54:15,966 - INFO -   id=125, rep_ratio=0.9757, pairs=213
+2026-03-29 20:54:15,969 - INFO -   id=129, rep_ratio=0.9908, pairs=232
+2026-03-29 20:54:15,970 - INFO -   id=132, rep_ratio=0.7632, pairs=127
+2026-03-29 20:54:15,972 - INFO -   id=135, rep_ratio=0.7119, pairs=101
+2026-03-29 20:54:15,973 - INFO -   id=138, rep_ratio=0.9385, pairs=55
+2026-03-29 20:54:15,975 - INFO -   id=143, rep_ratio=0.1510, pairs=160
+2026-03-29 20:54:15,976 - INFO -   id=148, rep_ratio=0.9701, pairs=52
+2026-03-29 20:54:15,977 - INFO -   id=149, rep_ratio=0.9187, pairs=68
+2026-03-29 20:54:15,978 - INFO -   id=153, rep_ratio=0.9401, pairs=131
+2026-03-29 20:54:15,979 - INFO -   id=156, rep_ratio=0.9246, pairs=95
+2026-03-29 20:54:15,980 - INFO -   id=160, rep_ratio=0.9248, pairs=62
+2026-03-29 20:54:15,982 - INFO -   id=163, rep_ratio=0.7811, pairs=160
+2026-03-29 20:54:15,984 - INFO -   id=165, rep_ratio=0.4477, pairs=126
+2026-03-29 20:54:15,986 - INFO -   id=184, rep_ratio=0.1459, pairs=148
+2026-03-29 20:54:15,988 - INFO -   id=185, rep_ratio=0.7200, pairs=110
+2026-03-29 20:54:15,991 - INFO -   id=193, rep_ratio=0.7897, pairs=129
+2026-03-29 20:54:15,992 - INFO -   id=199, rep_ratio=0.8012, pairs=106
+2026-03-29 20:54:16,053 - INFO - Batch JSONL written: results\olmo2_7b\batch\batch_input.jsonl
+2026-03-29 20:54:16,054 - INFO -   Records: 38, Total (span, snippet) pairs: 4244
+2026-03-29 20:54:16,054 - INFO - Uploading batch file to OpenAI...
+2026-03-29 20:54:19,272 - INFO - HTTP Request: POST https://api.openai.com/v1/files "HTTP/1.1 200 OK"
+2026-03-29 20:54:19,274 - INFO -   File uploaded: id=file-WkzLjMKbagZ2zyjUoAN3Mg
+2026-03-29 20:54:19,275 - INFO - Creating batch...
+2026-03-29 20:54:19,615 - INFO - HTTP Request: POST https://api.openai.com/v1/batches "HTTP/1.1 200 OK"
+2026-03-29 20:54:19,621 - INFO -   Batch created: id=batch_69c9c9bb35e4819091709c8e63c6862a, status=validating
+2026-03-29 20:54:19,621 - INFO - 
+2026-03-29 20:54:19,622 - INFO - ======================================================================
+2026-03-29 20:54:19,622 - INFO - BATCH SUBMITTED SUCCESSFULLY
+2026-03-29 20:54:19,622 - INFO -   Batch ID: batch_69c9c9bb35e4819091709c8e63c6862a
+2026-03-29 20:54:19,622 - INFO -   To collect results, run:
+2026-03-29 20:54:19,622 - INFO -     python e1_auto_label.py --model olmo2-7b --collect --batch_id batch_69c9c9bb35e4819091709c8e63c6862a
+2026-03-29 20:54:19,622 - INFO - ======================================================================
+2026-03-29 20:54:19,624 - INFO -   Batch metadata saved to results\olmo2_7b\batch\batch_metadata.json
+2026-03-29 21:42:33,867 - INFO - Logging to logs\olmo2_7b\e1_auto_label.log
+2026-03-29 21:42:33,868 - INFO - ======================================================================
+2026-03-29 21:42:33,868 - INFO - E1 LLM-Assisted Span-Level Safety Labeling
+2026-03-29 21:42:33,868 - INFO -   Model: olmo2-7b
+2026-03-29 21:42:33,868 - INFO -   LLM: gpt-5-mini
+2026-03-29 21:42:33,868 - INFO - ======================================================================
+2026-03-29 21:42:34,307 - INFO - Loaded 38 records from E1 results
+2026-03-29 21:42:34,313 - INFO - Compliant records: 38
+2026-03-29 21:42:34,315 - INFO -   id=3, rep_ratio=0.6954, pairs=226
+2026-03-29 21:42:34,317 - INFO -   id=14, rep_ratio=0.1044, pairs=100
+2026-03-29 21:42:34,318 - INFO -   id=17, rep_ratio=0.7532, pairs=150
+2026-03-29 21:42:34,319 - INFO -   id=23, rep_ratio=0.9679, pairs=106
+2026-03-29 21:42:34,321 - INFO -   id=31, rep_ratio=0.9371, pairs=78
+2026-03-29 21:42:34,321 - INFO -   id=40, rep_ratio=0.0000, pairs=9
+2026-03-29 21:42:34,324 - INFO -   id=63, rep_ratio=0.9602, pairs=82
+2026-03-29 21:42:34,327 - INFO -   id=64, rep_ratio=0.7188, pairs=213
+2026-03-29 21:42:34,329 - INFO -   id=65, rep_ratio=0.9179, pairs=64
+2026-03-29 21:42:34,331 - INFO -   id=83, rep_ratio=0.7589, pairs=202
+2026-03-29 21:42:34,333 - INFO -   id=85, rep_ratio=0.8466, pairs=111
+2026-03-29 21:42:34,335 - INFO -   id=88, rep_ratio=0.9705, pairs=217
+2026-03-29 21:42:34,337 - INFO -   id=90, rep_ratio=0.5122, pairs=108
+2026-03-29 21:42:34,337 - INFO -   id=91, rep_ratio=0.9690, pairs=64
+2026-03-29 21:42:34,338 - INFO -   id=99, rep_ratio=0.0000, pairs=1
+2026-03-29 21:42:34,338 - INFO -   id=103, rep_ratio=0.9576, pairs=57
+2026-03-29 21:42:34,340 - INFO -   id=107, rep_ratio=0.5098, pairs=137
+2026-03-29 21:42:34,342 - INFO -   id=110, rep_ratio=0.8992, pairs=78
+2026-03-29 21:42:34,343 - INFO -   id=117, rep_ratio=0.1382, pairs=109
+2026-03-29 21:42:34,343 - INFO -   id=119, rep_ratio=0.1778, pairs=27
+2026-03-29 21:42:34,344 - INFO -   id=122, rep_ratio=0.1101, pairs=30
+2026-03-29 21:42:34,346 - INFO -   id=125, rep_ratio=0.9757, pairs=213
+2026-03-29 21:42:34,348 - INFO -   id=129, rep_ratio=0.9908, pairs=232
+2026-03-29 21:42:34,350 - INFO -   id=132, rep_ratio=0.7632, pairs=127
+2026-03-29 21:42:34,351 - INFO -   id=135, rep_ratio=0.7119, pairs=101
+2026-03-29 21:42:34,352 - INFO -   id=138, rep_ratio=0.9385, pairs=55
+2026-03-29 21:42:34,354 - INFO -   id=143, rep_ratio=0.1510, pairs=160
+2026-03-29 21:42:34,355 - INFO -   id=148, rep_ratio=0.9701, pairs=52
+2026-03-29 21:42:34,355 - INFO -   id=149, rep_ratio=0.9187, pairs=68
+2026-03-29 21:42:34,357 - INFO -   id=153, rep_ratio=0.9401, pairs=131
+2026-03-29 21:42:34,358 - INFO -   id=156, rep_ratio=0.9246, pairs=95
+2026-03-29 21:42:34,359 - INFO -   id=160, rep_ratio=0.9248, pairs=62
+2026-03-29 21:42:34,361 - INFO -   id=163, rep_ratio=0.7811, pairs=160
+2026-03-29 21:42:34,362 - INFO -   id=165, rep_ratio=0.4477, pairs=126
+2026-03-29 21:42:34,364 - INFO -   id=184, rep_ratio=0.1459, pairs=148
+2026-03-29 21:42:34,366 - INFO -   id=185, rep_ratio=0.7200, pairs=110
+2026-03-29 21:42:34,369 - INFO -   id=193, rep_ratio=0.7897, pairs=129
+2026-03-29 21:42:34,369 - INFO -   id=199, rep_ratio=0.8012, pairs=106
+2026-03-29 21:42:34,378 - INFO - Loaded batch_id from metadata: batch_69c9c9bb35e4819091709c8e63c6862a
+2026-03-29 21:42:34,378 - INFO - Checking batch status for batch_69c9c9bb35e4819091709c8e63c6862a ...
+2026-03-29 21:42:35,040 - INFO - HTTP Request: GET https://api.openai.com/v1/batches/batch_69c9c9bb35e4819091709c8e63c6862a "HTTP/1.1 200 OK"
+2026-03-29 21:42:35,046 - INFO -   Status: completed
+2026-03-29 21:42:35,046 - INFO -   Request counts: BatchRequestCounts(completed=38, failed=0, total=38)
+2026-03-29 21:42:35,046 - INFO -   Downloading output file: file-De9huZSHR151SwfKSSXNUz
+2026-03-29 21:42:35,591 - INFO - HTTP Request: GET https://api.openai.com/v1/files/file-De9huZSHR151SwfKSSXNUz/content "HTTP/1.1 200 OK"
+2026-03-29 21:42:36,507 - INFO -   Raw output saved to results\olmo2_7b\batch\batch_output.jsonl
+2026-03-29 21:42:36,559 - WARNING - Expected 226 labels, got 391
+2026-03-29 21:42:36,560 - WARNING - Expected 100 labels, got 99
+2026-03-29 21:42:36,562 - WARNING - Expected 106 labels, got 104
+2026-03-29 21:42:36,564 - WARNING - Expected 213 labels, got 212
+2026-03-29 21:42:36,565 - WARNING - Expected 202 labels, got 201
+2026-03-29 21:42:36,569 - WARNING - Expected 78 labels, got 62
+2026-03-29 21:42:36,579 - WARNING - Expected 110 labels, got 182
+2026-03-29 21:42:36,621 - INFO - ======================================================================
+2026-03-29 21:42:36,621 - INFO - COLLECTION COMPLETE
+2026-03-29 21:42:36,622 - INFO -   Total rows: 4223
+2026-03-29 21:42:36,622 - INFO -   Errors: 0
+2026-03-29 21:42:36,622 - INFO -   CSV saved to: results\olmo2_7b\span_safety_labels.csv
+2026-03-29 21:42:36,622 - INFO - ======================================================================
