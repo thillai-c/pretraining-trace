@@ -1,0 +1,135 @@
+2026-03-31 14:26:13,820 - __main__ - INFO - Logging to file: logs/olmo2_7b_instruct/e2_windowed_cooccurrence.log
+2026-03-31 14:26:13,821 - __main__ - INFO - === E2 Windowed Co-occurrence started at Tue Mar 31 02:26:13 PM  2026 ===
+2026-03-31 14:26:13,821 - __main__ - INFO - Arguments: {'model': 'olmo2-7b-instruct', 'config': 'standard', 'input': 'results/olmo2_7b_instruct/e1_verbatim_standard.json', 'output': 'results/olmo2_7b_instruct/e2_cooccurrence_standard.json', 'index_dir': None, 'api_index': 'v4_olmo-mix-1124_llama', 'tokenizer_name': 'meta-llama/Llama-2-7b-hf', 'windows': [100, 500, 1000], 'ngram_sizes': [2, 3, 4], 'max_concepts': 20, 'max_pairs': 50, 'max_clause_freq': None, 'limit': None, 'compliant_only': True, 'all_records': False}
+2026-03-31 14:26:13,821 - __main__ - INFO - Backend: HTTP API (--api_index=v4_olmo-mix-1124_llama)
+2026-03-31 14:26:13,821 - __main__ - INFO - Loading input from results/olmo2_7b_instruct/e1_verbatim_standard.json ...
+2026-03-31 14:26:13,869 - __main__ - INFO - Loaded 6 records total
+2026-03-31 14:26:13,870 - __main__ - INFO - Filtered to 6 compliant (hb_label=1) records
+2026-03-31 14:26:13,870 - __main__ - INFO - Loading tokenizer: meta-llama/Llama-2-7b-hf
+2026-03-31 14:26:13,953 - httpx - INFO - HTTP Request: HEAD https://huggingface.co/meta-llama/Llama-2-7b-hf/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-03-31 14:26:14,020 - httpx - INFO - HTTP Request: HEAD https://huggingface.co/meta-llama/Llama-2-7b-hf/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-03-31 14:26:14,049 - httpx - INFO - HTTP Request: HEAD https://huggingface.co/meta-llama/Llama-2-7b-hf/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-03-31 14:26:14,081 - httpx - INFO - HTTP Request: GET https://huggingface.co/api/models/meta-llama/Llama-2-7b-hf/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-03-31 14:26:14,110 - httpx - INFO - HTTP Request: GET https://huggingface.co/api/models/meta-llama/Llama-2-7b-hf/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-03-31 14:26:14,275 - __main__ - INFO - Using API engine: index=v4_olmo-mix-1124_llama
+2026-03-31 14:26:14,276 - __main__ - INFO - Querying corpus size from API (empty-string count)...
+2026-03-31 14:26:15,726 - __main__ - INFO - Corpus size (API, v4_olmo-mix-1124_llama): 4575475702047 tokens
+2026-03-31 14:26:15,726 - __main__ - INFO - CORPUS_SIZE = 4575475702047
+2026-03-31 14:26:15,726 - __main__ - INFO - Windows: [100, 500, 1000]
+2026-03-31 14:26:15,727 - __main__ - INFO - N-gram sizes: [2, 3, 4]
+2026-03-31 14:26:15,727 - __main__ - INFO - Max concepts per record: 20
+2026-03-31 14:26:15,727 - __main__ - INFO - Max pairs per record: 50
+2026-03-31 14:26:15,727 - __main__ - INFO - ======================================================================
+2026-03-31 14:26:15,727 - __main__ - INFO - [1/6] Processing record id=30
+2026-03-31 14:26:15,727 - __main__ - INFO -   Response length: 4025 chars
+2026-03-31 14:26:15,730 - __main__ - INFO -   Tokenized response: 898 tokens
+2026-03-31 14:26:15,730 - __main__ - INFO -   Step 1: Extracting enabling concepts...
+2026-03-31 14:26:15,843 - __main__ - INFO -     NER extracted 21 unique entities from response
+2026-03-31 14:27:50,122 - __main__ - INFO -     Selected 20 NER-based enabling concepts
+2026-03-31 14:27:50,123 - __main__ - INFO -   Step 2: Computing pairwise co-occurrence...
+2026-03-31 14:27:50,123 - __main__ - INFO -     Querying 50 concept pairs across 3 windows...
+2026-03-31 14:28:54,691 - __main__ - INFO -       Pair 20 / 50 done (60 queries so far)
+2026-03-31 14:29:58,730 - __main__ - INFO -       Pair 40 / 50 done (120 queries so far)
+2026-03-31 14:30:31,462 - __main__ - INFO -     Completed 150 CNF queries
+2026-03-31 14:30:31,462 - __main__ - INFO -   Window w=100: E2_cooc=8301882, nonzero=11/50, mean=217298.02
+2026-03-31 14:30:31,462 - __main__ - INFO -   Window w=500: E2_cooc=21136176, nonzero=12/50, mean=575786.7
+2026-03-31 14:30:31,477 - __main__ - INFO -   Window w=1000: E2_cooc=24014269, nonzero=12/50, mean=713090.5
+2026-03-31 14:30:31,477 - __main__ - INFO -   E2_support_score=16.9942, elapsed=255.7s
+2026-03-31 14:30:31,477 - __main__ - INFO -   Saving 1 results to results/olmo2_7b_instruct/e2_cooccurrence_standard.json ...
+2026-03-31 14:30:31,504 - __main__ - INFO - ======================================================================
+2026-03-31 14:30:31,504 - __main__ - INFO - [2/6] Processing record id=31
+2026-03-31 14:30:31,504 - __main__ - INFO -   Response length: 4739 chars
+2026-03-31 14:30:31,506 - __main__ - INFO -   Tokenized response: 1067 tokens
+2026-03-31 14:30:31,506 - __main__ - INFO -   Step 1: Extracting enabling concepts...
+2026-03-31 14:30:31,634 - __main__ - INFO -     NER extracted 27 unique entities from response
+2026-03-31 14:31:40,710 - __main__ - INFO -     Selected 20 NER-based enabling concepts
+2026-03-31 14:31:40,710 - __main__ - INFO -   Step 2: Computing pairwise co-occurrence...
+2026-03-31 14:31:40,711 - __main__ - INFO -     Querying 50 concept pairs across 3 windows...
+2026-03-31 14:32:46,110 - __main__ - INFO -       Pair 20 / 50 done (60 queries so far)
+2026-03-31 14:33:50,085 - __main__ - INFO -       Pair 40 / 50 done (120 queries so far)
+2026-03-31 14:34:22,247 - __main__ - INFO -     Completed 150 CNF queries
+2026-03-31 14:34:22,248 - __main__ - INFO -   Window w=100: E2_cooc=1359631, nonzero=20/50, mean=45723.32
+2026-03-31 14:34:22,248 - __main__ - INFO -   Window w=500: E2_cooc=4319755, nonzero=26/50, mean=133298.96
+2026-03-31 14:34:22,248 - __main__ - INFO -   Window w=1000: E2_cooc=5655070, nonzero=29/50, mean=199973.82
+2026-03-31 14:34:22,248 - __main__ - INFO -   E2_support_score=15.5481, elapsed=230.7s
+2026-03-31 14:34:22,248 - __main__ - INFO -   Saving 2 results to results/olmo2_7b_instruct/e2_cooccurrence_standard.json ...
+2026-03-31 14:34:22,278 - __main__ - INFO - ======================================================================
+2026-03-31 14:34:22,279 - __main__ - INFO - [3/6] Processing record id=38
+2026-03-31 14:34:22,279 - __main__ - INFO -   Response length: 4513 chars
+2026-03-31 14:34:22,281 - __main__ - INFO -   Tokenized response: 1029 tokens
+2026-03-31 14:34:22,281 - __main__ - INFO -   Step 1: Extracting enabling concepts...
+2026-03-31 14:34:22,403 - __main__ - INFO -     NER extracted 37 unique entities from response
+2026-03-31 14:35:30,606 - __main__ - INFO -     Selected 20 NER-based enabling concepts
+2026-03-31 14:35:30,606 - __main__ - INFO -   Step 2: Computing pairwise co-occurrence...
+2026-03-31 14:35:30,606 - __main__ - INFO -     Querying 50 concept pairs across 3 windows...
+2026-03-31 14:36:34,876 - __main__ - INFO -       Pair 20 / 50 done (60 queries so far)
+2026-03-31 14:37:39,078 - __main__ - INFO -       Pair 40 / 50 done (120 queries so far)
+2026-03-31 14:38:11,279 - __main__ - INFO -     Completed 150 CNF queries
+2026-03-31 14:38:11,279 - __main__ - INFO -   Window w=100: E2_cooc=97454, nonzero=15/50, mean=4324.96
+2026-03-31 14:38:11,279 - __main__ - INFO -   Window w=500: E2_cooc=179313, nonzero=20/50, mean=18221.76
+2026-03-31 14:38:11,279 - __main__ - INFO -   Window w=1000: E2_cooc=257343, nonzero=22/50, mean=25335.42
+2026-03-31 14:38:11,279 - __main__ - INFO -   E2_support_score=12.4582, elapsed=229.0s
+2026-03-31 14:38:11,279 - __main__ - INFO -   Saving 3 results to results/olmo2_7b_instruct/e2_cooccurrence_standard.json ...
+2026-03-31 14:38:11,323 - __main__ - INFO - ======================================================================
+2026-03-31 14:38:11,323 - __main__ - INFO - [4/6] Processing record id=39
+2026-03-31 14:38:11,323 - __main__ - INFO -   Response length: 4154 chars
+2026-03-31 14:38:11,325 - __main__ - INFO -   Tokenized response: 915 tokens
+2026-03-31 14:38:11,325 - __main__ - INFO -   Step 1: Extracting enabling concepts...
+2026-03-31 14:38:11,437 - __main__ - INFO -     NER extracted 16 unique entities from response
+2026-03-31 14:39:23,807 - __main__ - INFO -     Selected 16 NER-based enabling concepts
+2026-03-31 14:39:23,807 - __main__ - INFO -   Step 2: Computing pairwise co-occurrence...
+2026-03-31 14:39:23,808 - __main__ - INFO -     Querying 50 concept pairs across 3 windows...
+2026-03-31 14:40:28,641 - __main__ - INFO -       Pair 20 / 50 done (60 queries so far)
+2026-03-31 14:41:33,167 - __main__ - INFO -       Pair 40 / 50 done (120 queries so far)
+2026-03-31 14:42:05,309 - __main__ - INFO -     Completed 150 CNF queries
+2026-03-31 14:42:05,309 - __main__ - INFO -   Window w=100: E2_cooc=191101, nonzero=15/50, mean=6195.02
+2026-03-31 14:42:05,309 - __main__ - INFO -   Window w=500: E2_cooc=928733, nonzero=20/50, mean=28353.18
+2026-03-31 14:42:05,309 - __main__ - INFO -   Window w=1000: E2_cooc=1607923, nonzero=23/50, mean=56965.64
+2026-03-31 14:42:05,309 - __main__ - INFO -   E2_support_score=14.2905, elapsed=234.0s
+2026-03-31 14:42:05,309 - __main__ - INFO -   Saving 4 results to results/olmo2_7b_instruct/e2_cooccurrence_standard.json ...
+2026-03-31 14:42:05,364 - __main__ - INFO - ======================================================================
+2026-03-31 14:42:05,364 - __main__ - INFO - [5/6] Processing record id=182
+2026-03-31 14:42:05,365 - __main__ - INFO -   Response length: 3436 chars
+2026-03-31 14:42:05,367 - __main__ - INFO -   Tokenized response: 816 tokens
+2026-03-31 14:42:05,367 - __main__ - INFO -   Step 1: Extracting enabling concepts...
+2026-03-31 14:42:05,477 - __main__ - INFO -     NER extracted 6 unique entities from response
+2026-03-31 14:42:36,806 - __main__ - INFO -     Selected 6 NER-based enabling concepts
+2026-03-31 14:42:36,806 - __main__ - INFO -   Step 2: Computing pairwise co-occurrence...
+2026-03-31 14:42:36,806 - __main__ - INFO -     Querying 15 concept pairs across 3 windows...
+2026-03-31 14:43:25,378 - __main__ - INFO -     Completed 45 CNF queries
+2026-03-31 14:43:25,378 - __main__ - INFO -   Window w=100: E2_cooc=1159, nonzero=1/15, mean=77.27
+2026-03-31 14:43:25,378 - __main__ - INFO -   Window w=500: E2_cooc=193696784, nonzero=3/15, mean=14122909.67
+2026-03-31 14:43:25,378 - __main__ - INFO -   Window w=1000: E2_cooc=193696784, nonzero=4/15, mean=24301280.87
+2026-03-31 14:43:25,378 - __main__ - INFO -   E2_support_score=19.0818, elapsed=80.0s
+2026-03-31 14:43:25,378 - __main__ - INFO -   Saving 5 results to results/olmo2_7b_instruct/e2_cooccurrence_standard.json ...
+2026-03-31 14:43:25,439 - __main__ - INFO - ======================================================================
+2026-03-31 14:43:25,439 - __main__ - INFO - [6/6] Processing record id=196
+2026-03-31 14:43:25,440 - __main__ - INFO -   Response length: 3110 chars
+2026-03-31 14:43:25,441 - __main__ - INFO -   Tokenized response: 705 tokens
+2026-03-31 14:43:25,441 - __main__ - INFO -   Step 1: Extracting enabling concepts...
+2026-03-31 14:43:25,533 - __main__ - INFO -     NER extracted 1 unique entities from response
+2026-03-31 14:43:25,534 - __main__ - WARNING -     Too few NER entities (1), falling back to n-gram rarity.
+2026-03-31 14:43:25,534 - __main__ - INFO -     [fallback] Generated 2109 n-gram candidates (sizes=[2, 3, 4])
+2026-03-31 14:49:38,700 - __main__ - INFO -     [fallback] Selected 20 n-gram concepts
+2026-03-31 14:49:38,701 - __main__ - INFO -   Step 2: Computing pairwise co-occurrence...
+2026-03-31 14:49:38,701 - __main__ - INFO -     Querying 50 concept pairs across 3 windows...
+2026-03-31 14:50:43,311 - __main__ - INFO -       Pair 20 / 50 done (60 queries so far)
+2026-03-31 14:51:47,123 - __main__ - INFO -       Pair 40 / 50 done (120 queries so far)
+2026-03-31 14:52:19,056 - __main__ - INFO -     Completed 150 CNF queries
+2026-03-31 14:52:19,057 - __main__ - INFO -   Window w=100: E2_cooc=0, nonzero=0/50, mean=0.0
+2026-03-31 14:52:19,057 - __main__ - INFO -   Window w=500: E2_cooc=0, nonzero=0/50, mean=0.0
+2026-03-31 14:52:19,057 - __main__ - INFO -   Window w=1000: E2_cooc=0, nonzero=0/50, mean=0.0
+2026-03-31 14:52:19,057 - __main__ - INFO -   E2_support_score=0.0000, elapsed=533.6s
+2026-03-31 14:52:19,057 - __main__ - INFO -   Saving 6 results to results/olmo2_7b_instruct/e2_cooccurrence_standard.json ...
+2026-03-31 14:52:19,135 - __main__ - INFO - ======================================================================
+2026-03-31 14:52:19,135 - __main__ - INFO - SUMMARY
+2026-03-31 14:52:19,135 - __main__ - INFO - ======================================================================
+2026-03-31 14:52:19,135 - __main__ - INFO -   Total processed: 6
+2026-03-31 14:52:19,136 - __main__ - INFO -   Successful: 6
+2026-03-31 14:52:19,136 - __main__ - INFO -   Errors: 0
+2026-03-31 14:52:19,136 - __main__ - INFO -   Window w=100: E2_cooc max=8301882, mean=1658537.8, nonzero=5/6 records
+2026-03-31 14:52:19,136 - __main__ - INFO -   Window w=500: E2_cooc max=193696784, mean=36710126.8, nonzero=5/6 records
+2026-03-31 14:52:19,136 - __main__ - INFO -   Window w=1000: E2_cooc max=193696784, mean=37538564.8, nonzero=5/6 records
+2026-03-31 14:52:19,136 - __main__ - INFO -   E2_support_score: min=0.0000, max=19.0818, mean=13.0621
+2026-03-31 14:52:19,136 - __main__ - INFO - === Job finished at Tue Mar 31 02:52:19 PM  2026 ===
+2026-03-31 14:52:19,136 - __main__ - INFO - === Elapsed time: 0 days 00:26:05 (total 1565.315 seconds) ===

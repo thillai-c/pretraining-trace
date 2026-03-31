@@ -28,8 +28,15 @@ fi
 cd /gpfs/scratch/solhapark/pretraining-trace
 
 # # Full run (all 200 records, multiple windows)
+# python e2_windowed_cooccurrence.py \
+#     --model gpt-j \
+#     --index_dir ./index \
+#     --windows 100 500 1000 1024 2048 \
+#     --all_records
+
+# OLMo 2 (API engine)
 python e2_windowed_cooccurrence.py \
-    --model gpt-j \
-    --index_dir ./index \
-    --windows 100 500 1000 1024 2048 \
-    --all_records
+    --model olmo2-7b \
+    --api_index v4_olmo-mix-1124_llama \
+    --compliant_only \
+    --windows 100 500 1000

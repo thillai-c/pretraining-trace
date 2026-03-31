@@ -35,6 +35,8 @@ Usage:
         --api_index v4_olmo-mix-1124_llama \
         --compliant_only \
         --windows 100 500 1000
+    
+    python e2_windowed_cooccurrence.py --model olmo2-7b-instruct --api_index v4_olmo-mix-1124_llama --compliant_only --windows 100 500 1000
 """
 
 import argparse
