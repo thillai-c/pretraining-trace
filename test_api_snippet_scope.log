@@ -1,0 +1,49 @@
+======================================================================
+  Step 1: find() — Locate span in corpus
+======================================================================
+  Span: "regime of President Bashar al-Assad.
+
+The"
+  Token IDs: [22384, 310, 7178, 29677, 279, 394, 29899, 7900, 328, 29889, 13, 13, 1576]
+  Corpus occurrences: 846
+  Using shard=0, rank=206941333657
+
+======================================================================
+  Step 2: get_doc_by_rank(max_disp_len=150)
+======================================================================
+  disp_len (total tokens retrieved): 150
+  needle_offset (span starts at token): 75
+  token_ids returned: 13 (span itself = 13 tokens)
+  spans structure: 3 element(s)
+
+======================================================================
+  Step 3: What does spans[0] contain?
+======================================================================
+  spans[0][0]: 315 chars
+    First 80 chars: "creasingly, the area where the camp is located has become a haven for the Sunni "
+    Last  80 chars: "spread throughout Lebanon where the Iranian-backed Hezbollah supports the Syrian"
+  spans[0][1]: None
+
+======================================================================
+  Step 4: Does snippet contain the span text?
+======================================================================
+  Span in snippet_text: False
+  Span in snippet_text (cleaned): False
+
+======================================================================
+  Step 5: Token budget breakdown
+======================================================================
+  max_disp_len requested:  150
+  disp_len returned:       150
+  ┌─ pre-span context:     75 tokens  → returned as spans[0][0]
+  ├─ span itself:          13 tokens  → returned as token_ids only
+  └─ post-span context:    62 tokens  → NOT returned
+
+======================================================================
+  CONCLUSION
+======================================================================
+  The API retrieves 150 tokens centered around the span,
+  but only returns the PRE-SPAN context (75 tokens) as text.
+  The span itself (13 tokens) is returned as token_ids only.
+  The post-span context (62 tokens) is NOT returned at all.
+  → snippet_text = pre-span context only (spans[0][0])
