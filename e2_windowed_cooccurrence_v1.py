@@ -11,29 +11,16 @@ co-occurring 'enabling concepts' (key phrases/entities/verbs) within a context
 window, making recombination plausible.
 
 Method:
-  - Load LLM-extracted enabling concepts from e2_concepts.json
-    (produced by e2_extract_concepts.py).
+  - Extract key phrases (n-grams) from the response as "enabling concepts".
   - For each pair of concepts, query infini-gram with a CNF (AND) query:
     count_cnf([[phrase_A], [phrase_B]], max_diff_tokens=w)
   - This counts how many times phrase_A AND phrase_B appear within w tokens
     of each other in the corpus.
   - Repeat for multiple window sizes (e.g., 100, 500, 1000, 2048 tokens).
 
-Pipeline:
-  Step 1: Run e2_extract_concepts.py to produce e2_concepts.json (LLM-based).
-  Step 2: Run this script to compute pairwise co-occurrence over the
-          extracted concepts.
-
-E1 vs. E2 independence:
-  Concept extraction (e2_extract_concepts.py) operates on the full response
-  and is NOT constrained by E1 verbatim trace results. This script consumes
-  those concepts and queries infini-gram. The two evidence layers (E1 and E2)
-  remain statistically independent.
-
 Reference:
   - Project Overview: E2 definitions (Windowed Co-occurrence)
   - infini-gram CNF query API: count_cnf, find_cnf, search_docs_cnf
-  - e2_extract_concepts.py: upstream concept extraction (LLM-based)
 
 Usage:
     # GPT-J (local engine, Pile-train index, custom windows)
@@ -48,7 +35,7 @@ Usage:
         --api_index v4_olmo-mix-1124_llama \
         --compliant_only \
         --windows 100 500 1000
-
+    
     python e2_windowed_cooccurrence.py --model olmo2-13b-instruct --api_index v4_olmo-mix-1124_llama --compliant_only --windows 100 500 1000
 """
 
@@ -74,6 +61,7 @@ if PKG_DIR not in sys.path:
     sys.path.insert(0, PKG_DIR)
 
 from transformers import AutoTokenizer
+import spacy
 
 
 # Model configuration
@@ -258,10 +246,6 @@ def parse_args():
                         help="Input JSON (E1 results with e1 field). "
                              "Default: results/{model_dir}/"
                              "e1_verbatim_{config}.json")
-    parser.add_argument("--concepts_input", type=str, default=None,
-                        help="LLM-extracted concepts JSON (from "
-                             "e2_extract_concepts.py). "
-                             "Default: results/{model_dir}/e2_concepts.json")
     parser.add_argument("--output", type=str, default=None,
                         help="Output JSON with E2 results appended. "
                              "Default: results/{model_dir}/"
@@ -285,10 +269,16 @@ def parse_args():
                         default=[100, 500, 1000],
                         help="Window sizes (max_diff_tokens) to test "
                              "(default: 100 500 1000)")
-    parser.add_argument("--max_pairs", type=int, default=None,
+    parser.add_argument("--ngram_sizes", type=int, nargs="+",
+                        default=[2, 3, 4],
+                        help="N-gram sizes to extract as enabling concepts "
+                             "(default: 2 3 4)")
+    parser.add_argument("--max_concepts", type=int, default=20,
+                        help="Maximum number of enabling concepts to extract "
+                             "per record (default: 20)")
+    parser.add_argument("--max_pairs", type=int, default=50,
                         help="Maximum number of concept pairs to query "
-                             "per record. Default: None (no limit, query all "
-                             "C(n,2) pairs)")
+                             "per record (default: 50)")
     parser.add_argument("--max_clause_freq", type=int, default=None,
                         help="Max clause frequency for CNF queries "
                              "(default: None = no limit)")
@@ -310,11 +300,6 @@ def parse_args():
         args.input = os.path.join(
             "results", model_dir,
             f"e1_verbatim_{args.config}.json"
-        )
-    if args.concepts_input is None:
-        args.concepts_input = os.path.join(
-            "results", model_dir,
-            "e2_concepts.json"
         )
     if args.output is None:
         args.output = os.path.join(
@@ -391,174 +376,164 @@ def init_engine(args, tokenizer, logger):
 
 
 # ===========================================================================
-# Concept loading & token-id conversion
+# Enabling concept extraction
 # ===========================================================================
-# Concepts are pre-extracted by e2_extract_concepts.py (LLM-based) and
-# loaded here from a JSON file. We then convert each concept text into
-# token IDs and locate its position within the response token sequence.
+# Load spaCy model once at module level
+try:
+    _NLP = spacy.load("en_core_web_lg", disable=["parser", "lemmatizer"])
+except OSError:
+    _NLP = None
 
-def load_concepts_from_extraction(concepts_path, logger):
-    """Load LLM-extracted concepts from e2_concepts.json.
 
-    Returns
-    -------
-    concepts_by_id : dict[int, dict]
-        Map from record_id to a dict with the form
-        {"concepts": [{"text": str, "rationale": str}, ...],
-         "extraction_model": str,
-         "extraction_notes": str}
+def extract_enabling_concepts(engine, response_ids, tokenizer, ngram_sizes,
+                              max_concepts, corpus_size, logger):
     """
-    if not os.path.isfile(concepts_path):
-        logger.error("Concepts file not found: %s", concepts_path)
-        logger.error("Run e2_extract_concepts.py first to produce this file.")
-        sys.exit(1)
+    Extract 'enabling concepts' from the response using Named Entity Recognition (NER).
 
-    with open(concepts_path, "r", encoding="utf-8") as f:
-        rows = json.load(f)
+    Strategy:
+      1. Decode response tokens back to text.
+      2. Run spaCy NER to extract named entities (PERSON, ORG, GPE, etc.).
+      3. Deduplicate entities (keep first occurrence of each unique text).
+      4. Tokenize each entity back to token IDs for CNF queries.
+      5. If NER yields fewer than 2 entities, fall back to n-gram rarity.
 
-    concepts_by_id = {}
-    for row in rows:
-        rec_id = row.get("id")
-        if rec_id is None:
+    Returns:
+      List of dicts:
+        [{"ngram_ids": [...], "text": "...", "score": float,
+          "position": int, "length": int, "ner_label": str}, ...]
+    """
+    if _NLP is None:
+        logger.warning("    spaCy model not available, falling back to n-gram rarity.")
+        return _extract_ngram_concepts(engine, response_ids, tokenizer,
+                                       ngram_sizes, max_concepts, corpus_size, logger)
+
+    # Step 1: Decode response to text
+    response_text = tokenizer.decode(response_ids, skip_special_tokens=True)
+
+    # Step 2: Run NER
+    doc = _NLP(response_text)
+
+    # Step 3: Deduplicate and collect entities
+    seen_texts = set()
+    entities = []
+    for ent in doc.ents:
+        ent_text = ent.text.strip()
+        # Skip very short entities (1-2 chars) or already seen
+        if len(ent_text) <= 2 or ent_text.lower() in seen_texts:
             continue
-        concepts_by_id[rec_id] = {
-            "concepts": row.get("concepts", []),
-            "extraction_model": row.get("extraction_model", "unknown"),
-            "extraction_notes": row.get("extraction_notes", ""),
-        }
+        seen_texts.add(ent_text.lower())
+        entities.append({
+            "text": ent_text,
+            "ner_label": ent.label_,
+            "char_start": ent.start_char,
+        })
 
-    logger.info("Loaded LLM-extracted concepts for %d records from %s",
-                len(concepts_by_id), concepts_path)
-    return concepts_by_id
+    logger.info("    NER extracted %d unique entities from response", len(entities))
+
+    if len(entities) < 2:
+        logger.warning("    Too few NER entities (%d), falling back to n-gram rarity.",
+                        len(entities))
+        return _extract_ngram_concepts(engine, response_ids, tokenizer,
+                                       ngram_sizes, max_concepts, corpus_size, logger)
+
+    # Step 4: Tokenize each entity and find approximate position in response_ids
+    concepts = []
+    for ent in entities[:max_concepts]:
+        ent_ids = tokenizer.encode(ent["text"])
+        # Remove BOS token if tokenizer adds one
+        if ent_ids and ent_ids[0] == tokenizer.bos_token_id:
+            ent_ids = ent_ids[1:]
+        if not ent_ids:
+            continue
+
+        # Find position: search for entity token IDs in response_ids
+        position = _find_subsequence(response_ids, ent_ids)
+
+        # Compute rarity score (same formula as before, for comparability)
+        score = 0.0
+        for tid in ent_ids:
+            result = engine.count(input_ids=[tid])
+            count = result.get("count", 1)
+            score += math.log(max(count, 1) / corpus_size)
+
+        concepts.append({
+            "ngram_ids": ent_ids,
+            "text": ent["text"],
+            "score": round(score, 4),
+            "position": position,
+            "length": len(ent_ids),
+            "ner_label": ent.get("ner_label", ""),
+        })
+
+    # Sort by rarity (most rare first)
+    concepts.sort(key=lambda x: x["score"])
+
+    logger.info("    Selected %d NER-based enabling concepts", len(concepts))
+    return concepts
 
 
 def _find_subsequence(sequence, subsequence):
-    """Find the first occurrence of subsequence in sequence.
-    Returns index or -1."""
+    """Find the first occurrence of subsequence in sequence. Returns index or -1."""
     sub_len = len(subsequence)
-    if sub_len == 0:
-        return -1
     for i in range(len(sequence) - sub_len + 1):
         if sequence[i:i + sub_len] == subsequence:
             return i
     return -1
 
 
-def _concept_text_to_ids_and_position(concept_text, response_text, response_ids,
-                                      tokenizer):
-    """Convert a concept string into token IDs and locate its position.
+def _extract_ngram_concepts(engine, response_ids, tokenizer, ngram_sizes,
+                            max_concepts, corpus_size, logger):
+    """Fallback: original n-gram rarity-based concept extraction."""
+    L = len(response_ids)
+    unigram_cache = {}
 
-    Strategy
-    --------
-    1. Tokenize ``concept_text`` directly.
-    2. Search for the resulting token sequence in ``response_ids``
-       (token-level subsequence match).
-    3. If not found, fall back to a case-insensitive substring search in
-       the decoded response text, then tokenize the matched substring
-       using its leading whitespace context (so that BPE merges align).
-    4. If still not found, return position = -1 but still return the
-       token IDs (they may still produce non-zero counts in infini-gram).
-
-    Returns
-    -------
-    (token_ids, position) : (list[int], int)
-        token_ids may be empty if tokenization failed entirely.
-        position is -1 if the concept was not located in response_ids.
-    """
-    # Step 1: direct tokenization
-    token_ids = tokenizer.encode(concept_text, add_special_tokens=False)
-
-    # Some tokenizers may still inject a BOS — strip if present
-    if token_ids and tokenizer.bos_token_id is not None \
-            and token_ids[0] == tokenizer.bos_token_id:
-        token_ids = token_ids[1:]
-
-    if not token_ids:
-        return [], -1
-
-    # Step 2: token-level subsequence match
-    position = _find_subsequence(response_ids, token_ids)
-    if position >= 0:
-        return token_ids, position
-
-    # Step 3: case-insensitive substring fallback
-    lower_response = response_text.lower()
-    lower_concept = concept_text.lower()
-    char_pos = lower_response.find(lower_concept)
-    if char_pos >= 0:
-        # Re-tokenize using the original-case substring from response
-        substring = response_text[char_pos:char_pos + len(concept_text)]
-        # Try with a leading space to encourage BPE alignment
-        for trial in (" " + substring, substring):
-            trial_ids = tokenizer.encode(trial, add_special_tokens=False)
-            if trial_ids and tokenizer.bos_token_id is not None \
-                    and trial_ids[0] == tokenizer.bos_token_id:
-                trial_ids = trial_ids[1:]
-            if trial_ids:
-                pos = _find_subsequence(response_ids, trial_ids)
-                if pos >= 0:
-                    return trial_ids, pos
-
-    # Step 4: not found — return original token_ids with position = -1
-    return token_ids, -1
-
-
-def prepare_concepts_for_record(record_id, concepts_by_id, response_text,
-                                 response_ids, tokenizer, logger):
-    """Convert LLM-extracted concept strings into the dict format that
-    compute_pairwise_cooccurrence expects.
-
-    Each output dict has keys:
-        ngram_ids   : list[int]   — token IDs for CNF query
-        text        : str         — original concept text
-        rationale   : str         — LLM rationale for extracting this concept
-        position    : int         — token position in response (-1 if not found)
-        length      : int         — number of tokens in the concept
-    """
-    entry = concepts_by_id.get(record_id)
-    if entry is None:
-        logger.warning("    No extracted concepts for record id=%s", record_id)
-        return [], {"extraction_model": "unknown", "extraction_notes": ""}
-
-    raw_concepts = entry["concepts"]
-    extraction_meta = {
-        "extraction_model": entry["extraction_model"],
-        "extraction_notes": entry["extraction_notes"],
-    }
-
-    prepared = []
-    n_unmatched = 0
-    n_empty = 0
-    for c in raw_concepts:
-        text = (c.get("text") or "").strip()
-        rationale = c.get("rationale", "")
-        if not text:
-            n_empty += 1
+    candidates = []
+    for n in ngram_sizes:
+        if L < n:
             continue
+        for i in range(L - n + 1):
+            ngram_ids = tuple(response_ids[i:i + n])
+            candidates.append((ngram_ids, i, n))
 
-        token_ids, position = _concept_text_to_ids_and_position(
-            text, response_text, response_ids, tokenizer
-        )
+    logger.info("    [fallback] Generated %d n-gram candidates (sizes=%s)",
+                len(candidates), ngram_sizes)
 
-        if not token_ids:
-            n_empty += 1
+    seen_ngrams = set()
+    scored = []
+    for (ngram_ids, pos, n) in candidates:
+        if ngram_ids in seen_ngrams:
             continue
+        seen_ngrams.add(ngram_ids)
 
-        if position < 0:
-            n_unmatched += 1
+        score = 0.0
+        for tid in ngram_ids:
+            if tid not in unigram_cache:
+                result = engine.count(input_ids=[tid])
+                unigram_cache[tid] = result.get("count", 1)
+            score += math.log(max(unigram_cache[tid], 1) / corpus_size)
+        scored.append((ngram_ids, pos, score))
 
-        prepared.append({
-            "ngram_ids": token_ids,
+    scored.sort(key=lambda x: x[2])
+    top_concepts = scored[:max_concepts]
+
+    logger.info("    [fallback] Selected %d n-gram concepts", len(top_concepts))
+
+    concepts = []
+    for (ngram_ids, pos, score) in top_concepts:
+        text = ""
+        try:
+            text = tokenizer.decode(list(ngram_ids), skip_special_tokens=False)
+        except Exception:
+            pass
+        concepts.append({
+            "ngram_ids": list(ngram_ids),
             "text": text,
-            "rationale": rationale,
-            "position": position,
-            "length": len(token_ids),
+            "score": round(score, 4),
+            "position": pos,
+            "length": len(ngram_ids),
         })
 
-    logger.info("    Loaded %d LLM concepts for record id=%s "
-                "(unmatched position: %d, empty: %d)",
-                len(prepared), record_id, n_unmatched, n_empty)
-    return prepared, extraction_meta
+    return concepts
 
 
 # ===========================================================================
@@ -576,23 +551,12 @@ def compute_pairwise_cooccurrence(engine, concepts, windows, max_pairs,
     This counts positions where phrase_A AND phrase_B appear within w tokens.
     Works identically for local engine and API engine — both expose count_cnf() with the same interface.
 
-    Parameters
-    ----------
-    max_pairs : int or None
-        Maximum number of concept pairs to query. If None, query ALL
-        C(n, 2) pairs (no limit). If an integer, take the first N pairs
-        (note: with LLM-based extraction, concepts are NOT pre-sorted by
-        rarity, so the first N pairs are simply the lexicographically
-        first pairs).
-
     Returns:
       {
         "pairs": [
           {
-            "concept_a_idx": int,                  # index into concepts list
-            "concept_b_idx": int,                  # index into concepts list
-            "concept_a": {"text": ..., "ngram_ids": ..., "position": ..., "rationale": ...},
-            "concept_b": {"text": ..., "ngram_ids": ..., "position": ..., "rationale": ...},
+            "concept_a": {"text": ..., "ngram_ids": ...},
+            "concept_b": {"text": ..., "ngram_ids": ...},
             "counts_by_window": {100: {"count": N, "approx": bool}, ...}
           },
           ...
@@ -603,11 +567,11 @@ def compute_pairwise_cooccurrence(engine, concepts, windows, max_pairs,
         }
       }
     """
-    # Generate all pairs; only truncate if max_pairs is set
+    # Generate all pairs, limit to max_pairs
     all_pairs = list(combinations(range(len(concepts)), 2))
-    if max_pairs is not None and len(all_pairs) > max_pairs:
-        logger.info("    Truncating pairs from %d to %d (--max_pairs)",
-                    len(all_pairs), max_pairs)
+    if len(all_pairs) > max_pairs:
+        # Concepts is already sorted by rarity (most rare first)
+        # So, slicing [:max_pairs] therefore prioritizes pairs that involve the rarest concepts.
         all_pairs = all_pairs[:max_pairs]
 
     logger.info("    Querying %d concept pairs across %d windows...",
@@ -649,20 +613,10 @@ def compute_pairwise_cooccurrence(engine, concepts, windows, max_pairs,
                 query_count += 1
 
         pair_results.append({
-            "concept_a_idx": i,
-            "concept_b_idx": j,
-            "concept_a": {
-                "text": ca["text"],
-                "ngram_ids": ca["ngram_ids"],
-                "position": ca["position"],
-                "rationale": ca.get("rationale", ""),
-            },
-            "concept_b": {
-                "text": cb["text"],
-                "ngram_ids": cb["ngram_ids"],
-                "position": cb["position"],
-                "rationale": cb.get("rationale", ""),
-            },
+            "concept_a": {"text": ca["text"], "ngram_ids": ca["ngram_ids"],
+                          "position": ca["position"]},
+            "concept_b": {"text": cb["text"], "ngram_ids": cb["ngram_ids"],
+                          "position": cb["position"]},
             "counts_by_window": counts_by_window,
         })
 
@@ -698,38 +652,6 @@ def compute_pairwise_cooccurrence(engine, concepts, windows, max_pairs,
         "pairs": pair_results,
         "summary_by_window": summary_by_window,
     }
-
-
-def mark_all_pairs_zero(concepts, cooc_result, windows):
-    """For each concept, mark whether ALL pairs containing it had zero
-    co-occurrence in ALL windows. This flags suspicious concepts (likely
-    not present in the corpus) without making any extra API calls.
-
-    Mutates ``concepts`` in place by adding ``all_pairs_zero: bool``.
-    """
-    n = len(concepts)
-    # Track for each concept index whether any of its pairs had a positive count
-    has_any_nonzero = [False] * n
-
-    for pair in cooc_result.get("pairs", []):
-        i = pair.get("concept_a_idx")
-        j = pair.get("concept_b_idx")
-        if i is None or j is None:
-            continue
-        any_pos = False
-        for w in windows:
-            cnt = pair["counts_by_window"].get(w, {}).get("count", 0)
-            if cnt > 0:
-                any_pos = True
-                break
-        if any_pos:
-            if 0 <= i < n:
-                has_any_nonzero[i] = True
-            if 0 <= j < n:
-                has_any_nonzero[j] = True
-
-    for idx, c in enumerate(concepts):
-        c["all_pairs_zero"] = (not has_any_nonzero[idx])
 
 
 # ===========================================================================
@@ -845,12 +767,9 @@ def main():
                 over_limit)
 
     logger.info("Windows: %s", args.windows)
-    logger.info("Max pairs per record: %s",
-                "ALL (no limit)" if args.max_pairs is None else args.max_pairs)
-    logger.info("Concepts input: %s", args.concepts_input)
-
-    # Load LLM-extracted concepts (produced by e2_extract_concepts.py)
-    concepts_by_id = load_concepts_from_extraction(args.concepts_input, logger)
+    logger.info("N-gram sizes: %s", args.ngram_sizes)
+    logger.info("Max concepts per record: %d", args.max_concepts)
+    logger.info("Max pairs per record: %d", args.max_pairs)
 
     # Resume: load existing results if output file exists
     os.makedirs(os.path.dirname(args.output) or ".", exist_ok=True)
@@ -897,19 +816,19 @@ def main():
             L = len(response_ids)
             logger.info("  Tokenized response: %d tokens", L)
 
-            # Step 1: Load LLM-extracted concepts and convert to token IDs
-            logger.info("  Step 1: Loading LLM-extracted concepts...")
-            concepts, extraction_meta = prepare_concepts_for_record(
-                rec_id, concepts_by_id,
-                response_text=response,
-                response_ids=response_ids,
-                tokenizer=tokenizer,
+            # Step 1: Extract enabling concepts
+            logger.info("  Step 1: Extracting enabling concepts...")
+            concepts = extract_enabling_concepts(
+                engine, response_ids, tokenizer,
+                ngram_sizes=args.ngram_sizes,
+                max_concepts=args.max_concepts,
+                corpus_size=corpus_size,
                 logger=logger,
             )
 
             if len(concepts) < 2:
                 logger.warning(
-                    "  Only %d concepts available, skipping co-occurrence",
+                    "  Only %d concepts extracted, skipping co-occurrence",
                     len(concepts))
                 e2_metrics = {
                     "metrics_by_window": {w: {} for w in args.windows},
@@ -920,9 +839,6 @@ def main():
                     "note": "Too few concepts for pairwise queries",
                 }
                 cooc_result = {"pairs": [], "summary_by_window": {}}
-                # Still mark all_pairs_zero (vacuously true for any concept)
-                for c in concepts:
-                    c["all_pairs_zero"] = True
             else:
                 # Step 2: Pairwise co-occurrence queries
                 logger.info("  Step 2: Computing pairwise co-occurrence...")
@@ -938,9 +854,6 @@ def main():
                 e2_metrics["num_concepts"] = len(concepts)
                 e2_metrics["num_pairs_queried"] = len(cooc_result["pairs"])
 
-                # Mark concepts whose pairs are all zero (no extra API calls)
-                mark_all_pairs_zero(concepts, cooc_result, args.windows)
-
             # Build result record
             result = {
                 "id": rec_id,
@@ -952,11 +865,6 @@ def main():
                 "e1": record.get("e1", {}),
                 "e2": {
                     **e2_metrics,
-                    "extraction_method": "llm",
-                    "extraction_model": extraction_meta.get(
-                        "extraction_model", "unknown"),
-                    "extraction_notes": extraction_meta.get(
-                        "extraction_notes", ""),
                     "enabling_concepts": concepts,
                     "pairwise_cooccurrence": cooc_result,
                 },
