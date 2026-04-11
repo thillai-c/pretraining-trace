@@ -11,6 +11,7 @@ the corresponding stage file, not here.
 
 Contents:
     - MODELS / REASONING_MODELS / DEFAULT_EXTRACTION_MODEL: model registry
+    - TRAINING_PHASES / model_results_root: phase subdirs under results/{out_dir}/
     - _is_reasoning_model / get_model_params: OpenAI param selection
     - setup_logger: per-stage logger factory
     - compute_rep_ratio: word-level 4-gram repetition ratio
@@ -41,6 +42,16 @@ MODELS = {
     "olmo2-13b-instruct": {"out_dir": "olmo2_13b_instruct"},
     "olmo2-32b-instruct": {"out_dir": "olmo2_32b_instruct"},
 }
+
+# Subdirectory name under results/{out_dir}/ for E1/E2 artifacts by training stage.
+# Folder names align with e1_verbatim_trace.e1_results_subdir (post -> post_training).
+TRAINING_PHASES = ("pretraining", "mid_training", "post_training")
+
+
+def model_results_root(model_key: str, training_phase: str) -> str:
+    """Return ``results/{out_dir}/{training_phase}/``."""
+    out_dir = MODELS[model_key]["out_dir"]
+    return os.path.join("results", out_dir, training_phase)
 
 # Default OpenAI model used for both extraction (Stage 1) and ranking (Stage 2);
 # overridable at the CLI via --extraction_model / --rank_model.
@@ -87,18 +98,23 @@ def get_model_params(model_name: str) -> dict:
 # Logger setup
 # ============================================================
 
-def setup_logger(model_key: str, stage_name: str):
+def setup_logger(model_key: str, stage_name: str, training_phase: str = None):
     """Create a logger with a model-based log directory.
 
     Args:
         model_key: a key from MODELS (e.g., "olmo2-7b-instruct")
         stage_name: short name used for both the log file and the logger,
                     e.g., "e2_extract_concepts" or "e2_rank_concepts".
+        training_phase: if set, log under ``logs/{out_dir}/{training_phase}/``.
 
-    Log file path: ``logs/{out_dir}/{stage_name}.log``
+    Log file path: ``logs/{out_dir}/{stage_name}.log`` or
+    ``logs/{out_dir}/{training_phase}/{stage_name}.log``.
     """
     out_dir = MODELS[model_key]["out_dir"]
-    log_dir = os.path.join("logs", out_dir)
+    if training_phase:
+        log_dir = os.path.join("logs", out_dir, training_phase)
+    else:
+        log_dir = os.path.join("logs", out_dir)
     os.makedirs(log_dir, exist_ok=True)
     log_path = os.path.join(log_dir, f"{stage_name}.log")
 
@@ -137,15 +153,24 @@ def compute_rep_ratio(response_text: str, n: int = 4) -> float:
 # E1 input loading
 # ============================================================
 
-def load_e1_results(model_key: str, input_path: str = None):
+def load_e1_results(model_key: str, input_path: str = None,
+                    training_phase: str = None):
     """Load E1 verbatim trace results for a model.
 
-    By default reads from ``results/{out_dir}/e1_verbatim_standard.json``.
-    Pass an explicit ``input_path`` to override.
+    By default reads from ``results/{out_dir}/e1_verbatim_standard.json``, or
+    ``results/{out_dir}/{training_phase}/e1_verbatim_standard.json`` when
+    ``training_phase`` is set. Pass an explicit ``input_path`` to override.
     """
     if input_path is None:
         out_dir = MODELS[model_key]["out_dir"]
-        input_path = os.path.join("results", out_dir, "e1_verbatim_standard.json")
+        if training_phase:
+            input_path = os.path.join(
+                "results", out_dir, training_phase, "e1_verbatim_standard.json"
+            )
+        else:
+            input_path = os.path.join(
+                "results", out_dir, "e1_verbatim_standard.json"
+            )
     with open(input_path, "r", encoding="utf-8") as f:
         return json.load(f)
 

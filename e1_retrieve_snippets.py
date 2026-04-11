@@ -6,14 +6,19 @@ infini-gram API/local engine, and adds ExampleSnippets field.
 Skips records that already have ExampleSnippets.
 
 Usage:
-    # OLMo 2 (API backend)
+    # OLMo 2 (API backend; default index -> results/{model_dir}/pretraining/...)
     python e1_retrieve_snippets.py \
         --model olmo2-1b
 
-    # GPT-J (local engine)
+    # GPT-J (local Pile index -> flat results/{model_dir}/..., same as Phase 1)
     python e1_retrieve_snippets.py \
         --model gpt-j \
         --index_dir ./index
+
+    # Local dolmino index -> results/{model_dir}/mid_training/... (same rules as e1_verbatim_trace.py)
+    python e1_retrieve_snippets.py \
+        --model olmo2-7b \
+        --index_dir ./index/dolmino-mix-1124
 
     # Custom parameters
     python e1_retrieve_snippets.py \
@@ -48,8 +53,9 @@ from transformers import AutoTokenizer
 from e1_verbatim_trace import (
     MODEL_CONFIGS,
     InfiniGramAPIEngine,
+    e1_results_subdir,
     init_engine,
-    retrieve_snippets_for_span
+    retrieve_snippets_for_span,
 )
 
 
@@ -83,8 +89,11 @@ def parse_args():
     parser.add_argument("--config", type=str, default="standard",
                         help="HarmBench config name (default: standard)")
     parser.add_argument("--input", type=str, default=None,
-                        help="Phase 1 results JSON. "
-                             "Default: results/{model_dir}/e1_verbatim_{config}.json")
+                        help="Phase 1 results JSON. If omitted, path matches "
+                             "e1_verbatim_trace.py: API olmo-mix-1124_llama -> "
+                             ".../pretraining/; local dolmino-mix-1124 -> "
+                             ".../mid_training/; post-training path/name -> "
+                             ".../post_training/; else flat results/{model_dir}/.")
     parser.add_argument("--index_dir", type=str, default=None,
                         help="Path to local infini-gram index directory. "
                              "If omitted, use HTTP API.")
@@ -101,13 +110,20 @@ def parse_args():
 
     args = parser.parse_args()
 
-    # Auto-generate input path if not specified
+    # Auto-generate input path if not specified (same subdir rules as Phase 1)
     model_dir = MODEL_CONFIGS[args.model]["out_dir"]
     if args.input is None:
-        args.input = os.path.join(
-            "results", model_dir,
-            f"e1_verbatim_{args.config}.json"
-        )
+        sub = e1_results_subdir(args)
+        if sub:
+            args.input = os.path.join(
+                "results", model_dir, sub,
+                f"e1_verbatim_{args.config}.json",
+            )
+        else:
+            args.input = os.path.join(
+                "results", model_dir,
+                f"e1_verbatim_{args.config}.json",
+            )
 
     return args
 
