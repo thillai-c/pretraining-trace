@@ -20,12 +20,10 @@ Usage:
         --model olmo2-7b \
         --api_index v4_olmo-mix-1124_llama
 
-    # OLMo 2 with snippet retrieval
-    python e1_verbatim_trace.py \    # OLMo 2 with custom API index
+    # OLMo 2 with local dolmino index (mid-training; default output: results/{model}/mid_training/...)
     python e1_verbatim_trace.py \
         --model olmo2-7b \
-        --api_index v4_olmo-mix-1124_llama
-        --model olmo2-7b \
+        --index_dir ./index/dolmino-mix-1124 \
         --retrieve_snippets
 
     # With custom parameters
@@ -41,6 +39,7 @@ Usage:
 import argparse
 import json
 import logging
+from typing import Optional
 import math
 import os
 import sys
@@ -202,6 +201,39 @@ def setup_logger(model_key: str, config: str = "standard"):
     return logger
 
 
+def e1_results_subdir(args) -> Optional[str]:
+    """Subdirectory under results/{model_dir}/ for default --output (from index choice).
+
+    - API ``--api_index`` containing ``olmo-mix-1124_llama`` -> ``pretraining``
+    - Local ``--index_dir`` for dolmino-mix-1124 -> ``mid_training``
+    - Local path under ``post-training`` (or API name with post-training markers) -> ``post_training``
+    - Otherwise -> ``None`` (flat ``results/{model_dir}/``, e.g. Pile local index).
+
+    Explicit ``--output`` bypasses this (see parse_args).
+    """
+    index_dir = args.index_dir
+    api_index = (args.api_index or "")
+
+    if index_dir:
+        norm = os.path.normpath(index_dir).replace("\\", "/").lower()
+        base = os.path.basename(os.path.normpath(index_dir)).lower()
+        if "dolmino-mix-1124" in norm or base == "dolmino-mix-1124":
+            return "mid_training"
+        if "post-training" in norm or "post_training" in norm:
+            return "post_training"
+        return None
+
+    al = api_index.lower()
+    if "olmo-mix-1124_llama" in al:
+        return "pretraining"
+    if any(
+        marker in al
+        for marker in ("post-training", "post_training", "posttrain")
+    ):
+        return "post_training"
+    return None
+
+
 def parse_args():
     parser = argparse.ArgumentParser(
         description="E1 Verbatim Trace: maximal matching spans + metrics"
@@ -219,8 +251,11 @@ def parse_args():
                         help="Input JSON (labeled HarmBench results). "
                              "Default: data/{model_dir}/harmbench_{config}_labeled.json")
     parser.add_argument("--output", type=str, default=None,
-                        help="Output JSON with E1 results. "
-                             "Default: results/{model_dir}/e1_verbatim_{config}.json")
+                        help="Output JSON with E1 results. If omitted, path is chosen from "
+                             "the index: API olmo-mix-1124_llama -> results/{model_dir}/pretraining/; "
+                             "local dolmino-mix-1124 -> .../mid_training/; "
+                             "local post-training (or matching API name) -> .../post_training/; "
+                             "else results/{model_dir}/e1_verbatim_{config}.json (flat).")
 
     # Index config — local vs API
     parser.add_argument("--index_dir", type=str, default=None,
@@ -267,10 +302,17 @@ def parse_args():
             f"harmbench_{args.config}_labeled.json"
         )
     if args.output is None:
-        args.output = os.path.join(
-            "results", model_dir,
-            f"e1_verbatim_{args.config}.json"
-        )
+        sub = e1_results_subdir(args)
+        if sub:
+            args.output = os.path.join(
+                "results", model_dir, sub,
+                f"e1_verbatim_{args.config}.json",
+            )
+        else:
+            args.output = os.path.join(
+                "results", model_dir,
+                f"e1_verbatim_{args.config}.json",
+            )
 
     return args
 
