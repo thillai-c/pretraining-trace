@@ -107,8 +107,8 @@ def setup_logger(model_key: str, stage_name: str, training_phase: str = None):
                     e.g., "e2_extract_concepts" or "e2_rank_concepts".
         training_phase: if set, log under ``logs/{out_dir}/{training_phase}/``.
 
-    Log file path: ``logs/{out_dir}/{stage_name}.log`` or
-    ``logs/{out_dir}/{training_phase}/{stage_name}.log``.
+    Log file path: `logs/{out_dir}/{stage_name}.log` or
+    `logs/{out_dir}/{training_phase}/{stage_name}.log`.
     """
     out_dir = MODELS[model_key]["out_dir"]
     if training_phase:
@@ -155,12 +155,7 @@ def compute_rep_ratio(response_text: str, n: int = 4) -> float:
 
 def load_e1_results(model_key: str, input_path: str = None,
                     training_phase: str = None):
-    """Load E1 verbatim trace results for a model.
-
-    By default reads from ``results/{out_dir}/e1_verbatim_standard.json``, or
-    ``results/{out_dir}/{training_phase}/e1_verbatim_standard.json`` when
-    ``training_phase`` is set. Pass an explicit ``input_path`` to override.
-    """
+    """Load E1 verbatim trace JSON for `model_key`."""
     if input_path is None:
         out_dir = MODELS[model_key]["out_dir"]
         if training_phase:

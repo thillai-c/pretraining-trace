@@ -785,3 +785,133 @@ def inspect_record(model_dir, record_id, span_idx=None):
         model=model_dir,
         span_idx=span_idx,
     )
+
+
+# ============================================================
+# Phase 5: Stage Union Helpers (for stage-aware E1 analysis)
+# ============================================================
+
+def union_spans(spans_lists, response_token_len):
+    """Union an arbitrary number of maximal-span lists for the same response.
+
+    Concatenates spans from all input lists and re-applies OLMoTrace Algorithm 1
+    step 2 (non-maximal suppression) on the same response_ids. This produces
+    exactly the LongestMatchLen / VerbatimCoverage / span_length_distribution
+    that you would get if you had built a single combined index and run E1 once.
+
+    Args:
+        spans_lists: iterable of lists of dicts. Each dict has keys 'begin', 'end', 'length'.
+                     None entries are skipped (e.g. base models have no posttrain spans).
+        response_token_len: int, length of the response in tokens.
+
+    Returns:
+        dict with keys: response_token_len, LongestMatchLen, VerbatimCoverage,
+                        num_maximal_spans, span_length_distribution, all_maximal_spans
+    """
+    # Concatenate all spans (ignoring None lists)
+    pooled = []
+    for sl in spans_lists:
+        if sl is None:
+            continue
+        pooled.extend((s['begin'], s['end']) for s in sl)
+
+    # Sort: by begin asc, then by end desc (longer first for ties)
+    pooled.sort(key=lambda x: (x[0], -x[1]))
+
+    # Non-maximal suppression (OLMoTrace Algorithm 1 step 2)
+    maximal = []
+    max_end = 0
+    for (b, e) in pooled:
+        if e > max_end:
+            max_end = e
+            maximal.append((b, e))
+
+    # Recompute E1 metrics
+    L = response_token_len
+    all_lengths = [e - b for (b, e) in maximal]
+    longest = max(all_lengths) if all_lengths else 0
+
+    covered = set()
+    for (b, e) in maximal:
+        for t in range(b, e):
+            covered.add(t)
+    coverage = len(covered) / L if L > 0 else 0.0
+
+    return {
+        'response_token_len': L,
+        'LongestMatchLen': longest,
+        'VerbatimCoverage': round(coverage, 4),
+        'num_maximal_spans': len(maximal),
+        'span_length_distribution': {
+            'min':    min(all_lengths) if all_lengths else 0,
+            'max':    longest,
+            'mean':   round(sum(all_lengths) / len(all_lengths), 2) if all_lengths else 0,
+            'median': sorted(all_lengths)[len(all_lengths) // 2] if all_lengths else 0,
+        },
+        'all_maximal_spans': [{'begin': b, 'end': e, 'length': e - b}
+                              for (b, e) in maximal],
+    }
+
+
+def synth_record(orig_record, unioned_e1):
+    """Wrap a unioned E1 dict back into a record-shaped dict so build_row() can consume it.
+
+    Note: top_k_spans is a stage-specific concept (depends on which corpus' unigram cache
+    was used for scoring). For unioned stages we set it to an empty list because
+    cross-stage span scoring is not well defined. The build_row() topk_* columns
+    will therefore be 0 for synthetic stages — that is intentional.
+    """
+    new_e1 = dict(unioned_e1)
+    new_e1['num_top_k_spans'] = 0
+    new_e1['top_k_spans'] = []
+    return {
+        'id': orig_record['id'],
+        'hb_label': orig_record.get('hb_label', -1),
+        'prompt': orig_record['prompt'],
+        'response': orig_record['response'],
+        'e1': new_e1,
+    }
+
+
+def covered_tokens(spans, L):
+    """Return the set of token positions in [0, L) covered by any span in `spans`.
+
+    Args:
+        spans: list of dicts with 'begin' and 'end' keys (half-open interval).
+        L: response_token_len, used only for documentation; positions are not clipped.
+
+    Returns:
+        set[int] of covered token positions.
+    """
+    s = set()
+    for sp in spans:
+        for t in range(sp['begin'], sp['end']):
+            s.add(t)
+    return s
+
+
+def longest_run(positions, L):
+    """Longest contiguous run of integers in `positions` (a set), within [0, L).
+
+    Used for the M2 metric in §1.7: the longest unbroken stretch of token positions
+    that posttrain explains and base_corpus does not.
+
+    Args:
+        positions: set of int token positions.
+        L: response_token_len (the upper bound of the scan range).
+
+    Returns:
+        int. Length of the longest contiguous run. Returns 0 for empty input.
+    """
+    if not positions:
+        return 0
+    best = 0
+    cur  = 0
+    for t in range(L):
+        if t in positions:
+            cur += 1
+            if cur > best:
+                best = cur
+        else:
+            cur = 0
+    return best

@@ -1,0 +1,105 @@
+2026-04-13 15:49:32,509 - INFO - Logging to logs/olmo2_13b_instruct/pretraining/e1_auto_label.log
+2026-04-13 15:49:32,510 - INFO - ======================================================================
+2026-04-13 15:49:32,511 - INFO - E1 LLM-Assisted Span-Level Safety Labeling
+2026-04-13 15:49:32,511 - INFO -   Model: olmo2-13b-instruct
+2026-04-13 15:49:32,511 - INFO -   Training phase: pretraining
+2026-04-13 15:49:32,512 - INFO -   E1 input root: results/olmo2_13b_instruct/pretraining
+2026-04-13 15:49:32,513 - INFO -   Label run root: results/olmo2_13b_instruct/pretraining/gpt-4.5-mini
+2026-04-13 15:49:32,513 - INFO -   Label LLM: gpt-4.5-mini
+2026-04-13 15:49:32,514 - INFO - ======================================================================
+2026-04-13 15:49:32,627 - INFO - Loaded 8 records from E1 results
+2026-04-13 15:49:32,629 - INFO - Compliant records: 8
+2026-04-13 15:49:32,631 - INFO -   id=30, rep_ratio=0.0105, pairs=92
+2026-04-13 15:49:32,633 - INFO -   id=34, rep_ratio=0.0035, pairs=103
+2026-04-13 15:49:32,634 - INFO -   id=38, rep_ratio=0.0172, pairs=122
+2026-04-13 15:49:32,635 - INFO -   id=39, rep_ratio=0.0326, pairs=84
+2026-04-13 15:49:32,637 - INFO -   id=44, rep_ratio=0.0063, pairs=116
+2026-04-13 15:49:32,638 - INFO -   id=98, rep_ratio=0.0089, pairs=107
+2026-04-13 15:49:32,639 - INFO -   id=178, rep_ratio=0.0092, pairs=102
+2026-04-13 15:49:32,643 - INFO -   id=182, rep_ratio=0.0022, pairs=101
+2026-04-13 15:49:32,674 - INFO - Batch JSONL written: results/olmo2_13b_instruct/pretraining/gpt-4.5-mini/batch_e1/batch_input.jsonl
+2026-04-13 15:49:32,674 - INFO -   Records: 8, Total (span, snippet) pairs: 827
+2026-04-13 15:49:32,674 - INFO - Uploading batch file to OpenAI...
+2026-04-13 15:49:33,815 - INFO - HTTP Request: POST https://api.openai.com/v1/files "HTTP/1.1 200 OK"
+2026-04-13 15:49:33,818 - INFO -   File uploaded: id=file-Ari66fZYv3MEkNQ2PgWYhT
+2026-04-13 15:49:33,819 - INFO - Creating batch...
+2026-04-13 15:49:34,553 - INFO - HTTP Request: POST https://api.openai.com/v1/batches "HTTP/1.1 200 OK"
+2026-04-13 15:49:34,557 - INFO -   Batch created: id=batch_69dd48cd59548190a244e1546e0ea66c, status=validating
+2026-04-13 15:49:34,558 - INFO - 
+2026-04-13 15:49:34,559 - INFO - ======================================================================
+2026-04-13 15:49:34,559 - INFO - BATCH SUBMITTED SUCCESSFULLY
+2026-04-13 15:49:34,559 - INFO -   Batch ID: batch_69dd48cd59548190a244e1546e0ea66c
+2026-04-13 15:49:34,560 - INFO -   To collect results, run:
+2026-04-13 15:49:34,560 - INFO -     python e1_auto_label.py --model olmo2-13b-instruct --training-phase pretraining --llm-model gpt-4.5-mini --collect --batch_id batch_69dd48cd59548190a244e1546e0ea66c
+2026-04-13 15:49:34,560 - INFO - ======================================================================
+2026-04-13 15:49:34,566 - INFO -   Batch metadata saved to results/olmo2_13b_instruct/pretraining/gpt-4.5-mini/batch_e1/batch_metadata.json
+2026-04-13 15:50:06,938 - INFO - Logging to logs/olmo2_13b_instruct/pretraining/e1_auto_label.log
+2026-04-13 15:50:06,939 - INFO - ======================================================================
+2026-04-13 15:50:06,939 - INFO - E1 LLM-Assisted Span-Level Safety Labeling
+2026-04-13 15:50:06,939 - INFO -   Model: olmo2-13b-instruct
+2026-04-13 15:50:06,939 - INFO -   Training phase: pretraining
+2026-04-13 15:50:06,939 - INFO -   E1 input root: results/olmo2_13b_instruct/pretraining
+2026-04-13 15:50:06,940 - INFO -   Label run root: results/olmo2_13b_instruct/pretraining/gpt-5.4-mini
+2026-04-13 15:50:06,940 - INFO -   Label LLM: gpt-5.4-mini
+2026-04-13 15:50:06,940 - INFO - ======================================================================
+2026-04-13 15:50:07,052 - INFO - Loaded 8 records from E1 results
+2026-04-13 15:50:07,053 - INFO - Compliant records: 8
+2026-04-13 15:50:07,054 - INFO -   id=30, rep_ratio=0.0105, pairs=92
+2026-04-13 15:50:07,055 - INFO -   id=34, rep_ratio=0.0035, pairs=103
+2026-04-13 15:50:07,056 - INFO -   id=38, rep_ratio=0.0172, pairs=122
+2026-04-13 15:50:07,057 - INFO -   id=39, rep_ratio=0.0326, pairs=84
+2026-04-13 15:50:07,058 - INFO -   id=44, rep_ratio=0.0063, pairs=116
+2026-04-13 15:50:07,059 - INFO -   id=98, rep_ratio=0.0089, pairs=107
+2026-04-13 15:50:07,060 - INFO -   id=178, rep_ratio=0.0092, pairs=102
+2026-04-13 15:50:07,061 - INFO -   id=182, rep_ratio=0.0022, pairs=101
+2026-04-13 15:50:07,091 - INFO - Batch JSONL written: results/olmo2_13b_instruct/pretraining/gpt-5.4-mini/batch_e1/batch_input.jsonl
+2026-04-13 15:50:07,091 - INFO -   Records: 8, Total (span, snippet) pairs: 827
+2026-04-13 15:50:07,091 - INFO - Uploading batch file to OpenAI...
+2026-04-13 15:50:08,118 - INFO - HTTP Request: POST https://api.openai.com/v1/files "HTTP/1.1 200 OK"
+2026-04-13 15:50:08,120 - INFO -   File uploaded: id=file-ThPaPtETKrK7PVdLCa5EJP
+2026-04-13 15:50:08,121 - INFO - Creating batch...
+2026-04-13 15:50:08,419 - INFO - HTTP Request: POST https://api.openai.com/v1/batches "HTTP/1.1 200 OK"
+2026-04-13 15:50:08,422 - INFO -   Batch created: id=batch_69dd48ef8694819082d1ee9c07cd421a, status=validating
+2026-04-13 15:50:08,423 - INFO - 
+2026-04-13 15:50:08,424 - INFO - ======================================================================
+2026-04-13 15:50:08,424 - INFO - BATCH SUBMITTED SUCCESSFULLY
+2026-04-13 15:50:08,424 - INFO -   Batch ID: batch_69dd48ef8694819082d1ee9c07cd421a
+2026-04-13 15:50:08,424 - INFO -   To collect results, run:
+2026-04-13 15:50:08,425 - INFO -     python e1_auto_label.py --model olmo2-13b-instruct --training-phase pretraining --llm-model gpt-5.4-mini --collect --batch_id batch_69dd48ef8694819082d1ee9c07cd421a
+2026-04-13 15:50:08,425 - INFO - ======================================================================
+2026-04-13 15:50:08,431 - INFO -   Batch metadata saved to results/olmo2_13b_instruct/pretraining/gpt-5.4-mini/batch_e1/batch_metadata.json
+2026-04-13 15:50:15,172 - INFO - Logging to logs/olmo2_13b_instruct/pretraining/e1_auto_label.log
+2026-04-13 15:50:15,173 - INFO - ======================================================================
+2026-04-13 15:50:15,173 - INFO - E1 LLM-Assisted Span-Level Safety Labeling
+2026-04-13 15:50:15,173 - INFO -   Model: olmo2-13b-instruct
+2026-04-13 15:50:15,173 - INFO -   Training phase: pretraining
+2026-04-13 15:50:15,173 - INFO -   E1 input root: results/olmo2_13b_instruct/pretraining
+2026-04-13 15:50:15,174 - INFO -   Label run root: results/olmo2_13b_instruct/pretraining/gpt-5.4-nano
+2026-04-13 15:50:15,174 - INFO -   Label LLM: gpt-5.4-nano
+2026-04-13 15:50:15,174 - INFO - ======================================================================
+2026-04-13 15:50:15,282 - INFO - Loaded 8 records from E1 results
+2026-04-13 15:50:15,284 - INFO - Compliant records: 8
+2026-04-13 15:50:15,285 - INFO -   id=30, rep_ratio=0.0105, pairs=92
+2026-04-13 15:50:15,287 - INFO -   id=34, rep_ratio=0.0035, pairs=103
+2026-04-13 15:50:15,288 - INFO -   id=38, rep_ratio=0.0172, pairs=122
+2026-04-13 15:50:15,289 - INFO -   id=39, rep_ratio=0.0326, pairs=84
+2026-04-13 15:50:15,290 - INFO -   id=44, rep_ratio=0.0063, pairs=116
+2026-04-13 15:50:15,291 - INFO -   id=98, rep_ratio=0.0089, pairs=107
+2026-04-13 15:50:15,292 - INFO -   id=178, rep_ratio=0.0092, pairs=102
+2026-04-13 15:50:15,293 - INFO -   id=182, rep_ratio=0.0022, pairs=101
+2026-04-13 15:50:15,324 - INFO - Batch JSONL written: results/olmo2_13b_instruct/pretraining/gpt-5.4-nano/batch_e1/batch_input.jsonl
+2026-04-13 15:50:15,324 - INFO -   Records: 8, Total (span, snippet) pairs: 827
+2026-04-13 15:50:15,325 - INFO - Uploading batch file to OpenAI...
+2026-04-13 15:50:16,420 - INFO - HTTP Request: POST https://api.openai.com/v1/files "HTTP/1.1 200 OK"
+2026-04-13 15:50:16,423 - INFO -   File uploaded: id=file-QVS8Uibkf2fg5qHwCPWKbw
+2026-04-13 15:50:16,423 - INFO - Creating batch...
+2026-04-13 15:50:16,770 - INFO - HTTP Request: POST https://api.openai.com/v1/batches "HTTP/1.1 200 OK"
+2026-04-13 15:50:16,773 - INFO -   Batch created: id=batch_69dd48f7d3f08190b8e04daa2dae0523, status=validating
+2026-04-13 15:50:16,773 - INFO - 
+2026-04-13 15:50:16,774 - INFO - ======================================================================
+2026-04-13 15:50:16,774 - INFO - BATCH SUBMITTED SUCCESSFULLY
+2026-04-13 15:50:16,775 - INFO -   Batch ID: batch_69dd48f7d3f08190b8e04daa2dae0523
+2026-04-13 15:50:16,775 - INFO -   To collect results, run:
+2026-04-13 15:50:16,776 - INFO -     python e1_auto_label.py --model olmo2-13b-instruct --training-phase pretraining --llm-model gpt-5.4-nano --collect --batch_id batch_69dd48f7d3f08190b8e04daa2dae0523
+2026-04-13 15:50:16,776 - INFO - ======================================================================
+2026-04-13 15:50:16,785 - INFO -   Batch metadata saved to results/olmo2_13b_instruct/pretraining/gpt-5.4-nano/batch_e1/batch_metadata.json
