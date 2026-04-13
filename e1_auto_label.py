@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 """E1 LLM-Assisted Span-Level Safety Labeling using OpenAI Batch API.
 
 Automates span_safety_label / context_safety / context_topic labeling
@@ -7,20 +8,20 @@ few-shot examples.
 
 Usage:
     # Test mode: 1 record, immediate API call
-    python e1_auto_label.py --model olmo2-7b --training-phase pretraining --test --record_id 30
+    python3 e1_auto_label.py --model olmo2-7b --training-phase pretraining --test --record_id 30
 
     # Batch mode: submit all records to Batch API
-    python e1_auto_label.py --model olmo2-7b --training-phase pretraining --batch
+    python3 e1_auto_label.py --model olmo2-7b --training-phase pretraining --batch
 
     # Collect mode: retrieve batch results and save CSV
-    python e1_auto_label.py --model olmo2-7b --training-phase pretraining --collect
+    python3 e1_auto_label.py --model olmo2-7b --training-phase pretraining --collect
 
     # Retry mode
-    python e1_auto_label.py --model olmo2-7b --training-phase pretraining --retry
+    python3 e1_auto_label.py --model olmo2-7b --training-phase pretraining --retry
 
 Reference:
     - span_safety_labels.csv: GPT-J manual labels (162 rows)
-    - Labeling schema: span_safety_label × context_safety × context_topic
+    - Labeling schema: span_safety_label x context_safety x context_topic
 """
 
 import argparse
