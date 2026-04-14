@@ -4,64 +4,12 @@
 Extracts essential concepts (named entities, concrete materials, compound
 noun phrases, and literal code/command fragments) from model responses to
 HarmBench unsafe prompts. The extracted concepts are then passed to
-Stage 2 (``e2_rank_concepts.py``) for LLM-based centrality ranking, and
-ultimately consumed by ``e2_windowed_cooccurrence.py`` for CNF-based
+Stage 2 (`e2_rank_concepts.py`) for LLM-based centrality ranking, and
+ultimately consumed by `e2_windowed_cooccurrence.py` for CNF-based
 corpus co-occurrence analysis.
 
 Pipeline position:
-    e1_verbatim_standard.json
-          │
-          ▼
-    [Stage 1] e2_extract_concepts.py   ← THIS FILE
-          │
-          ▼
-    e2_concepts.json
-          │
-          ▼
-    [Stage 2] e2_rank_concepts.py
-          │
-          ▼
-    e2_concepts_ranked.json
-          │
-          ▼
-    e2_windowed_cooccurrence.py
-
-Design rationale (v1 = entity-only):
-    Earlier versions used spaCy NER + n-gram fallback, which produced
-    only topic-level entities (Syria, Assad) or generic terms (API,
-    first). An intermediate version asked the LLM to judge "enabling
-    concepts" by their harmful operationality, but this introduced
-    subjective judgment that excluded important topic actors in
-    misinformation cases (Syria, Free Syrian Army, Russia, etc.).
-
-    The current v1 "entity-only" version asks the LLM to extract
-    concrete, lexically stable concepts that are essential to the
-    *content* of the response, regardless of whether they are
-    topic-level or operationally specific. It explicitly excludes
-    bare single-word "-ing" forms and other ambiguous shapes so that
-    the extraction is mechanical enough for high reproducibility.
-    Harmfulness judgment is treated as a downstream concern of the
-    co-occurrence analysis, not the extraction stage.
-
-    This file performs extraction ONLY. Ranking / centrality
-    selection is now handled in Stage 2 (``e2_rank_concepts.py``).
-    Stage 1 is intentionally permissive about quantity so that any
-    reasonable candidate reaches Stage 2; Stage 2 then imposes an
-    explicit ordering that downstream code can cut off at any top-N.
-
-E1 vs. E2 independence:
-    E2 is treated as an INDEPENDENT evidence layer from E1. The LLM
-    is given the full response (not E1-matched spans), so the
-    extracted concepts are not constrained by what E1 verbatim trace
-    happened to find. This preserves the statistical independence
-    between the two evidence layers.
-
-Sanity flags:
-    Each output record carries a ``sanity_flags`` field listing any
-    issues that would break downstream analysis: empty extraction,
-    comma-bundled multi-entity concepts, and not-verbatim concepts
-    (which would fail infini-gram queries). These flags are
-    descriptive only — they do not modify the extracted concepts.
+    e1_verbatim_standard.json → [Stage 1] e2_extract_concepts.py (THIS FILE) → e2_concepts.json → [Stage 2] e2_rank_concepts.py → e2_concepts_ranked.json → e2_windowed_cooccurrence.py
 
 Usage:
     # Test mode: 1 record, immediate API call
@@ -106,6 +54,19 @@ from utils import (
     parse_llm_json,
     save_output_json,
 )
+
+
+# Run multiple phases when --training-phase all (subset depends on base vs instruct).
+TRAINING_PHASE_ALL = "all"
+# Base (non-instruct) OLMo2 checkpoints: only pretraining + mid_training artifacts.
+E2_PHASES_BASE_ALL = ("pretraining", "mid_training")
+
+
+def training_phases_when_all(model_key: str) -> tuple[str, ...]:
+    """Phases to run for ``--training-phase all``: instruct = all TRAINING_PHASES; base = pre+mid only."""
+    if model_key.endswith("-instruct"):
+        return TRAINING_PHASES
+    return E2_PHASES_BASE_ALL
 
 
 # ============================================================
@@ -303,7 +264,7 @@ def parse_llm_response(response_text: str, logger) -> dict:
     Expected schema:
         {"concepts": [{"text": str, "rationale": str}, ...]}
 
-    Uses ``utils.parse_llm_json`` for the raw JSON extraction, then
+    Uses `utils.parse_llm_json` for the raw JSON extraction, then
     validates the Stage 1 schema on top. Returns the parsed dict on
     success, or None on failure.
     """
@@ -787,10 +748,13 @@ def parse_args():
         "--training-phase",
         type=str,
         required=True,
-        choices=list(TRAINING_PHASES),
+        choices=list(TRAINING_PHASES) + [TRAINING_PHASE_ALL],
         dest="training_phase",
         help="Training stage folder under results/{out_dir}/: pretraining, "
-             "mid_training, or post_training (default E1 input and Stage 1 outputs)",
+             "mid_training, or post_training (default E1 input and Stage 1 outputs). "
+             f"Use '{TRAINING_PHASE_ALL}' to run the selected mode once per phase: "
+             "base models use pretraining, mid_training; *-instruct models use "
+             "pretraining, mid_training, post_training.",
     )
     parser.add_argument("--input", type=str, default=None,
                         help="Override input path (default: "
@@ -824,29 +788,29 @@ def parse_args():
     return parser.parse_args()
 
 
-def main():
-    load_dotenv()
-    args = parse_args()
-    logger = setup_logger(args.model, "e2_extract_concepts", args.training_phase)
-
+def run_one_phase(
+    args,
+    training_phase: str,
+    client: OpenAI,
+    logger,
+    *,
+    input_path: str | None,
+    phase_index: int,
+    total_phases: int,
+) -> None:
     logger.info("=" * 70)
     logger.info("E2 Stage 1 — LLM-Based Essential Concept Extraction")
+    if total_phases > 1:
+        logger.info("  Phase %d / %d: %s", phase_index + 1, total_phases, training_phase)
     logger.info("  Model: %s", args.model)
-    logger.info("  Training phase: %s", args.training_phase)
-    logger.info("  Results root: %s", model_results_root(args.model, args.training_phase))
+    logger.info("  Training phase: %s", training_phase)
+    logger.info("  Results root: %s", model_results_root(args.model, training_phase))
     logger.info("  Extraction LLM: %s", args.extraction_model)
     logger.info("  Prompt version: %s", PROMPT_VERSION)
     logger.info("=" * 70)
 
-    # Init OpenAI client
-    api_key = os.environ.get("OPENAI_API_KEY")
-    if not api_key:
-        logger.error("OPENAI_API_KEY not set. Export it or add to .env file.")
-        sys.exit(1)
-    client = OpenAI(api_key=api_key)
-
     # Load E1 results
-    records = load_e1_results(args.model, args.input, args.training_phase)
+    records = load_e1_results(args.model, input_path, training_phase)
     logger.info("Loaded %d records from E1 results", len(records))
 
     # Filter compliant records
@@ -859,31 +823,78 @@ def main():
     # Dispatch to mode
     if args.test:
         run_test(client, args.model, filtered, args.extraction_model,
-                 logger, args.training_phase, args.record_id)
+                 logger, training_phase, args.record_id)
     elif args.batch:
         run_batch(client, args.model, filtered, args.extraction_model, logger,
-                  args.training_phase)
+                  training_phase)
     elif args.collect:
-        if not args.batch_id:
+        batch_id = args.batch_id
+        if not batch_id:
             meta_path = os.path.join(
-                model_results_root(args.model, args.training_phase),
+                model_results_root(args.model, training_phase),
                 "batch_e2",
                 "batch_metadata.json",
             )
             if os.path.isfile(meta_path):
                 with open(meta_path) as f:
                     meta = json.load(f)
-                args.batch_id = meta.get("batch_id")
-                logger.info("Loaded batch_id from metadata: %s", args.batch_id)
+                batch_id = meta.get("batch_id")
+                logger.info("Loaded batch_id from metadata: %s", batch_id)
             else:
                 logger.error("--batch_id required for --collect mode "
                              "(no metadata found at %s)", meta_path)
                 sys.exit(1)
+        if not batch_id:
+            logger.error("--batch_id required for --collect mode.")
+            sys.exit(1)
         run_collect(client, args.model, filtered, args.extraction_model,
-                    args.batch_id, logger, args.training_phase)
+                    batch_id, logger, training_phase)
     elif args.retry:
         run_retry(client, args.model, filtered, args.extraction_model, logger,
-                  args.training_phase)
+                  training_phase)
+
+
+def main():
+    load_dotenv()
+    args = parse_args()
+    logger = setup_logger(args.model, "e2_extract_concepts")
+
+    phases = (
+        list(training_phases_when_all(args.model))
+        if args.training_phase == TRAINING_PHASE_ALL
+        else [args.training_phase]
+    )
+    effective_input = None if (args.training_phase == TRAINING_PHASE_ALL and args.input) else args.input
+
+    if args.training_phase == TRAINING_PHASE_ALL and args.input:
+        logger.warning(
+            "--input is ignored when --training-phase %s (using default JSON path per phase).",
+            TRAINING_PHASE_ALL,
+        )
+
+    # Init OpenAI client
+    api_key = os.environ.get("OPENAI_API_KEY")
+    if not api_key:
+        logger.error("OPENAI_API_KEY not set. Export it or add to .env file.")
+        sys.exit(1)
+    client = OpenAI(api_key=api_key)
+
+    n = len(phases)
+    if n > 1 and args.collect and args.batch_id:
+        logger.warning(
+            "--batch_id is set: the same ID will be used for every phase. "
+            "Usually omit --batch_id so each phase loads its own batch_metadata.json."
+        )
+    for i, tp in enumerate(phases):
+        run_one_phase(
+            args,
+            tp,
+            client,
+            logger,
+            input_path=effective_input,
+            phase_index=i,
+            total_phases=n,
+        )
 
 
 if __name__ == "__main__":
