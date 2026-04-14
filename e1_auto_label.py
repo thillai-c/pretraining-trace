@@ -16,6 +16,10 @@ Usage:
     # Retry rows listed in ``batch_e1/batch_errors.json`` and append to the CSV
     python e1_auto_label.py --model olmo2-7b --training-phase pretraining --llm-model gpt-5-mini --retry
 
+    # All phases for this model family: base -> pretraining+mid_training; instruct -> +post_training
+    python e1_auto_label.py --model olmo2-7b --training-phase all --llm-model gpt-5-mini --batch
+    python e1_auto_label.py --model olmo2-7b-instruct --training-phase all --llm-model gpt-5-mini --batch
+
 Reference:
     - span_safety_labels.csv: GPT-J manual labels (162 rows)
     - Labeling schema: span_safety_label × context_safety × context_topic
@@ -30,13 +34,15 @@ import re
 import sys
 import time
 from datetime import datetime
-from dotenv import load_dotenv
+from dotenv import find_dotenv, load_dotenv
 
 from openai import OpenAI
 
 from utils import (
     TRAINING_PHASES,
+    filter_compliant,
     get_model_params,
+    label_run_root,
     load_e1_results,
     model_results_root,
     setup_logger,
@@ -61,21 +67,17 @@ E1_BATCH_SUBDIR = "batch_e1"
 # Default OpenAI model for span labeling (override with --llm-model).
 DEFAULT_LABEL_LLM = "gpt-5-mini"
 
-
-def label_llm_dirname(llm_model: str) -> str:
-    """Filesystem-safe directory name for a labeling model id."""
-    s = llm_model.strip().lower().replace(os.sep, "_").replace("/", "_")
-    s = re.sub(r"[^a-z0-9._+\-]+", "_", s)
-    s = re.sub(r"_+", "_", s).strip("_")
-    return s or "unknown"
+# Run multiple phases when --training-phase all (subset depends on base vs instruct).
+TRAINING_PHASE_ALL = "all"
+# Base (non-instruct) OLMo2 checkpoints: only pretraining + mid_training artifacts.
+E1_LABEL_PHASES_BASE_ALL = ("pretraining", "mid_training")
 
 
-def label_run_root(model_key: str, training_phase: str, llm_model: str) -> str:
-    """Root directory for one (training_phase, label LLM) experiment."""
-    return os.path.join(
-        model_results_root(model_key, training_phase),
-        label_llm_dirname(llm_model),
-    )
+def training_phases_when_all(model_key: str) -> tuple[str, ...]:
+    """Phases to run for ``--training-phase all``: instruct = all TRAINING_PHASES; base = pre+mid only."""
+    if model_key.endswith("-instruct"):
+        return TRAINING_PHASES
+    return E1_LABEL_PHASES_BASE_ALL
 
 
 def e1_batch_dir(model_key: str, training_phase: str, llm_model: str) -> str:
@@ -91,6 +93,16 @@ CSV_COLUMNS = [
 # Valid label values (for validation)
 VALID_SPAN_SAFETY = {"unsafe", "safe_but_relevant", "trivial"}
 VALID_CONTEXT_SAFETY = {"unsafe_context", "ambiguous_context", "safe_context"}
+
+def _mask_secret(value: str, keep: int = 4) -> str:
+    """Return a short masked form for logs (fixed-width prefix, suffix only)."""
+    if not value:
+        return "(not set)"
+    n = len(value)
+    if n <= keep:
+        return "*" * n
+    # Avoid printing len(value) asterisks for long API keys.
+    return "****..." + value[-keep:]
 
 
 # ============================================================
@@ -175,26 +187,6 @@ Labels: span_safety_label="safe_but_relevant", context_safety="ambiguous_context
 # Helpers
 # ============================================================
 
-def compute_rep_ratio(response_text: str, n: int = 4) -> float:
-    """Compute word-level n-gram repetition ratio (seq-rep-4)"""
-    words = response_text.split()
-    if len(words) < n:
-        return 0.0
-    ngrams = [tuple(words[i:i + n]) for i in range(len(words) - n + 1)]
-    return 1.0 - len(set(ngrams)) / len(ngrams)
-
-
-def filter_compliant(records):
-    """Filter to HarmBench-compliant records (hb_label == 1)."""
-    filtered = []
-    for r in records:
-        if r.get("hb_label") != 1:
-            continue
-        rep = compute_rep_ratio(r["response"])
-        filtered.append((r, rep))
-    return filtered
-
-
 def extract_labeling_pairs(record):
     """Extract unique (span_idx, span_text, doc_ix, snippet_text) pairs from a record.
 
@@ -268,29 +260,30 @@ def build_user_message(record, pairs):
     return "\n".join(lines)
 
 
-def parse_llm_response(response_text: str, expected_count: int, logger):
+def parse_llm_response(response_text, expected_count: int, logger):
     """Parse JSON array from LLM response. Returns list of label dicts or None on failure."""
-    # Strip markdown fences if present
-    text = response_text.strip()
-    if text.startswith("```"):
-        # Remove first and last lines
-        text_lines = text.split("\n")
-        if text_lines[0].startswith("```"):
-            text_lines = text_lines[1:]
-        if text_lines and text_lines[-1].strip() == "```":
-            text_lines = text_lines[:-1]
-        text = "\n".join(text_lines)
-
-        # Clean control characters that break JSON parsing
-        import re
-        text = re.sub(r'[\x00-\x08\x0b\x0c\x0e-\x1f]', ' ', text)
-
-    try:
-        labels = json.loads(text)
-    except json.JSONDecodeError as e:
-        logger.error("JSON parse error: %s", e)
-        logger.error("Raw response (first 500 chars): %s", text[:500])
-        return None
+    # If the input is a string, attempt to parse it as JSON.
+    # If the input is already a list object, use it directly as the parsed label list.
+    if isinstance(response_text, str):
+        text = response_text.strip()
+        if text.startswith("```"):
+            text_lines = text.split("\n")
+     
+            if text_lines[0].startswith("```"):
+                text_lines = text_lines[1:]
+            if text_lines and text_lines[-1].strip() == "```":
+                text_lines = text_lines[:-1]
+            text = "\n".join(text_lines)
+            text = re.sub(r'[\x00-\x08\x0b\x0c\x0e-\x1f]', ' ', text)
+        try:
+            labels = json.loads(text)
+        except json.JSONDecodeError as e:
+            logger.error("JSON parse error: %s", e)
+            logger.error("Raw response (first 500 chars): %s", text[:500])
+            return None
+    else:
+        labels = response_text  # already a parsed list
+   
 
     if not isinstance(labels, list):
         logger.error("Expected JSON array, got %s", type(labels).__name__)
@@ -298,21 +291,15 @@ def parse_llm_response(response_text: str, expected_count: int, logger):
 
     if len(labels) != expected_count:
         logger.warning("Expected %d labels, got %d", expected_count, len(labels))
-        # Still return what we got — partial is better than nothing
 
-    # Validate each label
     for i, lbl in enumerate(labels):
         if not isinstance(lbl, dict):
             logger.error("Label %d is not a dict: %s", i, type(lbl).__name__)
             return None
-
-        # Validate required keys
         for key in ["span_idx", "doc_ix", "span_safety_label", "context_safety", "context_topic"]:
             if key not in lbl:
                 logger.error("Label %d missing key: %s", i, key)
                 return None
-
-        # Validate enum values
         if lbl["span_safety_label"] not in VALID_SPAN_SAFETY:
             logger.error("Label %d invalid span_safety_label: %s", i, lbl["span_safety_label"])
             return None
@@ -434,7 +421,7 @@ def run_test(client, model_key, records, logger, training_phase, llm_model,
                     parsed = v
                     break
 
-    labels = parse_llm_response(json.dumps(parsed), len(pairs), logger)
+    labels = parse_llm_response(parsed, len(pairs), logger)
     if labels is None:
         logger.error("  Failed to parse labels. Raw output saved to test_raw_output.json")
         with open("test_raw_output.json", "w") as f:
@@ -581,7 +568,22 @@ def run_collect(client, model_key, records, batch_id, logger, training_phase,
 
     # Check batch status
     logger.info("Checking batch status for %s ...", batch_id)
-    batch = client.batches.retrieve(batch_id)
+    try:
+        batch = client.batches.retrieve(batch_id)
+    except Exception as e:
+        # OpenAI returns 401 when the API key is missing/invalid OR lacks scopes.
+        # Provide an actionable message without leaking secrets.
+        logger.error("Failed to retrieve batch %s.", batch_id)
+        logger.error("Error: %s", e)
+        logger.error(
+            "If this is a 401 with 'Missing scopes: api.batch.read', "
+            "your API key is restricted and does not include batch read permission."
+        )
+        logger.error(
+            "Fix: Update the API key scopes to include 'api.batch.read' "
+            "(and possibly 'api.batch.write'), or use a key/project with sufficient permissions."
+        )
+        raise
     logger.info("  Status: %s", batch.status)
     logger.info("  Request counts: %s", batch.request_counts)
 
@@ -865,11 +867,18 @@ def parse_args():
         "--training-phase",
         type=str,
         required=True,
-        choices=list(TRAINING_PHASES),
+        choices=list(TRAINING_PHASES) + [TRAINING_PHASE_ALL],
         dest="training_phase",
         help="Same phase folder as e1_verbatim_trace default output: "
              "results/{out_dir}/pretraining|mid_training|post_training/ "
-             "for E1 JSON input; labeling outputs live under <llm_dirname>/ per --llm-model.",
+             "for E1 JSON input; labeling outputs live under <llm_dirname>/ per --llm-model. "
+             "Use '%s' to run the selected mode once per phase: base models use %s; "
+             "*-instruct models use %s."
+             % (
+                 TRAINING_PHASE_ALL,
+                 ", ".join(E1_LABEL_PHASES_BASE_ALL),
+                 ", ".join(TRAINING_PHASES),
+             ),
     )
     parser.add_argument("--input", type=str, default=None,
                         help="Override E1 JSON path (default: "
@@ -906,30 +915,41 @@ def parse_args():
     return parser.parse_args()
 
 
-def main():
-    load_dotenv()
-    args = parse_args()
-    logger = setup_logger(args.model, "e1_auto_label", args.training_phase)
+def run_one_phase(
+    args,
+    training_phase: str,
+    client: OpenAI,
+    logger: logging.Logger,
+    *,
+    input_path: str | None,
+    dotenv_path: str | None,
+    loaded: bool,
+    phase_index: int,
+    total_phases: int,
+) -> None:
+    """Run labeling for a single training phase (used for one phase or for each of ``all``).
 
+    ``logger`` must be the shared ``e1_auto_label`` logger (``logs/{{out_dir}}/e1_auto_label.log``,
+    no per-phase subfolder) so multi-phase runs append to one file.
+    """
     logger.info("=" * 70)
     logger.info("E1 LLM-Assisted Span-Level Safety Labeling")
+    if total_phases > 1:
+        logger.info("  Phase %d / %d: %s", phase_index + 1, total_phases, training_phase)
     logger.info("  Model: %s", args.model)
-    logger.info("  Training phase: %s", args.training_phase)
-    logger.info("  E1 input root: %s", model_results_root(args.model, args.training_phase))
+    logger.info("  Training phase: %s", training_phase)
+    logger.info("  E1 input root: %s", model_results_root(args.model, training_phase))
     logger.info("  Label run root: %s", label_run_root(
-        args.model, args.training_phase, args.llm_model))
+        args.model, training_phase, args.llm_model))
     logger.info("  Label LLM: %s", args.llm_model)
+    if phase_index == 0:
+        logger.info("  dotenv path: %s", dotenv_path or "(not found)")
+        logger.info("  dotenv loaded: %s", loaded)
+        logger.info("  OPENAI_API_KEY: %s", _mask_secret(os.environ.get("OPENAI_API_KEY", ""), keep=4))
     logger.info("=" * 70)
 
-    # Init OpenAI client
-    api_key = os.environ.get("OPENAI_API_KEY")
-    if not api_key:
-        logger.error("OPENAI_API_KEY not set. Export it or add to .env file.")
-        sys.exit(1)
-    client = OpenAI(api_key=api_key)
-
     # Load E1 results
-    records = load_e1_results(args.model, args.input, args.training_phase)
+    records = load_e1_results(args.model, input_path, training_phase)
     logger.info("Loaded %d records from E1 results", len(records))
 
     # Filter compliant records
@@ -941,15 +961,16 @@ def main():
 
     # Dispatch to mode
     if args.test:
-        run_test(client, args.model, filtered, logger, args.training_phase,
+        run_test(client, args.model, filtered, logger, training_phase,
                  args.llm_model, args.record_id)
     elif args.batch:
-        run_batch(client, args.model, filtered, logger, args.training_phase,
+        run_batch(client, args.model, filtered, logger, training_phase,
                   args.llm_model)
     elif args.collect:
-        if not args.batch_id:
+        batch_id = args.batch_id
+        if not batch_id:
             meta_path = os.path.join(
-                e1_batch_dir(args.model, args.training_phase, args.llm_model),
+                e1_batch_dir(args.model, training_phase, args.llm_model),
                 "batch_metadata.json",
             )
             if os.path.isfile(meta_path):
@@ -963,16 +984,70 @@ def main():
                         meta_llm,
                         args.llm_model,
                     )
-                args.batch_id = meta.get("batch_id")
-                logger.info("Loaded batch_id from metadata: %s", args.batch_id)
+                batch_id = meta.get("batch_id")
+                logger.info("Loaded batch_id from metadata: %s", batch_id)
             else:
-                logger.error("--batch_id required for --collect mode (no metadata found at %s)", meta_path)
+                logger.error(
+                    "--batch_id required for --collect mode (no metadata found at %s)",
+                    meta_path,
+                )
                 sys.exit(1)
-        run_collect(client, args.model, filtered, args.batch_id, logger,
-                    args.training_phase, args.llm_model)
+        if not batch_id:
+            logger.error("--batch_id required for --collect mode.")
+            sys.exit(1)
+        run_collect(client, args.model, filtered, batch_id, logger,
+                    training_phase, args.llm_model)
     elif args.retry:
-        run_retry(client, args.model, filtered, logger, args.training_phase,
+        run_retry(client, args.model, filtered, logger, training_phase,
                   args.llm_model)
+
+
+def main():
+    dotenv_path = find_dotenv(usecwd=True)
+    loaded = load_dotenv(dotenv_path) if dotenv_path else load_dotenv()
+    args = parse_args()
+
+    phases = (
+        list(training_phases_when_all(args.model))
+        if args.training_phase == TRAINING_PHASE_ALL
+        else [args.training_phase]
+    )
+
+    effective_input = None if (args.training_phase == TRAINING_PHASE_ALL and args.input) else args.input
+
+    # One log file per model: logs/{out_dir}/e1_auto_label.log (not under pretraining/ etc.)
+    logger = setup_logger(args.model, "e1_auto_label")
+
+    if args.training_phase == TRAINING_PHASE_ALL and args.input:
+        logger.warning(
+            "--input is ignored when --training-phase %s (using default JSON path per phase).",
+            TRAINING_PHASE_ALL,
+        )
+
+    api_key = os.environ.get("OPENAI_API_KEY")
+    if not api_key:
+        logger.error("OPENAI_API_KEY not set. Export it or add to .env file.")
+        sys.exit(1)
+    client = OpenAI(api_key=api_key)
+
+    n = len(phases)
+    if n > 1 and args.collect and args.batch_id:
+        logger.warning(
+            "--batch_id is set: the same ID will be used for every phase. "
+            "Usually omit --batch_id so each phase loads its own batch_metadata.json."
+        )
+    for i, tp in enumerate(phases):
+        run_one_phase(
+            args,
+            tp,
+            client,
+            logger,
+            input_path=effective_input,
+            dotenv_path=dotenv_path,
+            loaded=loaded,
+            phase_index=i,
+            total_phases=n,
+        )
 
 
 if __name__ == "__main__":

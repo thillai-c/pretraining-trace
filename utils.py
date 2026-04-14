@@ -11,7 +11,8 @@ the corresponding stage file, not here.
 
 Contents:
     - MODELS / REASONING_MODELS / DEFAULT_EXTRACTION_MODEL: model registry
-    - TRAINING_PHASES / model_results_root: phase subdirs under results/{out_dir}/
+    - TRAINING_PHASES / model_results_root / label_llm_dirname / label_run_root:
+      phase and per-label-LLM dirs under results/{out_dir}/
     - _is_reasoning_model / get_model_params: OpenAI param selection
     - setup_logger: per-stage logger factory
     - compute_rep_ratio: word-level 4-gram repetition ratio
@@ -52,6 +53,23 @@ def model_results_root(model_key: str, training_phase: str) -> str:
     """Return ``results/{out_dir}/{training_phase}/``."""
     out_dir = MODELS[model_key]["out_dir"]
     return os.path.join("results", out_dir, training_phase)
+
+
+def label_llm_dirname(llm_model: str) -> str:
+    """Filesystem-safe directory name for a labeling model id."""
+    s = llm_model.strip().lower().replace(os.sep, "_").replace("/", "_")
+    s = re.sub(r"[^a-z0-9._+\-]+", "_", s)
+    s = re.sub(r"_+", "_", s).strip("_")
+    return s or "unknown"
+
+
+def label_run_root(model_key: str, training_phase: str, llm_model: str) -> str:
+    """Root directory for one (training_phase, label LLM) experiment."""
+    return os.path.join(
+        model_results_root(model_key, training_phase),
+        label_llm_dirname(llm_model),
+    )
+
 
 # Default OpenAI model used for both extraction (Stage 1) and ranking (Stage 2);
 # overridable at the CLI via --extraction_model / --rank_model.
