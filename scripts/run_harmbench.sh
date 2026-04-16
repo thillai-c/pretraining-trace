@@ -39,7 +39,8 @@ if command -v module &>/dev/null; then
 fi
 source "$(conda info --base)/bin/activate" /lustre/nvwulf/home/solhapark/envs/infinigram
 
-cd /lustre/nvwulf/scratch/solhapark/pretraining-trace
+PROJECT_DIR="/lustre/nvwulf/projects/ZhouGroup-nvwulf/Users/solhapark/pretraining-trace"
+cd "$PROJECT_DIR"
 
 export HF_HOME="${HF_HOME:-$HOME/.cache/huggingface}"
 export TRANSFORMERS_CACHE="$HF_HOME/hub"
@@ -55,9 +56,15 @@ fi
 
 echo "=== Model: $MODEL_KEY, config=$CONFIG ==="
 
-python harmbench.py \
+OUT_DIR="$PROJECT_DIR/data/$MODEL_KEY"
+OUT_JSON="$OUT_DIR/harmbench_${CONFIG}.json"
+mkdir -p "$OUT_DIR"
+echo "=== Output: $OUT_JSON ==="
+
+python "$PROJECT_DIR/harmbench.py" \
     --model "$MODEL_KEY" \
     --config "$CONFIG" \
+    --out_json "$OUT_JSON" \
     --max_new_tokens 1024 \
     --seed 42
 
