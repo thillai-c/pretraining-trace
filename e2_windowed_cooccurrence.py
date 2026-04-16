@@ -27,22 +27,16 @@ E1 vs. E2 independence:
   independent.
 
 Usage:
-    # GPT-J (local engine)
-    python e2_windowed_cooccurrence.py \
-        --model gpt-j \
-        --training-phase pretraining \
-        --index_dir ./index \
-        --top_n 10 \
-        --windows 100 500 1000 2048
-
     # OLMo 2 (API engine, top-10 ranked concepts)
     python e2_windowed_cooccurrence.py \
         --model olmo2-7b-instruct \
         --training-phase pretraining \
         --api_index v4_olmo-mix-1124_llama \
-        --top_n 10 \
+        --top_n 5 10 15 20 \
         --compliant_only \
         --windows 100 500 1000
+
+python e2_windowed_cooccurrence.py --model olmo2-7b-instruct --training-phase pretraining --api_index v4_olmo-mix-1124_llama --top_n 5 10 15 20 --compliant_only --windows 100 500 1000
 
     # Override input path explicitly
     python e2_windowed_cooccurrence.py \
@@ -116,6 +110,10 @@ TRAINING_PHASE_ALL = "all"
 # Base (non-instruct) checkpoints only have pretraining + mid_training artifacts.
 E2_PHASES_BASE_ALL = ("pretraining", "mid_training")
 
+DEFAULT_PRETRAINING_API_INDEX = "v4_olmo-mix-1124_llama"
+DEFAULT_MIDTRAINING_INDEX_DIR = os.path.join(".", "index", "dolmino-mix-1124")
+DEFAULT_POSTTRAINING_INDEX_ROOT = os.path.join(".", "index", "post-training")
+
 
 def training_phases_when_all(model_key: str) -> tuple[str, ...]:
     """Phases to run for ``--training-phase all``:
@@ -125,6 +123,46 @@ def training_phases_when_all(model_key: str) -> tuple[str, ...]:
     if model_key.endswith("-instruct"):
         return TRAINING_PHASES
     return E2_PHASES_BASE_ALL
+
+
+def _model_size_suffix(model_key: str) -> str | None:
+    """Extract size suffix like '1b', '7b', '13b', '32b' from model key."""
+    for s in ("1b", "7b", "13b", "32b"):
+        if f"-{s}" in model_key:
+            return s
+    return None
+
+
+def _resolve_backend_for_all(args, training_phase: str) -> argparse.Namespace:
+    """Phase-specific backend selection when --training-phase all.
+
+    Rules:
+      - pretraining  : HTTP API (api_index)
+      - mid_training : local index_dir = ./index/dolmino-mix-1124
+      - post_training: local index_dir = ./index/post-training/{size}
+    """
+    phase_args = argparse.Namespace(**vars(args))
+
+    if training_phase == "pretraining":
+        phase_args.index_dir = None
+        phase_args.api_index = args.api_index or DEFAULT_PRETRAINING_API_INDEX
+        return phase_args
+
+    if training_phase == "mid_training":
+        phase_args.index_dir = DEFAULT_MIDTRAINING_INDEX_DIR
+        return phase_args
+
+    if training_phase == "post_training":
+        size = _model_size_suffix(args.model)
+        if size is None:
+            raise ValueError(
+                f"Cannot infer model size for post_training index from --model '{args.model}'. "
+                "Expected one of: *-1b*, *-7b*, *-13b*, *-32b*."
+            )
+        phase_args.index_dir = os.path.join(DEFAULT_POSTTRAINING_INDEX_ROOT, size)
+        return phase_args
+
+    raise ValueError(f"Unknown training phase: {training_phase}")
 
 
 # ===========================================================================
@@ -264,8 +302,8 @@ def parse_args():
     parser.add_argument("--index_dir", type=str, default=None,
                         help="Local infini-gram index dir. If omitted, use HTTP API.")
     parser.add_argument("--api_index", type=str,
-                        default="v4_olmo-mix-1124_llama",
-                        help="API index name (default: v4_olmo-mix-1124_llama)")
+                        default=DEFAULT_PRETRAINING_API_INDEX,
+                        help=f"API index name (default: {DEFAULT_PRETRAINING_API_INDEX})")
     parser.add_argument("--tokenizer_name", type=str,
                         default="meta-llama/Llama-2-7b-hf",
                         help="Tokenizer matching the infini-gram index")
@@ -742,7 +780,13 @@ def compute_e2_metrics(cooccurrence_result, windows):
 # ===========================================================================
 def run_one_phase(args, training_phase: str, logger, *, phase_index: int, total_phases: int,
                   top_n: int | None, multi_topn: bool) -> None:
-    input_path, concepts_path, base_output_path = resolve_phase_paths(args, training_phase, logger=logger)
+    phase_args = (
+        _resolve_backend_for_all(args, training_phase)
+        if args.training_phase == TRAINING_PHASE_ALL
+        else args
+    )
+
+    input_path, concepts_path, base_output_path = resolve_phase_paths(phase_args, training_phase, logger=logger)
     output_path = (
         _with_topn_suffix(base_output_path, top_n)
         if (multi_topn and top_n is not None)
@@ -762,8 +806,8 @@ def run_one_phase(args, training_phase: str, logger, *, phase_index: int, total_
     logger.info("=" * 70)
 
     logger.info("Backend: %s",
-                f"LOCAL ({args.index_dir})" if args.index_dir
-                else f"HTTP API ({args.api_index})")
+                f"LOCAL ({phase_args.index_dir})" if phase_args.index_dir
+                else f"HTTP API ({phase_args.api_index})")
     start_time = time.time()
 
     # Load E1 records
@@ -800,11 +844,11 @@ def run_one_phase(args, training_phase: str, logger, *, phase_index: int, total_
     )
 
     # Initialize infini-gram engine
-    engine, corpus_size = init_engine(args, tokenizer, logger)
+    engine, corpus_size = init_engine(phase_args, tokenizer, logger)
     logger.info("CORPUS_SIZE = %d", corpus_size)
 
     # Warn if API windows exceed limit
-    if args.index_dir is None:
+    if phase_args.index_dir is None:
         over_limit = [w for w in args.windows if w > 1000]
         if over_limit:
             logger.warning(
