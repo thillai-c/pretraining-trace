@@ -16,16 +16,16 @@
 #   1B : ~2 GB  |  7B : ~14 GB  |  13B : ~26 GB  |  32B : ~64 GB
 #
 # --- Base models (run up to 3 in parallel) ---
-# sbatch --mem=16G  --time=4:00:00    --export=MODEL_KEY=olmo2-1b  run_harmbench_olmo2.sh
-# sbatch --mem=32G  --time=12:00:00   --export=MODEL_KEY=olmo2-7b  run_harmbench_olmo2.sh
-# sbatch --mem=48G  --time=1-00:00:00 --export=MODEL_KEY=olmo2-13b run_harmbench_olmo2.sh
-# sbatch --mem=128G  --time=2-00:00:00 --export=MODEL_KEY=olmo2-32b run_harmbench_olmo2.sh
+# sbatch --mem=16G  --time=4:00:00    --export=MODEL_KEY=olmo2-1b  run_harmbench.sh
+# sbatch --mem=32G  --time=12:00:00   --export=MODEL_KEY=olmo2-7b  run_harmbench.sh
+# sbatch --mem=48G  --time=1-00:00:00 --export=MODEL_KEY=olmo2-13b run_harmbench.sh
+# sbatch --mem=128G  --time=2-00:00:00 --export=MODEL_KEY=olmo2-32b run_harmbench.sh
 #
 # --- Instruct models ---
-# sbatch --mem=16G  --time=4:00:00    --export=MODEL_KEY=olmo2-1b-instruct  run_harmbench_olmo2.sh
-# sbatch --mem=32G  --time=12:00:00   --export=MODEL_KEY=olmo2-7b-instruct  run_harmbench_olmo2.sh
-# sbatch --mem=48G  --time=1-00:00:00 --export=MODEL_KEY=olmo2-13b-instruct run_harmbench_olmo2.sh
-# sbatch --mem=128G  --time=2-00:00:00 --export=MODEL_KEY=olmo2-32b-instruct run_harmbench_olmo2.sh
+# sbatch --mem=16G  --time=4:00:00    --export=MODEL_KEY=olmo2-1b-instruct  run_harmbench.sh
+# sbatch --mem=32G  --time=12:00:00   --export=MODEL_KEY=olmo2-7b-instruct  run_harmbench.sh
+# sbatch --mem=48G  --time=1-00:00:00 --export=MODEL_KEY=olmo2-13b-instruct run_harmbench.sh
+# sbatch --mem=128G  --time=2-00:00:00 --export=MODEL_KEY=olmo2-32b-instruct run_harmbench.sh
 # =============================================================================
 
 set -euo pipefail
@@ -47,7 +47,7 @@ export TRANSFORMERS_CACHE="$HF_HOME/hub"
 
 mkdir -p logs
 
-CONFIG="${CONFIG:-standard}"
+CONFIG="${CONFIG:-copyright}"
 
 if [ -z "${MODEL_KEY:-}" ]; then
     echo "ERROR: MODEL_KEY not set. Usage: sbatch --export=MODEL_KEY=olmo2-7b run_harmbench_olmo2.sh"
@@ -56,7 +56,19 @@ fi
 
 echo "=== Model: $MODEL_KEY, config=$CONFIG ==="
 
-OUT_DIR="$PROJECT_DIR/data/$MODEL_KEY"
+OUT_DIR_NAME="$(python - "$MODEL_KEY" <<'PY'
+import sys
+from utils import MODEL_CONFIGS
+
+model_key = sys.argv[1]
+try:
+    print(MODEL_CONFIGS[model_key]["out_dir_name"])
+except KeyError:
+    print(model_key)
+PY
+)"
+
+OUT_DIR="$PROJECT_DIR/data/$OUT_DIR_NAME"
 OUT_JSON="$OUT_DIR/harmbench_${CONFIG}.json"
 mkdir -p "$OUT_DIR"
 echo "=== Output: $OUT_JSON ==="

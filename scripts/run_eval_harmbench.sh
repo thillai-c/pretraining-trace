@@ -27,18 +27,20 @@ fi
 source "$(conda info --base)/bin/activate" /lustre/nvwulf/home/solhapark/envs/infinigram
 
 # Load .env if present (e.g. HF_TOKEN)
-if [[ -f /lustre/nvwulf/scratch/solhapark/pretraining-trace/.env ]]; then
+PROJECT_DIR="/lustre/nvwulf/projects/ZhouGroup-nvwulf/Users/solhapark/pretraining-trace"
+
+if [[ -f "$PROJECT_DIR/.env" ]]; then
   set -a
-  source /lustre/nvwulf/scratch/solhapark/pretraining-trace/.env
+  source "$PROJECT_DIR/.env"
   set +a
 fi
 
-cd /lustre/nvwulf/scratch/solhapark/pretraining-trace
+cd "$PROJECT_DIR"
 mkdir -p scripts/logs
 
 export VLLM_WORKER_MULTIPROC_METHOD=spawn
 
-CONFIG="standard"
+CONFIG="contextual"
 
 # Models to evaluate
 MODELS=(
