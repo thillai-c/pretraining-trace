@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --job-name=harmbench_contextual
 #SBATCH --nodes=1
-#SBATCH --partition=long-28core
+#SBATCH --partition=long-40core
 #SBATCH --gres=gpu:1
 #SBATCH --mem=32000
 #SBATCH --cpus-per-task=8
