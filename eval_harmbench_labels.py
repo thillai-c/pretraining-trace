@@ -34,9 +34,15 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent / "HarmBench"))
 from eval_utils import compute_results_hashing, compute_results_classifier
 
+from utils import MODEL_CONFIGS
+
 
 def setup_logger(model_key, config):
-    out_dir = MODEL_CONFIGS[model_key]["out_dir"]
+    try:
+        out_dir = MODEL_CONFIGS[model_key]["out_dir_name"]
+    except KeyError:
+        # Fallback: keep logs organized even for unknown model keys.
+        out_dir = model_key.replace("-", "_")
     log_dir = os.path.join("logs", out_dir)
     os.makedirs(log_dir, exist_ok=True)
     log_filepath = os.path.join(log_dir, f"eval_harmbench_{config}.log")

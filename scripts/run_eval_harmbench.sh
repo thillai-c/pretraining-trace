@@ -40,7 +40,7 @@ mkdir -p scripts/logs
 
 export VLLM_WORKER_MULTIPROC_METHOD=spawn
 
-CONFIG="contextual"
+CONFIG="copyright"
 
 # Models to evaluate
 MODELS=(

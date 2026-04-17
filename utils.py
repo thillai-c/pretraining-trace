@@ -33,15 +33,73 @@ import sys
 # Model registry
 # ============================================================
 
+MODEL_CONFIGS = {
+    # GPT-J (original baseline)
+    "gpt-j": {
+        "hf_id": "EleutherAI/gpt-j-6B",
+        "max_ctx": 2048,
+        "model_type": "base",
+        "out_dir_name": "gpt_j_6b",
+    },
+
+    # OLMo 2 Base
+    "olmo2-1b": {
+        "hf_id": "allenai/OLMo-2-0425-1B",
+        "max_ctx": 4096,
+        "model_type": "base",
+        "out_dir_name": "olmo2_1b",
+    },
+    "olmo2-7b": {
+        "hf_id": "allenai/OLMo-2-1124-7B",
+        "max_ctx": 4096,
+        "model_type": "base",
+        "out_dir_name": "olmo2_7b",
+    },
+    "olmo2-13b": {
+        "hf_id": "allenai/OLMo-2-1124-13B",
+        "max_ctx": 4096,
+        "model_type": "base",
+        "out_dir_name": "olmo2_13b",
+    },
+    "olmo2-32b": {
+        "hf_id": "allenai/OLMo-2-0325-32B",
+        "max_ctx": 4096,
+        "model_type": "base",
+        "out_dir_name": "olmo2_32b",
+    },
+
+    # OLMo 2 Instruct
+    "olmo2-1b-instruct": {
+        "hf_id": "allenai/OLMo-2-0425-1B-Instruct",
+        "max_ctx": 4096,
+        "model_type": "instruct",
+        "out_dir_name": "olmo2_1b_instruct",
+    },
+    "olmo2-7b-instruct": {
+        "hf_id": "allenai/OLMo-2-1124-7B-Instruct",
+        "max_ctx": 4096,
+        "model_type": "instruct",
+        "out_dir_name": "olmo2_7b_instruct",
+    },
+    "olmo2-13b-instruct": {
+        "hf_id": "allenai/OLMo-2-1124-13B-Instruct",
+        "max_ctx": 4096,
+        "model_type": "instruct",
+        "out_dir_name": "olmo2_13b_instruct",
+    },
+    "olmo2-32b-instruct": {
+        "hf_id": "allenai/OLMo-2-0325-32B-Instruct",
+        "max_ctx": 4096,
+        "model_type": "instruct",
+        "out_dir_name": "olmo2_32b_instruct",
+    },
+}
+
+# E2 pipeline expects MODELS[model_key]["out_dir"].
 MODELS = {
-    "olmo2-1b":           {"out_dir": "olmo2_1b"},
-    "olmo2-7b":           {"out_dir": "olmo2_7b"},
-    "olmo2-13b":          {"out_dir": "olmo2_13b"},
-    "olmo2-32b":          {"out_dir": "olmo2_32b"},
-    "olmo2-1b-instruct":  {"out_dir": "olmo2_1b_instruct"},
-    "olmo2-7b-instruct":  {"out_dir": "olmo2_7b_instruct"},
-    "olmo2-13b-instruct": {"out_dir": "olmo2_13b_instruct"},
-    "olmo2-32b-instruct": {"out_dir": "olmo2_32b_instruct"},
+    k: {"out_dir": v["out_dir_name"]}
+    for k, v in MODEL_CONFIGS.items()
+    if k.startswith("olmo2-")
 }
 
 # Subdirectory name under results/{out_dir}/ for E1/E2 artifacts by training stage.

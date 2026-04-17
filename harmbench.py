@@ -18,6 +18,7 @@ import torch
 import random
 import logging
 import argparse
+import subprocess
 import numpy as np
 import pandas as pd
 from tqdm import tqdm
@@ -25,75 +26,7 @@ from datetime import datetime
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 
-# =============================================================================
-# Model Registry
-# =============================================================================
-# hf_id:        HuggingFace model ID
-# max_ctx:      max token count (prompt + response combined)
-# model_type:   "base" (raw text completion) or "instruct" (chat template)
-# out_dir_name: output directory under data/
-
-MODEL_REGISTRY = {
-    # GPT-J (original baseline)
-    "gpt-j": {
-        "hf_id": "EleutherAI/gpt-j-6B",
-        "max_ctx": 2048,
-        "model_type": "base",
-        "out_dir_name": "gpt_j_6b",
-    },
-
-    # OLMo 2 Base — cl100k tokenizer, seq len 4096 (OLMo 2 paper Table 1)
-    "olmo2-1b": {
-        "hf_id": "allenai/OLMo-2-0425-1B",
-        "max_ctx": 4096,
-        "model_type": "base",
-        "out_dir_name": "olmo2_1b",
-    },
-    "olmo2-7b": {
-        "hf_id": "allenai/OLMo-2-1124-7B",
-        "max_ctx": 4096,
-        "model_type": "base",
-        "out_dir_name": "olmo2_7b",
-    },
-    "olmo2-13b": {
-        "hf_id": "allenai/OLMo-2-1124-13B",
-        "max_ctx": 4096,
-        "model_type": "base",
-        "out_dir_name": "olmo2_13b",
-    },
-    "olmo2-32b": {
-        "hf_id": "allenai/OLMo-2-0325-32B",
-        "max_ctx": 4096,
-        "model_type": "base",
-        "out_dir_name": "olmo2_32b",
-    },
-
-    # OLMo 2 Instruct — chat template: <|user|>\n{prompt}\n<|assistant|>\n
-    "olmo2-1b-instruct": {
-        "hf_id": "allenai/OLMo-2-0425-1B-Instruct",
-        "max_ctx": 4096,
-        "model_type": "instruct",
-        "out_dir_name": "olmo2_1b_instruct",
-    },
-    "olmo2-7b-instruct": {
-        "hf_id": "allenai/OLMo-2-1124-7B-Instruct",
-        "max_ctx": 4096,
-        "model_type": "instruct",
-        "out_dir_name": "olmo2_7b_instruct",
-    },
-    "olmo2-13b-instruct": {
-        "hf_id": "allenai/OLMo-2-1124-13B-Instruct",
-        "max_ctx": 4096,
-        "model_type": "instruct",
-        "out_dir_name": "olmo2_13b_instruct",
-    },
-    "olmo2-32b-instruct": {
-        "hf_id": "allenai/OLMo-2-0325-32B-Instruct",
-        "max_ctx": 4096,
-        "model_type": "instruct",
-        "out_dir_name": "olmo2_32b_instruct",
-    },
-}
+from utils import MODEL_CONFIGS
 
 
 def safe_value(v):
@@ -107,7 +40,7 @@ def safe_value(v):
 
 
 def setup_logger(model_key, config):
-    out_dir = MODEL_CONFIGS[model_key]["out_dir"]
+    out_dir = MODEL_CONFIGS[model_key]["out_dir_name"]
     log_dir = os.path.join("logs", out_dir)
     os.makedirs(log_dir, exist_ok=True)
     log_filepath = os.path.join(log_dir, f"harmbench_{config}.log")
@@ -125,13 +58,64 @@ def setup_logger(model_key, config):
     return logger
 
 
+def log_gpu_status(logger, device, prefix="GPU"):
+    """Log GPU utilization and memory usage (best-effort)."""
+    if device != "cuda" or not torch.cuda.is_available():
+        logger.info("%s status: device=%s (cuda unavailable)", prefix, device)
+        return
+
+    try:
+        torch.cuda.synchronize()
+    except Exception:
+        pass
+
+    try:
+        idx = torch.cuda.current_device()
+        name = torch.cuda.get_device_name(idx)
+        alloc = torch.cuda.memory_allocated(idx) / (1024**3)
+        reserved = torch.cuda.memory_reserved(idx) / (1024**3)
+        logger.info(
+            "%s status (torch): gpu=%d (%s), allocated=%.2f GiB, reserved=%.2f GiB",
+            prefix,
+            idx,
+            name,
+            alloc,
+            reserved,
+        )
+    except Exception as exc:
+        logger.info("%s status (torch): <unavailable> (%s)", prefix, exc)
+
+    # Best-effort nvidia-smi snapshot (works on most HPC nodes)
+    try:
+        out = subprocess.check_output(
+            [
+                "nvidia-smi",
+                "--query-gpu=index,utilization.gpu,memory.used,memory.total",
+                "--format=csv,noheader,nounits",
+            ],
+            stderr=subprocess.STDOUT,
+            text=True,
+            timeout=5,
+        ).strip()
+        # Log only the current GPU line if possible; otherwise log full output.
+        try:
+            idx = torch.cuda.current_device()
+            lines = [ln.strip() for ln in out.splitlines() if ln.strip()]
+            current = [ln for ln in lines if ln.split(",")[0].strip() == str(idx)]
+            logger.info("%s status (nvidia-smi): %s", prefix, current[0] if current else out)
+        except Exception:
+            logger.info("%s status (nvidia-smi): %s", prefix, out)
+    except Exception as exc:
+        logger.info("%s status (nvidia-smi): <unavailable> (%s)", prefix, exc)
+
+
 def parse_args():
     parser = argparse.ArgumentParser(
         description="Generate HarmBench responses using GPT-J or OLMo 2 family models"
     )
     parser.add_argument("--model", type=str, required=True,
-                        choices=list(MODEL_REGISTRY.keys()),
-                        help="Model to use. Available: " + ", ".join(MODEL_REGISTRY.keys()))
+                        choices=list(MODEL_CONFIGS.keys()),
+                        help="Model to use. Available: " + ", ".join(MODEL_CONFIGS.keys()))
     parser.add_argument("--csv_path", type=str,
                         default="HarmBench/data/behavior_datasets/harmbench_behaviors_text_all.csv")
     parser.add_argument("--out_json", type=str, default=None,
@@ -183,6 +167,7 @@ def load_model_and_tokenizer(model_info, logger):
         tokenizer.pad_token = tokenizer.eos_token
 
     logger.info("Loading model: %s ...", hf_id)
+    log_gpu_status(logger, device, prefix="Pre-load")
     
     # All models fit on single GPU (96GB VRAM), so use explicit device placement
     # instead of device_map="auto" for better performance
@@ -196,6 +181,7 @@ def load_model_and_tokenizer(model_info, logger):
         model = model.to(device)
 
     model.eval()
+    log_gpu_status(logger, device, prefix="Post-load")
     logger.info("Model loaded successfully: %s", hf_id)
     return model, tokenizer, device
 
@@ -205,7 +191,7 @@ def main():
     logger = setup_logger(args.model, args.config)
 
     # Resolve model info
-    model_info = MODEL_REGISTRY[args.model]
+    model_info = MODEL_CONFIGS[args.model]
     hf_id = model_info["hf_id"]
     max_ctx = model_info["max_ctx"]
 
