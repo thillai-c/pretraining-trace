@@ -7,18 +7,18 @@ few-shot examples.
 
 Usage:
     # Test: first compliant record (sync API)
-    python e1_auto_label.py --model olmo2-7b --training-phase pretraining --config standard --llm-model gpt-5.4-mini --test
+    python e1_auto_label.py --model olmo2-7b --training-phase pretraining --config standard --e1-llm gpt-5.4-mini --test
 
     # Batch, then collect into span_safety_labels.csv under the label run root
-    python e1_auto_label.py --model olmo2-7b --training-phase pretraining --config standard --llm-model gpt-5.4-mini --batch
-    python e1_auto_label.py --model olmo2-7b --training-phase pretraining --config standard --llm-model gpt-5.4-mini --collect
+    python e1_auto_label.py --model olmo2-7b --training-phase pretraining --config standard --e1-llm gpt-5.4-mini --batch
+    python e1_auto_label.py --model olmo2-7b --training-phase pretraining --config standard --e1-llm gpt-5.4-mini --collect
 
     # Retry from batch_e1/batch_errors.json and append to the CSV
-    python e1_auto_label.py --model olmo2-7b --training-phase pretraining --config standard --llm-model gpt-5.4-mini --retry
+    python e1_auto_label.py --model olmo2-7b --training-phase pretraining --config standard --e1-llm gpt-5.4-mini --retry
 
     # All phases: base models -> pretraining + mid_training; *-instruct -> also post_training
-    python e1_auto_label.py --model olmo2-7b --training-phase all --config standard --llm-model gpt-5.4-mini --batch
-    python e1_auto_label.py --model olmo2-7b-instruct --training-phase all --config standard --llm-model gpt-5.4-mini --batch
+    python e1_auto_label.py --model olmo2-7b --training-phase all --config standard --e1-llm gpt-5.4-mini --batch
+    python e1_auto_label.py --model olmo2-7b-instruct --training-phase all --config standard --e1-llm gpt-5.4-mini --batch
 
 Reference:
     - span_safety_labels.csv: GPT-J manual labels (162 rows)
@@ -66,13 +66,13 @@ MODELS = {
 # OpenAI Batch I/O under each label run (distinct from E2 batch dirs).
 E1_BATCH_SUBDIR = "batch_e1"
 
-# Default OpenAI model for span labeling (override with --llm-model).
+# Default OpenAI model for span labeling (override with --e1-llm).
 DEFAULT_LABEL_LLM = "gpt-5.4-mini"
 
 
-def e1_batch_dir(model_key: str, training_phase: str, llm_model: str) -> str:
+def e1_batch_dir(model_key: str, training_phase: str, e1_llm: str) -> str:
     """Directory for batch_input.jsonl, batch_metadata.json, batch_output.jsonl, etc."""
-    return os.path.join(label_run_root(model_key, training_phase, llm_model), E1_BATCH_SUBDIR)
+    return os.path.join(label_run_root(model_key, training_phase, e1_llm), E1_BATCH_SUBDIR)
 
 CSV_COLUMNS = [
     "model", "record_id", "span_idx", "doc_ix",
@@ -329,7 +329,7 @@ def load_existing_csv(output_path: str):
 # Test mode: 1 record, synchronous API call
 # ============================================================
 
-def run_test(client, model_key, records, logger, training_phase, llm_model,
+def run_test(client, model_key, records, logger, training_phase, e1_llm,
              record_id=None):
     """Run labeling on a single record using synchronous API call."""
     if not records:
@@ -363,16 +363,16 @@ def run_test(client, model_key, records, logger, training_phase, llm_model,
     logger.info("  User message length: %d chars", len(user_msg))
 
     # API call
-    logger.info("  Calling OpenAI API (%s)...", llm_model)
+    logger.info("  Calling OpenAI API (%s)...", e1_llm)
     start = time.time()
     try:
         response = client.chat.completions.create(
-            model=llm_model,
+            model=e1_llm,
             messages=[
                 {"role": "system", "content": SYSTEM_PROMPT},
                 {"role": "user", "content": user_msg},
             ],
-            **get_model_params(llm_model),
+            **get_model_params(e1_llm),
         )
     except Exception as e:
         logger.error("  API call failed: %s", e)
@@ -442,7 +442,7 @@ def run_test(client, model_key, records, logger, training_phase, llm_model,
                      row["context_topic"][:60])
 
     # Save test output
-    root = label_run_root(model_key, training_phase, llm_model)
+    root = label_run_root(model_key, training_phase, e1_llm)
     test_csv = os.path.join(root, "span_safety_labels_test.csv")
     save_csv(result_rows, test_csv, model_key)
     logger.info("  Test results saved to %s (%d rows)", test_csv, len(result_rows))
@@ -459,13 +459,13 @@ def run_test(client, model_key, records, logger, training_phase, llm_model,
 # Batch mode: submit to OpenAI Batch API
 # ============================================================
 
-def run_batch(client, model_key, records, logger, training_phase, llm_model):
+def run_batch(client, model_key, records, logger, training_phase, e1_llm):
     """Submit all records to OpenAI Batch API."""
     if not records:
         logger.error("No compliant records to batch.")
         return
 
-    batch_dir = e1_batch_dir(model_key, training_phase, llm_model)
+    batch_dir = e1_batch_dir(model_key, training_phase, e1_llm)
     os.makedirs(batch_dir, exist_ok=True)
 
     # Build JSONL file for Batch API
@@ -488,12 +488,12 @@ def run_batch(client, model_key, records, logger, training_phase, llm_model):
                 "method": "POST",
                 "url": "/v1/chat/completions",
                 "body": {
-                    "model": llm_model,
+                    "model": e1_llm,
                     "messages": [
                         {"role": "system", "content": SYSTEM_PROMPT},
                         {"role": "user", "content": user_msg},
                     ],
-                    **get_model_params(llm_model),
+                    **get_model_params(e1_llm),
                 },
             }
             f.write(json.dumps(request) + "\n")
@@ -523,10 +523,10 @@ def run_batch(client, model_key, records, logger, training_phase, llm_model):
     logger.info("  Batch ID: %s", batch.id)
     logger.info("  To collect results, run:")
     logger.info(
-        "    python e1_auto_label.py --model %s --training-phase %s --llm-model %s --collect --batch_id %s",
+        "    python e1_auto_label.py --model %s --training-phase %s --e1-llm %s --collect --batch_id %s",
         model_key,
         training_phase,
-        llm_model,
+        e1_llm,
         batch.id,
     )
     logger.info("=" * 70)
@@ -539,7 +539,7 @@ def run_batch(client, model_key, records, logger, training_phase, llm_model):
             "input_file_id": upload.id,
             "model_key": model_key,
             "training_phase": training_phase,
-            "llm_model": llm_model,
+            "e1_llm": e1_llm,
             "num_records": len(records),
             "total_pairs": total_pairs,
             "submitted_at": datetime.now().isoformat(),
@@ -552,9 +552,9 @@ def run_batch(client, model_key, records, logger, training_phase, llm_model):
 # ============================================================
 
 def run_collect(client, model_key, records, batch_id, logger, training_phase,
-                llm_model):
+                e1_llm):
     """Retrieve batch results and convert to CSV."""
-    batch_dir = e1_batch_dir(model_key, training_phase, llm_model)
+    batch_dir = e1_batch_dir(model_key, training_phase, e1_llm)
 
     # Check batch status
     logger.info("Checking batch status for %s ...", batch_id)
@@ -689,7 +689,7 @@ def run_collect(client, model_key, records, batch_id, logger, training_phase,
 
     # Save CSV
     csv_path = os.path.join(
-        label_run_root(model_key, training_phase, llm_model),
+        label_run_root(model_key, training_phase, e1_llm),
         "span_safety_labels.csv",
     )
     save_csv(all_rows, csv_path, model_key)
@@ -712,13 +712,13 @@ def run_collect(client, model_key, records, batch_id, logger, training_phase,
 # Retry mode: re-run failed records and append to existing CSV
 # ============================================================
 
-def run_retry(client, model_key, records, logger, training_phase, llm_model):
+def run_retry(client, model_key, records, logger, training_phase, e1_llm):
     """Re-run failed records from batch_errors.json using synchronous API calls,
     and append results to the existing span_safety_labels.csv."""
-    batch_dir = e1_batch_dir(model_key, training_phase, llm_model)
+    batch_dir = e1_batch_dir(model_key, training_phase, e1_llm)
     err_path = os.path.join(batch_dir, "batch_errors.json")
     csv_path = os.path.join(
-        label_run_root(model_key, training_phase, llm_model),
+        label_run_root(model_key, training_phase, e1_llm),
         "span_safety_labels.csv",
     )
 
@@ -755,17 +755,17 @@ def run_retry(client, model_key, records, logger, training_phase, llm_model):
 
         user_msg = build_user_message(rec, pairs)
         logger.info("  User message length: %d chars", len(user_msg))
-        logger.info("  Calling OpenAI API (%s)...", llm_model)
+        logger.info("  Calling OpenAI API (%s)...", e1_llm)
 
         start = time.time()
         try:
             response = client.chat.completions.create(
-                model=llm_model,
+                model=e1_llm,
                 messages=[
                     {"role": "system", "content": SYSTEM_PROMPT},
                     {"role": "user", "content": user_msg},
                 ],
-                **get_model_params(llm_model),
+                **get_model_params(e1_llm),
             )
         except Exception as e:
             logger.error("  API call failed: %s", e)
@@ -861,7 +861,7 @@ def parse_args():
         dest="training_phase",
         help="Same phase folder as e1_verbatim_trace default output: "
              "results/{out_dir}/pretraining|mid_training|post_training/ "
-             "for E1 JSON input; labeling outputs live under <llm_dirname>/ per --llm-model. "
+             "for E1 JSON input; labeling outputs live under <llm_dirname>/ per --e1-llm. "
              "Use '%s' to run the selected mode once per phase: base models use %s; "
              "*-instruct models use %s."
              % (
@@ -881,12 +881,12 @@ def parse_args():
                         help="Override E1 JSON path (default: "
                              "results/{out_dir}/{training_phase}/e1_verbatim_{config}.json)")
     parser.add_argument(
-        "--llm-model",
+        "--e1-llm",
         type=str,
         default=DEFAULT_LABEL_LLM,
-        dest="llm_model",
-        help="OpenAI model id for span labeling (outputs under "
-             "results/{out_dir}/{training_phase}/<llm_dirname>/). "
+        dest="e1_llm",
+        help="OpenAI model id for span labeling; outputs under "
+             "results/{out_dir}/{training_phase}/{e1_llm}/ (sanitized). "
              "Use the same value for --batch, --collect, and --retry.",
     )
 
@@ -938,8 +938,8 @@ def run_one_phase(
     logger.info("  Training phase: %s", training_phase)
     logger.info("  E1 input root: %s", model_results_root(args.model, training_phase))
     logger.info("  Label run root: %s", label_run_root(
-        args.model, training_phase, args.llm_model))
-    logger.info("  Label LLM: %s", args.llm_model)
+        args.model, training_phase, args.e1_llm))
+    logger.info("  Label LLM (--e1-llm): %s", args.e1_llm)
     if phase_index == 0:
         logger.info("  dotenv path: %s", dotenv_path or "(not found)")
         logger.info("  dotenv loaded: %s", loaded)
@@ -962,27 +962,27 @@ def run_one_phase(
     # Dispatch to mode
     if args.test:
         run_test(client, args.model, filtered, logger, training_phase,
-                 args.llm_model, args.record_id)
+                 args.e1_llm, args.record_id)
     elif args.batch:
         run_batch(client, args.model, filtered, logger, training_phase,
-                  args.llm_model)
+                  args.e1_llm)
     elif args.collect:
         batch_id = args.batch_id
         if not batch_id:
             meta_path = os.path.join(
-                e1_batch_dir(args.model, training_phase, args.llm_model),
+                e1_batch_dir(args.model, training_phase, args.e1_llm),
                 "batch_metadata.json",
             )
             if os.path.isfile(meta_path):
                 with open(meta_path) as f:
                     meta = json.load(f)
-                meta_llm = meta.get("llm_model")
-                if meta_llm and meta_llm != args.llm_model:
+                meta_llm = meta.get("e1_llm") or meta.get("llm_model")
+                if meta_llm and meta_llm != args.e1_llm:
                     logger.warning(
-                        "batch_metadata llm_model=%r differs from --llm-model=%r "
-                        "(metadata path matches --llm-model dirname; verify this is intended).",
+                        "batch_metadata e1_llm/llm_model=%r differs from --e1-llm=%r "
+                        "(metadata path matches --e1-llm dirname; verify this is intended).",
                         meta_llm,
-                        args.llm_model,
+                        args.e1_llm,
                     )
                 batch_id = meta.get("batch_id")
                 logger.info("Loaded batch_id from metadata: %s", batch_id)
@@ -996,10 +996,10 @@ def run_one_phase(
             logger.error("--batch_id required for --collect mode.")
             sys.exit(1)
         run_collect(client, args.model, filtered, batch_id, logger,
-                    training_phase, args.llm_model)
+                    training_phase, args.e1_llm)
     elif args.retry:
         run_retry(client, args.model, filtered, logger, training_phase,
-                  args.llm_model)
+                  args.e1_llm)
 
 
 def main():

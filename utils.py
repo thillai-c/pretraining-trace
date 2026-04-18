@@ -15,7 +15,8 @@ Contents:
       TRAINING_PHASE_ALL / training_phases_when_all /
       model_results_root / label_llm_dirname / label_run_root:
       phase folders under results/{out_dir}/ and ``--training-phase all`` expansion;
-      ``label_run_root`` is also the E2 experiment directory (``--e2-llm`` in e2_* scripts).
+      ``label_run_root`` is also the experiment directory for E1 (``--e1-llm`` in
+      ``e1_auto_label.py``) and E2 (``--e2-llm`` in e2_* scripts).
     - _is_reasoning_model / get_model_params: OpenAI param selection
     - setup_logger: per-stage logger factory
     - compute_rep_ratio: word-level 4-gram repetition ratio
@@ -134,7 +135,11 @@ def label_llm_dirname(llm_model: str) -> str:
 
 
 def label_run_root(model_key: str, training_phase: str, llm_model: str) -> str:
-    """Root directory for one (training_phase, label LLM) experiment."""
+    """Root directory for one (training_phase, label LLM) experiment.
+
+    Resolves to ``results/{out_dir}/{training_phase}/{label_llm_dirname(llm_model)}/``.
+    Used by ``e1_auto_label`` (``--e1-llm``) and E2 stages (``--e2-llm``).
+    """
     return os.path.join(
         model_results_root(model_key, training_phase),
         label_llm_dirname(llm_model),
