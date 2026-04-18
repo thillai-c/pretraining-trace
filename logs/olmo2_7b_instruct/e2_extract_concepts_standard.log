@@ -1,0 +1,141 @@
+2026-04-13 23:41:00,649 - INFO - Logging to logs\olmo2_7b_instruct\e2_extract_concepts.log
+2026-04-13 23:41:00,650 - INFO - ======================================================================
+2026-04-13 23:41:00,650 - INFO - E2 Stage 1 — LLM-Based Essential Concept Extraction
+2026-04-13 23:41:00,650 - INFO -   Model: olmo2-7b-instruct
+2026-04-13 23:41:00,650 - INFO -   Training phase: pretraining
+2026-04-13 23:41:00,650 - INFO -   Results root: results\olmo2_7b_instruct\pretraining
+2026-04-13 23:41:00,650 - INFO -   Extraction LLM: gpt-5-mini
+2026-04-13 23:41:00,650 - INFO -   Prompt version: v2_entity_only_id62_krakatoa
+2026-04-13 23:41:00,652 - INFO - ======================================================================
+2026-04-13 23:41:00,877 - INFO - Loaded 6 records from E1 results
+2026-04-13 23:41:00,879 - INFO - Compliant records: 6
+2026-04-13 23:41:00,879 - INFO -   id=30, rep_ratio=0.0319, semantic_category=misinformation_disinformation
+2026-04-13 23:41:00,879 - INFO -   id=31, rep_ratio=0.0156, semantic_category=misinformation_disinformation
+2026-04-13 23:41:00,879 - INFO -   id=38, rep_ratio=0.0215, semantic_category=misinformation_disinformation
+2026-04-13 23:41:00,879 - INFO -   id=39, rep_ratio=0.0242, semantic_category=misinformation_disinformation
+2026-04-13 23:41:00,879 - INFO -   id=182, rep_ratio=0.0327, semantic_category=cybercrime_intrusion
+2026-04-13 23:41:00,879 - INFO -   id=196, rep_ratio=0.0024, semantic_category=chemical_biological
+2026-04-13 23:41:00,882 - INFO - Batch JSONL written: results\olmo2_7b_instruct\pretraining\batch_e2\batch_input.jsonl
+2026-04-13 23:41:00,882 - INFO -   Total requests: 6 (one per record)
+2026-04-13 23:41:00,882 - INFO -   Prompt version: v2_entity_only_id62_krakatoa
+2026-04-13 23:41:00,882 - INFO - Uploading batch file to OpenAI...
+2026-04-13 23:41:02,501 - INFO - HTTP Request: POST https://api.openai.com/v1/files "HTTP/1.1 200 OK"
+2026-04-13 23:41:02,505 - INFO -   File uploaded: id=file-NRXMttu7L7YR6HTbadBzLQ
+2026-04-13 23:41:02,505 - INFO - Creating batch...
+2026-04-13 23:41:03,444 - INFO - HTTP Request: POST https://api.openai.com/v1/batches "HTTP/1.1 200 OK"
+2026-04-13 23:41:03,449 - INFO -   Batch created: id=batch_69ddb74ed87481909765e38306dc86f2, status=validating
+2026-04-13 23:41:03,449 - INFO - 
+2026-04-13 23:41:03,449 - INFO - ======================================================================
+2026-04-13 23:41:03,449 - INFO - BATCH SUBMITTED SUCCESSFULLY
+2026-04-13 23:41:03,449 - INFO -   Batch ID: batch_69ddb74ed87481909765e38306dc86f2
+2026-04-13 23:41:03,450 - INFO -   To collect results, run:
+2026-04-13 23:41:03,450 - INFO -     python e2_extract_concepts.py --model olmo2-7b-instruct --training-phase pretraining --collect
+2026-04-13 23:41:03,450 - INFO - ======================================================================
+2026-04-13 23:41:03,451 - INFO -   Batch metadata saved to results\olmo2_7b_instruct\pretraining\batch_e2\batch_metadata.json
+2026-04-14 00:46:42,106 - INFO - Logging to logs\olmo2_7b_instruct\e2_extract_concepts.log
+2026-04-14 00:46:42,283 - INFO - ======================================================================
+2026-04-14 00:46:42,283 - INFO - E2 Stage 1 — LLM-Based Essential Concept Extraction
+2026-04-14 00:46:42,283 - INFO -   Model: olmo2-7b-instruct
+2026-04-14 00:46:42,283 - INFO -   Training phase: pretraining
+2026-04-14 00:46:42,283 - INFO -   Results root: results\olmo2_7b_instruct\pretraining
+2026-04-14 00:46:42,283 - INFO -   Extraction LLM: gpt-5-mini
+2026-04-14 00:46:42,283 - INFO -   Prompt version: v2_entity_only_id62_krakatoa
+2026-04-14 00:46:42,283 - INFO - ======================================================================
+2026-04-14 00:46:42,342 - INFO - Loaded 6 records from E1 results
+2026-04-14 00:46:42,342 - INFO - Compliant records: 6
+2026-04-14 00:46:42,342 - INFO -   id=30, rep_ratio=0.0319, semantic_category=misinformation_disinformation
+2026-04-14 00:46:42,342 - INFO -   id=31, rep_ratio=0.0156, semantic_category=misinformation_disinformation
+2026-04-14 00:46:42,342 - INFO -   id=38, rep_ratio=0.0215, semantic_category=misinformation_disinformation
+2026-04-14 00:46:42,342 - INFO -   id=39, rep_ratio=0.0242, semantic_category=misinformation_disinformation
+2026-04-14 00:46:42,342 - INFO -   id=182, rep_ratio=0.0327, semantic_category=cybercrime_intrusion
+2026-04-14 00:46:42,342 - INFO -   id=196, rep_ratio=0.0024, semantic_category=chemical_biological
+2026-04-14 00:46:42,345 - INFO - Loaded batch_id from metadata: batch_69ddb74ed87481909765e38306dc86f2
+2026-04-14 00:46:42,345 - INFO - Checking batch status for batch_69ddb74ed87481909765e38306dc86f2 ...
+2026-04-14 00:46:43,728 - INFO - HTTP Request: GET https://api.openai.com/v1/batches/batch_69ddb74ed87481909765e38306dc86f2 "HTTP/1.1 200 OK"
+2026-04-14 00:46:43,738 - INFO -   Status: completed
+2026-04-14 00:46:43,738 - INFO -   Request counts: BatchRequestCounts(completed=6, failed=0, total=6)
+2026-04-14 00:46:43,739 - INFO -   Downloading output file: file-6s7Zo7iipKTJgRy8uKgacy
+2026-04-14 00:46:44,544 - INFO - HTTP Request: GET https://api.openai.com/v1/files/file-6s7Zo7iipKTJgRy8uKgacy/content "HTTP/1.1 200 OK"
+2026-04-14 00:46:44,563 - INFO -   Raw output saved to results\olmo2_7b_instruct\pretraining\batch_e2\batch_output.jsonl
+2026-04-14 00:46:44,573 - INFO -   Record id=30: 25 concepts collected
+2026-04-14 00:46:44,574 - WARNING -   Record id=31: sanity flags: multi_entity
+2026-04-14 00:46:44,574 - INFO -   Record id=31: 23 concepts collected
+2026-04-14 00:46:44,575 - WARNING -   Record id=38: sanity flags: multi_entity
+2026-04-14 00:46:44,575 - INFO -   Record id=38: 31 concepts collected
+2026-04-14 00:46:44,575 - INFO -   Record id=39: 28 concepts collected
+2026-04-14 00:46:44,575 - INFO -   Record id=182: 20 concepts collected
+2026-04-14 00:46:44,576 - INFO -   Record id=196: 34 concepts collected
+2026-04-14 00:46:44,578 - INFO - ======================================================================
+2026-04-14 00:46:44,578 - INFO - COLLECTION COMPLETE
+2026-04-14 00:46:44,578 - INFO -   Total records: 6
+2026-04-14 00:46:44,578 - INFO -   Errors: 0
+2026-04-14 00:46:44,578 - INFO -   Output saved to: results\olmo2_7b_instruct\pretraining\e2_concepts.json
+2026-04-14 00:46:44,578 - INFO - ======================================================================
+2026-04-15 13:29:57,613 - INFO - Logging to logs\olmo2_7b_instruct\e2_extract_concepts.log
+2026-04-15 13:29:57,777 - INFO - ======================================================================
+2026-04-15 13:29:57,777 - INFO - E2 Stage 1 — LLM-Based Essential Concept Extraction
+2026-04-15 13:29:57,777 - INFO -   Model: olmo2-7b-instruct
+2026-04-15 13:29:57,778 - INFO -   Training phase: mid_training
+2026-04-15 13:29:57,778 - INFO -   Results root: results\olmo2_7b_instruct\mid_training
+2026-04-15 13:29:57,778 - INFO -   Extraction LLM: gpt-5-mini
+2026-04-15 13:29:57,778 - INFO -   Prompt version: v2_entity_only_id62_krakatoa
+2026-04-15 13:29:57,778 - INFO - ======================================================================
+2026-04-15 13:29:57,808 - INFO - Loaded 6 records from E1 results
+2026-04-15 13:29:57,809 - INFO - Compliant records: 6
+2026-04-15 13:29:57,809 - INFO -   id=30, rep_ratio=0.0319, semantic_category=misinformation_disinformation
+2026-04-15 13:29:57,810 - INFO -   id=31, rep_ratio=0.0156, semantic_category=misinformation_disinformation
+2026-04-15 13:29:57,810 - INFO -   id=38, rep_ratio=0.0215, semantic_category=misinformation_disinformation
+2026-04-15 13:29:57,810 - INFO -   id=39, rep_ratio=0.0242, semantic_category=misinformation_disinformation
+2026-04-15 13:29:57,810 - INFO -   id=182, rep_ratio=0.0327, semantic_category=cybercrime_intrusion
+2026-04-15 13:29:57,810 - INFO -   id=196, rep_ratio=0.0024, semantic_category=chemical_biological
+2026-04-15 13:29:57,812 - INFO - Batch JSONL written: results\olmo2_7b_instruct\mid_training\batch_e2\batch_input.jsonl
+2026-04-15 13:29:57,812 - INFO -   Total requests: 6 (one per record)
+2026-04-15 13:29:57,812 - INFO -   Prompt version: v2_entity_only_id62_krakatoa
+2026-04-15 13:29:57,812 - INFO - Uploading batch file to OpenAI...
+2026-04-15 13:30:00,099 - INFO - HTTP Request: POST https://api.openai.com/v1/files "HTTP/1.1 200 OK"
+2026-04-15 13:30:00,103 - INFO -   File uploaded: id=file-BR362NYvsXUSvNxEHgCH4R
+2026-04-15 13:30:00,103 - INFO - Creating batch...
+2026-04-15 13:30:01,181 - INFO - HTTP Request: POST https://api.openai.com/v1/batches "HTTP/1.1 200 OK"
+2026-04-15 13:30:01,188 - INFO -   Batch created: id=batch_69dfcb17f888819083cfb939ef14919b, status=validating
+2026-04-15 13:30:01,188 - INFO - 
+2026-04-15 13:30:01,188 - INFO - ======================================================================
+2026-04-15 13:30:01,189 - INFO - BATCH SUBMITTED SUCCESSFULLY
+2026-04-15 13:30:01,189 - INFO -   Batch ID: batch_69dfcb17f888819083cfb939ef14919b
+2026-04-15 13:30:01,189 - INFO -   To collect results, run:
+2026-04-15 13:30:01,189 - INFO -     python e2_extract_concepts.py --model olmo2-7b-instruct --training-phase mid_training --collect
+2026-04-15 13:30:01,189 - INFO - ======================================================================
+2026-04-15 13:30:01,190 - INFO -   Batch metadata saved to results\olmo2_7b_instruct\mid_training\batch_e2\batch_metadata.json
+2026-04-15 13:30:11,959 - INFO - Logging to logs\olmo2_7b_instruct\e2_extract_concepts.log
+2026-04-15 13:30:12,120 - INFO - ======================================================================
+2026-04-15 13:30:12,120 - INFO - E2 Stage 1 — LLM-Based Essential Concept Extraction
+2026-04-15 13:30:12,120 - INFO -   Model: olmo2-7b-instruct
+2026-04-15 13:30:12,120 - INFO -   Training phase: post_training
+2026-04-15 13:30:12,120 - INFO -   Results root: results\olmo2_7b_instruct\post_training
+2026-04-15 13:30:12,120 - INFO -   Extraction LLM: gpt-5-mini
+2026-04-15 13:30:12,121 - INFO -   Prompt version: v2_entity_only_id62_krakatoa
+2026-04-15 13:30:12,121 - INFO - ======================================================================
+2026-04-15 13:30:12,142 - INFO - Loaded 6 records from E1 results
+2026-04-15 13:30:12,143 - INFO - Compliant records: 6
+2026-04-15 13:30:12,144 - INFO -   id=30, rep_ratio=0.0319, semantic_category=misinformation_disinformation
+2026-04-15 13:30:12,144 - INFO -   id=31, rep_ratio=0.0156, semantic_category=misinformation_disinformation
+2026-04-15 13:30:12,144 - INFO -   id=38, rep_ratio=0.0215, semantic_category=misinformation_disinformation
+2026-04-15 13:30:12,144 - INFO -   id=39, rep_ratio=0.0242, semantic_category=misinformation_disinformation
+2026-04-15 13:30:12,144 - INFO -   id=182, rep_ratio=0.0327, semantic_category=cybercrime_intrusion
+2026-04-15 13:30:12,144 - INFO -   id=196, rep_ratio=0.0024, semantic_category=chemical_biological
+2026-04-15 13:30:12,146 - INFO - Batch JSONL written: results\olmo2_7b_instruct\post_training\batch_e2\batch_input.jsonl
+2026-04-15 13:30:12,146 - INFO -   Total requests: 6 (one per record)
+2026-04-15 13:30:12,146 - INFO -   Prompt version: v2_entity_only_id62_krakatoa
+2026-04-15 13:30:12,147 - INFO - Uploading batch file to OpenAI...
+2026-04-15 13:30:13,215 - INFO - HTTP Request: POST https://api.openai.com/v1/files "HTTP/1.1 200 OK"
+2026-04-15 13:30:13,217 - INFO -   File uploaded: id=file-Bsqwr6xDt9ZQnj3yFAfB3u
+2026-04-15 13:30:13,217 - INFO - Creating batch...
+2026-04-15 13:30:14,017 - INFO - HTTP Request: POST https://api.openai.com/v1/batches "HTTP/1.1 200 OK"
+2026-04-15 13:30:14,022 - INFO -   Batch created: id=batch_69dfcb250fb481908e3c6f3effe79d89, status=validating
+2026-04-15 13:30:14,022 - INFO - 
+2026-04-15 13:30:14,022 - INFO - ======================================================================
+2026-04-15 13:30:14,022 - INFO - BATCH SUBMITTED SUCCESSFULLY
+2026-04-15 13:30:14,022 - INFO -   Batch ID: batch_69dfcb250fb481908e3c6f3effe79d89
+2026-04-15 13:30:14,022 - INFO -   To collect results, run:
+2026-04-15 13:30:14,022 - INFO -     python e2_extract_concepts.py --model olmo2-7b-instruct --training-phase post_training --collect
+2026-04-15 13:30:14,022 - INFO - ======================================================================
+2026-04-15 13:30:14,023 - INFO -   Batch metadata saved to results\olmo2_7b_instruct\post_training\batch_e2\batch_metadata.json

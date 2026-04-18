@@ -12,29 +12,33 @@ Pipeline position:
     → [Stage 2] e2_rank_concepts.py (THIS FILE) → e2_concepts_ranked_{config}.json
     → e2_windowed_cooccurrence.py
 
+HarmBench ``--config`` (default: ``standard``) must match Stage 1: it selects
+``e2_concepts_{config}.json``, this stage's output path, and the log file
+``logs/{out_dir}/e2_rank_concepts_{config}.log``. Use the same ``--config`` for
+``--batch``, ``--collect``, and ``--retry``.
+
 Usage:
     # Test mode: 1 record, immediate API call
-    python e2_rank_concepts.py --model olmo2-7b-instruct --training-phase pretraining --test --record_id 30
+    python e2_rank_concepts.py --model olmo2-7b-instruct --training-phase pretraining --config standard --test --record_id 30
 
     # Batch mode: submit all Stage 1 records to OpenAI Batch API
-    python e2_rank_concepts.py --model olmo2-7b-instruct --training-phase pretraining --batch
+    python e2_rank_concepts.py --model olmo2-7b-instruct --training-phase pretraining --config standard --batch
 
     # Collect mode: retrieve batch results and save JSON
-    python e2_rank_concepts.py --model olmo2-7b-instruct --training-phase pretraining --collect
+    python e2_rank_concepts.py --model olmo2-7b-instruct --training-phase pretraining --config standard --collect
 
     # Retry mode: re-run failed records
-    python e2_rank_concepts.py --model olmo2-7b-instruct --training-phase pretraining --retry
+    python e2_rank_concepts.py --model olmo2-7b-instruct --training-phase pretraining --config standard --retry
 
     # All phases (base: pretraining+mid_training; instruct: +post_training)
-    python e2_rank_concepts.py --model olmo2-7b --training-phase all --batch
-    python e2_rank_concepts.py --model olmo2-7b-instruct --training-phase all --batch
+    python e2_rank_concepts.py --model olmo2-7b --training-phase all --config standard --batch
+    python e2_rank_concepts.py --model olmo2-7b-instruct --training-phase all --config standard --batch
 
 Reference:
     - utils.py: shared helpers (model params, logger, IO, JSON parsing)
-    - e2_extract_concepts.py: Stage 1 (extraction) — produces this
-      script's input
-    - Input file:  results/{out_dir}/{training_phase}/e2_concepts_{config}.json
-    - Output file: results/{out_dir}/{training_phase}/e2_concepts_ranked_{config}.json
+    - e2_extract_concepts.py: Stage 1 (extraction) — produces this script's input
+    - Input:  results/{out_dir}/{training_phase}/e2_concepts_{config}.json
+    - Output: results/{out_dir}/{training_phase}/e2_concepts_ranked_{config}.json
 """
 
 import argparse
@@ -49,7 +53,9 @@ from openai import OpenAI
 
 from utils import (
     MODELS,
-    TRAINING_PHASES,
+    TRAINING_PHASES_INSTRUCT,
+    TRAINING_PHASE_ALL,
+    training_phases_when_all,
     DEFAULT_EXTRACTION_MODEL,
     get_model_params,
     model_results_root,
@@ -57,19 +63,6 @@ from utils import (
     parse_llm_json,
     save_output_json,
 )
-
-
-# Run multiple phases when --training-phase all (subset depends on base vs instruct).
-TRAINING_PHASE_ALL = "all"
-# Base (non-instruct) OLMo2 checkpoints: only pretraining + mid_training artifacts.
-E2_RANK_PHASES_BASE_ALL = ("pretraining", "mid_training")
-
-
-def training_phases_when_all(model_key: str) -> tuple[str, ...]:
-    """Phases to run for ``--training-phase all``: instruct = all TRAINING_PHASES; base = pre+mid only."""
-    if model_key.endswith("-instruct"):
-        return TRAINING_PHASES
-    return E2_RANK_PHASES_BASE_ALL
 
 
 # ============================================================
@@ -892,7 +885,7 @@ def parse_args():
         "--training-phase",
         type=str,
         required=True,
-        choices=list(TRAINING_PHASES) + [TRAINING_PHASE_ALL],
+        choices=list(TRAINING_PHASES_INSTRUCT) + [TRAINING_PHASE_ALL],
         dest="training_phase",
         help="Training stage folder under results/{out_dir}/: pretraining, "
              "mid_training, or post_training (Stage 1 input for this stage). "
@@ -1007,7 +1000,7 @@ def run_one_phase(
 def main():
     load_dotenv()
     args = parse_args()
-    logger = setup_logger(args.model, "e2_rank_concepts")
+    logger = setup_logger(args.model, "e2_rank_concepts", config=args.config)
 
     phases = (
         list(training_phases_when_all(args.model))

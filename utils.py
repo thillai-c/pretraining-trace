@@ -11,8 +11,10 @@ the corresponding stage file, not here.
 
 Contents:
     - MODELS / REASONING_MODELS / DEFAULT_EXTRACTION_MODEL: model registry
-    - TRAINING_PHASES / model_results_root / label_llm_dirname / label_run_root:
-      phase and per-label-LLM dirs under results/{out_dir}/
+    - TRAINING_PHASES_BASE / TRAINING_PHASES_INSTRUCT /
+      TRAINING_PHASE_ALL / training_phases_when_all /
+      model_results_root / label_llm_dirname / label_run_root:
+      phase folders under results/{out_dir}/ and ``--training-phase all`` expansion
     - _is_reasoning_model / get_model_params: OpenAI param selection
     - setup_logger: per-stage logger factory
     - compute_rep_ratio: word-level 4-gram repetition ratio
@@ -102,9 +104,18 @@ MODELS = {
     if k.startswith("olmo2-")
 }
 
-# Subdirectory name under results/{out_dir}/ for E1/E2 artifacts by training stage.
-# Folder names align with e1_verbatim_trace.e1_results_subdir (post -> post_training).
-TRAINING_PHASES = ("pretraining", "mid_training", "post_training")
+# When tools use ``--training-phase all``: base OLMo checkpoints only have
+# pretraining + mid_training; *-instruct models also have post_training.
+TRAINING_PHASES_BASE = ("pretraining", "mid_training")
+TRAINING_PHASES_INSTRUCT = ("pretraining", "mid_training", "post_training")
+TRAINING_PHASE_ALL = "all"
+
+
+def training_phases_when_all(model_key: str) -> tuple[str, ...]:
+    """Phases to iterate for ``--training-phase all`` (E2, E1 auto-label, co-occurrence)."""
+    if model_key.endswith("-instruct"):
+        return TRAINING_PHASES_INSTRUCT
+    return TRAINING_PHASES_BASE
 
 
 def model_results_root(model_key: str, training_phase: str) -> str:
@@ -174,7 +185,13 @@ def get_model_params(model_name: str) -> dict:
 # Logger setup
 # ============================================================
 
-def setup_logger(model_key: str, stage_name: str, training_phase: str = None):
+def setup_logger(
+    model_key: str,
+    stage_name: str,
+    training_phase: str | None = None,
+    *,
+    config: str | None = None,
+):
     """Create a logger with a model-based log directory.
 
     Args:
@@ -182,9 +199,14 @@ def setup_logger(model_key: str, stage_name: str, training_phase: str = None):
         stage_name: short name used for both the log file and the logger,
                     e.g., "e2_extract_concepts" or "e2_rank_concepts".
         training_phase: if set, log under ``logs/{out_dir}/{training_phase}/``.
+        config: if set (e.g. HarmBench config), log file is
+                ``{stage_name}_{config}.log`` so runs with different configs do not
+                overwrite the same file.
 
-    Log file path: `logs/{out_dir}/{stage_name}.log` or
-    `logs/{out_dir}/{training_phase}/{stage_name}.log`.
+    Log file path: ``logs/{out_dir}/{stage_name}.log``,
+    ``logs/{out_dir}/{stage_name}_{config}.log``,
+    or ``logs/{out_dir}/{training_phase}/{stage_name}.log`` (and with ``_{config}``
+    before ``.log`` when ``config`` is set).
     """
     out_dir = MODELS[model_key]["out_dir"]
     if training_phase:
@@ -192,7 +214,8 @@ def setup_logger(model_key: str, stage_name: str, training_phase: str = None):
     else:
         log_dir = os.path.join("logs", out_dir)
     os.makedirs(log_dir, exist_ok=True)
-    log_path = os.path.join(log_dir, f"{stage_name}.log")
+    base = f"{stage_name}_{config}" if config else stage_name
+    log_path = os.path.join(log_dir, f"{base}.log")
 
     logging.basicConfig(
         level=logging.INFO,

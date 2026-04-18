@@ -6,19 +6,19 @@ for OLMo 2 E1 verbatim trace results, using GPT-J manual labels as
 few-shot examples.
 
 Usage:
-    # Test: label the first compliant record (sync API)
-    python e1_auto_label.py --model olmo2-7b --training-phase pretraining --llm-model gpt-5-mini --test
+    # Test: first compliant record (sync API)
+    python e1_auto_label.py --model olmo2-7b --training-phase pretraining --config standard --llm-model gpt-5-mini --test
 
-    # Batch all compliant records, then fetch completed batch into ``span_safety_labels.csv``
-    python e1_auto_label.py --model olmo2-7b --training-phase pretraining --llm-model gpt-5-mini --batch
-    python e1_auto_label.py --model olmo2-7b --training-phase pretraining --llm-model gpt-5-mini --collect
+    # Batch, then collect into span_safety_labels.csv under the label run root
+    python e1_auto_label.py --model olmo2-7b --training-phase pretraining --config standard --llm-model gpt-5-mini --batch
+    python e1_auto_label.py --model olmo2-7b --training-phase pretraining --config standard --llm-model gpt-5-mini --collect
 
-    # Retry rows listed in ``batch_e1/batch_errors.json`` and append to the CSV
-    python e1_auto_label.py --model olmo2-7b --training-phase pretraining --llm-model gpt-5-mini --retry
+    # Retry from batch_e1/batch_errors.json and append to the CSV
+    python e1_auto_label.py --model olmo2-7b --training-phase pretraining --config standard --llm-model gpt-5-mini --retry
 
-    # All phases for this model family: base -> pretraining+mid_training; instruct -> +post_training
-    python e1_auto_label.py --model olmo2-7b --training-phase all --llm-model gpt-5-mini --batch
-    python e1_auto_label.py --model olmo2-7b-instruct --training-phase all --llm-model gpt-5-mini --batch
+    # All phases: base models -> pretraining + mid_training; *-instruct -> also post_training
+    python e1_auto_label.py --model olmo2-7b --training-phase all --config standard --llm-model gpt-5-mini --batch
+    python e1_auto_label.py --model olmo2-7b-instruct --training-phase all --config standard --llm-model gpt-5-mini --batch
 
 Reference:
     - span_safety_labels.csv: GPT-J manual labels (162 rows)
@@ -39,7 +39,10 @@ from dotenv import find_dotenv, load_dotenv
 from openai import OpenAI
 
 from utils import (
-    TRAINING_PHASES,
+    TRAINING_PHASES_BASE,
+    TRAINING_PHASES_INSTRUCT,
+    TRAINING_PHASE_ALL,
+    training_phases_when_all,
     filter_compliant,
     get_model_params,
     label_run_root,
@@ -47,7 +50,6 @@ from utils import (
     model_results_root,
     setup_logger,
 )
-
 
 # Configuration
 MODELS = {
@@ -66,19 +68,6 @@ E1_BATCH_SUBDIR = "batch_e1"
 
 # Default OpenAI model for span labeling (override with --llm-model).
 DEFAULT_LABEL_LLM = "gpt-5-mini"
-
-# Run multiple phases when --training-phase all (subset depends on base vs instruct).
-TRAINING_PHASE_ALL = "all"
-
-# Base (non-instruct) OLMo2 checkpoints: only pretraining + mid_training artifacts.
-E1_LABEL_PHASES_BASE_ALL = ("pretraining", "mid_training")
-
-
-def training_phases_when_all(model_key: str) -> tuple[str, ...]:
-    """Phases to run for ``--training-phase all``: instruct = all TRAINING_PHASES; base = pre+mid only."""
-    if model_key.endswith("-instruct"):
-        return TRAINING_PHASES
-    return E1_LABEL_PHASES_BASE_ALL
 
 
 def e1_batch_dir(model_key: str, training_phase: str, llm_model: str) -> str:
@@ -868,7 +857,7 @@ def parse_args():
         "--training-phase",
         type=str,
         required=True,
-        choices=list(TRAINING_PHASES) + [TRAINING_PHASE_ALL],
+        choices=list(TRAINING_PHASES_INSTRUCT) + [TRAINING_PHASE_ALL],
         dest="training_phase",
         help="Same phase folder as e1_verbatim_trace default output: "
              "results/{out_dir}/pretraining|mid_training|post_training/ "
@@ -877,13 +866,20 @@ def parse_args():
              "*-instruct models use %s."
              % (
                  TRAINING_PHASE_ALL,
-                 ", ".join(E1_LABEL_PHASES_BASE_ALL),
-                 ", ".join(TRAINING_PHASES),
+                 ", ".join(TRAINING_PHASES_BASE),
+                 ", ".join(TRAINING_PHASES_INSTRUCT),
              ),
+    )
+    parser.add_argument(
+        "--config",
+        type=str,
+        default="standard",
+        help="HarmBench config name; default E1 input is "
+             "results/{out_dir}/{training_phase}/e1_verbatim_{config}.json (default: standard)",
     )
     parser.add_argument("--input", type=str, default=None,
                         help="Override E1 JSON path (default: "
-                             "results/{out_dir}/{training_phase}/e1_verbatim_standard.json)")
+                             "results/{out_dir}/{training_phase}/e1_verbatim_{config}.json)")
     parser.add_argument(
         "--llm-model",
         type=str,
@@ -930,7 +926,7 @@ def run_one_phase(
 ) -> None:
     """Run labeling for a single training phase (used for one phase or for each of ``all``).
 
-    ``logger`` must be the shared ``e1_auto_label`` logger (``logs/{{out_dir}}/e1_auto_label.log``,
+    ``logger`` must be the shared ``e1_auto_label`` logger (``logs/{{out_dir}}/e1_auto_label_{{config}}.log``,
     no per-phase subfolder) so multi-phase runs append to one file.
     """
     logger.info("=" * 70)
@@ -938,6 +934,7 @@ def run_one_phase(
     if total_phases > 1:
         logger.info("  Phase %d / %d: %s", phase_index + 1, total_phases, training_phase)
     logger.info("  Model: %s", args.model)
+    logger.info("  Config: %s", args.config)
     logger.info("  Training phase: %s", training_phase)
     logger.info("  E1 input root: %s", model_results_root(args.model, training_phase))
     logger.info("  Label run root: %s", label_run_root(
@@ -950,7 +947,9 @@ def run_one_phase(
     logger.info("=" * 70)
 
     # Load E1 results
-    records = load_e1_results(args.model, input_path, training_phase)
+    records = load_e1_results(
+        args.model, input_path, training_phase, config=args.config
+    )
     logger.info("Loaded %d records from E1 results", len(records))
 
     # Filter compliant records
@@ -1016,8 +1015,8 @@ def main():
 
     effective_input = None if (args.training_phase == TRAINING_PHASE_ALL and args.input) else args.input
 
-    # One log file per model: logs/{out_dir}/e1_auto_label.log (not under pretraining/ etc.)
-    logger = setup_logger(args.model, "e1_auto_label")
+    # One log file per model+config: logs/{out_dir}/e1_auto_label_{config}.log (not under pretraining/ etc.)
+    logger = setup_logger(args.model, "e1_auto_label", config=args.config)
 
     if args.training_phase == TRAINING_PHASE_ALL and args.input:
         logger.warning(

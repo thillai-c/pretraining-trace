@@ -50,7 +50,6 @@ import sys
 import time
 from datetime import datetime
 
-import requests
 from dotenv import load_dotenv
 
 # Path setup
@@ -62,108 +61,8 @@ if PKG_DIR not in sys.path:
     sys.path.insert(0, PKG_DIR)
 
 from transformers import AutoTokenizer
-
-
+from infini_gram_api import InfiniGramAPIEngine
 from utils import MODEL_CONFIGS
-
-
-# ===========================================================================
-# InfiniGramAPIEngine: HTTP API wrapper matching local engine interface
-# ===========================================================================
-class InfiniGramAPIEngine:
-    """Wrapper around the infini-gram HTTP API that mimics the local InfiniGramEngine interface (count, find, get_doc_by_rank).
-
-    The API endpoint accepts JSON POST requests.  We use ``query_ids`` (list of token IDs) rather than ``query`` (string) so that
-    tokenization stays under our control — identical to the local engine workflow.
-    """
-
-    API_URL = "https://api.infini-gram.io/"
-
-    def __init__(self, index: str, max_retries: int = 8,
-                 retry_delay: float = 5.0):
-        self.index = index
-        self.max_retries = max_retries
-        self.retry_delay = retry_delay
-        self.session = requests.Session()
-
-    # Internal helper: POST with retry
-    def _post(self, payload: dict) -> dict:
-        """Send a POST request to the API with exponential-backoff retry."""
-        delay = self.retry_delay
-        for attempt in range(1, self.max_retries + 1):
-            try:
-                resp = self.session.post(
-                    self.API_URL,
-                    json=payload,
-                    timeout=60,
-                )
-                if resp.status_code == 200:
-                    data = resp.json()
-                    if "error" in data:
-                        raise RuntimeError(
-                            f"API returned error: {data['error']}")
-                    time.sleep(1)  # 500ms delay between API calls
-                    return data
-
-                # Retryable status codes (including 403 for rate limiting)
-                if resp.status_code in (403, 429, 500, 502, 503, 504):
-                    if attempt < self.max_retries:
-                        time.sleep(delay)
-                        delay *= 2
-                        continue
-                    resp.raise_for_status()
-
-                # Non-retryable error
-                resp.raise_for_status()
-
-            except requests.exceptions.ConnectionError:
-                if attempt < self.max_retries:
-                    time.sleep(delay)
-                    delay *= 2
-                    continue
-                raise
-
-        # Should not reach here, but just in case
-        raise RuntimeError("API request failed after all retries")
-
-    def count(self, input_ids: list) -> dict:
-        """Count occurrences of the token ID sequence in the corpus.
-        If ``input_ids`` is empty, returns the total number of tokens in the corpus (used to obtain CORPUS_SIZE)."""
-        if len(input_ids) == 0:
-            # Empty string query → total token count
-            payload = {
-                "index": self.index,
-                "query_type": "count",
-                "query": "",
-            }
-        else:
-            payload = {
-                "index": self.index,
-                "query_type": "count",
-                "query_ids": input_ids,
-            }
-        return self._post(payload)
-
-    def find(self, input_ids: list) -> dict:
-        """Locate the token ID sequence in the corpus."""
-        payload = {
-            "index": self.index,
-            "query_type": "find",
-            "query_ids": input_ids,
-        }
-        return self._post(payload)
-
-    def get_doc_by_rank(self, s: int, rank: int, max_disp_len: int = 80, query_ids: list = None) -> dict:
-        payload = {
-            "index": self.index,
-            "query_type": "get_doc_by_rank",
-            "s": s,
-            "rank": rank,
-            "max_disp_len": max_disp_len,
-        }
-        if query_ids is not None:
-            payload["query_ids"] = query_ids
-        return self._post(payload)
 
 
 # ===========================================================================

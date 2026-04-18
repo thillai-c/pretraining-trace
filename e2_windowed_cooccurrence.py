@@ -29,21 +29,23 @@ E1 vs. E2 independence:
   independent.
 
 Usage:
-    # OLMo 2 (API engine, top-10 ranked concepts)
+    # OLMo 2 (API engine, multiple top_n values)
     python e2_windowed_cooccurrence.py \
         --model olmo2-7b-instruct \
         --training-phase pretraining \
+        --config standard \
         --api_index v4_olmo-mix-1124_llama \
         --top_n 5 10 15 20 \
         --compliant_only \
         --windows 100 500 1000
 
-python e2_windowed_cooccurrence.py --model olmo2-7b-instruct --training-phase pretraining --api_index v4_olmo-mix-1124_llama --top_n 5 10 15 20 --compliant_only --windows 100 500 1000
+    python e2_windowed_cooccurrence.py --model olmo2-7b-instruct --training-phase pretraining --config standard --api_index v4_olmo-mix-1124_llama --top_n 5 10 15 20 --compliant_only --windows 100 500 1000
 
-    # Override input path explicitly
+    # Override paths explicitly (must match your --config filenames)
     python e2_windowed_cooccurrence.py \
         --model olmo2-7b-instruct \
         --training-phase pretraining \
+        --config standard \
         --concepts_input results/olmo2_7b_instruct/pretraining/e2_concepts_ranked_standard.json \
         --top_n 15 \
         --windows 100 500 1000
@@ -52,20 +54,21 @@ python e2_windowed_cooccurrence.py --model olmo2-7b-instruct --training-phase pr
     python e2_windowed_cooccurrence.py \
         --model olmo2-7b-instruct \
         --training-phase all \
+        --config standard \
         --top_n 10 \
         --compliant_only
 
-    # Run multiple top_n values in one command (auto-suffix output per run)
+    # Multiple top_n in one command (output suffixed: *_top{N}.json)
     python e2_windowed_cooccurrence.py \
         --model olmo2-7b-instruct \
         --training-phase pretraining \
+        --config standard \
         --top_n 5 10 20 \
         --compliant_only
 """
 
 import argparse
 import json
-import logging
 import math
 import os
 import sys
@@ -73,7 +76,6 @@ import time
 from datetime import datetime
 from itertools import combinations
 
-import requests
 from dotenv import load_dotenv
 
 # ---------------------------------------------------------------------------
@@ -88,25 +90,20 @@ if PKG_DIR not in sys.path:
 
 from transformers import AutoTokenizer
 
-from utils import MODELS, TRAINING_PHASES, model_results_root
+from infini_gram_api import E2_DEFAULT_MAX_RETRIES, E2_DEFAULT_RETRY_DELAY, InfiniGramAPIEngine
 
-TRAINING_PHASE_ALL = "all"
-# Base (non-instruct) checkpoints only have pretraining + mid_training artifacts.
-E2_PHASES_BASE_ALL = ("pretraining", "mid_training")
+from utils import (
+    MODELS,
+    TRAINING_PHASES_INSTRUCT,
+    TRAINING_PHASE_ALL,
+    model_results_root,
+    training_phases_when_all,
+    setup_logger,
+)
 
 DEFAULT_PRETRAINING_API_INDEX = "v4_olmo-mix-1124_llama"
 DEFAULT_MIDTRAINING_INDEX_DIR = os.path.join(".", "index", "dolmino-mix-1124")
 DEFAULT_POSTTRAINING_INDEX_ROOT = os.path.join(".", "index", "post-training")
-
-
-def training_phases_when_all(model_key: str) -> tuple[str, ...]:
-    """Phases to run for ``--training-phase all``:
-    - *-instruct models: pretraining + mid_training + post_training
-    - base models: pretraining + mid_training only
-    """
-    if model_key.endswith("-instruct"):
-        return TRAINING_PHASES
-    return E2_PHASES_BASE_ALL
 
 
 def _model_size_suffix(model_key: str) -> str | None:
@@ -150,103 +147,6 @@ def _resolve_backend_for_all(args, training_phase: str) -> argparse.Namespace:
 
 
 # ===========================================================================
-# InfiniGramAPIEngine
-# ===========================================================================
-class InfiniGramAPIEngine:
-    """HTTP API wrapper mimicking the local InfiniGramEngine interface.
-
-    Exposes:
-      count(input_ids)         — count token sequence occurrences
-      count_cnf(cnf, ...)      — CNF AND co-occurrence query
-    """
-
-    API_URL = "https://api.infini-gram.io/"
-
-    def __init__(self, index: str, max_retries: int = 5,
-                 retry_delay: float = 2.0):
-        self.index = index
-        self.max_retries = max_retries
-        self.retry_delay = retry_delay
-        self.session = requests.Session()
-
-    def _post(self, payload: dict) -> dict:
-        """POST with exponential-backoff retry."""
-        delay = self.retry_delay
-        for attempt in range(1, self.max_retries + 1):
-            try:
-                resp = self.session.post(self.API_URL, json=payload, timeout=60)
-                if resp.status_code == 200:
-                    data = resp.json()
-                    if "error" in data:
-                        raise RuntimeError(f"API error: {data['error']}")
-                    time.sleep(1)  # rate-limit courtesy delay
-                    return data
-                if resp.status_code in (403, 429, 500, 502, 503, 504):
-                    if attempt < self.max_retries:
-                        time.sleep(delay)
-                        delay *= 2
-                        continue
-                    resp.raise_for_status()
-                resp.raise_for_status()
-            except requests.exceptions.ConnectionError:
-                if attempt < self.max_retries:
-                    time.sleep(delay)
-                    delay *= 2
-                    continue
-                raise
-        raise RuntimeError("API request failed after all retries")
-
-    def count(self, input_ids: list) -> dict:
-        """Count token sequence occurrences. Empty list → total corpus size."""
-        if len(input_ids) == 0:
-            payload = {"index": self.index, "query_type": "count", "query": ""}
-        else:
-            payload = {"index": self.index, "query_type": "count",
-                       "query_ids": input_ids}
-        return self._post(payload)
-
-    def count_cnf(self, cnf: list, max_clause_freq: int = None,
-                  max_diff_tokens: int = 1000) -> dict:
-        """CNF AND co-occurrence query via HTTP API.
-
-        cnf: [[[ids_A]], [[ids_B]]] — triply-nested list of token IDs.
-        max_diff_tokens: API hard limit is 1000; values above are clamped.
-        """
-        api_max_diff = min(max_diff_tokens, 1000)
-        payload = {
-            "index": self.index,
-            "query_type": "count",
-            "query_ids": cnf,
-            "max_diff_tokens": api_max_diff,
-        }
-        if max_clause_freq is not None:
-            payload["max_clause_freq"] = max_clause_freq
-        return self._post(payload)
-
-
-# ===========================================================================
-# Logger
-# ===========================================================================
-def setup_logger(model_key: str, config: str = "standard"):
-    """Logger writing to logs/{model_out_dir}/e2_windowed_cooccurrence.log."""
-    out_dir = MODELS[model_key]["out_dir"]
-    log_dir = os.path.join("logs", out_dir)
-    os.makedirs(log_dir, exist_ok=True)
-    log_filepath = os.path.join(log_dir, "e2_windowed_cooccurrence.log")
-    logging.basicConfig(
-        level=logging.INFO,
-        format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-        handlers=[
-            logging.StreamHandler(sys.stdout),
-            logging.FileHandler(log_filepath, encoding="utf-8"),
-        ],
-    )
-    logger = logging.getLogger(__name__)
-    logger.info("Logging to: %s", log_filepath)
-    return logger
-
-
-# ===========================================================================
 # Argument parsing
 # ===========================================================================
 def parse_args():
@@ -263,7 +163,7 @@ def parse_args():
         "--training-phase",
         type=str,
         required=True,
-        choices=list(TRAINING_PHASES) + [TRAINING_PHASE_ALL],
+        choices=list(TRAINING_PHASES_INSTRUCT) + [TRAINING_PHASE_ALL],
         dest="training_phase",
         help="Training stage folder under results/{model_dir}/: pretraining, "
              "mid_training, or post_training. "
@@ -398,7 +298,11 @@ def init_engine(args, tokenizer, logger):
             corpus_size = 383_299_358_652
     else:
         logger.info("Backend: HTTP API index=%s", args.api_index)
-        engine = InfiniGramAPIEngine(index=args.api_index)
+        engine = InfiniGramAPIEngine(
+            index=args.api_index,
+            max_retries=E2_DEFAULT_MAX_RETRIES,
+            retry_delay=E2_DEFAULT_RETRY_DELAY,
+        )
         corpus_result = engine.count(input_ids=[])
         corpus_size = corpus_result.get("count", 0)
         logger.info("Corpus size (API, %s): %d tokens", args.api_index, corpus_size)
@@ -1017,7 +921,8 @@ def run_one_phase(args, training_phase: str, logger, *, phase_index: int, total_
 
 def main():
     args = parse_args()
-    logger = setup_logger(args.model, args.config)
+    logger = setup_logger(
+        args.model, "e2_windowed_cooccurrence", config=args.config)
 
     logger.info("=== E2 Windowed Co-occurrence started at %s ===",
                 datetime.now().strftime("%a %b %d %I:%M:%S %p %Z %Y"))
