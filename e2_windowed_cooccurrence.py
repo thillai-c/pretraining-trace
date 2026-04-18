@@ -18,8 +18,10 @@ Method:
   - Repeat for multiple window sizes (e.g., 100, 500, 1000 tokens).
 
 Backends:
-  - Local InfiniGramEngine (GPT-J / The Pile)
+  - Local InfiniGramEngine (on-disk index; mid/post training)
   - HTTP API (OLMo 2 / olmo-mix-1124)
+
+Model keys and result paths: utils.MODELS (same as e2_extract_concepts / e2_rank_concepts).
 
 E1 vs. E2 independence:
   Concept extraction operates on the full response and is NOT constrained
@@ -86,26 +88,8 @@ if PKG_DIR not in sys.path:
 
 from transformers import AutoTokenizer
 
+from utils import MODELS, TRAINING_PHASES, model_results_root
 
-# ---------------------------------------------------------------------------
-# Model configuration
-# ---------------------------------------------------------------------------
-MODEL_CONFIGS = {
-    "gpt-j":              {"out_dir": "gpt_j_6b"},
-    "olmo2-1b":           {"out_dir": "olmo2_1b"},
-    "olmo2-7b":           {"out_dir": "olmo2_7b"},
-    "olmo2-13b":          {"out_dir": "olmo2_13b"},
-    "olmo2-32b":          {"out_dir": "olmo2_32b"},
-    "olmo2-1b-instruct":  {"out_dir": "olmo2_1b_instruct"},
-    "olmo2-7b-instruct":  {"out_dir": "olmo2_7b_instruct"},
-    "olmo2-13b-instruct": {"out_dir": "olmo2_13b_instruct"},
-    "olmo2-32b-instruct": {"out_dir": "olmo2_32b_instruct"},
-}
-
-# ---------------------------------------------------------------------------
-# Training phases (match Stage 1/2 folder structure)
-# ---------------------------------------------------------------------------
-TRAINING_PHASES = ("pretraining", "mid_training", "post_training")
 TRAINING_PHASE_ALL = "all"
 # Base (non-instruct) checkpoints only have pretraining + mid_training artifacts.
 E2_PHASES_BASE_ALL = ("pretraining", "mid_training")
@@ -245,7 +229,7 @@ class InfiniGramAPIEngine:
 # ===========================================================================
 def setup_logger(model_key: str, config: str = "standard"):
     """Logger writing to logs/{model_out_dir}/e2_windowed_cooccurrence.log."""
-    out_dir = MODEL_CONFIGS[model_key]["out_dir"]
+    out_dir = MODELS[model_key]["out_dir"]
     log_dir = os.path.join("logs", out_dir)
     os.makedirs(log_dir, exist_ok=True)
     log_filepath = os.path.join(log_dir, "e2_windowed_cooccurrence.log")
@@ -271,7 +255,7 @@ def parse_args():
     )
 
     parser.add_argument("--model", type=str, required=True,
-                        choices=list(MODEL_CONFIGS.keys()),
+                        choices=list(MODELS.keys()),
                         help="Model key (determines auto paths and log dir)")
     parser.add_argument("--config", type=str, default="standard",
                         help="HarmBench config name (default: standard)")
@@ -353,7 +337,7 @@ def resolve_phase_paths(args, training_phase: str, logger=None) -> tuple[str, st
     When args.training_phase == 'all', any explicit overrides for --input/--concepts_input/--output
     are ignored to avoid accidentally mixing phases.
     """
-    model_dir = MODEL_CONFIGS[args.model]["out_dir"]
+    phase_root = model_results_root(args.model, training_phase)
 
     ignore_overrides = (args.training_phase == TRAINING_PHASE_ALL)
     if ignore_overrides and logger is not None:
@@ -365,32 +349,21 @@ def resolve_phase_paths(args, training_phase: str, logger=None) -> tuple[str, st
             )
 
     if ignore_overrides:
-        input_path = os.path.join(
-            "results", model_dir, training_phase, f"e1_verbatim_{args.config}.json"
-        )
+        input_path = os.path.join(phase_root, f"e1_verbatim_{args.config}.json")
         concepts_path = os.path.join(
-            "results",
-            model_dir,
-            training_phase,
-            f"e2_concepts_ranked_{args.config}.json",
+            phase_root, f"e2_concepts_ranked_{args.config}.json"
         )
-        output_path = os.path.join(
-            "results", model_dir, training_phase, f"e2_cooccurrence_{args.config}.json"
-        )
+        output_path = os.path.join(phase_root, f"e2_cooccurrence_{args.config}.json")
         return input_path, concepts_path, output_path
 
-    # Single-phase run: honor explicit overrides, otherwise default per phase.
     input_path = args.input or os.path.join(
-        "results", model_dir, training_phase, f"e1_verbatim_{args.config}.json"
+        phase_root, f"e1_verbatim_{args.config}.json"
     )
     concepts_path = args.concepts_input or os.path.join(
-        "results",
-        model_dir,
-        training_phase,
-        f"e2_concepts_ranked_{args.config}.json",
+        phase_root, f"e2_concepts_ranked_{args.config}.json"
     )
     output_path = args.output or os.path.join(
-        "results", model_dir, training_phase, f"e2_cooccurrence_{args.config}.json"
+        phase_root, f"e2_cooccurrence_{args.config}.json"
     )
     return input_path, concepts_path, output_path
 
