@@ -39,7 +39,7 @@ Usage:
         --compliant_only \
         --windows 100 500 1000
 
-    python e2_windowed_cooccurrence.py --model olmo2-7b-instruct --training-phase pretraining --config standard --api_index v4_olmo-mix-1124_llama --top_n 5 10 15 20 --compliant_only --windows 100 500 1000
+    python e2_windowed_cooccurrence.py --model olmo2-7b-instruct --training-phase pretraining --config standard --e2-llm gpt-5.4-mini --api_index v4_olmo-mix-1124_llama --top_n 5 10 15 20 --compliant_only --windows 100 500 1000
 
     # Override paths explicitly (must match your --config filenames)
     python e2_windowed_cooccurrence.py \
@@ -175,7 +175,7 @@ def parse_args():
 
     # I/O
     parser.add_argument("--input", type=str, default=None,
-                        help="E1 results JSON. "
+                        help="E1 results JSON (always under training phase root unless overridden). "
                              "Default: results/{model_dir}/{training_phase}/e1_verbatim_{config}.json")
     parser.add_argument("--concepts_input", type=str, default=None,
                         help="Ranked concepts JSON from e2_rank_concepts.py. "
@@ -188,8 +188,10 @@ def parse_args():
         type=str,
         default=DEFAULT_EXTRACTION_MODEL,
         dest="e2_llm",
-        help="Subdirectory for ranked concepts and co-occurrence output "
-             "(must match e2_rank_concepts.py / e2_extract_concepts.py; default: %(default)s).",
+        metavar="MODEL",
+        help="Subdirectory name for Stage 1/2 outputs (must match e2_extract_concepts / e2_rank_concepts). "
+             "E1 verbatim (--input default) stays under results/{model_dir}/{training_phase}/. "
+             "Default: %(default)s.",
     )
 
     # Backend
@@ -243,6 +245,10 @@ def _with_topn_suffix(output_path: str, top_n: int) -> str:
 
 def resolve_phase_paths(args, training_phase: str, logger=None) -> tuple[str, str, str]:
     """Resolve (input, concepts_input, output) for a specific training phase.
+
+    E1 verbatim defaults to ``results/{out_dir}/{training_phase}/``.
+    Ranked concepts and cooccurrence default under
+    ``.../{training_phase}/{e2_llm}/`` (see ``--e2-llm``).
 
     When args.training_phase == 'all', any explicit overrides for --input/--concepts_input/--output
     are ignored to avoid accidentally mixing phases.
@@ -693,6 +699,11 @@ def run_one_phase(args, training_phase: str, logger, *, phase_index: int, total_
         logger.info("  Phase %d / %d: %s", phase_index + 1, total_phases, training_phase)
     logger.info("  Model: %s", args.model)
     logger.info("  Config: %s", args.config)
+    logger.info(
+        "  --e2-llm: %s (ranked concepts + cooccurrence under %s)",
+        phase_args.e2_llm,
+        label_run_root(args.model, training_phase, phase_args.e2_llm),
+    )
     logger.info("  top_n: %s", top_n if top_n is not None else "ALL")
     logger.info("  Input (E1): %s", input_path)
     logger.info("  Input (ranked concepts): %s", concepts_path)
