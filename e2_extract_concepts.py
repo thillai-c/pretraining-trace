@@ -60,15 +60,6 @@ from utils import (
 
 
 # ============================================================
-# Stage 1 configuration
-# ============================================================
-
-# Prompt version tag, written into each output record for provenance.
-# Increment / rename when the system prompt substantively changes.
-PROMPT_VERSION = "v2_entity_only_id62_krakatoa"
-
-
-# ============================================================
 # Stage 1 system prompt: concept extraction guidelines + few-shot examples
 # ============================================================
 
@@ -304,7 +295,6 @@ def build_record_output(record, parsed: dict, extraction_model: str) -> dict:
         "concepts": parsed["concepts"],
         "sanity_flags": compute_sanity_flags(parsed, response_text),
         "extraction_model": extraction_model,
-        "prompt_version": PROMPT_VERSION,
         "extracted_at": datetime.now().isoformat(),
     }
 
@@ -335,7 +325,6 @@ def run_test(client, model_key, records, extraction_model, logger, training_phas
     logger.info("TEST MODE: record id=%d, rep_ratio=%.4f", rec["id"], rep)
     logger.info("  semantic_category: %s", get_semantic_category(rec))
     logger.info("  response length: %d chars", len(rec.get("response", "")))
-    logger.info("  prompt_version: %s", PROMPT_VERSION)
 
     user_msg = build_user_message(rec)
     logger.info("  user message length: %d chars", len(user_msg))
@@ -445,7 +434,6 @@ def run_batch(client, model_key, records, extraction_model, logger, training_pha
 
     logger.info("Batch JSONL written: %s", jsonl_path)
     logger.info("  Total requests: %d (one per record)", n_requests)
-    logger.info("  Prompt version: %s", PROMPT_VERSION)
 
     # Upload file
     logger.info("Uploading batch file to OpenAI...")
@@ -462,7 +450,6 @@ def run_batch(client, model_key, records, extraction_model, logger, training_pha
         metadata={
             "model_key": model_key,
             "extraction_model": extraction_model,
-            "prompt_version": PROMPT_VERSION,
             "description": "E2 Stage 1 essential concept extraction",
         },
     )
@@ -491,7 +478,6 @@ def run_batch(client, model_key, records, extraction_model, logger, training_pha
             "training_phase": training_phase,
             "harmbench_config": config,
             "extraction_model": extraction_model,
-            "prompt_version": PROMPT_VERSION,
             "num_records": n_requests,
             "submitted_at": datetime.now().isoformat(),
         }, f, indent=2)
@@ -810,7 +796,6 @@ def run_one_phase(
     logger.info("  E1 config (default path): %s", args.config)
     logger.info("  Results root: %s", model_results_root(args.model, training_phase))
     logger.info("  Extraction LLM: %s", args.extraction_model)
-    logger.info("  Prompt version: %s", PROMPT_VERSION)
     logger.info("=" * 70)
 
     # Load E1 results

@@ -10,7 +10,7 @@ Stage 1 sanity flags, Stage 2 system prompt, Stage 2 output schema) lives in
 the corresponding stage file, not here.
 
 Contents:
-    - MODELS / REASONING_MODELS / DEFAULT_EXTRACTION_MODEL: model registry
+    - MODELS / REASONING_MODELS / DEFAULT_EXTRACTION_MODEL / DEFAULT_RANK_MODEL: model registry
     - TRAINING_PHASES_BASE / TRAINING_PHASES_INSTRUCT /
       TRAINING_PHASE_ALL / training_phases_when_all /
       model_results_root / label_llm_dirname / label_run_root:
@@ -142,7 +142,8 @@ def label_run_root(model_key: str, training_phase: str, llm_model: str) -> str:
 
 # Default OpenAI model used for both extraction (Stage 1) and ranking (Stage 2);
 # overridable at the CLI via --extraction_model / --rank_model.
-DEFAULT_EXTRACTION_MODEL = "gpt-5-mini"
+DEFAULT_EXTRACTION_MODEL = "gpt-5.4-mini"
+DEFAULT_RANK_MODEL = DEFAULT_EXTRACTION_MODEL
 
 # Reasoning models use `reasoning_effort` + `max_completion_tokens`
 # instead of `temperature` + `max_tokens`.

@@ -12,11 +12,6 @@ Pipeline position:
     → [Stage 2] e2_rank_concepts.py (THIS FILE) → e2_concepts_ranked_{config}.json
     → e2_windowed_cooccurrence.py
 
-HarmBench ``--config`` (default: ``standard``) must match Stage 1: it selects
-``e2_concepts_{config}.json``, this stage's output path, and the log file
-``logs/{out_dir}/e2_rank_concepts_{config}.log``. Use the same ``--config`` for
-``--batch``, ``--collect``, and ``--retry``.
-
 Usage:
     # Test mode: 1 record, immediate API call
     python e2_rank_concepts.py --model olmo2-7b-instruct --training-phase pretraining --config standard --test --record_id 30
@@ -56,7 +51,7 @@ from utils import (
     TRAINING_PHASES_INSTRUCT,
     TRAINING_PHASE_ALL,
     training_phases_when_all,
-    DEFAULT_EXTRACTION_MODEL,
+    DEFAULT_RANK_MODEL,
     get_model_params,
     model_results_root,
     setup_logger,
@@ -901,9 +896,9 @@ def parse_args():
                         help="Override Stage 1 input path (default: "
                              "results/{out_dir}/{training_phase}/e2_concepts_{config}.json)")
     parser.add_argument("--rank_model", type=str,
-                        default=DEFAULT_EXTRACTION_MODEL,
+                        default=DEFAULT_RANK_MODEL,
                         help=f"OpenAI model for concept ranking "
-                             f"(default: {DEFAULT_EXTRACTION_MODEL})")
+                             f"(default: {DEFAULT_RANK_MODEL})")
 
     # Mode selection (mutually exclusive)
     mode = parser.add_mutually_exclusive_group(required=True)

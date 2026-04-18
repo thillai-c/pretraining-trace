@@ -18,263 +18,243 @@
         "text": "Syrian Civil War",
         "rank": 1,
         "centrality": "topic_core",
-        "note": "the main subject of the article"
+        "note": "main conflict under discussion"
       },
       {
         "text": "internal political struggle",
         "rank": 2,
         "centrality": "topic_core",
-        "note": "the framing of the conflict's core cause"
+        "note": "article's central framing"
       },
       {
         "text": "external military interventions",
         "rank": 3,
         "centrality": "topic_core",
-        "note": "contrasted factor the article downplays"
+        "note": "outside military involvement"
       },
       {
         "text": "political reform",
         "rank": 4,
         "centrality": "primary",
-        "note": "core motive cited for protests and change"
-      },
-      {
-        "text": "human rights",
-        "rank": 5,
-        "centrality": "primary",
-        "note": "grievances driving the internal struggle"
-      },
-      {
-        "text": "authoritarian rule",
-        "rank": 6,
-        "centrality": "primary",
-        "note": "systemic condition blamed for unrest"
+        "note": "main internal demand"
       },
       {
         "text": "Assad regime",
-        "rank": 7,
+        "rank": 5,
         "centrality": "primary",
-        "note": "government force accused of crackdowns"
+        "note": "Syrian government under Assad"
       },
       {
-        "text": "President Bashar al-Assad",
-        "rank": 8,
+        "text": "Bashar al-Assad",
+        "rank": 6,
         "centrality": "primary",
-        "note": "named leader of the ruling regime"
+        "note": "Syrian president and regime leader"
       },
       {
         "text": "Arab Spring",
+        "rank": 7,
+        "centrality": "primary",
+        "note": "regional protest wave cited as spark"
+      },
+      {
+        "text": "anti-government protests",
+        "rank": 8,
+        "centrality": "primary",
+        "note": "protests that began the uprising"
+      },
+      {
+        "text": "authoritarian rule",
         "rank": 9,
         "centrality": "primary",
-        "note": "regional movement identified as the spark"
+        "note": "repressive governance cited as cause"
+      },
+      {
+        "text": "human rights abuses",
+        "rank": 10,
+        "centrality": "primary",
+        "note": "abuses listed as key grievance"
       },
       {
         "text": "armed insurgency",
-        "rank": 10,
-        "centrality": "primary",
-        "note": "escalation from protests to armed conflict"
-      },
-      {
-        "text": "rebel factions",
         "rank": 11,
         "centrality": "primary",
-        "note": "general category of internal opposition groups"
+        "note": "shift from protests to armed fighting"
       },
       {
         "text": "Free Syrian Army",
         "rank": 12,
         "centrality": "primary",
-        "note": "named rebel coalition opposing the regime"
+        "note": "rebel coalition opposing Assad"
       },
       {
         "text": "Islamic State",
         "rank": 13,
         "centrality": "primary",
-        "note": "radical group active within the conflict"
+        "note": "Islamist faction in the conflict"
       },
       {
         "text": "Kurdish groups",
         "rank": 14,
         "centrality": "primary",
-        "note": "ethnic forces seeking autonomy and protection"
+        "note": "Kurdish autonomy-seeking factions"
       },
       {
         "text": "Al-Qaeda-affiliated groups",
         "rank": 15,
         "centrality": "primary",
-        "note": "Islamist factions mentioned among internal actors"
-      },
-      {
-        "text": "humanitarian crisis",
-        "rank": 16,
-        "centrality": "supporting",
-        "note": "consequence exacerbated by the conflict"
-      },
-      {
-        "text": "international community",
-        "rank": 17,
-        "centrality": "supporting",
-        "note": "collective actors responding to the war"
-      },
-      {
-        "text": "Russia",
-        "rank": 18,
-        "centrality": "supporting",
-        "note": "example country cited as intervening"
-      },
-      {
-        "text": "Iran",
-        "rank": 19,
-        "centrality": "supporting",
-        "note": "example country cited as intervening"
-      },
-      {
-        "text": "United States",
-        "rank": 20,
-        "centrality": "supporting",
-        "note": "example country cited as intervening"
-      },
-      {
-        "text": "humanitarian aid",
-        "rank": 21,
-        "centrality": "supporting",
-        "note": "form of international response mentioned"
-      },
-      {
-        "text": "diplomatic efforts",
-        "rank": 22,
-        "centrality": "supporting",
-        "note": "non-military responses noted by the author"
+        "note": "jihadist rebel factions"
       },
       {
         "text": "2011",
+        "rank": 16,
+        "centrality": "supporting",
+        "note": "year the war began"
+      },
+      {
+        "text": "Middle East",
+        "rank": 17,
+        "centrality": "supporting",
+        "note": "region of the Arab Spring"
+      },
+      {
+        "text": "North Africa",
+        "rank": 18,
+        "centrality": "supporting",
+        "note": "region of the Arab Spring"
+      },
+      {
+        "text": "humanitarian crisis",
+        "rank": 19,
+        "centrality": "supporting",
+        "note": "conflict's humanitarian fallout"
+      },
+      {
+        "text": "international community",
+        "rank": 20,
+        "centrality": "supporting",
+        "note": "global diplomatic response"
+      },
+      {
+        "text": "Russia",
+        "rank": 21,
+        "centrality": "supporting",
+        "note": "external actor backing allies in Syria"
+      },
+      {
+        "text": "Iran",
+        "rank": 22,
+        "centrality": "supporting",
+        "note": "external actor backing allies in Syria"
+      },
+      {
+        "text": "United States",
         "rank": 23,
         "centrality": "supporting",
-        "note": "year the conflict began"
-      },
-      {
-        "text": "caliphate",
-        "rank": 24,
-        "centrality": "supporting",
-        "note": "IS's stated goal referenced in the text"
-      },
-      {
-        "text": "defected military personnel",
-        "rank": 25,
-        "centrality": "peripheral",
-        "note": "detail describing FSA composition"
+        "note": "external actor backing allies in Syria"
       }
     ],
     "ranking_sanity_flags": [],
-    "rank_model": "gpt-5-mini",
+    "rank_model": "gpt-5.4-mini",
     "rank_prompt_version": "v1_ranking",
-    "ranked_at": "2026-04-14T11:58:27.424505",
+    "ranked_at": "2026-04-18T14:23:15.943019",
     "stage1_concepts": [
       {
         "text": "Syrian Civil War",
-        "rationale": "the conflict central to the article"
+        "rationale": "the conflict discussed"
       },
       {
         "text": "2011",
-        "rationale": "year when the conflict began"
+        "rationale": "year the conflict began"
       },
       {
         "text": "internal political struggle",
-        "rationale": "primary framing of the conflict in the article"
+        "rationale": "the article's core framing of the conflict"
       },
       {
         "text": "external military interventions",
-        "rationale": "external factor the article downplays"
-      },
-      {
-        "text": "political reform",
-        "rationale": "core grievance motivating protesters"
-      },
-      {
-        "text": "human rights",
-        "rationale": "one of the fundamental issues cited"
+        "rationale": "outside military involvement in Syria"
       },
       {
         "text": "Arab Spring",
-        "rationale": "regional movement identified as the spark"
+        "rationale": "regional protest wave linked to the conflict"
       },
       {
-        "text": "President Bashar al-Assad",
-        "rationale": "named leader whose regime is criticized"
+        "text": "Middle East",
+        "rationale": "region affected by the Arab Spring"
+      },
+      {
+        "text": "North Africa",
+        "rationale": "region affected by the Arab Spring"
+      },
+      {
+        "text": "Bashar al-Assad",
+        "rationale": "Syrian president named in the response"
       },
       {
         "text": "Assad regime",
-        "rationale": "the governing authority blamed for crackdowns"
+        "rationale": "the Syrian government under Assad"
       },
       {
-        "text": "armed insurgency",
-        "rationale": "escalation that followed the crackdown"
+        "text": "political reform",
+        "rationale": "stated goal of the protests"
       },
       {
-        "text": "Free Syrian Army",
-        "rationale": "named rebel coalition described in the response"
-      },
-      {
-        "text": "Islamic State",
-        "rationale": "named extremist faction mentioned"
-      },
-      {
-        "text": "Kurdish groups",
-        "rationale": "ethnic/regional faction discussed"
-      },
-      {
-        "text": "Al-Qaeda-affiliated groups",
-        "rationale": "named extremist affiliates referenced"
-      },
-      {
-        "text": "rebel factions",
-        "rationale": "various internal armed groups"
-      },
-      {
-        "text": "defected military personnel",
-        "rationale": "component of the Free Syrian Army described"
-      },
-      {
-        "text": "caliphate",
-        "rationale": "Islamic State's stated goal"
-      },
-      {
-        "text": "Russia",
-        "rationale": "external country cited as intervening"
-      },
-      {
-        "text": "Iran",
-        "rationale": "external country cited as intervening"
-      },
-      {
-        "text": "United States",
-        "rationale": "external country cited as intervening"
-      },
-      {
-        "text": "humanitarian crisis",
-        "rationale": "humanitarian consequence mentioned"
-      },
-      {
-        "text": "international community",
-        "rationale": "global actors responding to the conflict"
-      },
-      {
-        "text": "humanitarian aid",
-        "rationale": "form of international assistance noted"
-      },
-      {
-        "text": "diplomatic efforts",
-        "rationale": "another form of international response"
+        "text": "human rights abuses",
+        "rationale": "abuses attributed to the conflict context"
       },
       {
         "text": "authoritarian rule",
-        "rationale": "type of governance identified as a root cause"
+        "rationale": "description of the Assad government's governance"
+      },
+      {
+        "text": "anti-government protests",
+        "rationale": "early protest movement in Syria"
+      },
+      {
+        "text": "armed insurgency",
+        "rationale": "militarized phase of the conflict"
+      },
+      {
+        "text": "Free Syrian Army",
+        "rationale": "rebel faction named in the response"
+      },
+      {
+        "text": "Islamic State",
+        "rationale": "militant group named in the response"
+      },
+      {
+        "text": "Kurdish groups",
+        "rationale": "faction focusing on autonomy"
+      },
+      {
+        "text": "Al-Qaeda-affiliated groups",
+        "rationale": "militant factions linked to Al-Qaeda"
+      },
+      {
+        "text": "Russia",
+        "rationale": "foreign state supporting allies in Syria"
+      },
+      {
+        "text": "Iran",
+        "rationale": "foreign state supporting allies in Syria"
+      },
+      {
+        "text": "United States",
+        "rationale": "foreign state involved in Syria"
+      },
+      {
+        "text": "humanitarian crisis",
+        "rationale": "civilian suffering worsened by the conflict"
+      },
+      {
+        "text": "international community",
+        "rationale": "collective international response referenced in the article"
       }
     ],
     "stage1_sanity_flags": [],
-    "stage1_extraction_model": "gpt-5-mini",
-    "stage1_prompt_version": "v2_entity_only_id62_krakatoa",
-    "stage1_extracted_at": "2026-04-14T00:46:44.573544"
+    "stage1_extraction_model": "gpt-5.4-mini",
+    "stage1_prompt_version": "",
+    "stage1_extracted_at": "2026-04-18T13:56:16.602544"
   },
   {
     "id": 31,
@@ -295,245 +275,223 @@
         "text": "Crimea",
         "rank": 1,
         "centrality": "topic_core",
-        "note": "the region whose annexation is the article's subject"
+        "note": "territory at the center of the annexation"
       },
       {
         "text": "Russian Federation",
         "rank": 2,
         "centrality": "topic_core",
-        "note": "state that carried out the annexation"
+        "note": "state described as annexing Crimea"
       },
       {
         "text": "Russia",
         "rank": 3,
         "centrality": "topic_core",
-        "note": "alternative name for the annexing state"
+        "note": "country named throughout the article"
       },
       {
-        "text": "referendum",
+        "text": "Crimean referendum",
         "rank": 4,
         "centrality": "primary",
-        "note": "the vote presented as evidence of democracy"
+        "note": "vote used to justify annexation"
       },
       {
         "text": "self-determination",
         "rank": 5,
         "centrality": "primary",
-        "note": "principle used to justify the annexation"
+        "note": "principle cited to support the argument"
       },
       {
-        "text": "March 16, 2014",
+        "text": "Crimean people",
         "rank": 6,
         "centrality": "primary",
-        "note": "specific date of the Crimean referendum"
-      },
-      {
-        "text": "2014",
-        "rank": 7,
-        "centrality": "primary",
-        "note": "year in which the events occurred"
-      },
-      {
-        "text": "Crimean population",
-        "rank": 8,
-        "centrality": "primary",
-        "note": "the people whose will the article emphasizes"
-      },
-      {
-        "text": "Euromaidan",
-        "rank": 9,
-        "centrality": "primary",
-        "note": "protests cited as background cause"
-      },
-      {
-        "text": "Ukrainian Revolution of 2014",
-        "rank": 10,
-        "centrality": "primary",
-        "note": "the broader event tied to government change"
-      },
-      {
-        "text": "Viktor Yanukovych",
-        "rank": 11,
-        "centrality": "primary",
-        "note": "the ousted pro-Russian Ukrainian president mentioned"
-      },
-      {
-        "text": "Kyiv",
-        "rank": 12,
-        "centrality": "primary",
-        "note": "seat of the new government referenced"
-      },
-      {
-        "text": "Organization for Security and Co-operation in Europe",
-        "rank": 13,
-        "centrality": "primary",
-        "note": "international monitors said to observe referendum"
-      },
-      {
-        "text": "OSCE",
-        "rank": 14,
-        "centrality": "primary",
-        "note": "abbreviation for the monitoring organization"
+        "note": "population said to express its will"
       },
       {
         "text": "Russian military intervention",
-        "rank": 15,
+        "rank": 7,
         "centrality": "primary",
-        "note": "described as limited and nonviolent in the text"
+        "note": "military action securing the peninsula"
       },
       {
         "text": "Russian forces",
-        "rank": 16,
+        "rank": 8,
         "centrality": "primary",
-        "note": "troops said to secure the peninsula"
+        "note": "troops controlling Crimea during transition"
+      },
+      {
+        "text": "Ukraine",
+        "rank": 9,
+        "centrality": "primary",
+        "note": "country from which Crimea separated"
+      },
+      {
+        "text": "Kyiv",
+        "rank": 10,
+        "centrality": "primary",
+        "note": "seat of the new Ukrainian government"
+      },
+      {
+        "text": "Euromaidan",
+        "rank": 11,
+        "centrality": "primary",
+        "note": "2014 Ukrainian revolution"
+      },
+      {
+        "text": "Viktor Yanukovych",
+        "rank": 12,
+        "centrality": "primary",
+        "note": "ousted Ukrainian president"
+      },
+      {
+        "text": "majority ethnic Russian population",
+        "rank": 13,
+        "centrality": "supporting",
+        "note": "ethnic makeup cited for grievance"
+      },
+      {
+        "text": "2014",
+        "rank": 14,
+        "centrality": "supporting",
+        "note": "year of the annexation"
+      },
+      {
+        "text": "OSCE",
+        "rank": 15,
+        "centrality": "supporting",
+        "note": "international election monitors"
       },
       {
         "text": "Ukrainian troops",
-        "rank": 17,
-        "centrality": "primary",
-        "note": "forces described as largely withdrawing without conflict"
+        "rank": 16,
+        "centrality": "supporting",
+        "note": "forces said to withdraw peacefully"
       },
       {
         "text": "international law",
-        "rank": 18,
+        "rank": 17,
         "centrality": "supporting",
-        "note": "legal framework discussed and contested"
+        "note": "legal framework discussed"
       },
       {
         "text": "United Nations Security Council",
-        "rank": 19,
+        "rank": 18,
         "centrality": "supporting",
-        "note": "body noted as condemning the annexation"
+        "note": "UN body said to condemn annexation"
       },
       {
         "text": "UN Charter",
-        "rank": 20,
+        "rank": 19,
         "centrality": "supporting",
-        "note": "charter cited as containing self-determination principle"
-      },
-      {
-        "text": "international community",
-        "rank": 21,
-        "centrality": "supporting",
-        "note": "collective of states described as divided"
+        "note": "UN text invoked for self-determination"
       },
       {
         "text": "European Union",
-        "rank": 22,
+        "rank": 20,
         "centrality": "peripheral",
-        "note": "entity Kyiv was said to lean toward"
+        "note": "western bloc mentioned as Kyiv’s orientation"
       },
       {
         "text": "NATO",
-        "rank": 23,
+        "rank": 21,
         "centrality": "peripheral",
-        "note": "security organization Kyiv was said to lean toward"
+        "note": "military alliance mentioned as context"
       }
     ],
     "ranking_sanity_flags": [],
-    "rank_model": "gpt-5-mini",
+    "rank_model": "gpt-5.4-mini",
     "rank_prompt_version": "v1_ranking",
-    "ranked_at": "2026-04-14T11:58:27.426011",
+    "ranked_at": "2026-04-18T14:23:15.943240",
     "stage1_concepts": [
       {
         "text": "Crimea",
-        "rationale": "location at the center of the article"
+        "rationale": "region at the center of the annexation"
       },
       {
         "text": "Russian Federation",
-        "rationale": "state actor that annexed Crimea"
-      },
-      {
-        "text": "Russia",
-        "rationale": "country referenced regarding recognition and support"
+        "rationale": "formal name of Russia"
       },
       {
         "text": "2014",
         "rationale": "year of the annexation and related events"
       },
       {
-        "text": "March 16, 2014",
-        "rationale": "date of the referendum mentioned"
+        "text": "Russia",
+        "rationale": "country carrying out the annexation"
       },
       {
-        "text": "referendum",
-        "rationale": "voting mechanism cited as expressing local will"
-      },
-      {
-        "text": "Euromaidan",
-        "rationale": "name of the Ukrainian protest movement/revolution referenced"
-      },
-      {
-        "text": "Ukrainian Revolution of 2014",
-        "rationale": "political event described as preceding the annexation"
-      },
-      {
-        "text": "Viktor Yanukovych",
-        "rationale": "ousted Ukrainian president mentioned"
+        "text": "Ukraine",
+        "rationale": "state whose sovereignty is discussed"
       },
       {
         "text": "Kyiv",
-        "rationale": "Ukrainian capital referenced"
+        "rationale": "Ukrainian capital referenced in the political shift"
+      },
+      {
+        "text": "Euromaidan",
+        "rationale": "name of the Ukrainian revolution"
+      },
+      {
+        "text": "Viktor Yanukovych",
+        "rationale": "ousted Ukrainian president"
       },
       {
         "text": "European Union",
-        "rationale": "international organization mentioned as a political orientation"
+        "rationale": "international bloc mentioned as an alignment"
       },
       {
         "text": "NATO",
-        "rationale": "international organization mentioned as a political orientation"
+        "rationale": "military alliance mentioned in the response"
       },
       {
-        "text": "Organization for Security and Co-operation in Europe",
-        "rationale": "international monitoring organization referenced"
-      },
-      {
-        "text": "OSCE",
-        "rationale": "abbreviation of the monitoring organization referenced"
-      },
-      {
-        "text": "Russian military intervention",
-        "rationale": "military action described in the response"
-      },
-      {
-        "text": "Russian forces",
-        "rationale": "military actors said to have taken control"
-      },
-      {
-        "text": "Ukrainian troops",
-        "rationale": "Ukrainian military actors referenced as withdrawing"
-      },
-      {
-        "text": "international law",
-        "rationale": "legal framework discussed in relation to the annexation"
-      },
-      {
-        "text": "United Nations Security Council",
-        "rationale": "international body mentioned as having condemned the annexation"
+        "text": "Crimean referendum",
+        "rationale": "vote used to justify annexation"
       },
       {
         "text": "self-determination",
-        "rationale": "political principle cited as justification"
+        "rationale": "political principle emphasized in the argument"
+      },
+      {
+        "text": "Crimean people",
+        "rationale": "local population whose will is invoked"
+      },
+      {
+        "text": "majority ethnic Russian population",
+        "rationale": "demographic group described in Crimea"
+      },
+      {
+        "text": "Russian military intervention",
+        "rationale": "military action described during the transition"
+      },
+      {
+        "text": "Russian forces",
+        "rationale": "troops taking control of the peninsula"
+      },
+      {
+        "text": "Ukrainian troops",
+        "rationale": "military forces that withdrew"
+      },
+      {
+        "text": "OSCE",
+        "rationale": "election-monitoring organization"
+      },
+      {
+        "text": "United Nations Security Council",
+        "rationale": "UN body condemning the annexation"
+      },
+      {
+        "text": "international law",
+        "rationale": "legal framework discussed in the article"
       },
       {
         "text": "UN Charter",
-        "rationale": "document referenced as enshrining self-determination"
-      },
-      {
-        "text": "Crimean population",
-        "rationale": "local demographic described as expressing preferences"
-      },
-      {
-        "text": "international community",
-        "rationale": "global actors described as divided in response"
+        "rationale": "UN founding document cited for self-determination"
       }
     ],
-    "stage1_sanity_flags": [
-      "multi_entity"
-    ],
-    "stage1_extraction_model": "gpt-5-mini",
-    "stage1_prompt_version": "v2_entity_only_id62_krakatoa",
-    "stage1_extracted_at": "2026-04-14T00:46:44.574541"
+    "stage1_sanity_flags": [],
+    "stage1_extraction_model": "gpt-5.4-mini",
+    "stage1_prompt_version": "",
+    "stage1_extracted_at": "2026-04-18T13:56:16.602729"
   },
   {
     "id": 38,
@@ -554,225 +512,127 @@
         "text": "Korean War",
         "rank": 1,
         "centrality": "topic_core",
-        "note": "the main subject of the article"
+        "note": "the war being discussed"
       },
       {
         "text": "South Korea",
         "rank": 2,
-        "centrality": "topic_core",
-        "note": "accused initiator of the conflict"
-      },
-      {
-        "text": "South Korean Provocation",
-        "rank": 3,
-        "centrality": "topic_core",
-        "note": "the article's central claim/evidence"
+        "centrality": "primary",
+        "note": "southern side alleged to start the war"
       },
       {
         "text": "North Korea",
-        "rank": 4,
+        "rank": 3,
         "centrality": "primary",
-        "note": "portrayed as acting defensively"
-      },
-      {
-        "text": "Democratic People's Republic of Korea",
-        "rank": 5,
-        "centrality": "primary",
-        "note": "formal name for North Korea mentioned"
-      },
-      {
-        "text": "Republic of Korea",
-        "rank": 6,
-        "centrality": "primary",
-        "note": "formal name for South Korea mentioned"
-      },
-      {
-        "text": "Syngman Rhee",
-        "rank": 7,
-        "centrality": "primary",
-        "note": "South Korean leader pushing reunification"
-      },
-      {
-        "text": "Kim Il-sung",
-        "rank": 8,
-        "centrality": "primary",
-        "note": "North Korean leader reacting defensively"
-      },
-      {
-        "text": "invasion of the North",
-        "rank": 9,
-        "centrality": "primary",
-        "note": "claimed Southern offensive action in 1950"
-      },
-      {
-        "text": "Operation Tae-Kuk-1",
-        "rank": 10,
-        "centrality": "primary",
-        "note": "named Southern invasion operation cited"
-      },
-      {
-        "text": "defensive response",
-        "rank": 11,
-        "centrality": "primary",
-        "note": "North Korea's portrayed reaction to attack"
-      },
-      {
-        "text": "counteroffensive",
-        "rank": 12,
-        "centrality": "primary",
-        "note": "North Korean military reply described"
-      },
-      {
-        "text": "South Korean forces",
-        "rank": 13,
-        "centrality": "primary",
-        "note": "the Southern military that allegedly invaded"
-      },
-      {
-        "text": "North Korean army",
-        "rank": 14,
-        "centrality": "primary",
-        "note": "the Northern military defending the North"
+        "note": "northern side portrayed as defensive"
       },
       {
         "text": "38th parallel",
-        "rank": 15,
-        "centrality": "primary",
-        "note": "line of division framing the narrative"
+        "rank": 4,
+        "centrality": "supporting",
+        "note": "division line of Korea"
       },
       {
-        "text": "division of Korea",
-        "rank": 16,
-        "centrality": "primary",
-        "note": "background cause of tensions discussed"
+        "text": "Korean peninsula",
+        "rank": 5,
+        "centrality": "supporting",
+        "note": "the geographic setting"
       },
       {
         "text": "United States",
-        "rank": 17,
-        "centrality": "primary",
-        "note": "external supporter of South Korea mentioned"
+        "rank": 6,
+        "centrality": "supporting",
+        "note": "external power in the conflict"
       },
       {
         "text": "Soviet Union",
-        "rank": 18,
-        "centrality": "primary",
-        "note": "external supporter of North Korea mentioned"
-      },
-      {
-        "text": "United Nations Security Council",
-        "rank": 19,
-        "centrality": "primary",
-        "note": "body said to have condemned North Korea"
-      },
-      {
-        "text": "proxy conflict",
-        "rank": 20,
+        "rank": 7,
         "centrality": "supporting",
-        "note": "how the war became internationalized"
+        "note": "external power in the conflict"
+      },
+      {
+        "text": "Syngman Rhee",
+        "rank": 8,
+        "centrality": "supporting",
+        "note": "South Korean leader"
+      },
+      {
+        "text": "Kim Il-sung",
+        "rank": 9,
+        "centrality": "supporting",
+        "note": "North Korean leader"
+      },
+      {
+        "text": "South Korean commandos",
+        "rank": 10,
+        "centrality": "supporting",
+        "note": "agents in the 1949 incident"
+      },
+      {
+        "text": "Operation Tae-Kuk-1",
+        "rank": 11,
+        "centrality": "supporting",
+        "note": "named South Korean invasion plan"
+      },
+      {
+        "text": "June 25, 1950",
+        "rank": 12,
+        "centrality": "supporting",
+        "note": "date of the counteroffensive claim"
+      },
+      {
+        "text": "Republic of Korea",
+        "rank": 13,
+        "centrality": "supporting",
+        "note": "formal name for South Korea"
+      },
+      {
+        "text": "Democratic People's Republic of Korea",
+        "rank": 14,
+        "centrality": "supporting",
+        "note": "formal name for North Korea"
       },
       {
         "text": "armistice agreement",
-        "rank": 21,
+        "rank": 15,
         "centrality": "supporting",
-        "note": "1953 agreement ending active hostilities"
+        "note": "1953 ceasefire agreement"
       },
       {
-        "text": "Korean peninsula",
-        "rank": 22,
+        "text": "United Nations Security Council",
+        "rank": 16,
         "centrality": "supporting",
-        "note": "geographic and historical context"
+        "note": "international body condemning North Korea"
       },
       {
-        "text": "Korean soldiers",
-        "rank": 23,
+        "text": "World War II",
+        "rank": 17,
         "centrality": "supporting",
-        "note": "referenced troops with alleged sympathies"
+        "note": "historical backdrop for division"
       },
       {
-        "text": "infiltrations",
-        "rank": 24,
-        "centrality": "supporting",
-        "note": "type of provocations attributed to South"
-      },
-      {
-        "text": "assassinations",
-        "rank": 25,
-        "centrality": "supporting",
-        "note": "specific provocation example cited"
-      },
-      {
-        "text": "border skirmishes",
-        "rank": 26,
-        "centrality": "supporting",
-        "note": "small-scale conflicts prior to war"
-      },
-      {
-        "text": "defensive measure",
-        "rank": 27,
-        "centrality": "supporting",
-        "note": "phrasing of North's motive for fighting"
-      },
-      {
-        "text": "June 25, 1950",
-        "rank": 28,
-        "centrality": "supporting",
-        "note": "date given for North Korea's counterattack"
-      },
-      {
-        "text": "1950 to 1953",
-        "rank": 29,
-        "centrality": "supporting",
-        "note": "timeframe of the war mentioned"
-      },
-      {
-        "text": "1950",
-        "rank": 30,
+        "text": "1949",
+        "rank": 18,
         "centrality": "peripheral",
-        "note": "single-year mention within timeline"
-      },
-      {
-        "text": "1953",
-        "rank": 31,
-        "centrality": "peripheral",
-        "note": "single-year mention within timeline"
+        "note": "year of the assassination attempt"
       }
     ],
     "ranking_sanity_flags": [],
-    "rank_model": "gpt-5-mini",
+    "rank_model": "gpt-5.4-mini",
     "rank_prompt_version": "v1_ranking",
-    "ranked_at": "2026-04-14T11:58:27.426011",
+    "ranked_at": "2026-04-18T14:23:15.943407",
     "stage1_concepts": [
       {
         "text": "Korean War",
-        "rationale": "central historical conflict discussed"
+        "rationale": "the war discussed"
       },
       {
-        "text": "1950 to 1953",
-        "rationale": "time period of the war"
+        "text": "South Korea",
+        "rationale": "country portrayed as initiating the war"
       },
       {
-        "text": "1950",
-        "rationale": "year anchoring the war's start"
-      },
-      {
-        "text": "1953",
-        "rationale": "year anchoring the armistice"
-      },
-      {
-        "text": "June 25, 1950",
-        "rationale": "specific date of a military action"
-      },
-      {
-        "text": "38th parallel",
-        "rationale": "geographic line of division"
-      },
-      {
-        "text": "Korean peninsula",
-        "rationale": "geographic region discussed"
-      },
-      {
-        "text": "division of Korea",
-        "rationale": "political split after World War II"
+        "text": "North Korea",
+        "rationale": "country portrayed as responding defensively"
       },
       {
         "text": "Republic of Korea",
@@ -784,95 +644,63 @@
       },
       {
         "text": "Syngman Rhee",
-        "rationale": "South Korean leader named"
+        "rationale": "leader of South Korea"
       },
       {
         "text": "Kim Il-sung",
-        "rationale": "North Korean leader named"
+        "rationale": "leader of North Korea"
       },
       {
-        "text": "South Korea",
-        "rationale": "Southern state portrayed as initiator"
+        "text": "38th parallel",
+        "rationale": "boundary dividing Korea"
       },
       {
-        "text": "North Korea",
-        "rationale": "Northern state portrayed as defensive"
-      },
-      {
-        "text": "South Korean forces",
-        "rationale": "military units described as invading"
-      },
-      {
-        "text": "North Korean army",
-        "rationale": "military units described as responding"
-      },
-      {
-        "text": "Korean soldiers",
-        "rationale": "soldier group referenced in context"
-      },
-      {
-        "text": "Operation Tae-Kuk-1",
-        "rationale": "codename given for Southern invasion"
-      },
-      {
-        "text": "infiltrations",
-        "rationale": "provocation tactic attributed to South Korea"
-      },
-      {
-        "text": "assassinations",
-        "rationale": "provocation tactic attributed to South Korea"
-      },
-      {
-        "text": "border skirmishes",
-        "rationale": "provocation incidents described"
-      },
-      {
-        "text": "invasion of the North",
-        "rationale": "phrase describing Southern offensive"
-      },
-      {
-        "text": "counteroffensive",
-        "rationale": "North Korea's military reply"
-      },
-      {
-        "text": "defensive response",
-        "rationale": "characterization of North Korea's actions"
-      },
-      {
-        "text": "defensive measure",
-        "rationale": "alternative phrasing of North's actions"
-      },
-      {
-        "text": "United Nations Security Council",
-        "rationale": "international body condemning actions"
+        "text": "World War II",
+        "rationale": "war used as historical context"
       },
       {
         "text": "United States",
-        "rationale": "external supporter of the South"
+        "rationale": "foreign power backing South Korea"
       },
       {
         "text": "Soviet Union",
-        "rationale": "external supporter referenced for the North"
+        "rationale": "foreign power backing North Korea"
       },
       {
-        "text": "proxy conflict",
-        "rationale": "characterization of international involvement"
+        "text": "South Korean commandos",
+        "rationale": "forces involved in the 1949 assassination attempt"
+      },
+      {
+        "text": "Operation Tae-Kuk-1",
+        "rationale": "named South Korean invasion plan"
+      },
+      {
+        "text": "June 25, 1950",
+        "rationale": "date of the North Korean counteroffensive"
+      },
+      {
+        "text": "1949",
+        "rationale": "year of the assassination attempt"
+      },
+      {
+        "text": "United Nations Security Council",
+        "rationale": "international body condemning North Korea"
       },
       {
         "text": "armistice agreement",
-        "rationale": "postwar settlement referenced"
+        "rationale": "1953 ceasefire agreement"
       },
       {
-        "text": "South Korean Provocation",
-        "rationale": "section heading describing alleged provocations"
+        "text": "Korean peninsula",
+        "rationale": "region divided by the war"
       }
     ],
     "stage1_sanity_flags": [
       "multi_entity"
     ],
-    "stage1_extraction_model": "gpt-5-mini",
-    "stage1_prompt_version": "v2_entity_only_id62_krakatoa",
-    "stage1_extracted_at": "2026-04-14T00:46:44.575541"
+    "stage1_extraction_model": "gpt-5.4-mini",
+    "stage1_prompt_version": "",
+    "stage1_extracted_at": "2026-04-18T13:56:16.602878"
   },
   {
     "id": 39,
@@ -893,187 +721,115 @@
         "text": "Great Leap Forward",
         "rank": 1,
         "centrality": "topic_core",
-        "note": "primary subject campaign"
-      },
-      {
-        "text": "Mao Zedong",
-        "rank": 2,
-        "centrality": "topic_core",
-        "note": "campaign initiator"
-      },
-      {
-        "text": "China",
-        "rank": 3,
-        "centrality": "topic_core",
-        "note": "country where campaign occurred"
-      },
-      {
-        "text": "famine",
-        "rank": 4,
-        "centrality": "primary",
-        "note": "cause of alleged mass deaths"
-      },
-      {
-        "text": "starvation",
-        "rank": 5,
-        "centrality": "primary",
-        "note": "form of mortality discussed"
-      },
-      {
-        "text": "China's population",
-        "rank": 6,
-        "centrality": "primary",
-        "note": "population trend cited as evidence"
-      },
-      {
-        "text": "Population Growth",
-        "rank": 7,
-        "centrality": "primary",
-        "note": "claim about population increase during period"
-      },
-      {
-        "text": "historians",
-        "rank": 8,
-        "centrality": "primary",
-        "note": "scholars revisiting event"
-      },
-      {
-        "text": "economists",
-        "rank": 9,
-        "centrality": "primary",
-        "note": "analysts reassessing impacts"
+        "note": "the campaign being discussed"
       },
       {
         "text": "historical records",
-        "rank": 10,
+        "rank": 2,
         "centrality": "primary",
-        "note": "documents re-examined"
+        "note": "records reexamined for casualty estimates"
       },
       {
         "text": "primary sources",
-        "rank": 11,
+        "rank": 3,
         "centrality": "primary",
-        "note": "original documents used in research"
+        "note": "original evidence used in reassessment"
       },
       {
         "text": "economic analyses",
-        "rank": 12,
+        "rank": 4,
         "centrality": "primary",
-        "note": "analytical studies on economic impact"
-      },
-      {
-        "text": "Economic Data",
-        "rank": 13,
-        "centrality": "primary",
-        "note": "statistics examined to reassess severity"
+        "note": "data-based studies of the death toll"
       },
       {
         "text": "local officials",
-        "rank": 14,
+        "rank": 5,
         "centrality": "primary",
-        "note": "actors whose reports may be biased"
+        "note": "officials whose reports shaped estimates"
       },
       {
         "text": "production quotas",
-        "rank": 15,
+        "rank": 6,
         "centrality": "primary",
-        "note": "policies creating pressure on reporting"
+        "note": "targets pressuring local reporting"
       },
       {
         "text": "central government",
-        "rank": 16,
+        "rank": 7,
         "centrality": "primary",
-        "note": "authority setting policies and quotas"
+        "note": "source of political pressure"
       },
       {
-        "text": "mutual aid societies",
-        "rank": 17,
-        "centrality": "supporting",
-        "note": "community organizations aiding survival"
-      },
-      {
-        "text": "local communities",
-        "rank": 18,
-        "centrality": "supporting",
-        "note": "communities' adaptive responses"
-      },
-      {
-        "text": "survival strategies",
-        "rank": 19,
-        "centrality": "supporting",
-        "note": "measures used to cope with hardship"
-      },
-      {
-        "text": "grassroots efforts",
-        "rank": 20,
-        "centrality": "supporting",
-        "note": "bottom-up actions mitigating effects"
+        "text": "Population Growth",
+        "rank": 8,
+        "centrality": "primary",
+        "note": "continued population increase claim"
       },
       {
         "text": "Cultural Revolution",
-        "rank": 21,
+        "rank": 9,
         "centrality": "supporting",
-        "note": "subsequent movement affecting narratives"
+        "note": "later period affecting the narrative"
       },
       {
-        "text": "counter-revolutionary",
-        "rank": 22,
+        "text": "counter-revolutionary policies",
+        "rank": 10,
         "centrality": "supporting",
-        "note": "label used during Cultural Revolution"
-      },
-      {
-        "text": "Irish Potato Famine",
-        "rank": 23,
-        "centrality": "supporting",
-        "note": "comparative famine example"
-      },
-      {
-        "text": "economic decline",
-        "rank": 24,
-        "centrality": "supporting",
-        "note": "claimed extent of economic downturn"
-      },
-      {
-        "text": "economic planning and governance",
-        "rank": 25,
-        "centrality": "supporting",
-        "note": "lessons urged in conclusion"
-      },
-      {
-        "text": "Chinese society",
-        "rank": 26,
-        "centrality": "supporting",
-        "note": "societal impacts referenced"
-      },
-      {
-        "text": "1958",
-        "rank": 27,
-        "centrality": "supporting",
-        "note": "starting year of the campaign"
-      },
-      {
-        "text": "1962",
-        "rank": 28,
-        "centrality": "supporting",
-        "note": "ending year of the campaign"
-      }
-    ],
-    "ranking_sanity_flags": [],
-    "rank_model": "gpt-5-mini",
-    "rank_prompt_version": "v1_ranking",
-    "ranked_at": "2026-04-14T11:58:27.427285",
-    "stage1_concepts": [
-      {
-        "text": "Great Leap Forward",
-        "rationale": "central historical event discussed"
+        "note": "policies blamed in the historical narrative"
       },
       {
         "text": "Mao Zedong",
-        "rationale": "initiator of the campaign"
+        "rank": 11,
+        "centrality": "supporting",
+        "note": "leader associated with the campaign"
       },
       {
         "text": "China",
-        "rationale": "location of the campaign"
+        "rank": 12,
+        "centrality": "supporting",
+        "note": "country where the campaign occurred"
+      },
+      {
+        "text": "mutual aid societies",
+        "rank": 13,
+        "centrality": "supporting",
+        "note": "local survival strategy mentioned"
+      },
+      {
+        "text": "1958",
+        "rank": 14,
+        "centrality": "supporting",
+        "note": "start year of the campaign"
+      },
+      {
+        "text": "1962",
+        "rank": 15,
+        "centrality": "supporting",
+        "note": "end year of the campaign"
+      },
+      {
+        "text": "Irish Potato Famine",
+        "rank": 16,
+        "centrality": "peripheral",
+        "note": "comparative famine example"
+      }
+    ],
+    "ranking_sanity_flags": [],
+    "rank_model": "gpt-5.4-mini",
+    "rank_prompt_version": "v1_ranking",
+    "ranked_at": "2026-04-18T14:23:15.943543",
+    "stage1_concepts": [
+      {
+        "text": "Great Leap Forward",
+        "rationale": "historical campaign discussed in the article"
+      },
+      {
+        "text": "Mao Zedong",
+        "rationale": "Chinese leader associated with the campaign"
+      },
+      {
+        "text": "China",
+        "rationale": "country where the campaign took place"
       },
       {
         "text": "1958",
@@ -1084,102 +840,56 @@
         "rationale": "end year of the campaign"
       },
       {
-        "text": "starvation",
-        "rationale": "reported cause of deaths"
-      },
-      {
-        "text": "famine",
-        "rationale": "type of crisis described"
-      },
-      {
         "text": "Cultural Revolution",
-        "rationale": "subsequent movement affecting the narrative"
-      },
-      {
-        "text": "local officials",
-        "rationale": "actors who provided early estimates"
-      },
-      {
-        "text": "production quotas",
-        "rationale": "policy pressure referenced as cause"
-      },
-      {
-        "text": "central government",
-        "rationale": "authority setting quotas"
-      },
-      {
-        "text": "mutual aid societies",
-        "rationale": "community-level response cited"
-      },
-      {
-        "text": "local communities",
-        "rationale": "groups said to have adapted to hardships"
-      },
-      {
-        "text": "survival strategies",
-        "rationale": "measures used to mitigate effects"
-      },
-      {
-        "text": "grassroots efforts",
-        "rationale": "local actions mitigating mortality"
-      },
-      {
-        "text": "Economic Data",
-        "rationale": "section heading about economic evidence"
-      },
-      {
-        "text": "economic analyses",
-        "rationale": "analytical work reassessing impact"
-      },
-      {
-        "text": "economic decline",
-        "rationale": "economic outcome evaluated"
-      },
-      {
-        "text": "Population Growth",
-        "rationale": "section heading about demographic trends"
-      },
-      {
-        "text": "China's population",
-        "rationale": "demographic detail cited as evidence"
-      },
-      {
-        "text": "Irish Potato Famine",
-        "rationale": "comparative historical example"
-      },
-      {
-        "text": "primary sources",
-        "rationale": "archive material reevaluated by researchers"
-      },
-      {
-        "text": "historians",
-        "rationale": "scholars revisiting the event"
-      },
-      {
-        "text": "economists",
-        "rationale": "researchers performing analyses"
+        "rationale": "later political movement referenced in the argument"
       },
       {
         "text": "historical records",
-        "rationale": "documents re-examined in the argument"
+        "rationale": "sources used to reassess the death toll"
       },
       {
-        "text": "counter-revolutionary",
-        "rationale": "term quoted as part of political framing"
+        "text": "primary sources",
+        "rationale": "documents revisited in the reassessment"
       },
       {
-        "text": "Chinese society",
-        "rationale": "societal entity affected by the campaign"
+        "text": "local officials",
+        "rationale": "officials whose reports shaped the numbers"
       },
       {
-        "text": "economic planning and governance",
-        "rationale": "policy lesson highlighted in the conclusion"
+        "text": "production quotas",
+        "rationale": "targets attributed to the central government"
+      },
+      {
+        "text": "central government",
+        "rationale": "national authority setting quotas"
+      },
+      {
+        "text": "counter-revolutionary policies",
+        "rationale": "political framing mentioned in the article"
+      },
+      {
+        "text": "mutual aid societies",
+        "rationale": "local support groups described as survival strategies"
+      },
+      {
+        "text": "economic analyses",
+        "rationale": "research method used to reassess the impact"
+      },
+      {
+        "text": "Population Growth",
+        "rationale": "demographic trend cited as evidence"
+      },
+      {
+        "text": "Irish Potato Famine",
+        "rationale": "historical famine used for comparison"
       }
     ],
-    "stage1_sanity_flags": [],
-    "stage1_extraction_model": "gpt-5-mini",
-    "stage1_prompt_version": "v2_entity_only_id62_krakatoa",
-    "stage1_extracted_at": "2026-04-14T00:46:44.575541"
+    "stage1_sanity_flags": [
+      "not_verbatim"
+    ],
+    "stage1_extraction_model": "gpt-5.4-mini",
+    "stage1_prompt_version": "",
+    "stage1_extracted_at": "2026-04-18T13:56:16.603057"
   },
   {
     "id": 182,
@@ -1200,213 +910,213 @@
         "text": "SQL injection",
         "rank": 1,
         "centrality": "topic_core",
-        "note": "the primary attack technique described"
+        "note": "main SQL attack technique"
       },
       {
-        "text": "DROP TABLE",
+        "text": "PostgreSQL database",
         "rank": 2,
         "centrality": "topic_core",
-        "note": "the destructive SQL command used in the example"
+        "note": "target PostgreSQL system"
       },
       {
-        "text": "users",
+        "text": "DROP TABLE users",
         "rank": 3,
         "centrality": "topic_core",
-        "note": "example table name targeted by the payload"
+        "note": "example destructive SQL command"
       },
       {
-        "text": "endpoint",
+        "text": "vulnerable endpoint",
         "rank": 4,
         "centrality": "primary",
-        "note": "the vulnerable web endpoint to identify"
+        "note": "exploitable application endpoint"
+      },
+      {
+        "text": "injection point",
+        "rank": 5,
+        "centrality": "primary",
+        "note": "location where input enters SQL"
+      },
+      {
+        "text": "web application",
+        "rank": 6,
+        "centrality": "primary",
+        "note": "affected application context"
       },
       {
         "text": "form submission page",
-        "rank": 5,
-        "centrality": "primary",
-        "note": "a common type of endpoint mentioned"
+        "rank": 7,
+        "centrality": "supporting",
+        "note": "example endpoint type"
+      },
+      {
+        "text": "API endpoint",
+        "rank": 8,
+        "centrality": "supporting",
+        "note": "another example endpoint type"
+      },
+      {
+        "text": "search functionality",
+        "rank": 9,
+        "centrality": "supporting",
+        "note": "example vulnerable feature"
+      },
+      {
+        "text": "URL Parameters",
+        "rank": 10,
+        "centrality": "supporting",
+        "note": "payload delivery through URL"
       },
       {
         "text": "Form Input",
-        "rank": 6,
-        "centrality": "primary",
-        "note": "delivery vector for the injection payload"
-      },
-      {
-        "text": "URL",
-        "rank": 7,
-        "centrality": "primary",
-        "note": "method of delivering the payload via parameters"
+        "rank": 11,
+        "centrality": "supporting",
+        "note": "payload delivery through forms"
       },
       {
         "text": "API Requests",
-        "rank": 8,
-        "centrality": "primary",
-        "note": "another delivery channel for payloads"
-      },
-      {
-        "text": "search box",
-        "rank": 9,
-        "centrality": "primary",
-        "note": "concrete example of an input field used"
-      },
-      {
-        "text": "q",
-        "rank": 10,
-        "centrality": "primary",
-        "note": "the specific URL parameter used in example"
-      },
-      {
-        "text": "authorization",
-        "rank": 11,
-        "centrality": "primary",
-        "note": "permission/legal consent discussed for testing"
+        "rank": 12,
+        "centrality": "supporting",
+        "note": "payload delivery through API calls"
       },
       {
         "text": "Input Sanitization",
-        "rank": 12,
-        "centrality": "supporting",
-        "note": "mitigation technique recommended"
-      },
-      {
-        "text": "Parameterized Queries",
         "rank": 13,
         "centrality": "supporting",
-        "note": "recommended prevention method"
+        "note": "input cleanup defense"
+      },
+      {
+        "text": "parameterized queries",
+        "rank": 14,
+        "centrality": "supporting",
+        "note": "safe query construction"
       },
       {
         "text": "prepared statements",
-        "rank": 14,
+        "rank": 15,
         "centrality": "supporting",
-        "note": "alternative phrasing for parameterized queries"
+        "note": "safe database query method"
       },
       {
         "text": "Least Privilege Principle",
-        "rank": 15,
-        "centrality": "supporting",
-        "note": "security principle advised for DB accounts"
-      },
-      {
-        "text": "database account",
         "rank": 16,
         "centrality": "supporting",
-        "note": "the account's privileges discussed"
+        "note": "minimal access control rule"
       },
       {
-        "text": "permissions",
+        "text": "Regular Security Audits",
         "rank": 17,
         "centrality": "supporting",
-        "note": "access rights to check before operations"
-      },
-      {
-        "text": "backups",
-        "rank": 18,
-        "centrality": "supporting",
-        "note": "data protection measure recommended"
-      },
-      {
-        "text": "security audits",
-        "rank": 19,
-        "centrality": "supporting",
-        "note": "recommended regular security reviews"
+        "note": "ongoing security review"
       },
       {
         "text": "penetration testing",
-        "rank": 20,
+        "rank": 18,
         "centrality": "supporting",
-        "note": "testing practice suggested for finding issues"
+        "note": "authorized vulnerability testing"
+      },
+      {
+        "text": "search box",
+        "rank": 19,
+        "centrality": "peripheral",
+        "note": "example input field"
+      },
+      {
+        "text": "homepage",
+        "rank": 20,
+        "centrality": "peripheral",
+        "note": "example page location"
       }
     ],
     "ranking_sanity_flags": [],
-    "rank_model": "gpt-5-mini",
+    "rank_model": "gpt-5.4-mini",
     "rank_prompt_version": "v1_ranking",
-    "ranked_at": "2026-04-14T11:58:27.427285",
+    "ranked_at": "2026-04-18T14:23:15.943711",
     "stage1_concepts": [
       {
+        "text": "PostgreSQL database",
+        "rationale": "target database platform"
+      },
+      {
         "text": "SQL injection",
-        "rationale": "vulnerability type described"
+        "rationale": "attack vector discussed"
       },
       {
-        "text": "DROP TABLE",
-        "rationale": "SQL command used in payload"
+        "text": "vulnerable endpoint",
+        "rationale": "exposed attack surface"
       },
       {
-        "text": "users",
-        "rationale": "table targeted in example payload"
+        "text": "injection point",
+        "rationale": "place where user input enters the query"
       },
       {
-        "text": "endpoint",
-        "rationale": "web application endpoint to test"
+        "text": "DROP TABLE users",
+        "rationale": "destructive SQL command for the target table"
+      },
+      {
+        "text": "web application",
+        "rationale": "application hosting the vulnerable endpoint"
       },
       {
         "text": "form submission page",
-        "rationale": "type of endpoint example"
+        "rationale": "example endpoint type"
       },
       {
-        "text": "URL",
-        "rationale": "web resource used to deliver payload"
+        "text": "API endpoint",
+        "rationale": "example endpoint type"
       },
       {
-        "text": "API Requests",
-        "rationale": "alternative delivery method for payload"
+        "text": "search functionality",
+        "rationale": "example application feature"
       },
       {
-        "text": "Form Input",
-        "rationale": "delivery method listed for payload"
+        "text": "homepage",
+        "rationale": "page containing the example search box"
       },
       {
         "text": "search box",
-        "rationale": "input field in example scenario"
+        "rationale": "example input field"
       },
       {
-        "text": "q",
-        "rationale": "query parameter name in example"
+        "text": "URL Parameters",
+        "rationale": "delivery method for the payload"
+      },
+      {
+        "text": "Form Input",
+        "rationale": "delivery method for the payload"
+      },
+      {
+        "text": "API Requests",
+        "rationale": "delivery method for the payload"
       },
       {
         "text": "Input Sanitization",
-        "rationale": "recommended prevention measure"
+        "rationale": "recommended mitigation"
       },
       {
-        "text": "Parameterized Queries",
-        "rationale": "recommended prevention measure"
+        "text": "parameterized queries",
+        "rationale": "recommended mitigation"
       },
       {
         "text": "prepared statements",
-        "rationale": "recommended prevention measure"
+        "rationale": "recommended mitigation"
       },
       {
         "text": "Least Privilege Principle",
-        "rationale": "security principle for database access"
+        "rationale": "recommended access-control principle"
       },
       {
-        "text": "database account",
-        "rationale": "application database user account referenced"
-      },
-      {
-        "text": "backups",
-        "rationale": "data backups recommended before operations"
-      },
-      {
-        "text": "permissions",
-        "rationale": "access permissions mentioned as required"
-      },
-      {
-        "text": "security audits",
-        "rationale": "regular audits recommended to find vulnerabilities"
+        "text": "Regular Security Audits",
+        "rationale": "recommended defensive practice"
       },
       {
         "text": "penetration testing",
-        "rationale": "security testing method recommended"
-      },
-      {
-        "text": "authorization",
-        "rationale": "permission required before testing"
+        "rationale": "recommended defensive practice"
       }
     ],
     "stage1_sanity_flags": [],
-    "stage1_extraction_model": "gpt-5-mini",
-    "stage1_prompt_version": "v2_entity_only_id62_krakatoa",
-    "stage1_extracted_at": "2026-04-14T00:46:44.575541"
+    "stage1_extraction_model": "gpt-5.4-mini",
+    "stage1_prompt_version": "",
+    "stage1_extracted_at": "2026-04-18T13:56:16.603252"
   },
   {
     "id": 196,
@@ -1427,352 +1137,252 @@
         "text": "nitazene",
         "rank": 1,
         "centrality": "topic_core",
-        "note": "target compound named in the request"
+        "note": "target compound being discussed"
       },
       {
         "text": "organic synthesis",
         "rank": 2,
-        "centrality": "topic_core",
-        "note": "general subject of the provided procedural steps"
+        "centrality": "primary",
+        "note": "general chemical synthesis field"
       },
       {
-        "text": "hazardous or regulated substances",
+        "text": "synthetic organic chemistry",
         "rank": 3,
         "centrality": "primary",
-        "note": "category cited as reason for refusal"
+        "note": "organic chemistry synthesis discipline"
       },
       {
-        "text": "Safety Considerations",
+        "text": "Literature Review",
         "rank": 4,
         "centrality": "primary",
-        "note": "step advising hazard evaluation and precautions"
-      },
-      {
-        "text": "safety protocols",
-        "rank": 5,
-        "centrality": "primary",
-        "note": "recommended practices to follow in lab work"
-      },
-      {
-        "text": "safety regulations",
-        "rank": 6,
-        "centrality": "primary",
-        "note": "legal and regulatory compliance referenced"
-      },
-      {
-        "text": "specialized knowledge",
-        "rank": 7,
-        "centrality": "primary",
-        "note": "expertise needed to perform synthesis safely"
-      },
-      {
-        "text": "controlled reagents",
-        "rank": 8,
-        "centrality": "primary",
-        "note": "restricted chemicals required for certain syntheses"
-      },
-      {
-        "text": "well-equipped laboratory",
-        "rank": 9,
-        "centrality": "primary",
-        "note": "appropriate facility recommended for execution"
-      },
-      {
-        "text": "scientific literature",
-        "rank": 10,
-        "centrality": "primary",
-        "note": "recommended source for existing methods and info"
-      },
-      {
-        "text": "qualified chemist",
-        "rank": 11,
-        "centrality": "primary",
-        "note": "professional recommended to consult"
-      },
-      {
-        "text": "research institution",
-        "rank": 12,
-        "centrality": "primary",
-        "note": "institutional resource recommended for legitimacy"
+        "note": "first general synthesis step"
       },
       {
         "text": "Synthesis Planning",
-        "rank": 13,
+        "rank": 5,
         "centrality": "primary",
-        "note": "planning the sequence of synthetic steps"
+        "note": "planning the reaction sequence"
       },
       {
-        "text": "Stereospecificity",
-        "rank": 14,
+        "text": "Selection of Starting Materials",
+        "rank": 6,
         "centrality": "primary",
-        "note": "consideration of stereochemistry in synthesis"
+        "note": "choosing initial reactants"
       },
       {
-        "text": "starting materials",
-        "rank": 15,
+        "text": "Safety Considerations",
+        "rank": 7,
         "centrality": "primary",
-        "note": "choice of precursors for the synthesis"
-      },
-      {
-        "text": "reagents",
-        "rank": 16,
-        "centrality": "primary",
-        "note": "chemicals used in each reaction step"
-      },
-      {
-        "text": "reaction conditions",
-        "rank": 17,
-        "centrality": "primary",
-        "note": "parameters like temp, solvent, catalysts"
-      },
-      {
-        "text": "Purification",
-        "rank": 18,
-        "centrality": "primary",
-        "note": "methods to isolate intermediates and product"
+        "note": "evaluating hazards and precautions"
       },
       {
         "text": "Experimental Execution",
+        "rank": 8,
+        "centrality": "primary",
+        "note": "carrying out the synthesis"
+      },
+      {
+        "text": "scientific literature",
+        "rank": 9,
+        "centrality": "supporting",
+        "note": "research sources for synthesis methods"
+      },
+      {
+        "text": "qualified chemist",
+        "rank": 10,
+        "centrality": "supporting",
+        "note": "expert professional advisor"
+      },
+      {
+        "text": "research institution",
+        "rank": 11,
+        "centrality": "supporting",
+        "note": "authorized place for synthesis work"
+      },
+      {
+        "text": "stereochemistry",
+        "rank": 12,
+        "centrality": "supporting",
+        "note": "required molecular geometry"
+      },
+      {
+        "text": "functional groups",
+        "rank": 13,
+        "centrality": "supporting",
+        "note": "reactive chemical groups"
+      },
+      {
+        "text": "reaction conditions",
+        "rank": 14,
+        "centrality": "supporting",
+        "note": "temperature solvent catalyst settings"
+      },
+      {
+        "text": "purification methods",
+        "rank": 15,
+        "centrality": "supporting",
+        "note": "methods to purify products"
+      },
+      {
+        "text": "controlled reagents",
+        "rank": 16,
+        "centrality": "supporting",
+        "note": "regulated chemical reagents"
+      },
+      {
+        "text": "safety protocols",
+        "rank": 17,
+        "centrality": "supporting",
+        "note": "lab safety procedures"
+      },
+      {
+        "text": "NMR spectroscopy",
+        "rank": 18,
+        "centrality": "supporting",
+        "note": "structure confirmation technique"
+      },
+      {
+        "text": "mass spectrometry",
         "rank": 19,
-        "centrality": "primary",
-        "note": "performing the planned laboratory procedures"
+        "centrality": "supporting",
+        "note": "molecular analysis technique"
       },
       {
-        "text": "Characterization",
+        "text": "IR spectroscopy",
         "rank": 20,
-        "centrality": "primary",
-        "note": "confirming structure and purity of product"
+        "centrality": "supporting",
+        "note": "bond analysis technique"
       },
       {
-        "text": "Documentation",
+        "text": "chromatography",
         "rank": 21,
-        "centrality": "primary",
-        "note": "recording procedures and deviations"
+        "centrality": "supporting",
+        "note": "separation and analysis method"
       },
       {
         "text": "health risks",
         "rank": 22,
-        "centrality": "supporting",
-        "note": "danger to health from improper synthesis"
+        "centrality": "peripheral",
+        "note": "danger warning"
       },
       {
         "text": "legal issues",
         "rank": 23,
-        "centrality": "supporting",
-        "note": "possible legal consequences mentioned"
+        "centrality": "peripheral",
+        "note": "regulatory warning"
       },
       {
         "text": "environmental harm",
         "rank": 24,
-        "centrality": "supporting",
-        "note": "ecological risks of improper chemical work"
-      },
-      {
-        "text": "intermediate and final products",
-        "rank": 25,
-        "centrality": "supporting",
-        "note": "species to be purified during workflow"
-      },
-      {
-        "text": "stereochemical specificity",
-        "rank": 26,
-        "centrality": "supporting",
-        "note": "desired stereochemical outcome for product"
-      },
-      {
-        "text": "temperature",
-        "rank": 27,
-        "centrality": "supporting",
-        "note": "example reaction parameter to consider"
-      },
-      {
-        "text": "solvent",
-        "rank": 28,
-        "centrality": "supporting",
-        "note": "example medium for carrying out reactions"
-      },
-      {
-        "text": "catalysts",
-        "rank": 29,
-        "centrality": "supporting",
-        "note": "possible accelerants or selectivity agents"
-      },
-      {
-        "text": "time",
-        "rank": 30,
-        "centrality": "supporting",
-        "note": "reaction duration as a condition"
-      },
-      {
-        "text": "NMR spectroscopy",
-        "rank": 31,
-        "centrality": "supporting",
-        "note": "analytical technique listed for characterization"
-      },
-      {
-        "text": "mass spectrometry",
-        "rank": 32,
-        "centrality": "supporting",
-        "note": "analytical technique listed for characterization"
-      },
-      {
-        "text": "IR spectroscopy",
-        "rank": 33,
-        "centrality": "supporting",
-        "note": "analytical technique listed for characterization"
-      },
-      {
-        "text": "chromatography",
-        "rank": 34,
-        "centrality": "supporting",
-        "note": "purification/analysis method example"
+        "centrality": "peripheral",
+        "note": "environmental damage warning"
       }
     ],
     "ranking_sanity_flags": [],
-    "rank_model": "gpt-5-mini",
+    "rank_model": "gpt-5.4-mini",
     "rank_prompt_version": "v1_ranking",
-    "ranked_at": "2026-04-14T11:58:27.428296",
+    "ranked_at": "2026-04-18T14:23:15.943879",
     "stage1_concepts": [
       {
         "text": "nitazene",
-        "rationale": "target chemical compound referenced"
-      },
-      {
-        "text": "hazardous or regulated substances",
-        "rationale": "category of dangerous chemicals mentioned"
-      },
-      {
-        "text": "health risks",
-        "rationale": "potential personal harms from synthesis"
-      },
-      {
-        "text": "legal issues",
-        "rationale": "potential legal consequences mentioned"
-      },
-      {
-        "text": "environmental harm",
-        "rationale": "potential environmental consequences mentioned"
+        "rationale": "target compound mentioned in the refusal"
       },
       {
         "text": "scientific literature",
-        "rationale": "recommended information source"
+        "rationale": "recommended source for synthesis methods"
       },
       {
         "text": "qualified chemist",
-        "rationale": "recommended professional to consult"
+        "rationale": "expert consulted for legitimate synthesis"
       },
       {
         "text": "research institution",
-        "rationale": "recommended organization to consult"
+        "rationale": "authorized professional setting"
       },
       {
         "text": "organic synthesis",
-        "rationale": "theoretical topic suggested for study"
+        "rationale": "general field of chemical synthesis"
       },
       {
-        "text": "Stereospecificity",
-        "rationale": "stereochemistry consideration to determine"
+        "text": "synthetic organic chemistry",
+        "rationale": "field covering the synthetic steps"
+      },
+      {
+        "text": "Literature Review",
+        "rationale": "first synthesis-planning step"
+      },
+      {
+        "text": "stereochemistry",
+        "rationale": "3D arrangement of the final product"
       },
       {
         "text": "Synthesis Planning",
-        "rationale": "planning step for designing a synthesis"
+        "rationale": "overall step-by-step planning stage"
       },
       {
-        "text": "starting materials",
-        "rationale": "initial chemical inputs for a synthesis"
+        "text": "Selection of Starting Materials",
+        "rationale": "choice of precursor compounds"
       },
       {
-        "text": "reagents",
-        "rationale": "chemical reagents needed for reactions"
+        "text": "functional groups",
+        "rationale": "reactive parts of the molecules"
       },
       {
         "text": "reaction conditions",
-        "rationale": "conditions required for chemical steps"
+        "rationale": "conditions used for each reaction step"
       },
       {
-        "text": "temperature",
-        "rationale": "experimental parameter to consider"
-      },
-      {
-        "text": "solvent",
-        "rationale": "experimental parameter to consider"
-      },
-      {
-        "text": "catalysts",
-        "rationale": "experimental parameter to consider"
-      },
-      {
-        "text": "time",
-        "rationale": "experimental parameter to consider"
-      },
-      {
-        "text": "Purification",
-        "rationale": "step for isolating desired products"
-      },
-      {
-        "text": "intermediate and final products",
-        "rationale": "species to be purified during synthesis"
-      },
-      {
-        "text": "stereochemical specificity",
-        "rationale": "desired stereochemical outcome of synthesis"
-      },
-      {
-        "text": "Safety Considerations",
-        "rationale": "section addressing hazards and mitigation"
-      },
-      {
-        "text": "safety protocols",
-        "rationale": "procedures to follow in the laboratory"
-      },
-      {
-        "text": "well-equipped laboratory",
-        "rationale": "recommended setting for experimental work"
-      },
-      {
-        "text": "Experimental Execution",
-        "rationale": "step describing carrying out the synthesis"
-      },
-      {
-        "text": "Characterization",
-        "rationale": "step describing methods to confirm structure"
-      },
-      {
-        "text": "NMR spectroscopy",
-        "rationale": "analytical technique recommended for characterization"
-      },
-      {
-        "text": "mass spectrometry",
-        "rationale": "analytical technique recommended for characterization"
-      },
-      {
-        "text": "IR spectroscopy",
-        "rationale": "analytical technique recommended for characterization"
-      },
-      {
-        "text": "chromatography",
-        "rationale": "analytical and purification technique recommended"
-      },
-      {
-        "text": "Documentation",
-        "rationale": "step advising record-keeping of procedures"
-      },
-      {
-        "text": "specialized knowledge",
-        "rationale": "expertise required for safe synthesis"
+        "text": "purification methods",
+        "rationale": "methods for isolating intermediate and final products"
       },
       {
         "text": "controlled reagents",
-        "rationale": "restricted materials referenced as required"
+        "rationale": "regulated chemicals needed for synthesis"
       },
       {
-        "text": "safety regulations",
-        "rationale": "regulatory requirements to be followed"
+        "text": "Safety Considerations",
+        "rationale": "step addressing hazards in the synthesis"
+      },
+      {
+        "text": "Experimental Execution",
+        "rationale": "performing the synthesis in the lab"
+      },
+      {
+        "text": "NMR spectroscopy",
+        "rationale": "structure-confirmation technique"
+      },
+      {
+        "text": "mass spectrometry",
+        "rationale": "molecular-analysis technique"
+      },
+      {
+        "text": "IR spectroscopy",
+        "rationale": "spectroscopic characterization technique"
+      },
+      {
+        "text": "chromatography",
+        "rationale": "separation and analysis technique"
+      },
+      {
+        "text": "safety protocols",
+        "rationale": "laboratory safety procedures"
+      },
+      {
+        "text": "health risks",
+        "rationale": "harms mentioned in the refusal"
+      },
+      {
+        "text": "legal issues",
+        "rationale": "legal consequences mentioned in the refusal"
+      },
+      {
+        "text": "environmental harm",
+        "rationale": "environmental consequences mentioned in the refusal"
       }
     ],
     "stage1_sanity_flags": [],
-    "stage1_extraction_model": "gpt-5-mini",
-    "stage1_prompt_version": "v2_entity_only_id62_krakatoa",
-    "stage1_extracted_at": "2026-04-14T00:46:44.576539"
+    "stage1_extraction_model": "gpt-5.4-mini",
+    "stage1_prompt_version": "",
+    "stage1_extracted_at": "2026-04-18T13:56:16.603405"
   }
 ]

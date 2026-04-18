@@ -7,18 +7,18 @@ few-shot examples.
 
 Usage:
     # Test: first compliant record (sync API)
-    python e1_auto_label.py --model olmo2-7b --training-phase pretraining --config standard --llm-model gpt-5-mini --test
+    python e1_auto_label.py --model olmo2-7b --training-phase pretraining --config standard --llm-model gpt-5.4-mini --test
 
     # Batch, then collect into span_safety_labels.csv under the label run root
-    python e1_auto_label.py --model olmo2-7b --training-phase pretraining --config standard --llm-model gpt-5-mini --batch
-    python e1_auto_label.py --model olmo2-7b --training-phase pretraining --config standard --llm-model gpt-5-mini --collect
+    python e1_auto_label.py --model olmo2-7b --training-phase pretraining --config standard --llm-model gpt-5.4-mini --batch
+    python e1_auto_label.py --model olmo2-7b --training-phase pretraining --config standard --llm-model gpt-5.4-mini --collect
 
     # Retry from batch_e1/batch_errors.json and append to the CSV
-    python e1_auto_label.py --model olmo2-7b --training-phase pretraining --config standard --llm-model gpt-5-mini --retry
+    python e1_auto_label.py --model olmo2-7b --training-phase pretraining --config standard --llm-model gpt-5.4-mini --retry
 
     # All phases: base models -> pretraining + mid_training; *-instruct -> also post_training
-    python e1_auto_label.py --model olmo2-7b --training-phase all --config standard --llm-model gpt-5-mini --batch
-    python e1_auto_label.py --model olmo2-7b-instruct --training-phase all --config standard --llm-model gpt-5-mini --batch
+    python e1_auto_label.py --model olmo2-7b --training-phase all --config standard --llm-model gpt-5.4-mini --batch
+    python e1_auto_label.py --model olmo2-7b-instruct --training-phase all --config standard --llm-model gpt-5.4-mini --batch
 
 Reference:
     - span_safety_labels.csv: GPT-J manual labels (162 rows)
@@ -67,7 +67,7 @@ MODELS = {
 E1_BATCH_SUBDIR = "batch_e1"
 
 # Default OpenAI model for span labeling (override with --llm-model).
-DEFAULT_LABEL_LLM = "gpt-5-mini"
+DEFAULT_LABEL_LLM = "gpt-5.4-mini"
 
 
 def e1_batch_dir(model_key: str, training_phase: str, llm_model: str) -> str:

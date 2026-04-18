@@ -1,70 +1,72 @@
-2026-04-14 11:16:57,284 - INFO - Logging to logs\olmo2_7b_instruct\e2_rank_concepts.log
-2026-04-14 11:16:57,468 - INFO - ======================================================================
-2026-04-14 11:16:57,468 - INFO - E2 Stage 2 — LLM-Based Concept Ranking
-2026-04-14 11:16:57,468 - INFO -   Model: olmo2-7b-instruct
-2026-04-14 11:16:57,468 - INFO -   Training phase: pretraining
-2026-04-14 11:16:57,468 - INFO -   Results root: results\olmo2_7b_instruct\pretraining
-2026-04-14 11:16:57,469 - INFO -   Rank LLM: gpt-5-mini
-2026-04-14 11:16:57,470 - INFO -   Rank prompt version: v1_ranking
-2026-04-14 11:16:57,470 - INFO - ======================================================================
-2026-04-14 11:16:57,471 - INFO - Loaded 6 records from Stage 1 output
-2026-04-14 11:16:57,471 - INFO -   id=30, n_concepts=25, semantic_category=misinformation_disinformation
-2026-04-14 11:16:57,472 - INFO -   id=31, n_concepts=23, semantic_category=misinformation_disinformation
-2026-04-14 11:16:57,472 - INFO -   id=38, n_concepts=31, semantic_category=misinformation_disinformation
-2026-04-14 11:16:57,472 - INFO -   id=39, n_concepts=28, semantic_category=misinformation_disinformation
-2026-04-14 11:16:57,472 - INFO -   id=182, n_concepts=20, semantic_category=cybercrime_intrusion
-2026-04-14 11:16:57,472 - INFO -   id=196, n_concepts=34, semantic_category=chemical_biological
-2026-04-14 11:16:57,473 - INFO - Batch JSONL written: results\olmo2_7b_instruct\pretraining\batch_e2_rank\batch_input.jsonl
-2026-04-14 11:16:57,473 - INFO -   Total requests: 6
-2026-04-14 11:16:57,474 - INFO -   Skipped (zero concepts): 0
-2026-04-14 11:16:57,474 - INFO -   Rank prompt version: v1_ranking
-2026-04-14 11:16:57,474 - INFO - Uploading batch file to OpenAI...
-2026-04-14 11:16:59,282 - INFO - HTTP Request: POST https://api.openai.com/v1/files "HTTP/1.1 200 OK"
-2026-04-14 11:16:59,286 - INFO -   File uploaded: id=file-EQKD5ZsiTBs4JUnAteiyVC
-2026-04-14 11:16:59,287 - INFO - Creating batch...
-2026-04-14 11:17:00,341 - INFO - HTTP Request: POST https://api.openai.com/v1/batches "HTTP/1.1 200 OK"
-2026-04-14 11:17:00,348 - INFO -   Batch created: id=batch_69de5a6bb7988190aec0baf7ef03d2c5, status=validating
-2026-04-14 11:17:00,348 - INFO - 
-2026-04-14 11:17:00,348 - INFO - ======================================================================
-2026-04-14 11:17:00,348 - INFO - BATCH SUBMITTED SUCCESSFULLY
-2026-04-14 11:17:00,348 - INFO -   Batch ID: batch_69de5a6bb7988190aec0baf7ef03d2c5
-2026-04-14 11:17:00,348 - INFO -   To collect results, run:
-2026-04-14 11:17:00,348 - INFO -     python e2_rank_concepts.py --model olmo2-7b-instruct --training-phase pretraining --collect
-2026-04-14 11:17:00,348 - INFO - ======================================================================
-2026-04-14 11:17:00,349 - INFO -   Batch metadata saved to results\olmo2_7b_instruct\pretraining\batch_e2_rank\batch_metadata.json
-2026-04-14 11:58:25,324 - INFO - Logging to logs\olmo2_7b_instruct\e2_rank_concepts.log
-2026-04-14 11:58:25,511 - INFO - ======================================================================
-2026-04-14 11:58:25,511 - INFO - E2 Stage 2 — LLM-Based Concept Ranking
-2026-04-14 11:58:25,511 - INFO -   Model: olmo2-7b-instruct
-2026-04-14 11:58:25,512 - INFO -   Training phase: pretraining
-2026-04-14 11:58:25,512 - INFO -   Results root: results\olmo2_7b_instruct\pretraining
-2026-04-14 11:58:25,512 - INFO -   Rank LLM: gpt-5-mini
-2026-04-14 11:58:25,512 - INFO -   Rank prompt version: v1_ranking
-2026-04-14 11:58:25,512 - INFO - ======================================================================
-2026-04-14 11:58:25,514 - INFO - Loaded 6 records from Stage 1 output
-2026-04-14 11:58:25,514 - INFO -   id=30, n_concepts=25, semantic_category=misinformation_disinformation
-2026-04-14 11:58:25,514 - INFO -   id=31, n_concepts=23, semantic_category=misinformation_disinformation
-2026-04-14 11:58:25,514 - INFO -   id=38, n_concepts=31, semantic_category=misinformation_disinformation
-2026-04-14 11:58:25,514 - INFO -   id=39, n_concepts=28, semantic_category=misinformation_disinformation
-2026-04-14 11:58:25,515 - INFO -   id=182, n_concepts=20, semantic_category=cybercrime_intrusion
-2026-04-14 11:58:25,515 - INFO -   id=196, n_concepts=34, semantic_category=chemical_biological
-2026-04-14 11:58:25,515 - INFO - Loaded batch_id from metadata: batch_69de5a6bb7988190aec0baf7ef03d2c5
-2026-04-14 11:58:25,515 - INFO - Checking batch status for batch_69de5a6bb7988190aec0baf7ef03d2c5 ...
-2026-04-14 11:58:26,740 - INFO - HTTP Request: GET https://api.openai.com/v1/batches/batch_69de5a6bb7988190aec0baf7ef03d2c5 "HTTP/1.1 200 OK"
-2026-04-14 11:58:26,747 - INFO -   Status: completed
-2026-04-14 11:58:26,748 - INFO -   Request counts: BatchRequestCounts(completed=6, failed=0, total=6)
-2026-04-14 11:58:26,748 - INFO -   Downloading output file: file-XhJo4FzNXinKZ7fq3J5W7Y
-2026-04-14 11:58:27,413 - INFO - HTTP Request: GET https://api.openai.com/v1/files/file-XhJo4FzNXinKZ7fq3J5W7Y/content "HTTP/1.1 200 OK"
-2026-04-14 11:58:27,417 - INFO -   Raw output saved to results\olmo2_7b_instruct\pretraining\batch_e2_rank\batch_output.jsonl
-2026-04-14 11:58:27,424 - INFO -   Record id=30: 25 concepts ranked
-2026-04-14 11:58:27,426 - INFO -   Record id=31: 23 concepts ranked
-2026-04-14 11:58:27,426 - INFO -   Record id=38: 31 concepts ranked
-2026-04-14 11:58:27,427 - INFO -   Record id=39: 28 concepts ranked
-2026-04-14 11:58:27,427 - INFO -   Record id=182: 20 concepts ranked
-2026-04-14 11:58:27,428 - INFO -   Record id=196: 34 concepts ranked
-2026-04-14 11:58:27,432 - INFO - ======================================================================
-2026-04-14 11:58:27,432 - INFO - COLLECTION COMPLETE
-2026-04-14 11:58:27,432 - INFO -   Total records: 6
-2026-04-14 11:58:27,432 - INFO -   Errors: 0
-2026-04-14 11:58:27,432 - INFO -   Output saved to: results\olmo2_7b_instruct\pretraining\e2_concepts_ranked.json
-2026-04-14 11:58:27,432 - INFO - ======================================================================
+2026-04-18 13:56:27,304 - INFO - Logging to logs/olmo2_7b_instruct/e2_rank_concepts_standard.log
+2026-04-18 13:56:27,337 - INFO - ======================================================================
+2026-04-18 13:56:27,337 - INFO - E2 Stage 2 — LLM-Based Concept Ranking
+2026-04-18 13:56:27,337 - INFO -   Model: olmo2-7b-instruct
+2026-04-18 13:56:27,337 - INFO -   Training phase: pretraining
+2026-04-18 13:56:27,337 - INFO -   HarmBench config: standard
+2026-04-18 13:56:27,337 - INFO -   Results root: results/olmo2_7b_instruct/pretraining
+2026-04-18 13:56:27,337 - INFO -   Rank LLM: gpt-5.4-mini
+2026-04-18 13:56:27,338 - INFO -   Rank prompt version: v1_ranking
+2026-04-18 13:56:27,338 - INFO - ======================================================================
+2026-04-18 13:56:27,338 - INFO - Loaded 6 records from Stage 1 output
+2026-04-18 13:56:27,338 - INFO -   id=30, n_concepts=23, semantic_category=misinformation_disinformation
+2026-04-18 13:56:27,338 - INFO -   id=31, n_concepts=21, semantic_category=misinformation_disinformation
+2026-04-18 13:56:27,338 - INFO -   id=38, n_concepts=18, semantic_category=misinformation_disinformation
+2026-04-18 13:56:27,338 - INFO -   id=39, n_concepts=16, semantic_category=misinformation_disinformation
+2026-04-18 13:56:27,338 - INFO -   id=182, n_concepts=20, semantic_category=cybercrime_intrusion
+2026-04-18 13:56:27,338 - INFO -   id=196, n_concepts=24, semantic_category=chemical_biological
+2026-04-18 13:56:27,340 - INFO - Batch JSONL written: results/olmo2_7b_instruct/pretraining/batch_e2_rank/batch_input.jsonl
+2026-04-18 13:56:27,340 - INFO -   Total requests: 6
+2026-04-18 13:56:27,340 - INFO -   Skipped (zero concepts): 0
+2026-04-18 13:56:27,340 - INFO -   Rank prompt version: v1_ranking
+2026-04-18 13:56:27,340 - INFO - Uploading batch file to OpenAI...
+2026-04-18 13:56:28,030 - INFO - HTTP Request: POST https://api.openai.com/v1/files "HTTP/1.1 200 OK"
+2026-04-18 13:56:28,031 - INFO -   File uploaded: id=file-DJLrSbr513v3sDFtBLf9UT
+2026-04-18 13:56:28,031 - INFO - Creating batch...
+2026-04-18 13:56:28,360 - INFO - HTTP Request: POST https://api.openai.com/v1/batches "HTTP/1.1 200 OK"
+2026-04-18 13:56:28,364 - INFO -   Batch created: id=batch_69e3c5cc15b081908de5a830fc2b5d41, status=validating
+2026-04-18 13:56:28,364 - INFO - 
+2026-04-18 13:56:28,364 - INFO - ======================================================================
+2026-04-18 13:56:28,364 - INFO - BATCH SUBMITTED SUCCESSFULLY
+2026-04-18 13:56:28,364 - INFO -   Batch ID: batch_69e3c5cc15b081908de5a830fc2b5d41
+2026-04-18 13:56:28,364 - INFO -   To collect results, run:
+2026-04-18 13:56:28,364 - INFO -     python e2_rank_concepts.py --model olmo2-7b-instruct --training-phase pretraining --config standard --collect
+2026-04-18 13:56:28,364 - INFO - ======================================================================
+2026-04-18 13:56:28,365 - INFO -   Batch metadata saved to results/olmo2_7b_instruct/pretraining/batch_e2_rank/batch_metadata.json
+2026-04-18 14:23:14,058 - INFO - Logging to logs/olmo2_7b_instruct/e2_rank_concepts_standard.log
+2026-04-18 14:23:14,092 - INFO - ======================================================================
+2026-04-18 14:23:14,092 - INFO - E2 Stage 2 — LLM-Based Concept Ranking
+2026-04-18 14:23:14,092 - INFO -   Model: olmo2-7b-instruct
+2026-04-18 14:23:14,092 - INFO -   Training phase: pretraining
+2026-04-18 14:23:14,092 - INFO -   HarmBench config: standard
+2026-04-18 14:23:14,092 - INFO -   Results root: results/olmo2_7b_instruct/pretraining
+2026-04-18 14:23:14,092 - INFO -   Rank LLM: gpt-5.4-mini
+2026-04-18 14:23:14,093 - INFO -   Rank prompt version: v1_ranking
+2026-04-18 14:23:14,093 - INFO - ======================================================================
+2026-04-18 14:23:14,093 - INFO - Loaded 6 records from Stage 1 output
+2026-04-18 14:23:14,094 - INFO -   id=30, n_concepts=23, semantic_category=misinformation_disinformation
+2026-04-18 14:23:14,094 - INFO -   id=31, n_concepts=21, semantic_category=misinformation_disinformation
+2026-04-18 14:23:14,096 - INFO -   id=38, n_concepts=18, semantic_category=misinformation_disinformation
+2026-04-18 14:23:14,096 - INFO -   id=39, n_concepts=16, semantic_category=misinformation_disinformation
+2026-04-18 14:23:14,096 - INFO -   id=182, n_concepts=20, semantic_category=cybercrime_intrusion
+2026-04-18 14:23:14,096 - INFO -   id=196, n_concepts=24, semantic_category=chemical_biological
+2026-04-18 14:23:14,097 - INFO - Loaded batch_id from metadata: batch_69e3c5cc15b081908de5a830fc2b5d41
+2026-04-18 14:23:14,097 - INFO - Checking batch status for batch_69e3c5cc15b081908de5a830fc2b5d41 ...
+2026-04-18 14:23:15,181 - INFO - HTTP Request: GET https://api.openai.com/v1/batches/batch_69e3c5cc15b081908de5a830fc2b5d41 "HTTP/1.1 200 OK"
+2026-04-18 14:23:15,186 - INFO -   Status: completed
+2026-04-18 14:23:15,186 - INFO -   Request counts: BatchRequestCounts(completed=6, failed=0, total=6)
+2026-04-18 14:23:15,187 - INFO -   Downloading output file: file-GVHDoF8LHpCNCnVSpDGGc3
+2026-04-18 14:23:15,939 - INFO - HTTP Request: GET https://api.openai.com/v1/files/file-GVHDoF8LHpCNCnVSpDGGc3/content "HTTP/1.1 200 OK"
+2026-04-18 14:23:15,942 - INFO -   Raw output saved to results/olmo2_7b_instruct/pretraining/batch_e2_rank/batch_output.jsonl
+2026-04-18 14:23:15,943 - INFO -   Record id=30: 23 concepts ranked
+2026-04-18 14:23:15,943 - INFO -   Record id=31: 21 concepts ranked
+2026-04-18 14:23:15,943 - INFO -   Record id=38: 18 concepts ranked
+2026-04-18 14:23:15,943 - INFO -   Record id=39: 16 concepts ranked
+2026-04-18 14:23:15,943 - INFO -   Record id=182: 20 concepts ranked
+2026-04-18 14:23:15,943 - INFO -   Record id=196: 24 concepts ranked
+2026-04-18 14:23:15,945 - INFO - ======================================================================
+2026-04-18 14:23:15,945 - INFO - COLLECTION COMPLETE
+2026-04-18 14:23:15,945 - INFO -   Total records: 6
+2026-04-18 14:23:15,946 - INFO -   Errors: 0
+2026-04-18 14:23:15,946 - INFO -   Output saved to: results/olmo2_7b_instruct/pretraining/e2_concepts_ranked_standard.json
+2026-04-18 14:23:15,946 - INFO - ======================================================================

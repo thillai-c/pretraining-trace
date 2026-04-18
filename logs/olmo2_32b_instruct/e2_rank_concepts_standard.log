@@ -1,0 +1,107 @@
+2026-04-18 13:51:18,672 - INFO - Logging to logs/olmo2_32b_instruct/e2_rank_concepts_standard.log
+2026-04-18 13:51:18,707 - INFO - ======================================================================
+2026-04-18 13:51:18,707 - INFO - E2 Stage 2 — LLM-Based Concept Ranking
+2026-04-18 13:51:18,707 - INFO -   Model: olmo2-32b-instruct
+2026-04-18 13:51:18,707 - INFO -   Training phase: pretraining
+2026-04-18 13:51:18,707 - INFO -   HarmBench config: standard
+2026-04-18 13:51:18,707 - INFO -   Results root: results/olmo2_32b_instruct/pretraining
+2026-04-18 13:51:18,707 - INFO -   Rank LLM: gpt-5.4-mini
+2026-04-18 13:51:18,707 - INFO -   Rank prompt version: v1_ranking
+2026-04-18 13:51:18,707 - INFO - ======================================================================
+2026-04-18 13:51:18,708 - INFO - Loaded 18 records from Stage 1 output
+2026-04-18 13:51:18,708 - INFO -   id=30, n_concepts=25, semantic_category=misinformation_disinformation
+2026-04-18 13:51:18,708 - INFO -   id=31, n_concepts=15, semantic_category=misinformation_disinformation
+2026-04-18 13:51:18,708 - INFO -   id=34, n_concepts=21, semantic_category=misinformation_disinformation
+2026-04-18 13:51:18,709 - INFO -   id=38, n_concepts=16, semantic_category=misinformation_disinformation
+2026-04-18 13:51:18,709 - INFO -   id=39, n_concepts=21, semantic_category=misinformation_disinformation
+2026-04-18 13:51:18,709 - INFO -   id=44, n_concepts=24, semantic_category=misinformation_disinformation
+2026-04-18 13:51:18,709 - INFO -   id=48, n_concepts=22, semantic_category=misinformation_disinformation
+2026-04-18 13:51:18,709 - INFO -   id=49, n_concepts=14, semantic_category=misinformation_disinformation
+2026-04-18 13:51:18,709 - INFO -   id=51, n_concepts=15, semantic_category=misinformation_disinformation
+2026-04-18 13:51:18,709 - INFO -   id=52, n_concepts=6, semantic_category=misinformation_disinformation
+2026-04-18 13:51:18,709 - INFO -   id=54, n_concepts=6, semantic_category=misinformation_disinformation
+2026-04-18 13:51:18,709 - INFO -   id=71, n_concepts=12, semantic_category=illegal
+2026-04-18 13:51:18,709 - INFO -   id=75, n_concepts=21, semantic_category=chemical_biological
+2026-04-18 13:51:18,709 - INFO -   id=179, n_concepts=21, semantic_category=cybercrime_intrusion
+2026-04-18 13:51:18,709 - INFO -   id=184, n_concepts=21, semantic_category=cybercrime_intrusion
+2026-04-18 13:51:18,709 - INFO -   id=189, n_concepts=18, semantic_category=cybercrime_intrusion
+2026-04-18 13:51:18,709 - INFO -   id=192, n_concepts=23, semantic_category=chemical_biological
+2026-04-18 13:51:18,709 - INFO -   id=193, n_concepts=22, semantic_category=chemical_biological
+2026-04-18 13:51:18,711 - INFO - Batch JSONL written: results/olmo2_32b_instruct/pretraining/batch_e2_rank/batch_input.jsonl
+2026-04-18 13:51:18,711 - INFO -   Total requests: 18
+2026-04-18 13:51:18,711 - INFO -   Skipped (zero concepts): 0
+2026-04-18 13:51:18,711 - INFO -   Rank prompt version: v1_ranking
+2026-04-18 13:51:18,711 - INFO - Uploading batch file to OpenAI...
+2026-04-18 13:51:20,182 - INFO - HTTP Request: POST https://api.openai.com/v1/files "HTTP/1.1 200 OK"
+2026-04-18 13:51:20,183 - INFO -   File uploaded: id=file-2ypNLxfXK2ZboGLVvM4s5o
+2026-04-18 13:51:20,183 - INFO - Creating batch...
+2026-04-18 13:51:20,672 - INFO - HTTP Request: POST https://api.openai.com/v1/batches "HTTP/1.1 200 OK"
+2026-04-18 13:51:20,676 - INFO -   Batch created: id=batch_69e3c49862708190a227a9d32ca26a0e, status=validating
+2026-04-18 13:51:20,676 - INFO - 
+2026-04-18 13:51:20,676 - INFO - ======================================================================
+2026-04-18 13:51:20,676 - INFO - BATCH SUBMITTED SUCCESSFULLY
+2026-04-18 13:51:20,676 - INFO -   Batch ID: batch_69e3c49862708190a227a9d32ca26a0e
+2026-04-18 13:51:20,676 - INFO -   To collect results, run:
+2026-04-18 13:51:20,676 - INFO -     python e2_rank_concepts.py --model olmo2-32b-instruct --training-phase pretraining --config standard --collect
+2026-04-18 13:51:20,677 - INFO - ======================================================================
+2026-04-18 13:51:20,677 - INFO -   Batch metadata saved to results/olmo2_32b_instruct/pretraining/batch_e2_rank/batch_metadata.json
+2026-04-18 14:23:37,369 - INFO - Logging to logs/olmo2_32b_instruct/e2_rank_concepts_standard.log
+2026-04-18 14:23:37,403 - INFO - ======================================================================
+2026-04-18 14:23:37,403 - INFO - E2 Stage 2 — LLM-Based Concept Ranking
+2026-04-18 14:23:37,403 - INFO -   Model: olmo2-32b-instruct
+2026-04-18 14:23:37,403 - INFO -   Training phase: pretraining
+2026-04-18 14:23:37,403 - INFO -   HarmBench config: standard
+2026-04-18 14:23:37,403 - INFO -   Results root: results/olmo2_32b_instruct/pretraining
+2026-04-18 14:23:37,404 - INFO -   Rank LLM: gpt-5.4-mini
+2026-04-18 14:23:37,404 - INFO -   Rank prompt version: v1_ranking
+2026-04-18 14:23:37,404 - INFO - ======================================================================
+2026-04-18 14:23:37,405 - INFO - Loaded 18 records from Stage 1 output
+2026-04-18 14:23:37,405 - INFO -   id=30, n_concepts=25, semantic_category=misinformation_disinformation
+2026-04-18 14:23:37,405 - INFO -   id=31, n_concepts=15, semantic_category=misinformation_disinformation
+2026-04-18 14:23:37,406 - INFO -   id=34, n_concepts=21, semantic_category=misinformation_disinformation
+2026-04-18 14:23:37,406 - INFO -   id=38, n_concepts=16, semantic_category=misinformation_disinformation
+2026-04-18 14:23:37,406 - INFO -   id=39, n_concepts=21, semantic_category=misinformation_disinformation
+2026-04-18 14:23:37,406 - INFO -   id=44, n_concepts=24, semantic_category=misinformation_disinformation
+2026-04-18 14:23:37,406 - INFO -   id=48, n_concepts=22, semantic_category=misinformation_disinformation
+2026-04-18 14:23:37,406 - INFO -   id=49, n_concepts=14, semantic_category=misinformation_disinformation
+2026-04-18 14:23:37,406 - INFO -   id=51, n_concepts=15, semantic_category=misinformation_disinformation
+2026-04-18 14:23:37,406 - INFO -   id=52, n_concepts=6, semantic_category=misinformation_disinformation
+2026-04-18 14:23:37,406 - INFO -   id=54, n_concepts=6, semantic_category=misinformation_disinformation
+2026-04-18 14:23:37,406 - INFO -   id=71, n_concepts=12, semantic_category=illegal
+2026-04-18 14:23:37,406 - INFO -   id=75, n_concepts=21, semantic_category=chemical_biological
+2026-04-18 14:23:37,406 - INFO -   id=179, n_concepts=21, semantic_category=cybercrime_intrusion
+2026-04-18 14:23:37,406 - INFO -   id=184, n_concepts=21, semantic_category=cybercrime_intrusion
+2026-04-18 14:23:37,406 - INFO -   id=189, n_concepts=18, semantic_category=cybercrime_intrusion
+2026-04-18 14:23:37,406 - INFO -   id=192, n_concepts=23, semantic_category=chemical_biological
+2026-04-18 14:23:37,406 - INFO -   id=193, n_concepts=22, semantic_category=chemical_biological
+2026-04-18 14:23:37,406 - INFO - Loaded batch_id from metadata: batch_69e3c49862708190a227a9d32ca26a0e
+2026-04-18 14:23:37,407 - INFO - Checking batch status for batch_69e3c49862708190a227a9d32ca26a0e ...
+2026-04-18 14:23:37,915 - INFO - HTTP Request: GET https://api.openai.com/v1/batches/batch_69e3c49862708190a227a9d32ca26a0e "HTTP/1.1 200 OK"
+2026-04-18 14:23:37,921 - INFO -   Status: completed
+2026-04-18 14:23:37,921 - INFO -   Request counts: BatchRequestCounts(completed=17, failed=1, total=18)
+2026-04-18 14:23:37,921 - INFO -   Downloading output file: file-Pk9eY96R9xgDVoqcU2mJKu
+2026-04-18 14:23:38,498 - INFO - HTTP Request: GET https://api.openai.com/v1/files/file-Pk9eY96R9xgDVoqcU2mJKu/content "HTTP/1.1 200 OK"
+2026-04-18 14:23:38,658 - INFO -   Raw output saved to results/olmo2_32b_instruct/pretraining/batch_e2_rank/batch_output.jsonl
+2026-04-18 14:23:38,659 - INFO -   Record id=30: 25 concepts ranked
+2026-04-18 14:23:38,659 - INFO -   Record id=31: 15 concepts ranked
+2026-04-18 14:23:38,659 - INFO -   Record id=34: 21 concepts ranked
+2026-04-18 14:23:38,659 - INFO -   Record id=38: 16 concepts ranked
+2026-04-18 14:23:38,659 - INFO -   Record id=39: 21 concepts ranked
+2026-04-18 14:23:38,659 - INFO -   Record id=44: 24 concepts ranked
+2026-04-18 14:23:38,660 - INFO -   Record id=48: 22 concepts ranked
+2026-04-18 14:23:38,660 - INFO -   Record id=49: 14 concepts ranked
+2026-04-18 14:23:38,660 - INFO -   Record id=51: 15 concepts ranked
+2026-04-18 14:23:38,660 - INFO -   Record id=52: 6 concepts ranked
+2026-04-18 14:23:38,660 - INFO -   Record id=54: 6 concepts ranked
+2026-04-18 14:23:38,661 - INFO -   Record id=71: 12 concepts ranked
+2026-04-18 14:23:38,661 - INFO -   Record id=179: 21 concepts ranked
+2026-04-18 14:23:38,661 - INFO -   Record id=184: 21 concepts ranked
+2026-04-18 14:23:38,661 - INFO -   Record id=189: 18 concepts ranked
+2026-04-18 14:23:38,661 - INFO -   Record id=192: 23 concepts ranked
+2026-04-18 14:23:38,661 - INFO -   Record id=193: 22 concepts ranked
+2026-04-18 14:23:38,665 - INFO - ======================================================================
+2026-04-18 14:23:38,665 - INFO - COLLECTION COMPLETE
+2026-04-18 14:23:38,665 - INFO -   Total records: 17
+2026-04-18 14:23:38,665 - INFO -   Errors: 0
+2026-04-18 14:23:38,665 - INFO -   Output saved to: results/olmo2_32b_instruct/pretraining/e2_concepts_ranked_standard.json
+2026-04-18 14:23:38,665 - INFO - ======================================================================

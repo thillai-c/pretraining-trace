@@ -640,7 +640,7 @@ def compare_labels(record_id: int, all_records, model: str,
         record_id: which record to display
         all_records: list of record dicts
         model: OLMo model key (e.g. "olmo2-7b-instruct")
-        llm_models: list of LLM model names (e.g. ["gpt-4.1-mini", "gpt-5-mini"])
+        llm_models: list of LLM model names (e.g. ["gpt-4.1-mini", "gpt-5.4-mini"])
         span_idx: if given, show only this span
         human: if True, also load and display human annotations
     """
