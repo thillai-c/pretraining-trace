@@ -3,13 +3,13 @@
 ranked concepts (e2_concepts_ranked_{config}.json).
 
 Pipeline position:
-    e2_concepts_ranked_{config}.json   (Stage 2 output from e2_rank_concepts.py)
+    {phase}/{{e2_llm}}/e2_concepts_ranked_{config}.json   (Stage 2 output from e2_rank_concepts.py)
           |
           v
     [This script] e2_windowed_cooccurrence.py
           |
           v
-    e2_cooccurrence_{config}.json
+    {phase}/{{e2_llm}}/e2_cooccurrence_{config}.json
 
 Method:
   - Load top-N ranked concepts from e2_concepts_ranked_{config}.json (sorted by rank).
@@ -46,7 +46,7 @@ Usage:
         --model olmo2-7b-instruct \
         --training-phase pretraining \
         --config standard \
-        --concepts_input results/olmo2_7b_instruct/pretraining/e2_concepts_ranked_standard.json \
+        --concepts_input results/olmo2_7b_instruct/pretraining/gpt-5.4-mini/e2_concepts_ranked_standard.json \
         --top_n 15 \
         --windows 100 500 1000
 
@@ -96,7 +96,9 @@ from utils import (
     MODELS,
     TRAINING_PHASES_INSTRUCT,
     TRAINING_PHASE_ALL,
+    DEFAULT_EXTRACTION_MODEL,
     model_results_root,
+    label_run_root,
     training_phases_when_all,
     setup_logger,
 )
@@ -177,10 +179,18 @@ def parse_args():
                              "Default: results/{model_dir}/{training_phase}/e1_verbatim_{config}.json")
     parser.add_argument("--concepts_input", type=str, default=None,
                         help="Ranked concepts JSON from e2_rank_concepts.py. "
-                             "Default: results/{model_dir}/{training_phase}/e2_concepts_ranked_{config}.json")
+                             "Default: results/{model_dir}/{training_phase}/{e2_llm}/e2_concepts_ranked_{config}.json")
     parser.add_argument("--output", type=str, default=None,
                         help="Output JSON. "
-                             "Default: results/{model_dir}/{training_phase}/e2_cooccurrence_{config}.json")
+                             "Default: results/{model_dir}/{training_phase}/{e2_llm}/e2_cooccurrence_{config}.json")
+    parser.add_argument(
+        "--e2-llm",
+        type=str,
+        default=DEFAULT_EXTRACTION_MODEL,
+        dest="e2_llm",
+        help="Subdirectory for ranked concepts and co-occurrence output "
+             "(must match e2_rank_concepts.py / e2_extract_concepts.py; default: %(default)s).",
+    )
 
     # Backend
     parser.add_argument("--index_dir", type=str, default=None,
@@ -238,6 +248,7 @@ def resolve_phase_paths(args, training_phase: str, logger=None) -> tuple[str, st
     are ignored to avoid accidentally mixing phases.
     """
     phase_root = model_results_root(args.model, training_phase)
+    e2_root = label_run_root(args.model, training_phase, args.e2_llm)
 
     ignore_overrides = (args.training_phase == TRAINING_PHASE_ALL)
     if ignore_overrides and logger is not None:
@@ -251,19 +262,19 @@ def resolve_phase_paths(args, training_phase: str, logger=None) -> tuple[str, st
     if ignore_overrides:
         input_path = os.path.join(phase_root, f"e1_verbatim_{args.config}.json")
         concepts_path = os.path.join(
-            phase_root, f"e2_concepts_ranked_{args.config}.json"
+            e2_root, f"e2_concepts_ranked_{args.config}.json"
         )
-        output_path = os.path.join(phase_root, f"e2_cooccurrence_{args.config}.json")
+        output_path = os.path.join(e2_root, f"e2_cooccurrence_{args.config}.json")
         return input_path, concepts_path, output_path
 
     input_path = args.input or os.path.join(
         phase_root, f"e1_verbatim_{args.config}.json"
     )
     concepts_path = args.concepts_input or os.path.join(
-        phase_root, f"e2_concepts_ranked_{args.config}.json"
+        e2_root, f"e2_concepts_ranked_{args.config}.json"
     )
     output_path = args.output or os.path.join(
-        phase_root, f"e2_cooccurrence_{args.config}.json"
+        e2_root, f"e2_cooccurrence_{args.config}.json"
     )
     return input_path, concepts_path, output_path
 

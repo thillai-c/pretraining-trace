@@ -25,11 +25,15 @@ Usage:
     # Retry mode: re-run failed records
     python e2_extract_concepts.py --model olmo2-7b-instruct --training-phase pretraining --config standard --retry
 
+    # Optional: put artifacts in a different LLM subfolder than the default
+    python e2_extract_concepts.py --model olmo2-7b-instruct --training-phase pretraining --config standard --batch --e2-llm gpt-5.4-mini
+
 Reference:
     - utils.py: shared helpers (model params, logger, IO, JSON parsing)
     - e2_rank_concepts.py: Stage 2 (ranking) — reads this script's output
     - e2_windowed_cooccurrence.py: downstream consumer of Stage 2's output
-    - Output: results/{out_dir}/{training_phase}/e2_concepts_{config}.json
+    - Output root: ``results/{out_dir}/{training_phase}/{e2_llm}/`` (see ``--e2-llm``)
+    - Files: ``e2_concepts_{config}.json``, ``batch_e2/`` (batch input/metadata/output)
 """
 
 import argparse
@@ -50,6 +54,7 @@ from utils import (
     DEFAULT_EXTRACTION_MODEL,
     get_model_params,
     model_results_root,
+    label_run_root,
     setup_logger,
     load_e1_results,
     filter_compliant,
@@ -304,7 +309,7 @@ def build_record_output(record, parsed: dict, extraction_model: str) -> dict:
 # ============================================================
 
 def run_test(client, model_key, records, extraction_model, logger, training_phase,
-             record_id=None, config: str = "standard"):
+             e2_llm: str, record_id=None, config: str = "standard"):
     """Run concept extraction on a single record using synchronous API call."""
     if not records:
         logger.error("No compliant records to test.")
@@ -360,7 +365,7 @@ def run_test(client, model_key, records, extraction_model, logger, training_phas
     parsed = parse_llm_response(raw, logger)
     if parsed is None:
         logger.error("  Failed to parse LLM response. Raw output saved.")
-        results_root = model_results_root(model_key, training_phase)
+        results_root = label_run_root(model_key, training_phase, e2_llm)
         debug_path = os.path.join(results_root, "e2_test_raw_output.json")
         os.makedirs(os.path.dirname(debug_path) or ".", exist_ok=True)
         with open(debug_path, "w", encoding="utf-8") as f:
@@ -385,7 +390,7 @@ def run_test(client, model_key, records, extraction_model, logger, training_phas
 
     s1_name = f"e2_concepts_{config}.json"
     test_path = os.path.join(
-        model_results_root(model_key, training_phase),
+        label_run_root(model_key, training_phase, e2_llm),
         s1_name.replace(".json", "_test.json"),
     )
     output_row = build_record_output(rec, parsed, extraction_model)
@@ -398,14 +403,15 @@ def run_test(client, model_key, records, extraction_model, logger, training_phas
 # ============================================================
 
 def run_batch(client, model_key, records, extraction_model, logger, training_phase,
-              config: str = "standard"):
+              e2_llm: str, config: str = "standard"):
     """Submit all compliant records to OpenAI Batch API."""
     if not records:
         logger.error("No compliant records to batch.")
         return
 
-    batch_dir = os.path.join(model_results_root(model_key, training_phase),
-                             "batch_e2")
+    batch_dir = os.path.join(
+        label_run_root(model_key, training_phase, e2_llm), "batch_e2"
+    )
     os.makedirs(batch_dir, exist_ok=True)
 
     # Build JSONL file for Batch API
@@ -478,6 +484,7 @@ def run_batch(client, model_key, records, extraction_model, logger, training_pha
             "training_phase": training_phase,
             "harmbench_config": config,
             "extraction_model": extraction_model,
+            "e2_llm": e2_llm,
             "num_records": n_requests,
             "submitted_at": datetime.now().isoformat(),
         }, f, indent=2)
@@ -489,10 +496,11 @@ def run_batch(client, model_key, records, extraction_model, logger, training_pha
 # ============================================================
 
 def run_collect(client, model_key, records, extraction_model, batch_id, logger,
-                training_phase, config: str = "standard"):
+                training_phase, e2_llm: str, config: str = "standard"):
     """Retrieve batch results and convert to Stage 1 JSON."""
-    batch_dir = os.path.join(model_results_root(model_key, training_phase),
-                             "batch_e2")
+    batch_dir = os.path.join(
+        label_run_root(model_key, training_phase, e2_llm), "batch_e2"
+    )
 
     # Check batch status
     logger.info("Checking batch status for %s ...", batch_id)
@@ -593,7 +601,7 @@ def run_collect(client, model_key, records, extraction_model, batch_id, logger,
 
     s1_name = f"e2_concepts_{config}.json"
     output_path = os.path.join(
-        model_results_root(model_key, training_phase), s1_name
+        label_run_root(model_key, training_phase, e2_llm), s1_name
     )
     save_output_json(all_rows, output_path)
 
@@ -617,15 +625,16 @@ def run_collect(client, model_key, records, extraction_model, batch_id, logger,
 # ============================================================
 
 def run_retry(client, model_key, records, extraction_model, logger, training_phase,
-              config: str = "standard"):
+              e2_llm: str, config: str = "standard"):
     """Re-run failed records from batch_errors.json synchronously,
     and merge results into the existing Stage 1 JSON."""
-    batch_dir = os.path.join(model_results_root(model_key, training_phase),
-                             "batch_e2")
+    batch_dir = os.path.join(
+        label_run_root(model_key, training_phase, e2_llm), "batch_e2"
+    )
     err_path = os.path.join(batch_dir, "batch_errors.json")
     s1_name = f"e2_concepts_{config}.json"
     output_path = os.path.join(
-        model_results_root(model_key, training_phase), s1_name
+        label_run_root(model_key, training_phase, e2_llm), s1_name
     )
 
     if not os.path.isfile(err_path):
@@ -737,7 +746,9 @@ def parse_args():
         choices=list(TRAINING_PHASES_INSTRUCT) + [TRAINING_PHASE_ALL],
         dest="training_phase",
         help="Training stage folder under results/{out_dir}/: pretraining, "
-             "mid_training, or post_training (default E1 input and Stage 1 outputs). "
+             "mid_training, or post_training. E1 input defaults to "
+             "results/{out_dir}/{training_phase}/e1_verbatim_{config}.json; "
+             "Stage 1 outputs default to results/{out_dir}/{training_phase}/{e2_llm}/. "
              f"Use '{TRAINING_PHASE_ALL}' to run the selected mode once per phase: "
              "base models use pretraining, mid_training; *-instruct models use "
              "pretraining, mid_training, post_training.",
@@ -752,6 +763,16 @@ def parse_args():
                         default=DEFAULT_EXTRACTION_MODEL,
                         help=f"OpenAI model for concept extraction "
                              f"(default: {DEFAULT_EXTRACTION_MODEL})")
+    parser.add_argument(
+        "--e2-llm",
+        type=str,
+        default=DEFAULT_EXTRACTION_MODEL,
+        dest="e2_llm",
+        help="LLM run subfolder: outputs go to "
+             "results/{out_dir}/{training_phase}/{e2_llm}/ (sanitized; default: %(default)s). "
+             "Includes e2_concepts_{config}.json and batch_e2/. "
+             "Use the same --e2-llm in e2_rank_concepts.py and e2_windowed_cooccurrence.py.",
+    )
 
     # Mode selection (mutually exclusive)
     mode = parser.add_mutually_exclusive_group(required=True)
@@ -794,7 +815,9 @@ def run_one_phase(
     logger.info("  Model: %s", args.model)
     logger.info("  Training phase: %s", training_phase)
     logger.info("  E1 config (default path): %s", args.config)
-    logger.info("  Results root: %s", model_results_root(args.model, training_phase))
+    logger.info("  Phase results root: %s", model_results_root(args.model, training_phase))
+    logger.info("  E2 output root (--e2-llm): %s",
+                label_run_root(args.model, training_phase, args.e2_llm))
     logger.info("  Extraction LLM: %s", args.extraction_model)
     logger.info("=" * 70)
 
@@ -814,15 +837,16 @@ def run_one_phase(
     # Dispatch to mode
     if args.test:
         run_test(client, args.model, filtered, args.extraction_model,
-                 logger, training_phase, args.record_id, config=args.config)
+                 logger, training_phase, args.e2_llm, args.record_id,
+                 config=args.config)
     elif args.batch:
         run_batch(client, args.model, filtered, args.extraction_model, logger,
-                  training_phase, config=args.config)
+                  training_phase, args.e2_llm, config=args.config)
     elif args.collect:
         batch_id = args.batch_id
         if not batch_id:
             meta_path = os.path.join(
-                model_results_root(args.model, training_phase),
+                label_run_root(args.model, training_phase, args.e2_llm),
                 "batch_e2",
                 "batch_metadata.json",
             )
@@ -839,10 +863,11 @@ def run_one_phase(
             logger.error("--batch_id required for --collect mode.")
             sys.exit(1)
         run_collect(client, args.model, filtered, args.extraction_model,
-                    batch_id, logger, training_phase, config=args.config)
+                    batch_id, logger, training_phase, args.e2_llm,
+                    config=args.config)
     elif args.retry:
         run_retry(client, args.model, filtered, args.extraction_model, logger,
-                  training_phase, config=args.config)
+                  training_phase, args.e2_llm, config=args.config)
 
 
 def main():

@@ -14,7 +14,8 @@ Contents:
     - TRAINING_PHASES_BASE / TRAINING_PHASES_INSTRUCT /
       TRAINING_PHASE_ALL / training_phases_when_all /
       model_results_root / label_llm_dirname / label_run_root:
-      phase folders under results/{out_dir}/ and ``--training-phase all`` expansion
+      phase folders under results/{out_dir}/ and ``--training-phase all`` expansion;
+      ``label_run_root`` is also the E2 experiment directory (``--e2-llm`` in e2_* scripts).
     - _is_reasoning_model / get_model_params: OpenAI param selection
     - setup_logger: per-stage logger factory
     - compute_rep_ratio: word-level 4-gram repetition ratio

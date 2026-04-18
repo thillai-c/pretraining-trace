@@ -8,9 +8,10 @@ rearrangement + annotation of Stage 1's concepts; no concepts are
 added, removed, or rewritten.
 
 Pipeline position:
-    e1_verbatim_{config}.json → [Stage 1] e2_extract_concepts.py → e2_concepts_{config}.json
+    e1_verbatim_{config}.json → [Stage 1] e2_extract_concepts.py →
+    {phase}/{{e2_llm}}/e2_concepts_{config}.json
     → [Stage 2] e2_rank_concepts.py (THIS FILE) → e2_concepts_ranked_{config}.json
-    → e2_windowed_cooccurrence.py
+    → e2_windowed_cooccurrence.py (same ``{{e2_llm}}`` subdir)
 
 Usage:
     # Test mode: 1 record, immediate API call
@@ -32,8 +33,8 @@ Usage:
 Reference:
     - utils.py: shared helpers (model params, logger, IO, JSON parsing)
     - e2_extract_concepts.py: Stage 1 (extraction) — produces this script's input
-    - Input:  results/{out_dir}/{training_phase}/e2_concepts_{config}.json
-    - Output: results/{out_dir}/{training_phase}/e2_concepts_ranked_{config}.json
+    - Input:  results/{out_dir}/{training_phase}/{e2_llm}/e2_concepts_{config}.json
+    - Output: results/{out_dir}/{training_phase}/{e2_llm}/e2_concepts_ranked_{config}.json
 """
 
 import argparse
@@ -51,9 +52,11 @@ from utils import (
     TRAINING_PHASES_INSTRUCT,
     TRAINING_PHASE_ALL,
     training_phases_when_all,
+    DEFAULT_EXTRACTION_MODEL,
     DEFAULT_RANK_MODEL,
     get_model_params,
     model_results_root,
+    label_run_root,
     setup_logger,
     parse_llm_json,
     save_output_json,
@@ -167,17 +170,20 @@ Return ONLY the JSON object. No markdown fences, no commentary, no extra text.""
 # ============================================================
 
 def load_stage1_results(model_key: str, input_path: str = None,
-                        training_phase: str = None, config: str = "standard"):
+                        training_phase: str = None, config: str = "standard",
+                        e2_llm: str = None):
     """Load Stage 1 extraction JSON for ``model_key``.
 
     Default: ``e2_concepts_{config}.json`` under
-    ``results/{out_dir}/{training_phase}/``. Pass ``input_path`` to override.
+    ``results/{out_dir}/{training_phase}/{e2_llm}/``. Pass ``input_path`` to override.
     """
     if input_path is None:
         if not training_phase:
             raise ValueError("training_phase is required when input_path is None")
+        if e2_llm is None:
+            raise ValueError("e2_llm is required when input_path is None")
         input_path = os.path.join(
-            model_results_root(model_key, training_phase),
+            label_run_root(model_key, training_phase, e2_llm),
             f"e2_concepts_{config}.json",
         )
     if not os.path.isfile(input_path):
@@ -416,7 +422,7 @@ def build_record_output(record, parsed: dict, rank_model: str) -> dict:
 # ============================================================
 
 def run_test(client, model_key, records, rank_model, logger, training_phase,
-             record_id=None, config: str = "standard"):
+             e2_llm: str, record_id=None, config: str = "standard"):
     """Run concept ranking on a single record using synchronous API call."""
     if not records:
         logger.error("No Stage 1 records to test.")
@@ -479,7 +485,7 @@ def run_test(client, model_key, records, rank_model, logger, training_phase,
     parsed = parse_llm_response(raw, logger)
     if parsed is None:
         logger.error("  Failed to parse LLM response. Raw output saved.")
-        results_root = model_results_root(model_key, training_phase)
+        results_root = label_run_root(model_key, training_phase, e2_llm)
         debug_path = os.path.join(results_root, "e2_rank_test_raw_output.json")
         os.makedirs(os.path.dirname(debug_path) or ".", exist_ok=True)
         with open(debug_path, "w", encoding="utf-8") as f:
@@ -505,7 +511,7 @@ def run_test(client, model_key, records, rank_model, logger, training_phase,
 
     s2_name = f"e2_concepts_ranked_{config}.json"
     test_path = os.path.join(
-        model_results_root(model_key, training_phase),
+        label_run_root(model_key, training_phase, e2_llm),
         s2_name.replace(".json", "_test.json"),
     )
     output_row = build_record_output(rec, parsed, rank_model)
@@ -518,14 +524,14 @@ def run_test(client, model_key, records, rank_model, logger, training_phase,
 # ============================================================
 
 def run_batch(client, model_key, records, rank_model, logger, training_phase,
-              config: str = "standard"):
+              e2_llm: str, config: str = "standard"):
     """Submit all Stage 1 records to OpenAI Batch API for ranking."""
     if not records:
         logger.error("No Stage 1 records to batch.")
         return
 
     batch_dir = os.path.join(
-        model_results_root(model_key, training_phase),
+        label_run_root(model_key, training_phase, e2_llm),
         "batch_e2_rank",
     )
     os.makedirs(batch_dir, exist_ok=True)
@@ -615,6 +621,7 @@ def run_batch(client, model_key, records, rank_model, logger, training_phase,
             "training_phase": training_phase,
             "harmbench_config": config,
             "rank_model": rank_model,
+            "e2_llm": e2_llm,
             "rank_prompt_version": RANK_PROMPT_VERSION,
             "num_records": n_requests,
             "num_skipped": n_skipped,
@@ -628,9 +635,9 @@ def run_batch(client, model_key, records, rank_model, logger, training_phase,
 # ============================================================
 
 def run_collect(client, model_key, records, rank_model, batch_id, logger,
-                training_phase, config: str = "standard"):
+                training_phase, e2_llm: str, config: str = "standard"):
     """Retrieve batch results and convert to ranked JSON."""
-    results_root = model_results_root(model_key, training_phase)
+    results_root = label_run_root(model_key, training_phase, e2_llm)
     batch_dir = os.path.join(results_root, "batch_e2_rank")
 
     # Check batch status
@@ -757,10 +764,10 @@ def run_collect(client, model_key, records, rank_model, batch_id, logger,
 # ============================================================
 
 def run_retry(client, model_key, records, rank_model, logger, training_phase,
-              config: str = "standard"):
+              e2_llm: str, config: str = "standard"):
     """Re-run failed records from batch_errors.json synchronously,
     and merge results into the existing ranked output JSON."""
-    results_root = model_results_root(model_key, training_phase)
+    results_root = label_run_root(model_key, training_phase, e2_llm)
     batch_dir = os.path.join(results_root, "batch_e2_rank")
     err_path = os.path.join(batch_dir, "batch_errors.json")
     output_path = os.path.join(
@@ -894,11 +901,20 @@ def parse_args():
                              "e2_concepts_ranked_{config}.json")
     parser.add_argument("--input", type=str, default=None,
                         help="Override Stage 1 input path (default: "
-                             "results/{out_dir}/{training_phase}/e2_concepts_{config}.json)")
+                             "results/{out_dir}/{training_phase}/{e2_llm}/e2_concepts_{config}.json)")
     parser.add_argument("--rank_model", type=str,
                         default=DEFAULT_RANK_MODEL,
                         help=f"OpenAI model for concept ranking "
                              f"(default: {DEFAULT_RANK_MODEL})")
+    parser.add_argument(
+        "--e2-llm",
+        type=str,
+        default=DEFAULT_EXTRACTION_MODEL,
+        dest="e2_llm",
+        help="Subdirectory under results/{out_dir}/{training_phase}/ for Stage 1/2 "
+             "JSON and batch_e2_rank (sanitized; default: %(default)s). Must match "
+             "the directory used by e2_extract_concepts.py.",
+    )
 
     # Mode selection (mutually exclusive)
     mode = parser.add_mutually_exclusive_group(required=True)
@@ -941,14 +957,17 @@ def run_one_phase(
     logger.info("  Model: %s", args.model)
     logger.info("  Training phase: %s", training_phase)
     logger.info("  HarmBench config: %s", args.config)
-    logger.info("  Results root: %s", model_results_root(args.model, training_phase))
+    logger.info("  Phase results root: %s", model_results_root(args.model, training_phase))
+    logger.info("  E2 output root (--e2-llm): %s",
+                label_run_root(args.model, training_phase, args.e2_llm))
     logger.info("  Rank LLM: %s", args.rank_model)
     logger.info("  Rank prompt version: %s", RANK_PROMPT_VERSION)
     logger.info("=" * 70)
 
     try:
         records = load_stage1_results(
-            args.model, input_path, training_phase, config=args.config
+            args.model, input_path, training_phase, config=args.config,
+            e2_llm=args.e2_llm,
         )
     except FileNotFoundError as e:
         logger.error(str(e))
@@ -961,15 +980,16 @@ def run_one_phase(
 
     if args.test:
         run_test(client, args.model, records, args.rank_model,
-                 logger, training_phase, args.record_id, config=args.config)
+                 logger, training_phase, args.e2_llm, args.record_id,
+                 config=args.config)
     elif args.batch:
         run_batch(client, args.model, records, args.rank_model, logger,
-                  training_phase, config=args.config)
+                  training_phase, args.e2_llm, config=args.config)
     elif args.collect:
         batch_id = args.batch_id
         if not batch_id:
             meta_path = os.path.join(
-                model_results_root(args.model, training_phase),
+                label_run_root(args.model, training_phase, args.e2_llm),
                 "batch_e2_rank",
                 "batch_metadata.json",
             )
@@ -986,10 +1006,11 @@ def run_one_phase(
             logger.error("--batch_id required for --collect mode.")
             sys.exit(1)
         run_collect(client, args.model, records, args.rank_model,
-                    batch_id, logger, training_phase, config=args.config)
+                    batch_id, logger, training_phase, args.e2_llm,
+                    config=args.config)
     elif args.retry:
         run_retry(client, args.model, records, args.rank_model, logger,
-                  training_phase, config=args.config)
+                  training_phase, args.e2_llm, config=args.config)
 
 
 def main():
