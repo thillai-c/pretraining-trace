@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """E2 Windowed Co-occurrence: pairwise infini-gram CNF co-occurrence over
-ranked concepts (e2_concepts_ranked.json).
+ranked concepts (e2_concepts_ranked_{config}.json).
 
 Pipeline position:
-    e2_concepts_ranked.json   (Stage 2 output from e2_rank_concepts.py)
+    e2_concepts_ranked_{config}.json   (Stage 2 output from e2_rank_concepts.py)
           |
           v
     [This script] e2_windowed_cooccurrence.py
@@ -12,7 +12,7 @@ Pipeline position:
     e2_cooccurrence_{config}.json
 
 Method:
-  - Load top-N ranked concepts from e2_concepts_ranked.json (sorted by rank).
+  - Load top-N ranked concepts from e2_concepts_ranked_{config}.json (sorted by rank).
   - For each pair (concept_a, concept_b), query infini-gram with a CNF AND query:
       count_cnf([[ids_A], [ids_B]], max_diff_tokens=w)
   - Repeat for multiple window sizes (e.g., 100, 500, 1000 tokens).
@@ -42,7 +42,7 @@ python e2_windowed_cooccurrence.py --model olmo2-7b-instruct --training-phase pr
     python e2_windowed_cooccurrence.py \
         --model olmo2-7b-instruct \
         --training-phase pretraining \
-        --concepts_input results/olmo2_7b_instruct/pretraining/e2_concepts_ranked.json \
+        --concepts_input results/olmo2_7b_instruct/pretraining/e2_concepts_ranked_standard.json \
         --top_n 15 \
         --windows 100 500 1000
 
@@ -293,7 +293,7 @@ def parse_args():
                              "Default: results/{model_dir}/{training_phase}/e1_verbatim_{config}.json")
     parser.add_argument("--concepts_input", type=str, default=None,
                         help="Ranked concepts JSON from e2_rank_concepts.py. "
-                             "Default: results/{model_dir}/{training_phase}/e2_concepts_ranked.json")
+                             "Default: results/{model_dir}/{training_phase}/e2_concepts_ranked_{config}.json")
     parser.add_argument("--output", type=str, default=None,
                         help="Output JSON. "
                              "Default: results/{model_dir}/{training_phase}/e2_cooccurrence_{config}.json")
@@ -369,7 +369,10 @@ def resolve_phase_paths(args, training_phase: str, logger=None) -> tuple[str, st
             "results", model_dir, training_phase, f"e1_verbatim_{args.config}.json"
         )
         concepts_path = os.path.join(
-            "results", model_dir, training_phase, "e2_concepts_ranked.json"
+            "results",
+            model_dir,
+            training_phase,
+            f"e2_concepts_ranked_{args.config}.json",
         )
         output_path = os.path.join(
             "results", model_dir, training_phase, f"e2_cooccurrence_{args.config}.json"
@@ -381,7 +384,10 @@ def resolve_phase_paths(args, training_phase: str, logger=None) -> tuple[str, st
         "results", model_dir, training_phase, f"e1_verbatim_{args.config}.json"
     )
     concepts_path = args.concepts_input or os.path.join(
-        "results", model_dir, training_phase, "e2_concepts_ranked.json"
+        "results",
+        model_dir,
+        training_phase,
+        f"e2_concepts_ranked_{args.config}.json",
     )
     output_path = args.output or os.path.join(
         "results", model_dir, training_phase, f"e2_cooccurrence_{args.config}.json"
@@ -431,10 +437,10 @@ def init_engine(args, tokenizer, logger):
 
 
 # ===========================================================================
-# Concept loading from e2_concepts_ranked.json
+# Concept loading from e2_concepts_ranked_{config}.json
 # ===========================================================================
 def load_concepts_from_ranked(concepts_path, logger):
-    """Load ranked concepts from e2_concepts_ranked.json.
+    """Load ranked concepts from Stage 2 JSON (e2_concepts_ranked_{config}.json).
 
     Returns
     -------

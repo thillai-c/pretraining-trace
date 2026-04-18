@@ -230,17 +230,21 @@ def compute_rep_ratio(response_text: str, n: int = 4) -> float:
 # ============================================================
 
 def load_e1_results(model_key: str, input_path: str = None,
-                    training_phase: str = None):
-    """Load E1 verbatim trace JSON for `model_key`."""
+                    training_phase: str = None, config: str = "standard"):
+    """Load E1 verbatim trace JSON for ``model_key``.
+
+    Default path: ``results/{out_dir}/[{training_phase}/]e1_verbatim_{config}.json``.
+    """
     if input_path is None:
         out_dir = MODELS[model_key]["out_dir"]
+        name = f"e1_verbatim_{config}.json"
         if training_phase:
             input_path = os.path.join(
-                "results", out_dir, training_phase, "e1_verbatim_standard.json"
+                "results", out_dir, training_phase, name
             )
         else:
             input_path = os.path.join(
-                "results", out_dir, "e1_verbatim_standard.json"
+                "results", out_dir, name
             )
     with open(input_path, "r", encoding="utf-8") as f:
         return json.load(f)

@@ -1,14 +1,16 @@
 #!/usr/bin/env python3
 """E2 Stage 2 — LLM-Based Ranking of Extracted Concepts (OpenAI Batch API).
 
-Takes Stage 1's extracted concept list (``e2_concepts.json``) and asks
+Takes Stage 1's extracted concept list (``e2_concepts_{config}.json``) and asks
 an LLM to RANK the concepts by how central they are to the response's
-content. The ranked output (``e2_concepts_ranked.json``) is a
+content. The ranked output (``e2_concepts_ranked_{config}.json``) is a
 rearrangement + annotation of Stage 1's concepts; no concepts are
 added, removed, or rewritten.
 
 Pipeline position:
-    e1_verbatim_standard.json → [Stage 1] e2_extract_concepts.py → e2_concepts.json → [Stage 2] e2_rank_concepts.py (THIS FILE) → e2_concepts_ranked.json → e2_windowed_cooccurrence.py
+    e1_verbatim_{config}.json → [Stage 1] e2_extract_concepts.py → e2_concepts_{config}.json
+    → [Stage 2] e2_rank_concepts.py (THIS FILE) → e2_concepts_ranked_{config}.json
+    → e2_windowed_cooccurrence.py
 
 Usage:
     # Test mode: 1 record, immediate API call
@@ -31,8 +33,8 @@ Reference:
     - utils.py: shared helpers (model params, logger, IO, JSON parsing)
     - e2_extract_concepts.py: Stage 1 (extraction) — produces this
       script's input
-    - Input file:  results/{out_dir}/{training_phase}/e2_concepts.json
-    - Output file: results/{out_dir}/{training_phase}/e2_concepts_ranked.json
+    - Input file:  results/{out_dir}/{training_phase}/e2_concepts_{config}.json
+    - Output file: results/{out_dir}/{training_phase}/e2_concepts_ranked_{config}.json
 """
 
 import argparse
@@ -177,18 +179,18 @@ Return ONLY the JSON object. No markdown fences, no commentary, no extra text.""
 # ============================================================
 
 def load_stage1_results(model_key: str, input_path: str = None,
-                        training_phase: str = None):
-    """Load Stage 1 extraction results (e2_concepts.json) for a model.
+                        training_phase: str = None, config: str = "standard"):
+    """Load Stage 1 extraction JSON for ``model_key``.
 
-    By default reads from ``results/{out_dir}/{training_phase}/e2_concepts.json``.
-    Pass an explicit ``input_path`` to override.
+    Default: ``e2_concepts_{config}.json`` under
+    ``results/{out_dir}/{training_phase}/``. Pass ``input_path`` to override.
     """
     if input_path is None:
         if not training_phase:
             raise ValueError("training_phase is required when input_path is None")
         input_path = os.path.join(
             model_results_root(model_key, training_phase),
-            "e2_concepts.json",
+            f"e2_concepts_{config}.json",
         )
     if not os.path.isfile(input_path):
         raise FileNotFoundError(
@@ -426,7 +428,7 @@ def build_record_output(record, parsed: dict, rank_model: str) -> dict:
 # ============================================================
 
 def run_test(client, model_key, records, rank_model, logger, training_phase,
-             record_id=None):
+             record_id=None, config: str = "standard"):
     """Run concept ranking on a single record using synchronous API call."""
     if not records:
         logger.error("No Stage 1 records to test.")
@@ -513,10 +515,10 @@ def run_test(client, model_key, records, rank_model, logger, training_phase,
     else:
         logger.info("  === RANKING SANITY FLAGS === (none)")
 
-    # Save test output
+    s2_name = f"e2_concepts_ranked_{config}.json"
     test_path = os.path.join(
         model_results_root(model_key, training_phase),
-        "e2_concepts_ranked_test.json",
+        s2_name.replace(".json", "_test.json"),
     )
     output_row = build_record_output(rec, parsed, rank_model)
     save_output_json([output_row], test_path)
@@ -527,7 +529,8 @@ def run_test(client, model_key, records, rank_model, logger, training_phase,
 # Batch mode: submit to OpenAI Batch API
 # ============================================================
 
-def run_batch(client, model_key, records, rank_model, logger, training_phase):
+def run_batch(client, model_key, records, rank_model, logger, training_phase,
+              config: str = "standard"):
     """Submit all Stage 1 records to OpenAI Batch API for ranking."""
     if not records:
         logger.error("No Stage 1 records to batch.")
@@ -606,9 +609,11 @@ def run_batch(client, model_key, records, rank_model, logger, training_phase):
     logger.info("  Batch ID: %s", batch.id)
     logger.info("  To collect results, run:")
     logger.info(
-        "    python e2_rank_concepts.py --model %s --training-phase %s --collect",
+        "    python e2_rank_concepts.py --model %s --training-phase %s "
+        "--config %s --collect",
         model_key,
         training_phase,
+        config,
     )
     logger.info("=" * 70)
 
@@ -620,6 +625,7 @@ def run_batch(client, model_key, records, rank_model, logger, training_phase):
             "input_file_id": upload.id,
             "model_key": model_key,
             "training_phase": training_phase,
+            "harmbench_config": config,
             "rank_model": rank_model,
             "rank_prompt_version": RANK_PROMPT_VERSION,
             "num_records": n_requests,
@@ -634,8 +640,8 @@ def run_batch(client, model_key, records, rank_model, logger, training_phase):
 # ============================================================
 
 def run_collect(client, model_key, records, rank_model, batch_id, logger,
-                training_phase):
-    """Retrieve batch results and convert to e2_concepts_ranked.json."""
+                training_phase, config: str = "standard"):
+    """Retrieve batch results and convert to ranked JSON."""
     results_root = model_results_root(model_key, training_phase)
     batch_dir = os.path.join(results_root, "batch_e2_rank")
 
@@ -738,8 +744,9 @@ def run_collect(client, model_key, records, rank_model, batch_id, logger,
     # Sort by record id for stable output
     all_rows.sort(key=lambda r: r["id"])
 
-    # Save final output
-    output_path = os.path.join(results_root, "e2_concepts_ranked.json")
+    output_path = os.path.join(
+        results_root, f"e2_concepts_ranked_{config}.json"
+    )
     save_output_json(all_rows, output_path)
 
     logger.info("=" * 70)
@@ -761,13 +768,16 @@ def run_collect(client, model_key, records, rank_model, batch_id, logger,
 # Retry mode: re-run failed records and merge into existing JSON
 # ============================================================
 
-def run_retry(client, model_key, records, rank_model, logger, training_phase):
+def run_retry(client, model_key, records, rank_model, logger, training_phase,
+              config: str = "standard"):
     """Re-run failed records from batch_errors.json synchronously,
-    and merge results into the existing e2_concepts_ranked.json."""
+    and merge results into the existing ranked output JSON."""
     results_root = model_results_root(model_key, training_phase)
     batch_dir = os.path.join(results_root, "batch_e2_rank")
     err_path = os.path.join(batch_dir, "batch_errors.json")
-    output_path = os.path.join(results_root, "e2_concepts_ranked.json")
+    output_path = os.path.join(
+        results_root, f"e2_concepts_ranked_{config}.json"
+    )
 
     if not os.path.isfile(err_path):
         logger.error("No batch_errors.json found at %s", err_path)
@@ -890,9 +900,13 @@ def parse_args():
              "base models use pretraining, mid_training; *-instruct models use "
              "pretraining, mid_training, post_training.",
     )
+    parser.add_argument("--config", type=str, default="standard",
+                        help="HarmBench config: default Stage 1 input "
+                             "e2_concepts_{config}.json; Stage 2 output "
+                             "e2_concepts_ranked_{config}.json")
     parser.add_argument("--input", type=str, default=None,
-                        help="Override input path "
-                             "(default: results/{out_dir}/{training_phase}/e2_concepts.json)")
+                        help="Override Stage 1 input path (default: "
+                             "results/{out_dir}/{training_phase}/e2_concepts_{config}.json)")
     parser.add_argument("--rank_model", type=str,
                         default=DEFAULT_EXTRACTION_MODEL,
                         help=f"OpenAI model for concept ranking "
@@ -938,13 +952,16 @@ def run_one_phase(
         logger.info("  Phase %d / %d: %s", phase_index + 1, total_phases, training_phase)
     logger.info("  Model: %s", args.model)
     logger.info("  Training phase: %s", training_phase)
+    logger.info("  HarmBench config: %s", args.config)
     logger.info("  Results root: %s", model_results_root(args.model, training_phase))
     logger.info("  Rank LLM: %s", args.rank_model)
     logger.info("  Rank prompt version: %s", RANK_PROMPT_VERSION)
     logger.info("=" * 70)
 
     try:
-        records = load_stage1_results(args.model, input_path, training_phase)
+        records = load_stage1_results(
+            args.model, input_path, training_phase, config=args.config
+        )
     except FileNotFoundError as e:
         logger.error(str(e))
         sys.exit(1)
@@ -956,10 +973,10 @@ def run_one_phase(
 
     if args.test:
         run_test(client, args.model, records, args.rank_model,
-                 logger, training_phase, args.record_id)
+                 logger, training_phase, args.record_id, config=args.config)
     elif args.batch:
         run_batch(client, args.model, records, args.rank_model, logger,
-                  training_phase)
+                  training_phase, config=args.config)
     elif args.collect:
         batch_id = args.batch_id
         if not batch_id:
@@ -981,10 +998,10 @@ def run_one_phase(
             logger.error("--batch_id required for --collect mode.")
             sys.exit(1)
         run_collect(client, args.model, records, args.rank_model,
-                    batch_id, logger, training_phase)
+                    batch_id, logger, training_phase, config=args.config)
     elif args.retry:
         run_retry(client, args.model, records, args.rank_model, logger,
-                  training_phase)
+                  training_phase, config=args.config)
 
 
 def main():
