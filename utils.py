@@ -10,10 +10,8 @@ Stage 1 sanity flags, Stage 2 system prompt, Stage 2 output schema) lives in
 the corresponding stage file, not here.
 
 Contents:
-    - MODELS / REASONING_MODELS / DEFAULT_EXTRACTION_MODEL / DEFAULT_RANK_MODEL: model registry
-    - TRAINING_PHASES_BASE / TRAINING_PHASES_INSTRUCT /
-      TRAINING_PHASE_ALL / training_phases_when_all /
-      model_results_root / label_llm_dirname / label_run_root:
+    - MODELS / REASONING_MODELS: model registry
+    - training_phases_when_all / model_results_root / label_llm_dirname / label_run_root:
       phase folders under results/{out_dir}/ and ``--training-phase all`` expansion;
       ``label_run_root`` is also the experiment directory for E1 (``--e1-llm`` in
       ``e1_auto_label.py``) and E2 (``--e2-llm`` in e2_* scripts).
@@ -106,18 +104,15 @@ MODELS = {
     if k.startswith("olmo2-")
 }
 
-# When tools use ``--training-phase all``: base OLMo checkpoints only have
-# pretraining + mid_training; *-instruct models also have post_training.
-TRAINING_PHASES_BASE = ("pretraining", "mid_training")
-TRAINING_PHASES_INSTRUCT = ("pretraining", "mid_training", "post_training")
-TRAINING_PHASE_ALL = "all"
-
-
 def training_phases_when_all(model_key: str) -> tuple[str, ...]:
-    """Phases to iterate for ``--training-phase all`` (E2, E1 auto-label, co-occurrence)."""
+    """Phases to iterate for ``--training-phase all`` (E2, E1 auto-label, co-occurrence).
+
+    Base OLMo checkpoints: pretraining + mid_training only.
+    *-instruct models: also post_training.
+    """
     if model_key.endswith("-instruct"):
-        return TRAINING_PHASES_INSTRUCT
-    return TRAINING_PHASES_BASE
+        return ("pretraining", "mid_training", "post_training")
+    return ("pretraining", "mid_training")
 
 
 def model_results_root(model_key: str, training_phase: str) -> str:
@@ -145,11 +140,6 @@ def label_run_root(model_key: str, training_phase: str, llm_model: str) -> str:
         label_llm_dirname(llm_model),
     )
 
-
-# Default OpenAI model used for both extraction (Stage 1) and ranking (Stage 2);
-# overridable at the CLI via --extraction_model / --rank_model.
-DEFAULT_EXTRACTION_MODEL = "gpt-5.4-mini"
-DEFAULT_RANK_MODEL = DEFAULT_EXTRACTION_MODEL
 
 # Reasoning models use `reasoning_effort` + `max_completion_tokens`
 # instead of `temperature` + `max_tokens`.

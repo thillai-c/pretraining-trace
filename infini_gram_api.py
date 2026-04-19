@@ -12,11 +12,6 @@ from typing import Optional
 
 import requests
 
-# Tighter defaults for high-volume E2 co-occurrence batches (optional at construct time).
-E2_DEFAULT_MAX_RETRIES = 5
-E2_DEFAULT_RETRY_DELAY = 2.0
-
-
 class InfiniGramAPIEngine:
     """Mimic local ``InfiniGramEngine`` (count, find, get_doc_by_rank, count_cnf)."""
 

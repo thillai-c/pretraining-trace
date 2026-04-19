@@ -39,9 +39,6 @@ from dotenv import find_dotenv, load_dotenv
 from openai import OpenAI
 
 from utils import (
-    TRAINING_PHASES_BASE,
-    TRAINING_PHASES_INSTRUCT,
-    TRAINING_PHASE_ALL,
     training_phases_when_all,
     filter_compliant,
     get_model_params,
@@ -857,18 +854,14 @@ def parse_args():
         "--training-phase",
         type=str,
         required=True,
-        choices=list(TRAINING_PHASES_INSTRUCT) + [TRAINING_PHASE_ALL],
+        choices=("pretraining", "mid_training", "post_training", "all"),
         dest="training_phase",
         help="Same phase folder as e1_verbatim_trace default output: "
              "results/{out_dir}/pretraining|mid_training|post_training/ "
              "for E1 JSON input; labeling outputs live under <llm_dirname>/ per --e1-llm. "
-             "Use '%s' to run the selected mode once per phase: base models use %s; "
-             "*-instruct models use %s."
-             % (
-                 TRAINING_PHASE_ALL,
-                 ", ".join(TRAINING_PHASES_BASE),
-                 ", ".join(TRAINING_PHASES_INSTRUCT),
-             ),
+             "Use 'all' to run the selected mode once per phase: base models use "
+             "pretraining, mid_training; *-instruct models use "
+             "pretraining, mid_training, post_training.",
     )
     parser.add_argument(
         "--config",
@@ -1009,19 +1002,18 @@ def main():
 
     phases = (
         list(training_phases_when_all(args.model))
-        if args.training_phase == TRAINING_PHASE_ALL
+        if args.training_phase == "all"
         else [args.training_phase]
     )
 
-    effective_input = None if (args.training_phase == TRAINING_PHASE_ALL and args.input) else args.input
+    effective_input = None if (args.training_phase == "all" and args.input) else args.input
 
     # One log file per model+config: logs/{out_dir}/e1_auto_label_{config}.log (not under pretraining/ etc.)
     logger = setup_logger(args.model, "e1_auto_label", config=args.config)
 
-    if args.training_phase == TRAINING_PHASE_ALL and args.input:
+    if args.training_phase == "all" and args.input:
         logger.warning(
-            "--input is ignored when --training-phase %s (using default JSON path per phase).",
-            TRAINING_PHASE_ALL,
+            "--input is ignored when --training-phase all (using default JSON path per phase).",
         )
 
     api_key = os.environ.get("OPENAI_API_KEY")

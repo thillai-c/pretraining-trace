@@ -49,11 +49,7 @@ from openai import OpenAI
 
 from utils import (
     MODELS,
-    TRAINING_PHASES_INSTRUCT,
-    TRAINING_PHASE_ALL,
     training_phases_when_all,
-    DEFAULT_EXTRACTION_MODEL,
-    DEFAULT_RANK_MODEL,
     get_model_params,
     model_results_root,
     label_run_root,
@@ -887,11 +883,11 @@ def parse_args():
         "--training-phase",
         type=str,
         required=True,
-        choices=list(TRAINING_PHASES_INSTRUCT) + [TRAINING_PHASE_ALL],
+        choices=("pretraining", "mid_training", "post_training", "all"),
         dest="training_phase",
         help="Training stage folder under results/{out_dir}/: pretraining, "
              "mid_training, or post_training (Stage 1 input for this stage). "
-             f"Use '{TRAINING_PHASE_ALL}' to run the selected mode once per phase: "
+             "Use 'all' to run the selected mode once per phase: "
              "base models use pretraining, mid_training; *-instruct models use "
              "pretraining, mid_training, post_training.",
     )
@@ -903,13 +899,13 @@ def parse_args():
                         help="Override Stage 1 input path (default: "
                              "results/{out_dir}/{training_phase}/{e2_llm}/e2_concepts_{config}.json)")
     parser.add_argument("--rank_model", type=str,
-                        default=DEFAULT_RANK_MODEL,
-                        help=f"OpenAI model for concept ranking "
-                             f"(default: {DEFAULT_RANK_MODEL})")
+                        default="gpt-5.4-mini",
+                        help="OpenAI model for concept ranking "
+                             "(default: gpt-5.4-mini)")
     parser.add_argument(
         "--e2-llm",
         type=str,
-        default=DEFAULT_EXTRACTION_MODEL,
+        default="gpt-5.4-mini",
         dest="e2_llm",
         help="Subdirectory under results/{out_dir}/{training_phase}/ for Stage 1/2 "
              "JSON and batch_e2_rank (sanitized; default: %(default)s). Must match "
@@ -1020,15 +1016,14 @@ def main():
 
     phases = (
         list(training_phases_when_all(args.model))
-        if args.training_phase == TRAINING_PHASE_ALL
+        if args.training_phase == "all"
         else [args.training_phase]
     )
-    effective_input = None if (args.training_phase == TRAINING_PHASE_ALL and args.input) else args.input
+    effective_input = None if (args.training_phase == "all" and args.input) else args.input
 
-    if args.training_phase == TRAINING_PHASE_ALL and args.input:
+    if args.training_phase == "all" and args.input:
         logger.warning(
-            "--input is ignored when --training-phase %s (using default JSON path per phase).",
-            TRAINING_PHASE_ALL,
+            "--input is ignored when --training-phase all (using default JSON path per phase).",
         )
 
     # Init OpenAI client

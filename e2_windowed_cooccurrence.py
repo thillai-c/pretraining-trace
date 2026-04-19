@@ -90,13 +90,10 @@ if PKG_DIR not in sys.path:
 
 from transformers import AutoTokenizer
 
-from infini_gram_api import E2_DEFAULT_MAX_RETRIES, E2_DEFAULT_RETRY_DELAY, InfiniGramAPIEngine
+from infini_gram_api import InfiniGramAPIEngine
 
 from utils import (
     MODELS,
-    TRAINING_PHASES_INSTRUCT,
-    TRAINING_PHASE_ALL,
-    DEFAULT_EXTRACTION_MODEL,
     model_results_root,
     label_run_root,
     training_phases_when_all,
@@ -165,11 +162,11 @@ def parse_args():
         "--training-phase",
         type=str,
         required=True,
-        choices=list(TRAINING_PHASES_INSTRUCT) + [TRAINING_PHASE_ALL],
+        choices=("pretraining", "mid_training", "post_training", "all"),
         dest="training_phase",
         help="Training stage folder under results/{model_dir}/: pretraining, "
              "mid_training, or post_training. "
-             f"Use '{TRAINING_PHASE_ALL}' to run once per phase: base models run "
+             "Use 'all' to run once per phase: base models run "
              "pretraining+mid_training; *-instruct models run pretraining+mid_training+post_training.",
     )
 
@@ -186,7 +183,7 @@ def parse_args():
     parser.add_argument(
         "--e2-llm",
         type=str,
-        default=DEFAULT_EXTRACTION_MODEL,
+        default="gpt-5.4-mini",
         dest="e2_llm",
         metavar="MODEL",
         help="Subdirectory name for Stage 1/2 outputs (must match e2_extract_concepts / e2_rank_concepts). "
@@ -256,13 +253,12 @@ def resolve_phase_paths(args, training_phase: str, logger=None) -> tuple[str, st
     phase_root = model_results_root(args.model, training_phase)
     e2_root = label_run_root(args.model, training_phase, args.e2_llm)
 
-    ignore_overrides = (args.training_phase == TRAINING_PHASE_ALL)
+    ignore_overrides = (args.training_phase == "all")
     if ignore_overrides and logger is not None:
         if args.input or args.concepts_input or args.output:
             logger.warning(
-                "--input/--concepts_input/--output overrides are ignored when --training-phase %s "
+                "--input/--concepts_input/--output overrides are ignored when --training-phase all "
                 "(using default paths per phase).",
-                TRAINING_PHASE_ALL,
             )
 
     if ignore_overrides:
@@ -317,8 +313,8 @@ def init_engine(args, tokenizer, logger):
         logger.info("Backend: HTTP API index=%s", args.api_index)
         engine = InfiniGramAPIEngine(
             index=args.api_index,
-            max_retries=E2_DEFAULT_MAX_RETRIES,
-            retry_delay=E2_DEFAULT_RETRY_DELAY,
+            max_retries=5,
+            retry_delay=2.0,
         )
         corpus_result = engine.count(input_ids=[])
         corpus_size = corpus_result.get("count", 0)
@@ -682,7 +678,7 @@ def run_one_phase(args, training_phase: str, logger, *, phase_index: int, total_
                   top_n: int | None, multi_topn: bool) -> None:
     phase_args = (
         _resolve_backend_for_all(args, training_phase)
-        if args.training_phase == TRAINING_PHASE_ALL
+        if args.training_phase == "all"
         else args
     )
 
@@ -952,7 +948,7 @@ def main():
 
     phases = (
         list(training_phases_when_all(args.model))
-        if args.training_phase == TRAINING_PHASE_ALL
+        if args.training_phase == "all"
         else [args.training_phase]
     )
     n = len(phases)
