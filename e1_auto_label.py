@@ -7,18 +7,18 @@ few-shot examples.
 
 Usage:
     # Test: first compliant record (sync API)
-    python e1_auto_label.py --model olmo2-7b --training-phase pretraining --config standard --e1-llm gpt-5.4-mini --test
+    python e1_auto_label.py --model olmo2-7b --training-phase pretraining --config standard --e1-llm gpt-4.1-mini --test
 
-    # Batch, then collect into span_safety_labels.csv under the label run root
-    python e1_auto_label.py --model olmo2-7b --training-phase pretraining --config standard --e1-llm gpt-5.4-mini --batch
-    python e1_auto_label.py --model olmo2-7b --training-phase pretraining --config standard --e1-llm gpt-5.4-mini --collect
+    # Batch, then collect into span_safety_labels_{config}.csv under the label run root
+    python e1_auto_label.py --model olmo2-7b --training-phase pretraining --config standard --e1-llm gpt-4.1-mini --batch
+    python e1_auto_label.py --model olmo2-7b --training-phase pretraining --config standard --e1-llm gpt-4.1-mini --collect
 
-    # Retry from batch_e1/batch_errors.json and append to the CSV
-    python e1_auto_label.py --model olmo2-7b --training-phase pretraining --config standard --e1-llm gpt-5.4-mini --retry
+    # Retry from batch_e1/batch_errors.json and append to span_safety_labels_{config}.csv
+    python e1_auto_label.py --model olmo2-7b --training-phase pretraining --config standard --e1-llm gpt-4.1-mini --retry
 
     # All phases: base models -> pretraining + mid_training; *-instruct -> also post_training
-    python e1_auto_label.py --model olmo2-7b --training-phase all --config standard --e1-llm gpt-5.4-mini --batch
-    python e1_auto_label.py --model olmo2-7b-instruct --training-phase all --config standard --e1-llm gpt-5.4-mini --batch
+    python e1_auto_label.py --model olmo2-7b --training-phase all --config standard --e1-llm gpt-4.1-mini --batch
+    python e1_auto_label.py --model olmo2-7b-instruct --training-phase all --config standard --e1-llm gpt-4.1-mini --batch
 
 Reference:
     - span_safety_labels.csv: GPT-J manual labels (162 rows)
@@ -64,12 +64,22 @@ MODELS = {
 E1_BATCH_SUBDIR = "batch_e1"
 
 # Default OpenAI model for span labeling (override with --e1-llm).
-DEFAULT_LABEL_LLM = "gpt-5.4-mini"
+DEFAULT_LABEL_LLM = "gpt-4.1-mini"
 
 
 def e1_batch_dir(model_key: str, training_phase: str, e1_llm: str) -> str:
     """Directory for batch_input.jsonl, batch_metadata.json, batch_output.jsonl, etc."""
     return os.path.join(label_run_root(model_key, training_phase, e1_llm), E1_BATCH_SUBDIR)
+
+
+def span_safety_labels_csv_path(
+    model_key: str, training_phase: str, e1_llm: str, config: str
+) -> str:
+    """Path to the span-level labels CSV for this HarmBench config (batch/collect/retry)."""
+    return os.path.join(
+        label_run_root(model_key, training_phase, e1_llm),
+        f"span_safety_labels_{config}.csv",
+    )
 
 CSV_COLUMNS = [
     "model", "record_id", "span_idx", "doc_ix",
@@ -456,7 +466,7 @@ def run_test(client, model_key, records, logger, training_phase, e1_llm,
 # Batch mode: submit to OpenAI Batch API
 # ============================================================
 
-def run_batch(client, model_key, records, logger, training_phase, e1_llm):
+def run_batch(client, model_key, records, logger, training_phase, e1_llm, config: str):
     """Submit all records to OpenAI Batch API."""
     if not records:
         logger.error("No compliant records to batch.")
@@ -537,6 +547,7 @@ def run_batch(client, model_key, records, logger, training_phase, e1_llm):
             "model_key": model_key,
             "training_phase": training_phase,
             "e1_llm": e1_llm,
+            "config": config,
             "num_records": len(records),
             "total_pairs": total_pairs,
             "submitted_at": datetime.now().isoformat(),
@@ -549,7 +560,7 @@ def run_batch(client, model_key, records, logger, training_phase, e1_llm):
 # ============================================================
 
 def run_collect(client, model_key, records, batch_id, logger, training_phase,
-                e1_llm):
+                e1_llm, config: str):
     """Retrieve batch results and convert to CSV."""
     batch_dir = e1_batch_dir(model_key, training_phase, e1_llm)
 
@@ -685,10 +696,7 @@ def run_collect(client, model_key, records, batch_id, logger, training_phase,
                 })
 
     # Save CSV
-    csv_path = os.path.join(
-        label_run_root(model_key, training_phase, e1_llm),
-        "span_safety_labels.csv",
-    )
+    csv_path = span_safety_labels_csv_path(model_key, training_phase, e1_llm, config)
     save_csv(all_rows, csv_path, model_key)
     logger.info("=" * 70)
     logger.info("COLLECTION COMPLETE")
@@ -709,15 +717,12 @@ def run_collect(client, model_key, records, batch_id, logger, training_phase,
 # Retry mode: re-run failed records and append to existing CSV
 # ============================================================
 
-def run_retry(client, model_key, records, logger, training_phase, e1_llm):
+def run_retry(client, model_key, records, logger, training_phase, e1_llm, config: str):
     """Re-run failed records from batch_errors.json using synchronous API calls,
-    and append results to the existing span_safety_labels.csv."""
+    and append results to the existing span_safety_labels_{config}.csv."""
     batch_dir = e1_batch_dir(model_key, training_phase, e1_llm)
     err_path = os.path.join(batch_dir, "batch_errors.json")
-    csv_path = os.path.join(
-        label_run_root(model_key, training_phase, e1_llm),
-        "span_safety_labels.csv",
-    )
+    csv_path = span_safety_labels_csv_path(model_key, training_phase, e1_llm, config)
 
     # Load error list
     if not os.path.isfile(err_path):
@@ -880,6 +885,7 @@ def parse_args():
         dest="e1_llm",
         help="OpenAI model id for span labeling; outputs under "
              "results/{out_dir}/{training_phase}/{e1_llm}/ (sanitized). "
+             "Batch/collect/retry write span_safety_labels_{config}.csv there. "
              "Use the same value for --batch, --collect, and --retry.",
     )
 
@@ -892,7 +898,8 @@ def parse_args():
     mode.add_argument("--collect", action="store_true",
                       help="Collect mode: retrieve batch results and save CSV")
     mode.add_argument("--retry", action="store_true",
-                      help="Retry mode: re-run failed records from batch_errors.json and append to CSV")
+                      help="Retry mode: re-run failed records from batch_errors.json "
+                           "and append to span_safety_labels_{config}.csv")
 
     # Test mode options
     parser.add_argument("--record_id", type=int, default=None,
@@ -958,7 +965,7 @@ def run_one_phase(
                  args.e1_llm, args.record_id)
     elif args.batch:
         run_batch(client, args.model, filtered, logger, training_phase,
-                  args.e1_llm)
+                  args.e1_llm, args.config)
     elif args.collect:
         batch_id = args.batch_id
         if not batch_id:
@@ -989,10 +996,10 @@ def run_one_phase(
             logger.error("--batch_id required for --collect mode.")
             sys.exit(1)
         run_collect(client, args.model, filtered, batch_id, logger,
-                    training_phase, args.e1_llm)
+                    training_phase, args.e1_llm, args.config)
     elif args.retry:
         run_retry(client, args.model, filtered, logger, training_phase,
-                  args.e1_llm)
+                  args.e1_llm, args.config)
 
 
 def main():
