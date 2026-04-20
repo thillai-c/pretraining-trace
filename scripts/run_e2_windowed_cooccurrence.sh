@@ -31,14 +31,14 @@ PYTHON="${PYTHON:-python}"
 
 # Must match choices=list(MODELS.keys()) in e2_windowed_cooccurrence.py (olmo2-* only).
 MODELS=(
-  olmo2-1b
-  olmo2-7b
-  olmo2-13b
-  olmo2-32b
   olmo2-1b-instruct
   olmo2-7b-instruct
   olmo2-13b-instruct
   olmo2-32b-instruct
+  olmo2-1b
+  olmo2-7b
+  olmo2-13b
+  olmo2-32b
 )
 
 read -r -a TOP_N_ARRAY <<< "${TOP_NS}"
