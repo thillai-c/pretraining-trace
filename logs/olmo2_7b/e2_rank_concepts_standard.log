@@ -1,0 +1,168 @@
+2026-04-18 13:51:38,988 - INFO - Logging to logs/olmo2_7b/e2_rank_concepts_standard.log
+2026-04-18 13:51:39,021 - INFO - ======================================================================
+2026-04-18 13:51:39,021 - INFO - E2 Stage 2 — LLM-Based Concept Ranking
+2026-04-18 13:51:39,021 - INFO -   Model: olmo2-7b
+2026-04-18 13:51:39,021 - INFO -   Training phase: pretraining
+2026-04-18 13:51:39,021 - INFO -   HarmBench config: standard
+2026-04-18 13:51:39,021 - INFO -   Results root: results/olmo2_7b/pretraining
+2026-04-18 13:51:39,021 - INFO -   Rank LLM: gpt-5.4-mini
+2026-04-18 13:51:39,021 - INFO -   Rank prompt version: v1_ranking
+2026-04-18 13:51:39,022 - INFO - ======================================================================
+2026-04-18 13:51:39,023 - INFO - Loaded 38 records from Stage 1 output
+2026-04-18 13:51:39,023 - INFO -   id=3, n_concepts=30, semantic_category=illegal
+2026-04-18 13:51:39,023 - INFO -   id=14, n_concepts=7, semantic_category=illegal
+2026-04-18 13:51:39,023 - INFO -   id=17, n_concepts=18, semantic_category=chemical_biological
+2026-04-18 13:51:39,023 - INFO -   id=23, n_concepts=2, semantic_category=illegal
+2026-04-18 13:51:39,023 - INFO -   id=31, n_concepts=8, semantic_category=misinformation_disinformation
+2026-04-18 13:51:39,023 - INFO -   id=40, n_concepts=1, semantic_category=misinformation_disinformation
+2026-04-18 13:51:39,023 - INFO -   id=63, n_concepts=3, semantic_category=harassment_bullying
+2026-04-18 13:51:39,023 - INFO -   id=64, n_concepts=2, semantic_category=harassment_bullying
+2026-04-18 13:51:39,023 - INFO -   id=65, n_concepts=1, semantic_category=harassment_bullying
+2026-04-18 13:51:39,023 - INFO -   id=83, n_concepts=6, semantic_category=cybercrime_intrusion
+2026-04-18 13:51:39,023 - INFO -   id=85, n_concepts=3, semantic_category=chemical_biological
+2026-04-18 13:51:39,023 - INFO -   id=88, n_concepts=4, semantic_category=illegal
+2026-04-18 13:51:39,023 - INFO -   id=90, n_concepts=8, semantic_category=cybercrime_intrusion
+2026-04-18 13:51:39,023 - INFO -   id=91, n_concepts=3, semantic_category=misinformation_disinformation
+2026-04-18 13:51:39,023 - INFO -   id=99, n_concepts=3, semantic_category=harassment_bullying
+2026-04-18 13:51:39,024 - INFO -   id=103, n_concepts=4, semantic_category=harassment_bullying
+2026-04-18 13:51:39,024 - INFO -   id=107, n_concepts=15, semantic_category=illegal
+2026-04-18 13:51:39,024 - INFO -   id=110, n_concepts=7, semantic_category=harmful
+2026-04-18 13:51:39,024 - INFO -   id=117, n_concepts=14, semantic_category=cybercrime_intrusion
+2026-04-18 13:51:39,024 - INFO -   id=119, n_concepts=7, semantic_category=illegal
+2026-04-18 13:51:39,024 - INFO -   id=122, n_concepts=8, semantic_category=illegal
+2026-04-18 13:51:39,024 - INFO -   id=125, n_concepts=3, semantic_category=chemical_biological
+2026-04-18 13:51:39,024 - INFO -   id=129, n_concepts=1, semantic_category=illegal
+2026-04-18 13:51:39,024 - INFO -   id=132, n_concepts=4, semantic_category=harmful
+2026-04-18 13:51:39,024 - INFO -   id=135, n_concepts=14, semantic_category=cybercrime_intrusion
+2026-04-18 13:51:39,024 - INFO -   id=138, n_concepts=6, semantic_category=cybercrime_intrusion
+2026-04-18 13:51:39,024 - INFO -   id=143, n_concepts=16, semantic_category=cybercrime_intrusion
+2026-04-18 13:51:39,024 - INFO -   id=148, n_concepts=0, semantic_category=harmful
+2026-04-18 13:51:39,024 - INFO -   id=149, n_concepts=10, semantic_category=harassment_bullying
+2026-04-18 13:51:39,024 - INFO -   id=153, n_concepts=7, semantic_category=harassment_bullying
+2026-04-18 13:51:39,024 - INFO -   id=156, n_concepts=6, semantic_category=illegal
+2026-04-18 13:51:39,024 - INFO -   id=160, n_concepts=4, semantic_category=illegal
+2026-04-18 13:51:39,024 - INFO -   id=163, n_concepts=4, semantic_category=illegal
+2026-04-18 13:51:39,024 - INFO -   id=165, n_concepts=13, semantic_category=chemical_biological
+2026-04-18 13:51:39,024 - INFO -   id=184, n_concepts=19, semantic_category=cybercrime_intrusion
+2026-04-18 13:51:39,025 - INFO -   id=185, n_concepts=9, semantic_category=cybercrime_intrusion
+2026-04-18 13:51:39,025 - INFO -   id=193, n_concepts=6, semantic_category=chemical_biological
+2026-04-18 13:51:39,025 - INFO -   id=199, n_concepts=38, semantic_category=chemical_biological
+2026-04-18 13:51:39,026 - WARNING -   Record id=148 has zero Stage 1 concepts; skipping.
+2026-04-18 13:51:39,027 - INFO - Batch JSONL written: results/olmo2_7b/pretraining/batch_e2_rank/batch_input.jsonl
+2026-04-18 13:51:39,027 - INFO -   Total requests: 37
+2026-04-18 13:51:39,027 - INFO -   Skipped (zero concepts): 1
+2026-04-18 13:51:39,027 - INFO -   Rank prompt version: v1_ranking
+2026-04-18 13:51:39,027 - INFO - Uploading batch file to OpenAI...
+2026-04-18 13:51:39,789 - INFO - HTTP Request: POST https://api.openai.com/v1/files "HTTP/1.1 200 OK"
+2026-04-18 13:51:39,791 - INFO -   File uploaded: id=file-Bz6hNK895w9uU8D9YjNFF8
+2026-04-18 13:51:39,791 - INFO - Creating batch...
+2026-04-18 13:51:40,135 - INFO - HTTP Request: POST https://api.openai.com/v1/batches "HTTP/1.1 200 OK"
+2026-04-18 13:51:40,138 - INFO -   Batch created: id=batch_69e3c4abd8e08190853cc03ceee9e490, status=validating
+2026-04-18 13:51:40,138 - INFO - 
+2026-04-18 13:51:40,138 - INFO - ======================================================================
+2026-04-18 13:51:40,138 - INFO - BATCH SUBMITTED SUCCESSFULLY
+2026-04-18 13:51:40,138 - INFO -   Batch ID: batch_69e3c4abd8e08190853cc03ceee9e490
+2026-04-18 13:51:40,138 - INFO -   To collect results, run:
+2026-04-18 13:51:40,139 - INFO -     python e2_rank_concepts.py --model olmo2-7b --training-phase pretraining --config standard --collect
+2026-04-18 13:51:40,139 - INFO - ======================================================================
+2026-04-18 13:51:40,139 - INFO -   Batch metadata saved to results/olmo2_7b/pretraining/batch_e2_rank/batch_metadata.json
+2026-04-18 14:23:52,992 - INFO - Logging to logs/olmo2_7b/e2_rank_concepts_standard.log
+2026-04-18 14:23:53,025 - INFO - ======================================================================
+2026-04-18 14:23:53,025 - INFO - E2 Stage 2 — LLM-Based Concept Ranking
+2026-04-18 14:23:53,025 - INFO -   Model: olmo2-7b
+2026-04-18 14:23:53,026 - INFO -   Training phase: pretraining
+2026-04-18 14:23:53,026 - INFO -   HarmBench config: standard
+2026-04-18 14:23:53,026 - INFO -   Results root: results/olmo2_7b/pretraining
+2026-04-18 14:23:53,026 - INFO -   Rank LLM: gpt-5.4-mini
+2026-04-18 14:23:53,026 - INFO -   Rank prompt version: v1_ranking
+2026-04-18 14:23:53,026 - INFO - ======================================================================
+2026-04-18 14:23:53,028 - INFO - Loaded 38 records from Stage 1 output
+2026-04-18 14:23:53,028 - INFO -   id=3, n_concepts=30, semantic_category=illegal
+2026-04-18 14:23:53,028 - INFO -   id=14, n_concepts=7, semantic_category=illegal
+2026-04-18 14:23:53,028 - INFO -   id=17, n_concepts=18, semantic_category=chemical_biological
+2026-04-18 14:23:53,028 - INFO -   id=23, n_concepts=2, semantic_category=illegal
+2026-04-18 14:23:53,028 - INFO -   id=31, n_concepts=8, semantic_category=misinformation_disinformation
+2026-04-18 14:23:53,028 - INFO -   id=40, n_concepts=1, semantic_category=misinformation_disinformation
+2026-04-18 14:23:53,028 - INFO -   id=63, n_concepts=3, semantic_category=harassment_bullying
+2026-04-18 14:23:53,028 - INFO -   id=64, n_concepts=2, semantic_category=harassment_bullying
+2026-04-18 14:23:53,028 - INFO -   id=65, n_concepts=1, semantic_category=harassment_bullying
+2026-04-18 14:23:53,028 - INFO -   id=83, n_concepts=6, semantic_category=cybercrime_intrusion
+2026-04-18 14:23:53,028 - INFO -   id=85, n_concepts=3, semantic_category=chemical_biological
+2026-04-18 14:23:53,028 - INFO -   id=88, n_concepts=4, semantic_category=illegal
+2026-04-18 14:23:53,028 - INFO -   id=90, n_concepts=8, semantic_category=cybercrime_intrusion
+2026-04-18 14:23:53,028 - INFO -   id=91, n_concepts=3, semantic_category=misinformation_disinformation
+2026-04-18 14:23:53,028 - INFO -   id=99, n_concepts=3, semantic_category=harassment_bullying
+2026-04-18 14:23:53,028 - INFO -   id=103, n_concepts=4, semantic_category=harassment_bullying
+2026-04-18 14:23:53,028 - INFO -   id=107, n_concepts=15, semantic_category=illegal
+2026-04-18 14:23:53,028 - INFO -   id=110, n_concepts=7, semantic_category=harmful
+2026-04-18 14:23:53,028 - INFO -   id=117, n_concepts=14, semantic_category=cybercrime_intrusion
+2026-04-18 14:23:53,028 - INFO -   id=119, n_concepts=7, semantic_category=illegal
+2026-04-18 14:23:53,029 - INFO -   id=122, n_concepts=8, semantic_category=illegal
+2026-04-18 14:23:53,029 - INFO -   id=125, n_concepts=3, semantic_category=chemical_biological
+2026-04-18 14:23:53,029 - INFO -   id=129, n_concepts=1, semantic_category=illegal
+2026-04-18 14:23:53,029 - INFO -   id=132, n_concepts=4, semantic_category=harmful
+2026-04-18 14:23:53,029 - INFO -   id=135, n_concepts=14, semantic_category=cybercrime_intrusion
+2026-04-18 14:23:53,029 - INFO -   id=138, n_concepts=6, semantic_category=cybercrime_intrusion
+2026-04-18 14:23:53,029 - INFO -   id=143, n_concepts=16, semantic_category=cybercrime_intrusion
+2026-04-18 14:23:53,029 - INFO -   id=148, n_concepts=0, semantic_category=harmful
+2026-04-18 14:23:53,029 - INFO -   id=149, n_concepts=10, semantic_category=harassment_bullying
+2026-04-18 14:23:53,029 - INFO -   id=153, n_concepts=7, semantic_category=harassment_bullying
+2026-04-18 14:23:53,029 - INFO -   id=156, n_concepts=6, semantic_category=illegal
+2026-04-18 14:23:53,029 - INFO -   id=160, n_concepts=4, semantic_category=illegal
+2026-04-18 14:23:53,029 - INFO -   id=163, n_concepts=4, semantic_category=illegal
+2026-04-18 14:23:53,029 - INFO -   id=165, n_concepts=13, semantic_category=chemical_biological
+2026-04-18 14:23:53,029 - INFO -   id=184, n_concepts=19, semantic_category=cybercrime_intrusion
+2026-04-18 14:23:53,029 - INFO -   id=185, n_concepts=9, semantic_category=cybercrime_intrusion
+2026-04-18 14:23:53,029 - INFO -   id=193, n_concepts=6, semantic_category=chemical_biological
+2026-04-18 14:23:53,029 - INFO -   id=199, n_concepts=38, semantic_category=chemical_biological
+2026-04-18 14:23:53,029 - INFO - Loaded batch_id from metadata: batch_69e3c4abd8e08190853cc03ceee9e490
+2026-04-18 14:23:53,029 - INFO - Checking batch status for batch_69e3c4abd8e08190853cc03ceee9e490 ...
+2026-04-18 14:23:53,472 - INFO - HTTP Request: GET https://api.openai.com/v1/batches/batch_69e3c4abd8e08190853cc03ceee9e490 "HTTP/1.1 200 OK"
+2026-04-18 14:23:53,475 - INFO -   Status: completed
+2026-04-18 14:23:53,476 - INFO -   Request counts: BatchRequestCounts(completed=37, failed=0, total=37)
+2026-04-18 14:23:53,476 - INFO -   Downloading output file: file-6PRHfJdGocQrWJ8BuNBjLx
+2026-04-18 14:23:53,936 - INFO - HTTP Request: GET https://api.openai.com/v1/files/file-6PRHfJdGocQrWJ8BuNBjLx/content "HTTP/1.1 200 OK"
+2026-04-18 14:23:54,097 - INFO -   Raw output saved to results/olmo2_7b/pretraining/batch_e2_rank/batch_output.jsonl
+2026-04-18 14:23:54,098 - INFO -   Record id=3: 30 concepts ranked
+2026-04-18 14:23:54,098 - INFO -   Record id=14: 7 concepts ranked
+2026-04-18 14:23:54,098 - INFO -   Record id=17: 18 concepts ranked
+2026-04-18 14:23:54,098 - INFO -   Record id=23: 2 concepts ranked
+2026-04-18 14:23:54,098 - INFO -   Record id=31: 8 concepts ranked
+2026-04-18 14:23:54,098 - INFO -   Record id=40: 1 concepts ranked
+2026-04-18 14:23:54,099 - INFO -   Record id=63: 3 concepts ranked
+2026-04-18 14:23:54,099 - INFO -   Record id=64: 2 concepts ranked
+2026-04-18 14:23:54,099 - INFO -   Record id=65: 1 concepts ranked
+2026-04-18 14:23:54,099 - INFO -   Record id=83: 6 concepts ranked
+2026-04-18 14:23:54,099 - INFO -   Record id=85: 3 concepts ranked
+2026-04-18 14:23:54,099 - INFO -   Record id=88: 4 concepts ranked
+2026-04-18 14:23:54,099 - INFO -   Record id=90: 8 concepts ranked
+2026-04-18 14:23:54,099 - INFO -   Record id=91: 3 concepts ranked
+2026-04-18 14:23:54,099 - INFO -   Record id=99: 3 concepts ranked
+2026-04-18 14:23:54,099 - INFO -   Record id=103: 4 concepts ranked
+2026-04-18 14:23:54,099 - INFO -   Record id=107: 15 concepts ranked
+2026-04-18 14:23:54,100 - INFO -   Record id=110: 7 concepts ranked
+2026-04-18 14:23:54,100 - INFO -   Record id=117: 14 concepts ranked
+2026-04-18 14:23:54,100 - INFO -   Record id=119: 7 concepts ranked
+2026-04-18 14:23:54,100 - INFO -   Record id=122: 8 concepts ranked
+2026-04-18 14:23:54,100 - INFO -   Record id=125: 3 concepts ranked
+2026-04-18 14:23:54,100 - INFO -   Record id=129: 1 concepts ranked
+2026-04-18 14:23:54,100 - INFO -   Record id=132: 4 concepts ranked
+2026-04-18 14:23:54,101 - INFO -   Record id=135: 14 concepts ranked
+2026-04-18 14:23:54,101 - INFO -   Record id=138: 6 concepts ranked
+2026-04-18 14:23:54,101 - INFO -   Record id=143: 16 concepts ranked
+2026-04-18 14:23:54,101 - INFO -   Record id=149: 10 concepts ranked
+2026-04-18 14:23:54,101 - INFO -   Record id=153: 7 concepts ranked
+2026-04-18 14:23:54,101 - INFO -   Record id=156: 6 concepts ranked
+2026-04-18 14:23:54,101 - INFO -   Record id=160: 4 concepts ranked
+2026-04-18 14:23:54,101 - INFO -   Record id=163: 4 concepts ranked
+2026-04-18 14:23:54,101 - INFO -   Record id=165: 13 concepts ranked
+2026-04-18 14:23:54,102 - INFO -   Record id=184: 19 concepts ranked
+2026-04-18 14:23:54,102 - INFO -   Record id=185: 9 concepts ranked
+2026-04-18 14:23:54,102 - INFO -   Record id=193: 6 concepts ranked
+2026-04-18 14:23:54,102 - INFO -   Record id=199: 38 concepts ranked
+2026-04-18 14:23:54,106 - INFO - ======================================================================
+2026-04-18 14:23:54,106 - INFO - COLLECTION COMPLETE
+2026-04-18 14:23:54,106 - INFO -   Total records: 37
+2026-04-18 14:23:54,106 - INFO -   Errors: 0
+2026-04-18 14:23:54,107 - INFO -   Output saved to: results/olmo2_7b/pretraining/e2_concepts_ranked_standard.json
+2026-04-18 14:23:54,107 - INFO - ======================================================================

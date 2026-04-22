@@ -1,0 +1,34 @@
+2026-04-16 23:12:26,008 - __main__ - INFO - Logging to file: logs/olmo2_32b/harmbench_copyright.log
+2026-04-16 23:12:26,010 - __main__ - INFO - ======================================================================
+2026-04-16 23:12:26,010 - __main__ - INFO - === Job started at Thu Apr 16 11:12:26 PM  2026 ===
+2026-04-16 23:12:26,010 - __main__ - INFO - ======================================================================
+2026-04-16 23:12:26,010 - __main__ - INFO - Model key       : olmo2-32b
+2026-04-16 23:12:26,010 - __main__ - INFO - HuggingFace ID  : allenai/OLMo-2-0325-32B
+2026-04-16 23:12:26,010 - __main__ - INFO - Model type      : base
+2026-04-16 23:12:26,010 - __main__ - INFO - Max context len : 4096
+2026-04-16 23:12:26,011 - __main__ - INFO - Max new tokens  : 1024
+2026-04-16 23:12:26,011 - __main__ - INFO - Config (category): copyright
+2026-04-16 23:12:26,011 - __main__ - INFO - Output JSON     : /lustre/nvwulf/projects/ZhouGroup-nvwulf/Users/solhapark/pretraining-trace/data/olmo2_32b/harmbench_copyright.json
+2026-04-16 23:12:26,011 - __main__ - INFO - Seed            : 42
+2026-04-16 23:12:26,143 - __main__ - INFO - Total rows in CSV: 400, After filtering 'copyright': 100
+2026-04-16 23:12:26,145 - __main__ - INFO - Device: cuda
+2026-04-16 23:12:26,145 - __main__ - INFO - Loading tokenizer: allenai/OLMo-2-0325-32B ...
+2026-04-16 23:12:26,535 - __main__ - INFO - Loading model: allenai/OLMo-2-0325-32B ...
+2026-04-16 23:12:26,645 - __main__ - INFO - Pre-load status (torch): gpu=0 (NVIDIA RTX PRO 6000 Blackwell Server Edition), allocated=0.00 GiB, reserved=0.00 GiB
+2026-04-16 23:12:26,663 - __main__ - INFO - Pre-load status (nvidia-smi): 0, 0, 559, 97887
+2026-04-17 02:04:02,137 - __main__ - INFO - Post-load status (torch): gpu=0 (NVIDIA RTX PRO 6000 Blackwell Server Edition), allocated=60.04 GiB, reserved=60.04 GiB
+2026-04-17 02:04:02,182 - __main__ - INFO - Post-load status (nvidia-smi): 0, 43, 62043, 97887
+2026-04-17 02:04:02,182 - __main__ - INFO - Model loaded successfully: allenai/OLMo-2-0325-32B
+2026-04-17 02:47:47,125 - __main__ - INFO - Results saved to: /lustre/nvwulf/projects/ZhouGroup-nvwulf/Users/solhapark/pretraining-trace/data/olmo2_32b/harmbench_copyright.json
+2026-04-17 02:47:47,164 - __main__ - INFO - ======================================================================
+2026-04-17 02:47:47,164 - __main__ - INFO - SUMMARY
+2026-04-17 02:47:47,164 - __main__ - INFO - ======================================================================
+2026-04-17 02:47:47,164 - __main__ - INFO -   Model          : olmo2-32b (allenai/OLMo-2-0325-32B)
+2026-04-17 02:47:47,164 - __main__ - INFO -   Config         : copyright
+2026-04-17 02:47:47,164 - __main__ - INFO -   Total records  : 100
+2026-04-17 02:47:47,167 - __main__ - INFO -   Successful     : 100
+2026-04-17 02:47:47,168 - __main__ - INFO -   Errors         : 0
+2026-04-17 02:47:47,168 - __main__ - INFO -   Finish reason  : eos=64, length=36
+2026-04-17 02:47:47,168 - __main__ - INFO -   Response tokens: min=2, max=1024, mean=516.5
+2026-04-17 02:47:47,169 - __main__ - INFO - === Job finished at Fri Apr 17 02:47:47 AM  2026 ===
+2026-04-17 02:47:47,169 - __main__ - INFO - === Elapsed time: 0 days 03:35:21 (total 12921.157 seconds) ===

@@ -1,0 +1,30 @@
+2026-04-16 15:11:00,104 - __main__ - INFO - Logging to file: logs/olmo2_7b/harmbench_contextual.log
+2026-04-16 15:11:00,106 - __main__ - INFO - ======================================================================
+2026-04-16 15:11:00,106 - __main__ - INFO - === Job started at Thu Apr 16 03:11:00 PM  2026 ===
+2026-04-16 15:11:00,106 - __main__ - INFO - ======================================================================
+2026-04-16 15:11:00,106 - __main__ - INFO - Model key       : olmo2-7b
+2026-04-16 15:11:00,106 - __main__ - INFO - HuggingFace ID  : allenai/OLMo-2-1124-7B
+2026-04-16 15:11:00,106 - __main__ - INFO - Model type      : base
+2026-04-16 15:11:00,106 - __main__ - INFO - Max context len : 4096
+2026-04-16 15:11:00,106 - __main__ - INFO - Max new tokens  : 1024
+2026-04-16 15:11:00,106 - __main__ - INFO - Config (category): contextual
+2026-04-16 15:11:00,106 - __main__ - INFO - Output JSON     : /lustre/nvwulf/projects/ZhouGroup-nvwulf/Users/solhapark/pretraining-trace/data/olmo2-7b/harmbench_contextual.json
+2026-04-16 15:11:00,106 - __main__ - INFO - Seed            : 42
+2026-04-16 15:11:00,361 - __main__ - INFO - Total rows in CSV: 400, After filtering 'contextual': 100
+2026-04-16 15:11:00,362 - __main__ - INFO - Device: cuda
+2026-04-16 15:11:00,362 - __main__ - INFO - Loading tokenizer: allenai/OLMo-2-1124-7B ...
+2026-04-16 15:11:00,790 - __main__ - INFO - Loading model: allenai/OLMo-2-1124-7B ...
+2026-04-16 15:52:37,788 - __main__ - INFO - Model loaded successfully: allenai/OLMo-2-1124-7B
+2026-04-16 16:12:19,587 - __main__ - INFO - Results saved to: /lustre/nvwulf/projects/ZhouGroup-nvwulf/Users/solhapark/pretraining-trace/data/olmo2-7b/harmbench_contextual.json
+2026-04-16 16:12:19,592 - __main__ - INFO - ======================================================================
+2026-04-16 16:12:19,592 - __main__ - INFO - SUMMARY
+2026-04-16 16:12:19,592 - __main__ - INFO - ======================================================================
+2026-04-16 16:12:19,592 - __main__ - INFO -   Model          : olmo2-7b (allenai/OLMo-2-1124-7B)
+2026-04-16 16:12:19,592 - __main__ - INFO -   Config         : contextual
+2026-04-16 16:12:19,592 - __main__ - INFO -   Total records  : 100
+2026-04-16 16:12:19,593 - __main__ - INFO -   Successful     : 100
+2026-04-16 16:12:19,593 - __main__ - INFO -   Errors         : 0
+2026-04-16 16:12:19,593 - __main__ - INFO -   Finish reason  : eos=21, length=79
+2026-04-16 16:12:19,593 - __main__ - INFO -   Response tokens: min=2, max=1024, mean=840.9
+2026-04-16 16:12:19,593 - __main__ - INFO - === Job finished at Thu Apr 16 04:12:19 PM  2026 ===
+2026-04-16 16:12:19,593 - __main__ - INFO - === Elapsed time: 0 days 01:01:19 (total 3679.487 seconds) ===

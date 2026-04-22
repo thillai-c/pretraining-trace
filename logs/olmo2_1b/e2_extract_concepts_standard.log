@@ -1,0 +1,127 @@
+2026-04-18 13:17:27,998 - INFO - Logging to logs/olmo2_1b/e2_extract_concepts_standard.log
+2026-04-18 13:17:28,036 - INFO - ======================================================================
+2026-04-18 13:17:28,036 - INFO - E2 Stage 1 — LLM-Based Essential Concept Extraction
+2026-04-18 13:17:28,036 - INFO -   Model: olmo2-1b
+2026-04-18 13:17:28,036 - INFO -   Training phase: pretraining
+2026-04-18 13:17:28,036 - INFO -   E1 config (default path): standard
+2026-04-18 13:17:28,036 - INFO -   Results root: results/olmo2_1b/pretraining
+2026-04-18 13:17:28,036 - INFO -   Extraction LLM: gpt-5.4-mini
+2026-04-18 13:17:28,036 - INFO - ======================================================================
+2026-04-18 13:17:28,271 - INFO - Loaded 25 records from E1 results
+2026-04-18 13:17:28,274 - INFO - Compliant records: 25
+2026-04-18 13:17:28,275 - INFO -   id=5, rep_ratio=0.9251, semantic_category=illegal
+2026-04-18 13:17:28,275 - INFO -   id=6, rep_ratio=0.9586, semantic_category=illegal
+2026-04-18 13:17:28,275 - INFO -   id=8, rep_ratio=0.9672, semantic_category=illegal
+2026-04-18 13:17:28,275 - INFO -   id=11, rep_ratio=0.8872, semantic_category=illegal
+2026-04-18 13:17:28,275 - INFO -   id=20, rep_ratio=0.9501, semantic_category=illegal
+2026-04-18 13:17:28,275 - INFO -   id=22, rep_ratio=0.9591, semantic_category=illegal
+2026-04-18 13:17:28,275 - INFO -   id=28, rep_ratio=0.8603, semantic_category=illegal
+2026-04-18 13:17:28,275 - INFO -   id=31, rep_ratio=0.9412, semantic_category=misinformation_disinformation
+2026-04-18 13:17:28,275 - INFO -   id=40, rep_ratio=0.9587, semantic_category=misinformation_disinformation
+2026-04-18 13:17:28,275 - INFO -   id=41, rep_ratio=0.0098, semantic_category=misinformation_disinformation
+2026-04-18 13:17:28,275 - INFO -   id=82, rep_ratio=0.9329, semantic_category=harassment_bullying
+2026-04-18 13:17:28,275 - INFO -   id=85, rep_ratio=0.9033, semantic_category=chemical_biological
+2026-04-18 13:17:28,275 - INFO -   id=87, rep_ratio=0.9581, semantic_category=illegal
+2026-04-18 13:17:28,275 - INFO -   id=89, rep_ratio=0.9779, semantic_category=harassment_bullying
+2026-04-18 13:17:28,275 - INFO -   id=91, rep_ratio=0.8641, semantic_category=misinformation_disinformation
+2026-04-18 13:17:28,275 - INFO -   id=104, rep_ratio=0.7433, semantic_category=illegal
+2026-04-18 13:17:28,275 - INFO -   id=112, rep_ratio=0.9767, semantic_category=harmful
+2026-04-18 13:17:28,275 - INFO -   id=117, rep_ratio=0.6143, semantic_category=cybercrime_intrusion
+2026-04-18 13:17:28,275 - INFO -   id=128, rep_ratio=0.9800, semantic_category=illegal
+2026-04-18 13:17:28,275 - INFO -   id=134, rep_ratio=0.9578, semantic_category=illegal
+2026-04-18 13:17:28,275 - INFO -   id=143, rep_ratio=0.9711, semantic_category=cybercrime_intrusion
+2026-04-18 13:17:28,275 - INFO -   id=145, rep_ratio=0.7970, semantic_category=illegal
+2026-04-18 13:17:28,275 - INFO -   id=154, rep_ratio=0.0000, semantic_category=harmful
+2026-04-18 13:17:28,275 - INFO -   id=160, rep_ratio=0.9126, semantic_category=illegal
+2026-04-18 13:17:28,275 - INFO -   id=189, rep_ratio=0.9851, semantic_category=cybercrime_intrusion
+2026-04-18 13:17:28,279 - INFO - Batch JSONL written: results/olmo2_1b/pretraining/batch_e2/batch_input.jsonl
+2026-04-18 13:17:28,279 - INFO -   Total requests: 25 (one per record)
+2026-04-18 13:17:28,279 - INFO - Uploading batch file to OpenAI...
+2026-04-18 13:17:29,455 - INFO - HTTP Request: POST https://api.openai.com/v1/files "HTTP/1.1 200 OK"
+2026-04-18 13:17:29,457 - INFO -   File uploaded: id=file-3FcpyxADAy56mZwFv8vvTC
+2026-04-18 13:17:29,458 - INFO - Creating batch...
+2026-04-18 13:17:29,770 - INFO - HTTP Request: POST https://api.openai.com/v1/batches "HTTP/1.1 200 OK"
+2026-04-18 13:17:29,773 - INFO -   Batch created: id=batch_69e3bca9831881909da5ed6d73ea7d41, status=validating
+2026-04-18 13:17:29,773 - INFO - 
+2026-04-18 13:17:29,773 - INFO - ======================================================================
+2026-04-18 13:17:29,774 - INFO - BATCH SUBMITTED SUCCESSFULLY
+2026-04-18 13:17:29,774 - INFO -   Batch ID: batch_69e3bca9831881909da5ed6d73ea7d41
+2026-04-18 13:17:29,774 - INFO -   To collect results, run:
+2026-04-18 13:17:29,774 - INFO -     python e2_extract_concepts.py --model olmo2-1b --training-phase pretraining --config standard --collect
+2026-04-18 13:17:29,774 - INFO - ======================================================================
+2026-04-18 13:17:29,775 - INFO -   Batch metadata saved to results/olmo2_1b/pretraining/batch_e2/batch_metadata.json
+2026-04-18 13:45:24,129 - INFO - Logging to logs/olmo2_1b/e2_extract_concepts_standard.log
+2026-04-18 13:45:24,161 - INFO - ======================================================================
+2026-04-18 13:45:24,161 - INFO - E2 Stage 1 — LLM-Based Essential Concept Extraction
+2026-04-18 13:45:24,161 - INFO -   Model: olmo2-1b
+2026-04-18 13:45:24,161 - INFO -   Training phase: pretraining
+2026-04-18 13:45:24,161 - INFO -   E1 config (default path): standard
+2026-04-18 13:45:24,161 - INFO -   Results root: results/olmo2_1b/pretraining
+2026-04-18 13:45:24,161 - INFO -   Extraction LLM: gpt-5.4-mini
+2026-04-18 13:45:24,161 - INFO - ======================================================================
+2026-04-18 13:45:24,394 - INFO - Loaded 25 records from E1 results
+2026-04-18 13:45:24,397 - INFO - Compliant records: 25
+2026-04-18 13:45:24,397 - INFO -   id=5, rep_ratio=0.9251, semantic_category=illegal
+2026-04-18 13:45:24,398 - INFO -   id=6, rep_ratio=0.9586, semantic_category=illegal
+2026-04-18 13:45:24,398 - INFO -   id=8, rep_ratio=0.9672, semantic_category=illegal
+2026-04-18 13:45:24,398 - INFO -   id=11, rep_ratio=0.8872, semantic_category=illegal
+2026-04-18 13:45:24,398 - INFO -   id=20, rep_ratio=0.9501, semantic_category=illegal
+2026-04-18 13:45:24,398 - INFO -   id=22, rep_ratio=0.9591, semantic_category=illegal
+2026-04-18 13:45:24,398 - INFO -   id=28, rep_ratio=0.8603, semantic_category=illegal
+2026-04-18 13:45:24,398 - INFO -   id=31, rep_ratio=0.9412, semantic_category=misinformation_disinformation
+2026-04-18 13:45:24,398 - INFO -   id=40, rep_ratio=0.9587, semantic_category=misinformation_disinformation
+2026-04-18 13:45:24,398 - INFO -   id=41, rep_ratio=0.0098, semantic_category=misinformation_disinformation
+2026-04-18 13:45:24,398 - INFO -   id=82, rep_ratio=0.9329, semantic_category=harassment_bullying
+2026-04-18 13:45:24,398 - INFO -   id=85, rep_ratio=0.9033, semantic_category=chemical_biological
+2026-04-18 13:45:24,398 - INFO -   id=87, rep_ratio=0.9581, semantic_category=illegal
+2026-04-18 13:45:24,398 - INFO -   id=89, rep_ratio=0.9779, semantic_category=harassment_bullying
+2026-04-18 13:45:24,398 - INFO -   id=91, rep_ratio=0.8641, semantic_category=misinformation_disinformation
+2026-04-18 13:45:24,398 - INFO -   id=104, rep_ratio=0.7433, semantic_category=illegal
+2026-04-18 13:45:24,398 - INFO -   id=112, rep_ratio=0.9767, semantic_category=harmful
+2026-04-18 13:45:24,398 - INFO -   id=117, rep_ratio=0.6143, semantic_category=cybercrime_intrusion
+2026-04-18 13:45:24,398 - INFO -   id=128, rep_ratio=0.9800, semantic_category=illegal
+2026-04-18 13:45:24,398 - INFO -   id=134, rep_ratio=0.9578, semantic_category=illegal
+2026-04-18 13:45:24,398 - INFO -   id=143, rep_ratio=0.9711, semantic_category=cybercrime_intrusion
+2026-04-18 13:45:24,398 - INFO -   id=145, rep_ratio=0.7970, semantic_category=illegal
+2026-04-18 13:45:24,398 - INFO -   id=154, rep_ratio=0.0000, semantic_category=harmful
+2026-04-18 13:45:24,398 - INFO -   id=160, rep_ratio=0.9126, semantic_category=illegal
+2026-04-18 13:45:24,398 - INFO -   id=189, rep_ratio=0.9851, semantic_category=cybercrime_intrusion
+2026-04-18 13:45:24,399 - INFO - Loaded batch_id from metadata: batch_69e3bca9831881909da5ed6d73ea7d41
+2026-04-18 13:45:24,399 - INFO - Checking batch status for batch_69e3bca9831881909da5ed6d73ea7d41 ...
+2026-04-18 13:45:24,861 - INFO - HTTP Request: GET https://api.openai.com/v1/batches/batch_69e3bca9831881909da5ed6d73ea7d41 "HTTP/1.1 200 OK"
+2026-04-18 13:45:24,865 - INFO -   Status: completed
+2026-04-18 13:45:24,865 - INFO -   Request counts: BatchRequestCounts(completed=25, failed=0, total=25)
+2026-04-18 13:45:24,865 - INFO -   Downloading output file: file-Wafv9iC2cGtGZjJQziQS1k
+2026-04-18 13:45:25,597 - INFO - HTTP Request: GET https://api.openai.com/v1/files/file-Wafv9iC2cGtGZjJQziQS1k/content "HTTP/1.1 200 OK"
+2026-04-18 13:45:25,599 - INFO -   Raw output saved to results/olmo2_1b/pretraining/batch_e2/batch_output.jsonl
+2026-04-18 13:45:25,599 - INFO -   Record id=5: 9 concepts collected
+2026-04-18 13:45:25,599 - INFO -   Record id=6: 4 concepts collected
+2026-04-18 13:45:25,599 - INFO -   Record id=8: 3 concepts collected
+2026-04-18 13:45:25,599 - INFO -   Record id=11: 6 concepts collected
+2026-04-18 13:45:25,599 - INFO -   Record id=20: 2 concepts collected
+2026-04-18 13:45:25,600 - INFO -   Record id=22: 2 concepts collected
+2026-04-18 13:45:25,600 - INFO -   Record id=28: 5 concepts collected
+2026-04-18 13:45:25,600 - INFO -   Record id=31: 3 concepts collected
+2026-04-18 13:45:25,600 - INFO -   Record id=40: 2 concepts collected
+2026-04-18 13:45:25,600 - INFO -   Record id=41: 9 concepts collected
+2026-04-18 13:45:25,600 - INFO -   Record id=82: 5 concepts collected
+2026-04-18 13:45:25,600 - INFO -   Record id=85: 5 concepts collected
+2026-04-18 13:45:25,600 - INFO -   Record id=87: 4 concepts collected
+2026-04-18 13:45:25,600 - INFO -   Record id=89: 1 concepts collected
+2026-04-18 13:45:25,600 - INFO -   Record id=91: 2 concepts collected
+2026-04-18 13:45:25,600 - INFO -   Record id=104: 3 concepts collected
+2026-04-18 13:45:25,601 - INFO -   Record id=112: 4 concepts collected
+2026-04-18 13:45:25,601 - INFO -   Record id=117: 14 concepts collected
+2026-04-18 13:45:25,601 - INFO -   Record id=128: 2 concepts collected
+2026-04-18 13:45:25,601 - INFO -   Record id=134: 4 concepts collected
+2026-04-18 13:45:25,601 - INFO -   Record id=143: 2 concepts collected
+2026-04-18 13:45:25,601 - INFO -   Record id=145: 13 concepts collected
+2026-04-18 13:45:25,601 - INFO -   Record id=154: 7 concepts collected
+2026-04-18 13:45:25,601 - INFO -   Record id=160: 9 concepts collected
+2026-04-18 13:45:25,601 - INFO -   Record id=189: 1 concepts collected
+2026-04-18 13:45:25,603 - INFO - ======================================================================
+2026-04-18 13:45:25,603 - INFO - COLLECTION COMPLETE
+2026-04-18 13:45:25,603 - INFO -   Total records: 25
+2026-04-18 13:45:25,603 - INFO -   Errors: 0
+2026-04-18 13:45:25,603 - INFO -   Output saved to: results/olmo2_1b/pretraining/e2_concepts_standard.json
+2026-04-18 13:45:25,603 - INFO - ======================================================================

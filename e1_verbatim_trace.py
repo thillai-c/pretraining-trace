@@ -13,12 +13,16 @@ Usage:
     # GPT-J (local engine, Pile-train index)
     python e1_verbatim_trace.py \
         --model gpt-j \
-        --index_dir ./index
+        --index_dir ./index/the-pile \
+        --config standard
 
-    # OLMo 2 with custom API index
+    # OLMo 2 with custom API index (single config)
     python e1_verbatim_trace.py \
         --model olmo2-7b \
-        --api_index v4_olmo-mix-1124_llama
+        --api_index v4_olmo-mix-1124_llama \
+        --config contextual
+    
+    python e1_verbatim_trace.py --model olmo2-7b --api_index v4_olmo-mix-1124_llama --config contextual
 
     # OLMo 2 with local dolmino index (mid-training; default output: results/{model}/mid_training/...)
     python e1_verbatim_trace.py \
@@ -46,7 +50,6 @@ import sys
 import time
 from datetime import datetime
 
-import requests
 from dotenv import load_dotenv
 
 # Path setup
@@ -58,119 +61,8 @@ if PKG_DIR not in sys.path:
     sys.path.insert(0, PKG_DIR)
 
 from transformers import AutoTokenizer
-
-
-# Model configuration
-MODEL_CONFIGS = {
-    "gpt-j":              {"out_dir": "gpt_j_6b"},
-    "olmo2-1b":           {"out_dir": "olmo2_1b"},
-    "olmo2-7b":           {"out_dir": "olmo2_7b"},
-    "olmo2-13b":          {"out_dir": "olmo2_13b"},
-    "olmo2-32b":          {"out_dir": "olmo2_32b"},
-    "olmo2-1b-instruct":  {"out_dir": "olmo2_1b_instruct"},
-    "olmo2-7b-instruct":  {"out_dir": "olmo2_7b_instruct"},
-    "olmo2-13b-instruct": {"out_dir": "olmo2_13b_instruct"},
-    "olmo2-32b-instruct": {"out_dir": "olmo2_32b_instruct"},
-}
-
-
-# ===========================================================================
-# InfiniGramAPIEngine: HTTP API wrapper matching local engine interface
-# ===========================================================================
-class InfiniGramAPIEngine:
-    """Wrapper around the infini-gram HTTP API that mimics the local InfiniGramEngine interface (count, find, get_doc_by_rank).
-
-    The API endpoint accepts JSON POST requests.  We use ``query_ids`` (list of token IDs) rather than ``query`` (string) so that
-    tokenization stays under our control — identical to the local engine workflow.
-    """
-
-    API_URL = "https://api.infini-gram.io/"
-
-    def __init__(self, index: str, max_retries: int = 8,
-                 retry_delay: float = 5.0):
-        self.index = index
-        self.max_retries = max_retries
-        self.retry_delay = retry_delay
-        self.session = requests.Session()
-
-    # Internal helper: POST with retry
-    def _post(self, payload: dict) -> dict:
-        """Send a POST request to the API with exponential-backoff retry."""
-        delay = self.retry_delay
-        for attempt in range(1, self.max_retries + 1):
-            try:
-                resp = self.session.post(
-                    self.API_URL,
-                    json=payload,
-                    timeout=60,
-                )
-                if resp.status_code == 200:
-                    data = resp.json()
-                    if "error" in data:
-                        raise RuntimeError(
-                            f"API returned error: {data['error']}")
-                    time.sleep(1)  # 500ms delay between API calls
-                    return data
-
-                # Retryable status codes (including 403 for rate limiting)
-                if resp.status_code in (403, 429, 500, 502, 503, 504):
-                    if attempt < self.max_retries:
-                        time.sleep(delay)
-                        delay *= 2
-                        continue
-                    resp.raise_for_status()
-
-                # Non-retryable error
-                resp.raise_for_status()
-
-            except requests.exceptions.ConnectionError:
-                if attempt < self.max_retries:
-                    time.sleep(delay)
-                    delay *= 2
-                    continue
-                raise
-
-        # Should not reach here, but just in case
-        raise RuntimeError("API request failed after all retries")
-
-    def count(self, input_ids: list) -> dict:
-        """Count occurrences of the token ID sequence in the corpus.
-        If ``input_ids`` is empty, returns the total number of tokens in the corpus (used to obtain CORPUS_SIZE)."""
-        if len(input_ids) == 0:
-            # Empty string query → total token count
-            payload = {
-                "index": self.index,
-                "query_type": "count",
-                "query": "",
-            }
-        else:
-            payload = {
-                "index": self.index,
-                "query_type": "count",
-                "query_ids": input_ids,
-            }
-        return self._post(payload)
-
-    def find(self, input_ids: list) -> dict:
-        """Locate the token ID sequence in the corpus."""
-        payload = {
-            "index": self.index,
-            "query_type": "find",
-            "query_ids": input_ids,
-        }
-        return self._post(payload)
-
-    def get_doc_by_rank(self, s: int, rank: int, max_disp_len: int = 80, query_ids: list = None) -> dict:
-        payload = {
-            "index": self.index,
-            "query_type": "get_doc_by_rank",
-            "s": s,
-            "rank": rank,
-            "max_disp_len": max_disp_len,
-        }
-        if query_ids is not None:
-            payload["query_ids"] = query_ids
-        return self._post(payload)
+from infini_gram_api import InfiniGramAPIEngine
+from utils import MODEL_CONFIGS
 
 
 # ===========================================================================
@@ -180,23 +72,29 @@ def setup_logger(model_key: str, config: str = "standard"):
     """Create logger with model-based log directory.
     Log file: ``logs/{model_key}/e1_verbatim_trace.log``
     """
-    out_dir = MODEL_CONFIGS[model_key]["out_dir"]
+    out_dir = MODEL_CONFIGS[model_key]["out_dir_name"]
     log_dir = os.path.join("logs", out_dir)
     os.makedirs(log_dir, exist_ok=True)
     # timestamp = datetime.now().strftime("%Y%m%d-%H%M%S")
     log_filepath = os.path.join(
-        log_dir, f"e1_verbatim_trace.log"
+        log_dir, f"e1_verbatim_trace_{config}.log"
     )
 
-    logging.basicConfig(
-        level=logging.INFO,
-        format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-        handlers=[
-            logging.StreamHandler(sys.stdout),
-            logging.FileHandler(log_filepath, encoding="utf-8"),
-        ],
+    logger_name = f"e1_verbatim_trace.{model_key}.{config}"
+    logger = logging.getLogger(logger_name)
+    logger.setLevel(logging.INFO)
+    logger.propagate = False
+    logger.handlers.clear()
+
+    formatter = logging.Formatter(
+        "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
     )
-    logger = logging.getLogger(__name__)
+    sh = logging.StreamHandler(sys.stdout)
+    sh.setFormatter(formatter)
+    fh = logging.FileHandler(log_filepath, encoding="utf-8")
+    fh.setFormatter(formatter)
+    logger.addHandler(sh)
+    logger.addHandler(fh)
     logger.info("Logging to file: %s", log_filepath)
     return logger
 
@@ -244,7 +142,17 @@ def parse_args():
                         choices=list(MODEL_CONFIGS.keys()),
                         help="Model key (determines auto paths and log dir)")
     parser.add_argument("--config", type=str, default="standard",
-                        help="HarmBench config name (default: standard)")
+                        help="HarmBench config name (default: standard). "
+                             "If you want to run multiple configs in one invocation, "
+                             "use --configs.")
+    parser.add_argument(
+        "--configs",
+        type=str,
+        nargs="+",
+        default=None,
+        help="Run multiple HarmBench configs in one invocation. "
+             "Example: --configs standard contextual copyright",
+    )
 
     # I/O (auto-generated if not specified)
     parser.add_argument("--input", type=str, default=None,
@@ -294,27 +202,13 @@ def parse_args():
 
     args = parser.parse_args()
 
-    # Auto-generate input/output paths if not specified
-    model_dir = MODEL_CONFIGS[args.model]["out_dir"]
-    if args.input is None:
-        args.input = os.path.join(
-            "data", model_dir,
-            f"harmbench_{args.config}_labeled.json"
-        )
-    if args.output is None:
-        sub = e1_results_subdir(args)
-        if sub:
-            args.output = os.path.join(
-                "results", model_dir, sub,
-                f"e1_verbatim_{args.config}.json",
-            )
-        else:
-            args.output = os.path.join(
-                "results", model_dir,
-                f"e1_verbatim_{args.config}.json",
-            )
-
     return args
+
+
+def _resolve_configs(args) -> list:
+    if args.configs:
+        return list(args.configs)
+    return [args.config]
 
 
 # ===========================================================================
@@ -679,43 +573,18 @@ def init_engine(args, tokenizer, logger):
 # ===========================================================================
 def main():
     args = parse_args()
-    logger = setup_logger(args.model, args.config)
+    configs = _resolve_configs(args)
+    if not configs:
+        configs = [args.config]
 
-    logger.info("=== E1 Verbatim Trace started at %s ===",
-                datetime.now().strftime("%a %b %d %I:%M:%S %p %Z %Y"))
-    logger.info("Arguments: %s", vars(args))
-    start_time = time.time()
+    multi = len(configs) > 1
+    model_dir = MODEL_CONFIGS[args.model]["out_dir_name"]
+    logger0 = setup_logger(args.model, configs[0])
+    if multi:
+        logger0.info("Running configs: %s", ", ".join(configs))
 
-    # Determine backend mode for logging
-    if args.index_dir is not None:
-        logger.info("Backend: LOCAL engine (--index_dir=%s)", args.index_dir)
-    else:
-        logger.info("Backend: HTTP API (--api_index=%s)", args.api_index)
-
-    # Load input data
-    logger.info("Loading input from %s ...", args.input)
-    with open(args.input, "r", encoding="utf-8") as f:
-        records = json.load(f)
-    logger.info("Loaded %d records total", len(records))
-
-    # Filter records
-    if args.all_records:
-        target_records = records
-        logger.info("Processing ALL records (--all_records)")
-    else:
-        target_records = [r for r in records if r.get("hb_label") == 1]
-        logger.info("Filtered to %d compliant (hb_label=1) records", len(target_records))
-
-    if args.limit is not None and args.limit > 0:
-        target_records = target_records[:args.limit]
-        logger.info("Limited to %d records (--limit)", len(target_records))
-
-    if not target_records:
-        logger.warning("No records to process. Exiting.")
-        sys.exit(0)
-
-    # Initialize tokenizer
-    logger.info("Loading tokenizer: %s", args.tokenizer_name)
+    # Initialize tokenizer (shared across configs)
+    logger0.info("Loading tokenizer: %s", args.tokenizer_name)
     tokenizer = AutoTokenizer.from_pretrained(
         args.tokenizer_name,
         token=os.environ.get("HF_TOKEN"),
@@ -724,172 +593,242 @@ def main():
         add_eos_token=False,
     )
 
-    # Initialize engine (local or API)
-    engine, num_shards, corpus_size = init_engine(args, tokenizer, logger)
-    logger.info("CORPUS_SIZE = %d", corpus_size)
+    # Initialize engine (shared across configs)
+    engine, num_shards, corpus_size = init_engine(args, tokenizer, logger0)
 
-    # Process each record (with incremental save + resume)
-    os.makedirs(os.path.dirname(args.output) or ".", exist_ok=True)
+    def _format_path(path_template: str, config: str) -> str:
+        return path_template.format(model_dir=model_dir, config=config)
 
-    # Resume: load existing results if output file exists
-    results = []
-    completed_ids = set()
-    if os.path.isfile(args.output):
-        try:
-            with open(args.output, "r", encoding="utf-8") as f:
-                results = json.load(f)
-            for r in results:
-                if "error" not in r.get("e1", {}):
-                    completed_ids.add(r.get("id"))
-            logger.info("Resumed from %s: %d existing results (%d successful)",
-                        args.output, len(results), len(completed_ids))
-        except (json.JSONDecodeError, Exception) as e:
-            logger.warning("Could not load existing output (%s), starting fresh.", e)
-            results = []
-            completed_ids = set()
+    for config in configs:
+        logger = setup_logger(args.model, config)
 
-    for rec_idx, record in enumerate(target_records):
-        rec_id = record.get("id", rec_idx)
-        prompt = record.get("prompt", "")
-        response = record.get("response", "")
+        if args.input is None:
+            input_path = os.path.join("data", model_dir, f"harmbench_{config}_labeled.json")
+        else:
+            if ("{config}" in args.input) or ("{model_dir}" in args.input):
+                input_path = _format_path(args.input, config)
+            elif multi:
+                base, ext = os.path.splitext(args.input)
+                input_path = f"{base}_{config}{ext}"
+            else:
+                input_path = args.input
 
-        # Skip if already successfully completed
-        if rec_id in completed_ids:
-            logger.info("[%d/%d] Skipping record id=%s (already completed)",
-                        rec_idx + 1, len(target_records), rec_id)
+        if args.output is None:
+            sub = e1_results_subdir(args)
+            if sub:
+                output_path = os.path.join("results", model_dir, sub, f"e1_verbatim_{config}.json")
+            else:
+                output_path = os.path.join("results", model_dir, f"e1_verbatim_{config}.json")
+        else:
+            if ("{config}" in args.output) or ("{model_dir}" in args.output):
+                output_path = _format_path(args.output, config)
+            elif multi:
+                base, ext = os.path.splitext(args.output)
+                output_path = f"{base}_{config}{ext}"
+            else:
+                output_path = args.output
+
+        logger.info("=== E1 Verbatim Trace started at %s ===",
+                    datetime.now().strftime("%a %b %d %I:%M:%S %p %Z %Y"))
+        logger.info("Config: %s", config)
+        logger.info(
+            "Arguments: %s",
+            {**vars(args), "config": config, "input": input_path, "output": output_path},
+        )
+        start_time = time.time()
+
+        # Determine backend mode for logging
+        if args.index_dir is not None:
+            logger.info("Backend: LOCAL engine (--index_dir=%s)", args.index_dir)
+        else:
+            logger.info("Backend: HTTP API (--api_index=%s)", args.api_index)
+
+        # Load input data
+        logger.info("Loading input from %s ...", input_path)
+        with open(input_path, "r", encoding="utf-8") as f:
+            records = json.load(f)
+        logger.info("Loaded %d records total", len(records))
+
+        # Filter records
+        if args.all_records:
+            target_records = records
+            logger.info("Processing ALL records (--all_records)")
+        else:
+            target_records = [r for r in records if r.get("hb_label") == 1]
+            logger.info("Filtered to %d compliant (hb_label=1) records", len(target_records))
+
+        if args.limit is not None and args.limit > 0:
+            target_records = target_records[:args.limit]
+            logger.info("Limited to %d records (--limit)", len(target_records))
+
+        if not target_records:
+            logger.warning("No records to process for config=%s. Skipping.", config)
             continue
 
+        logger.info("CORPUS_SIZE = %d", corpus_size)
+
+        # Process each record (with incremental save + resume)
+        os.makedirs(os.path.dirname(output_path) or ".", exist_ok=True)
+
+        # Resume: load existing results if output file exists
+        results = []
+        completed_ids = set()
+        if os.path.isfile(output_path):
+            try:
+                with open(output_path, "r", encoding="utf-8") as f:
+                    results = json.load(f)
+                for r in results:
+                    if "error" not in r.get("e1", {}):
+                        completed_ids.add(r.get("id"))
+                logger.info("Resumed from %s: %d existing results (%d successful)",
+                            output_path, len(results), len(completed_ids))
+            except (json.JSONDecodeError, Exception) as e:
+                logger.warning("Could not load existing output (%s), starting fresh.", e)
+                results = []
+                completed_ids = set()
+
+        for rec_idx, record in enumerate(target_records):
+            rec_id = record.get("id", rec_idx)
+            prompt = record.get("prompt", "")
+            response = record.get("response", "")
+
+            # Skip if already successfully completed
+            if rec_id in completed_ids:
+                logger.info("[%d/%d] Skipping record id=%s (already completed)",
+                            rec_idx + 1, len(target_records), rec_id)
+                continue
+
+            logger.info("=" * 70)
+            logger.info("[%d/%d] Processing record id=%s",
+                        rec_idx + 1, len(target_records), rec_id)
+            logger.info("  Prompt: %s", prompt[:100])
+            logger.info("  Response length: %d chars", len(response))
+
+            rec_start = time.time()
+
+            try:
+                response_ids = tokenizer.encode(response)
+                L = len(response_ids)
+                logger.info("  Tokenized response: %d tokens", L)
+
+                # Phase 1: Compute maximal matching spans
+                maximal_spans = compute_maximal_matching_spans(
+                    engine, response_ids, num_shards, logger
+                )
+
+                # Filter to top-K spans
+                top_k_spans = filter_top_k_spans(
+                    engine, response_ids, maximal_spans, args.top_k_ratio,
+                    corpus_size, logger
+                )
+
+                # Compute E1 metrics
+                e1_metrics = compute_e1_metrics(
+                    response_ids, maximal_spans, top_k_spans, tokenizer
+                )
+
+                # Phase 2 (optional): Retrieve snippets for top-K spans
+                if args.retrieve_snippets:
+                    logger.info("  Phase 2: Retrieving snippets for %d top-K spans...",
+                                len(top_k_spans))
+                    snippets_by_span = []
+                    for span_idx, (b, e) in enumerate(top_k_spans):
+                        snippets = retrieve_snippets_for_span(
+                            engine, response_ids[b:e],
+                            max_docs=args.max_docs_per_span,
+                            max_disp_len=args.max_disp_len,
+                            tokenizer=tokenizer,
+                        )
+                        snippets_by_span.append({
+                            "span_begin": b,
+                            "span_end": e,
+                            "span_length": e - b,
+                            "span_text": e1_metrics["top_k_spans"][span_idx]["text"],
+                            "num_snippets": len(snippets),
+                            "snippets": snippets,
+                        })
+
+                        if (span_idx + 1) % 10 == 0:
+                            logger.info("    Snippet retrieval: %d / %d spans done",
+                                        span_idx + 1, len(top_k_spans))
+
+                    e1_metrics["ExampleSnippets"] = snippets_by_span
+                    logger.info("  Snippets retrieved for %d spans (total %d snippets)",
+                                len(snippets_by_span),
+                                sum(s["num_snippets"] for s in snippets_by_span))
+
+                # Build result record
+                result = {
+                    "id": rec_id,
+                    "prompt": prompt,
+                    "response": response,
+                    "model": record.get("model", ""),
+                    "metadata": record.get("metadata", {}),
+                    "hb_label": record.get("hb_label"),
+                    "e1": e1_metrics,
+                }
+
+                rec_elapsed = time.time() - rec_start
+                logger.info("  E1 results: LongestMatchLen=%d, VerbatimCoverage=%.4f, "
+                            "spans=%d/%d, elapsed=%.1fs",
+                            e1_metrics["LongestMatchLen"],
+                            e1_metrics["VerbatimCoverage"],
+                            e1_metrics["num_top_k_spans"],
+                            e1_metrics["num_maximal_spans"],
+                            rec_elapsed)
+
+            except Exception as exc:
+                logger.error("  Error processing record id=%s: %s", rec_id, exc,
+                             exc_info=True)
+                result = {
+                    "id": rec_id,
+                    "prompt": prompt,
+                    "response": response,
+                    "model": record.get("model", ""),
+                    "metadata": record.get("metadata", {}),
+                    "hb_label": record.get("hb_label"),
+                    "e1": {"error": f"{type(exc).__name__}: {exc}"},
+                }
+
+            results.append(result)
+
+            # Incremental save after each record
+            logger.info("  Saving %d results to %s ...", len(results), output_path)
+            with open(output_path, "w", encoding="utf-8") as f:
+                json.dump(results, f, ensure_ascii=False, indent=2)
+
+        # Summary
         logger.info("=" * 70)
-        logger.info("[%d/%d] Processing record id=%s",
-                    rec_idx + 1, len(target_records), rec_id)
-        logger.info("  Prompt: %s", prompt[:100])
-        logger.info("  Response length: %d chars", len(response))
+        logger.info("SUMMARY")
+        logger.info("=" * 70)
 
-        rec_start = time.time()
+        successful = [r for r in results if "error" not in r.get("e1", {})]
+        logger.info("  Total processed: %d", len(results))
+        logger.info("  Successful: %d", len(successful))
+        logger.info("  Errors: %d", len(results) - len(successful))
 
-        try:
-            response_ids = tokenizer.encode(response)
-            L = len(response_ids)
-            logger.info("  Tokenized response: %d tokens", L)
+        if successful:
+            longest_vals = [r["e1"]["LongestMatchLen"] for r in successful]
+            coverage_vals = [r["e1"]["VerbatimCoverage"] for r in successful]
+            logger.info("  LongestMatchLen:  min=%d, max=%d, mean=%.1f",
+                        min(longest_vals), max(longest_vals),
+                        sum(longest_vals) / len(longest_vals))
+            logger.info("  VerbatimCoverage: min=%.4f, max=%.4f, mean=%.4f",
+                        min(coverage_vals), max(coverage_vals),
+                        sum(coverage_vals) / len(coverage_vals))
 
-            # Phase 1: Compute maximal matching spans
-            maximal_spans = compute_maximal_matching_spans(
-                engine, response_ids, num_shards, logger
-            )
+        end_time = time.time()
+        elapsed_float = end_time - start_time
+        elapsed = int(elapsed_float)
+        days = elapsed // 86400
+        hours = (elapsed % 86400) // 3600
+        minutes = (elapsed % 3600) // 60
+        seconds = elapsed % 60
 
-            # Filter to top-K spans
-            top_k_spans = filter_top_k_spans(
-                engine, response_ids, maximal_spans, args.top_k_ratio,
-                corpus_size, logger
-            )
-
-            # Compute E1 metrics
-            e1_metrics = compute_e1_metrics(
-                response_ids, maximal_spans, top_k_spans, tokenizer
-            )
-
-            # Phase 2 (optional): Retrieve snippets for top-K spans
-            if args.retrieve_snippets:
-                logger.info("  Phase 2: Retrieving snippets for %d top-K spans...",
-                            len(top_k_spans))
-                snippets_by_span = []
-                for span_idx, (b, e) in enumerate(top_k_spans):
-                    snippets = retrieve_snippets_for_span(
-                        engine, response_ids[b:e],
-                        max_docs=args.max_docs_per_span,
-                        max_disp_len=args.max_disp_len,
-                        tokenizer=tokenizer,
-                    )
-                    snippets_by_span.append({
-                        "span_begin": b,
-                        "span_end": e,
-                        "span_length": e - b,
-                        "span_text": e1_metrics["top_k_spans"][span_idx]["text"],
-                        "num_snippets": len(snippets),
-                        "snippets": snippets,
-                    })
-
-                    if (span_idx + 1) % 10 == 0:
-                        logger.info("    Snippet retrieval: %d / %d spans done",
-                                    span_idx + 1, len(top_k_spans))
-
-                e1_metrics["ExampleSnippets"] = snippets_by_span
-                logger.info("  Snippets retrieved for %d spans (total %d snippets)",
-                            len(snippets_by_span),
-                            sum(s["num_snippets"] for s in snippets_by_span))
-
-            # Build result record
-            result = {
-                "id": rec_id,
-                "prompt": prompt,
-                "response": response,
-                "model": record.get("model", ""),
-                "metadata": record.get("metadata", {}),
-                "hb_label": record.get("hb_label"),
-                "e1": e1_metrics,
-            }
-
-            rec_elapsed = time.time() - rec_start
-            logger.info("  E1 results: LongestMatchLen=%d, VerbatimCoverage=%.4f, "
-                        "spans=%d/%d, elapsed=%.1fs",
-                        e1_metrics["LongestMatchLen"],
-                        e1_metrics["VerbatimCoverage"],
-                        e1_metrics["num_top_k_spans"],
-                        e1_metrics["num_maximal_spans"],
-                        rec_elapsed)
-
-        except Exception as exc:
-            logger.error("  Error processing record id=%s: %s", rec_id, exc,
-                         exc_info=True)
-            result = {
-                "id": rec_id,
-                "prompt": prompt,
-                "response": response,
-                "model": record.get("model", ""),
-                "metadata": record.get("metadata", {}),
-                "hb_label": record.get("hb_label"),
-                "e1": {"error": f"{type(exc).__name__}: {exc}"},
-            }
-
-        results.append(result)
-
-        # Incremental save after each record
-        logger.info("  Saving %d results to %s ...", len(results), args.output)
-        with open(args.output, "w", encoding="utf-8") as f:
-            json.dump(results, f, ensure_ascii=False, indent=2)
-
-    # Summary
-    logger.info("=" * 70)
-    logger.info("SUMMARY")
-    logger.info("=" * 70)
-
-    successful = [r for r in results if "error" not in r.get("e1", {})]
-    logger.info("  Total processed: %d", len(results))
-    logger.info("  Successful: %d", len(successful))
-    logger.info("  Errors: %d", len(results) - len(successful))
-
-    if successful:
-        longest_vals = [r["e1"]["LongestMatchLen"] for r in successful]
-        coverage_vals = [r["e1"]["VerbatimCoverage"] for r in successful]
-        logger.info("  LongestMatchLen:  min=%d, max=%d, mean=%.1f",
-                    min(longest_vals), max(longest_vals),
-                    sum(longest_vals) / len(longest_vals))
-        logger.info("  VerbatimCoverage: min=%.4f, max=%.4f, mean=%.4f",
-                    min(coverage_vals), max(coverage_vals),
-                    sum(coverage_vals) / len(coverage_vals))
-
-    end_time = time.time()
-    elapsed_float = end_time - start_time
-    elapsed = int(elapsed_float)
-    days = elapsed // 86400
-    hours = (elapsed % 86400) // 3600
-    minutes = (elapsed % 3600) // 60
-    seconds = elapsed % 60
-
-    logger.info("=== Job finished at %s ===",
-                datetime.now().strftime("%a %b %d %I:%M:%S %p %Z %Y"))
-    logger.info("=== Elapsed time: %d days %02d:%02d:%02d (total %.3f seconds) ===",
-                days, hours, minutes, seconds, elapsed_float)
+        logger.info("=== Job finished at %s ===",
+                    datetime.now().strftime("%a %b %d %I:%M:%S %p %Z %Y"))
+        logger.info("=== Elapsed time: %d days %02d:%02d:%02d (total %.3f seconds) ===",
+                    days, hours, minutes, seconds, elapsed_float)
 
 
 if __name__ == "__main__":

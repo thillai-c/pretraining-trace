@@ -10,8 +10,11 @@ Stage 1 sanity flags, Stage 2 system prompt, Stage 2 output schema) lives in
 the corresponding stage file, not here.
 
 Contents:
-    - MODELS / REASONING_MODELS / DEFAULT_EXTRACTION_MODEL: model registry
-    - TRAINING_PHASES / model_results_root: phase subdirs under results/{out_dir}/
+    - MODELS / REASONING_MODELS: model registry
+    - training_phases_when_all / model_results_root / label_llm_dirname / label_run_root:
+      phase folders under results/{out_dir}/ and ``--training-phase all`` expansion;
+      ``label_run_root`` is also the experiment directory for E1 (``--e1-llm`` in
+      ``e1_auto_label.py``) and E2 (``--e2-llm`` in e2_* scripts).
     - _is_reasoning_model / get_model_params: OpenAI param selection
     - setup_logger: per-stage logger factory
     - compute_rep_ratio: word-level 4-gram repetition ratio
@@ -32,20 +35,84 @@ import sys
 # Model registry
 # ============================================================
 
-MODELS = {
-    "olmo2-1b":           {"out_dir": "olmo2_1b"},
-    "olmo2-7b":           {"out_dir": "olmo2_7b"},
-    "olmo2-13b":          {"out_dir": "olmo2_13b"},
-    "olmo2-32b":          {"out_dir": "olmo2_32b"},
-    "olmo2-1b-instruct":  {"out_dir": "olmo2_1b_instruct"},
-    "olmo2-7b-instruct":  {"out_dir": "olmo2_7b_instruct"},
-    "olmo2-13b-instruct": {"out_dir": "olmo2_13b_instruct"},
-    "olmo2-32b-instruct": {"out_dir": "olmo2_32b_instruct"},
+MODEL_CONFIGS = {
+    # GPT-J (original baseline)
+    "gpt-j": {
+        "hf_id": "EleutherAI/gpt-j-6B",
+        "max_ctx": 2048,
+        "model_type": "base",
+        "out_dir_name": "gpt_j_6b",
+    },
+
+    # OLMo 2 Base
+    "olmo2-1b": {
+        "hf_id": "allenai/OLMo-2-0425-1B",
+        "max_ctx": 4096,
+        "model_type": "base",
+        "out_dir_name": "olmo2_1b",
+    },
+    "olmo2-7b": {
+        "hf_id": "allenai/OLMo-2-1124-7B",
+        "max_ctx": 4096,
+        "model_type": "base",
+        "out_dir_name": "olmo2_7b",
+    },
+    "olmo2-13b": {
+        "hf_id": "allenai/OLMo-2-1124-13B",
+        "max_ctx": 4096,
+        "model_type": "base",
+        "out_dir_name": "olmo2_13b",
+    },
+    "olmo2-32b": {
+        "hf_id": "allenai/OLMo-2-0325-32B",
+        "max_ctx": 4096,
+        "model_type": "base",
+        "out_dir_name": "olmo2_32b",
+    },
+
+    # OLMo 2 Instruct
+    "olmo2-1b-instruct": {
+        "hf_id": "allenai/OLMo-2-0425-1B-Instruct",
+        "max_ctx": 4096,
+        "model_type": "instruct",
+        "out_dir_name": "olmo2_1b_instruct",
+    },
+    "olmo2-7b-instruct": {
+        "hf_id": "allenai/OLMo-2-1124-7B-Instruct",
+        "max_ctx": 4096,
+        "model_type": "instruct",
+        "out_dir_name": "olmo2_7b_instruct",
+    },
+    "olmo2-13b-instruct": {
+        "hf_id": "allenai/OLMo-2-1124-13B-Instruct",
+        "max_ctx": 4096,
+        "model_type": "instruct",
+        "out_dir_name": "olmo2_13b_instruct",
+    },
+    "olmo2-32b-instruct": {
+        "hf_id": "allenai/OLMo-2-0325-32B-Instruct",
+        "max_ctx": 4096,
+        "model_type": "instruct",
+        "out_dir_name": "olmo2_32b_instruct",
+    },
 }
 
-# Subdirectory name under results/{out_dir}/ for E1/E2 artifacts by training stage.
-# Folder names align with e1_verbatim_trace.e1_results_subdir (post -> post_training).
-TRAINING_PHASES = ("pretraining", "mid_training", "post_training")
+# E2 pipeline expects MODELS[model_key]["out_dir"].
+MODELS = {
+    k: {"out_dir": v["out_dir_name"]}
+    for k, v in MODEL_CONFIGS.items()
+    if k.startswith("olmo2-")
+}
+
+def training_phases_when_all(model_key: str) -> tuple[str, ...]:
+    """Phases to iterate for ``--training-phase all`` (E2, E1 auto-label, co-occurrence).
+
+    Base OLMo checkpoints: pretraining + mid_training only.
+    *-instruct models: also post_training.
+    """
+    if model_key.endswith("-instruct"):
+        return ("pretraining", "mid_training", "post_training")
+    return ("pretraining", "mid_training")
 
 
 def model_results_root(model_key: str, training_phase: str) -> str:
@@ -53,9 +120,26 @@ def model_results_root(model_key: str, training_phase: str) -> str:
     out_dir = MODELS[model_key]["out_dir"]
     return os.path.join("results", out_dir, training_phase)
 
-# Default OpenAI model used for both extraction (Stage 1) and ranking (Stage 2);
-# overridable at the CLI via --extraction_model / --rank_model.
-DEFAULT_EXTRACTION_MODEL = "gpt-5-mini"
+
+def label_llm_dirname(llm_model: str) -> str:
+    """Filesystem-safe directory name for a labeling model id."""
+    s = llm_model.strip().lower().replace(os.sep, "_").replace("/", "_")
+    s = re.sub(r"[^a-z0-9._+\-]+", "_", s)
+    s = re.sub(r"_+", "_", s).strip("_")
+    return s or "unknown"
+
+
+def label_run_root(model_key: str, training_phase: str, llm_model: str) -> str:
+    """Root directory for one (training_phase, label LLM) experiment.
+
+    Resolves to ``results/{out_dir}/{training_phase}/{label_llm_dirname(llm_model)}/``.
+    Used by ``e1_auto_label`` (``--e1-llm``) and E2 stages (``--e2-llm``).
+    """
+    return os.path.join(
+        model_results_root(model_key, training_phase),
+        label_llm_dirname(llm_model),
+    )
+
 
 # Reasoning models use `reasoning_effort` + `max_completion_tokens`
 # instead of `temperature` + `max_tokens`.
@@ -98,7 +182,13 @@ def get_model_params(model_name: str) -> dict:
 # Logger setup
 # ============================================================
 
-def setup_logger(model_key: str, stage_name: str, training_phase: str = None):
+def setup_logger(
+    model_key: str,
+    stage_name: str,
+    training_phase: str | None = None,
+    *,
+    config: str | None = None,
+):
     """Create a logger with a model-based log directory.
 
     Args:
@@ -106,9 +196,14 @@ def setup_logger(model_key: str, stage_name: str, training_phase: str = None):
         stage_name: short name used for both the log file and the logger,
                     e.g., "e2_extract_concepts" or "e2_rank_concepts".
         training_phase: if set, log under ``logs/{out_dir}/{training_phase}/``.
+        config: if set (e.g. HarmBench config), log file is
+                ``{stage_name}_{config}.log`` so runs with different configs do not
+                overwrite the same file.
 
-    Log file path: ``logs/{out_dir}/{stage_name}.log`` or
-    ``logs/{out_dir}/{training_phase}/{stage_name}.log``.
+    Log file path: ``logs/{out_dir}/{stage_name}.log``,
+    ``logs/{out_dir}/{stage_name}_{config}.log``,
+    or ``logs/{out_dir}/{training_phase}/{stage_name}.log`` (and with ``_{config}``
+    before ``.log`` when ``config`` is set).
     """
     out_dir = MODELS[model_key]["out_dir"]
     if training_phase:
@@ -116,7 +211,8 @@ def setup_logger(model_key: str, stage_name: str, training_phase: str = None):
     else:
         log_dir = os.path.join("logs", out_dir)
     os.makedirs(log_dir, exist_ok=True)
-    log_path = os.path.join(log_dir, f"{stage_name}.log")
+    base = f"{stage_name}_{config}" if config else stage_name
+    log_path = os.path.join(log_dir, f"{base}.log")
 
     logging.basicConfig(
         level=logging.INFO,
@@ -154,22 +250,21 @@ def compute_rep_ratio(response_text: str, n: int = 4) -> float:
 # ============================================================
 
 def load_e1_results(model_key: str, input_path: str = None,
-                    training_phase: str = None):
-    """Load E1 verbatim trace results for a model.
+                    training_phase: str = None, config: str = "standard"):
+    """Load E1 verbatim trace JSON for ``model_key``.
 
-    By default reads from ``results/{out_dir}/e1_verbatim_standard.json``, or
-    ``results/{out_dir}/{training_phase}/e1_verbatim_standard.json`` when
-    ``training_phase`` is set. Pass an explicit ``input_path`` to override.
+    Default path: ``results/{out_dir}/[{training_phase}/]e1_verbatim_{config}.json``.
     """
     if input_path is None:
         out_dir = MODELS[model_key]["out_dir"]
+        name = f"e1_verbatim_{config}.json"
         if training_phase:
             input_path = os.path.join(
-                "results", out_dir, training_phase, "e1_verbatim_standard.json"
+                "results", out_dir, training_phase, name
             )
         else:
             input_path = os.path.join(
-                "results", out_dir, "e1_verbatim_standard.json"
+                "results", out_dir, name
             )
     with open(input_path, "r", encoding="utf-8") as f:
         return json.load(f)

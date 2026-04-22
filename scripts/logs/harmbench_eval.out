@@ -1,602 +1,514 @@
 ============================================================
-=== Evaluating: olmo2-1b, config=standard
-=== Time: Fri Mar 13 10:51:54 PM EDT 2026
+=== Evaluating: olmo2-1b, config=copyright
+=== Time: Fri Apr 17 12:08:55 PM EDT 2026
 ============================================================
-2026-03-13 22:51:58,058 - __main__ - INFO - Logging to file: logs/olmo2-1b/eval_harmbench_standard.log
-2026-03-13 22:51:58,073 - __main__ - INFO - === Job started at Fri Mar 13 10:51:58 PM  2026 ===
-2026-03-13 22:51:58,073 - __main__ - INFO - Model key  : olmo2-1b
-2026-03-13 22:51:58,073 - __main__ - INFO - Input      : data/olmo2_1b/harmbench_standard.json
-2026-03-13 22:51:58,073 - __main__ - INFO - Output     : results/olmo2_1b/harmbench_standard_labeled.json
-2026-03-13 22:52:05,401 - __main__ - INFO - Loading classifier tokenizer from cais/HarmBench-Llama-2-13b-cls ...
-2026-03-13 22:52:05,654 - __main__ - INFO - Loading classifier model from cais/HarmBench-Llama-2-13b-cls ...
-INFO 03-13 22:52:05 [utils.py:238] non-default args: {'disable_log_stats': True, 'enforce_eager': True, 'model': 'cais/HarmBench-Llama-2-13b-cls'}
-INFO 03-13 22:52:05 [model.py:531] Resolved architecture: LlamaForCausalLM
-INFO 03-13 22:52:05 [model.py:1554] Using max model len 2048
-INFO 03-13 22:52:06 [scheduler.py:231] Chunked prefill is enabled with max_num_batched_tokens=16384.
-INFO 03-13 22:52:06 [vllm.py:747] Asynchronous scheduling is enabled.
-WARNING 03-13 22:52:06 [vllm.py:781] Enforce eager set, disabling torch.compile and CUDAGraphs. This is equivalent to setting -cc.mode=none -cc.cudagraph_mode=none
-WARNING 03-13 22:52:06 [vllm.py:792] Inductor compilation was disabled by user settings, optimizations settings that are only active during inductor compilation will be ignored.
-INFO 03-13 22:52:08 [vllm.py:957] Cudagraph is disabled under eager mode
-(EngineCore_DP0 pid=320928) INFO 03-13 22:52:17 [core.py:101] Initializing a V1 LLM engine (v0.17.0) with config: model='cais/HarmBench-Llama-2-13b-cls', speculative_config=None, tokenizer='cais/HarmBench-Llama-2-13b-cls', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=2048, download_dir=None, load_format=auto, tensor_parallel_size=1, pipeline_parallel_size=1, data_parallel_size=1, disable_custom_all_reduce=False, quantization=None, enforce_eager=True, enable_return_routed_experts=False, kv_cache_dtype=auto, device_config=cuda, structured_outputs_config=StructuredOutputsConfig(backend='auto', disable_fallback=False, disable_any_whitespace=False, disable_additional_properties=False, reasoning_parser='', reasoning_parser_plugin='', enable_in_reasoning=False), observability_config=ObservabilityConfig(show_hidden_metrics_for_version=None, otlp_traces_endpoint=None, collect_detailed_traces=None, kv_cache_metrics=False, kv_cache_metrics_sample=0.01, cudagraph_metrics=False, enable_layerwise_nvtx_tracing=False, enable_mfu_metrics=False, enable_mm_processor_stats=False, enable_logging_iteration_details=False), seed=0, served_model_name=cais/HarmBench-Llama-2-13b-cls, enable_prefix_caching=True, enable_chunked_prefill=True, pooler_config=None, compilation_config={'level': None, 'mode': <CompilationMode.NONE: 0>, 'debug_dump_path': None, 'cache_dir': '', 'compile_cache_save_format': 'binary', 'backend': 'inductor', 'custom_ops': ['all'], 'splitting_ops': [], 'compile_mm_encoder': False, 'compile_sizes': [], 'compile_ranges_split_points': [16384], 'inductor_compile_config': {'enable_auto_functionalized_v2': False, 'combo_kernels': True, 'benchmark_combo_kernel': True}, 'inductor_passes': {}, 'cudagraph_mode': <CUDAGraphMode.NONE: 0>, 'cudagraph_num_of_warmups': 0, 'cudagraph_capture_sizes': [], 'cudagraph_copy_inputs': False, 'cudagraph_specialize_lora': True, 'use_inductor_graph_partition': False, 'pass_config': {'fuse_norm_quant': True, 'fuse_act_quant': True, 'fuse_attn_quant': False, 'enable_sp': False, 'fuse_gemm_comms': False, 'fuse_allreduce_rms': False}, 'max_cudagraph_capture_size': 0, 'dynamic_shapes_config': {'type': <DynamicShapesType.BACKED: 'backed'>, 'evaluate_guards': False, 'assume_32_bit_indexing': False}, 'local_cache_dir': None, 'fast_moe_cold_start': True, 'static_all_moe_layers': []}
-(EngineCore_DP0 pid=320928) INFO 03-13 22:52:21 [parallel_state.py:1393] world_size=1 rank=0 local_rank=0 distributed_init_method=tcp://10.10.0.191:37507 backend=nccl
-(EngineCore_DP0 pid=320928) INFO 03-13 22:52:21 [parallel_state.py:1715] rank 0 in world size 1 is assigned as DP rank 0, PP rank 0, PCP rank 0, TP rank 0, EP rank N/A, EPLB rank N/A
-(EngineCore_DP0 pid=320928) INFO 03-13 22:52:22 [base.py:106] Offloader set to NoopOffloader
-(EngineCore_DP0 pid=320928) INFO 03-13 22:52:22 [gpu_model_runner.py:4255] Starting to load model cais/HarmBench-Llama-2-13b-cls...
-(EngineCore_DP0 pid=320928) INFO 03-13 22:52:28 [cuda.py:405] Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTION'].
-(EngineCore_DP0 pid=320928) INFO 03-13 22:52:28 [flash_attn.py:587] Using FlashAttention version 2
-(EngineCore_DP0 pid=320928) INFO 03-13 22:53:18 [default_loader.py:293] Loading weights took 49.40 seconds
-(EngineCore_DP0 pid=320928) INFO 03-13 22:53:19 [gpu_model_runner.py:4338] Model loading took 24.28 GiB memory and 55.926366 seconds
-(EngineCore_DP0 pid=320928) INFO 03-13 22:53:24 [gpu_worker.py:424] Available KV cache memory: 59.37 GiB
-(EngineCore_DP0 pid=320928) INFO 03-13 22:53:24 [kv_cache_utils.py:1314] GPU KV cache size: 77,808 tokens
-(EngineCore_DP0 pid=320928) INFO 03-13 22:53:24 [kv_cache_utils.py:1319] Maximum concurrency for 2,048 tokens per request: 37.99x
-(EngineCore_DP0 pid=320928) INFO 03-13 22:53:24 [core.py:282] init engine (profile, create kv cache, warmup model) took 5.22 seconds
-(EngineCore_DP0 pid=320928) INFO 03-13 22:53:25 [vllm.py:747] Asynchronous scheduling is enabled.
-(EngineCore_DP0 pid=320928) WARNING 03-13 22:53:25 [vllm.py:781] Enforce eager set, disabling torch.compile and CUDAGraphs. This is equivalent to setting -cc.mode=none -cc.cudagraph_mode=none
-(EngineCore_DP0 pid=320928) WARNING 03-13 22:53:25 [vllm.py:792] Inductor compilation was disabled by user settings, optimizations settings that are only active during inductor compilation will be ignored.
-(EngineCore_DP0 pid=320928) INFO 03-13 22:53:25 [vllm.py:957] Cudagraph is disabled under eager mode
-INFO 03-13 22:53:25 [llm.py:388] Supported tasks: ['generate']
-2026-03-13 22:53:25,632 - __main__ - WARNING - Failed to load classifier: CachedLlamaTokenizerFast has no attribute tokenizer
-2026-03-13 22:53:25,633 - __main__ - WARNING - Classifier-based evaluation will be skipped.
-2026-03-13 22:53:25,633 - __main__ - INFO - Loading input JSON from /lustre/nvwulf/scratch/solhapark/pretraining-trace/data/olmo2_1b/harmbench_standard.json ...
-2026-03-13 22:53:25,666 - __main__ - INFO - Loaded 200 records
-2026-03-13 22:55:28,245 - __main__ - INFO - Processed 10 / 200 records...
-2026-03-13 22:55:29,362 - __main__ - INFO - Processed 20 / 200 records...
-2026-03-13 22:55:30,541 - __main__ - INFO - Processed 30 / 200 records...
-2026-03-13 22:55:31,474 - __main__ - INFO - Processed 40 / 200 records...
-2026-03-13 22:55:32,433 - __main__ - INFO - Processed 50 / 200 records...
-2026-03-13 22:55:33,345 - __main__ - INFO - Processed 60 / 200 records...
-2026-03-13 22:55:34,430 - __main__ - INFO - Processed 70 / 200 records...
-2026-03-13 22:55:35,496 - __main__ - INFO - Processed 80 / 200 records...
-2026-03-13 22:55:36,616 - __main__ - INFO - Processed 90 / 200 records...
-2026-03-13 22:55:37,616 - __main__ - INFO - Processed 100 / 200 records...
-2026-03-13 22:55:38,708 - __main__ - INFO - Processed 110 / 200 records...
-2026-03-13 22:55:39,752 - __main__ - INFO - Processed 120 / 200 records...
-2026-03-13 22:55:40,850 - __main__ - INFO - Processed 130 / 200 records...
-2026-03-13 22:55:41,991 - __main__ - INFO - Processed 140 / 200 records...
-2026-03-13 22:55:43,111 - __main__ - INFO - Processed 150 / 200 records...
-2026-03-13 22:55:44,071 - __main__ - INFO - Processed 160 / 200 records...
-2026-03-13 22:55:45,076 - __main__ - INFO - Processed 170 / 200 records...
-2026-03-13 22:55:46,193 - __main__ - INFO - Processed 180 / 200 records...
-2026-03-13 22:55:47,309 - __main__ - INFO - Processed 190 / 200 records...
-2026-03-13 22:55:48,425 - __main__ - INFO - Processed 200 / 200 records...
-2026-03-13 22:55:48,426 - __main__ - INFO - Saving results to /lustre/nvwulf/scratch/solhapark/pretraining-trace/results/olmo2_1b/harmbench_standard_labeled.json...
-2026-03-13 22:55:48,438 - __main__ - INFO - ==================================================
-2026-03-13 22:55:48,439 - __main__ - INFO - Summary
-2026-03-13 22:55:48,439 - __main__ - INFO - ==================================================
-2026-03-13 22:55:48,439 - __main__ - INFO -   Total records         : 200
-2026-03-13 22:55:48,439 - __main__ - INFO -   Records with hb_label : 200
-2026-03-13 22:55:48,439 - __main__ - INFO -     Compliant (label=1) : 25
-2026-03-13 22:55:48,439 - __main__ - INFO -     Refused   (label=0) : 175
-2026-03-13 22:55:48,439 - __main__ - INFO -   Records with error    : 0
-2026-03-13 22:55:48,439 - __main__ - INFO -   Attack Success Rate   : 12.5%
-2026-03-13 22:55:48,440 - __main__ - INFO - ==================================================
-2026-03-13 22:55:48,440 - __main__ - INFO - === Job finished at Fri Mar 13 10:55:48 PM  2026 ===
-2026-03-13 22:55:48,441 - __main__ - INFO - === Elapsed time: 0 days 00:03:50 (total 230.367 seconds) ===
+2026-04-17 12:09:30,543 - __main__ - INFO - Logging to file: logs/olmo2_1b/eval_harmbench_copyright.log
+2026-04-17 12:09:30,545 - __main__ - INFO - === Job started at Fri Apr 17 12:09:30 PM  2026 ===
+2026-04-17 12:09:30,545 - __main__ - INFO - Model key  : olmo2-1b
+2026-04-17 12:09:30,545 - __main__ - INFO - Input      : data/olmo2_1b/harmbench_copyright.json
+2026-04-17 12:09:30,546 - __main__ - INFO - Output     : data/olmo2_1b/harmbench_copyright_labeled.json
+2026-04-17 12:09:58,779 - __main__ - INFO - Loading classifier tokenizer from cais/HarmBench-Llama-2-13b-cls ...
+2026-04-17 12:09:59,132 - __main__ - INFO - Loading classifier model from cais/HarmBench-Llama-2-13b-cls ...
+INFO 04-17 12:09:59 [utils.py:238] non-default args: {'disable_log_stats': True, 'enforce_eager': True, 'model': 'cais/HarmBench-Llama-2-13b-cls'}
+INFO 04-17 12:09:59 [model.py:531] Resolved architecture: LlamaForCausalLM
+INFO 04-17 12:09:59 [model.py:1554] Using max model len 2048
+INFO 04-17 12:10:01 [scheduler.py:231] Chunked prefill is enabled with max_num_batched_tokens=16384.
+INFO 04-17 12:10:01 [vllm.py:747] Asynchronous scheduling is enabled.
+WARNING 04-17 12:10:01 [vllm.py:781] Enforce eager set, disabling torch.compile and CUDAGraphs. This is equivalent to setting -cc.mode=none -cc.cudagraph_mode=none
+WARNING 04-17 12:10:01 [vllm.py:792] Inductor compilation was disabled by user settings, optimizations settings that are only active during inductor compilation will be ignored.
+INFO 04-17 12:10:03 [vllm.py:957] Cudagraph is disabled under eager mode
+(EngineCore_DP0 pid=3566872) INFO 04-17 12:10:14 [core.py:101] Initializing a V1 LLM engine (v0.17.0) with config: model='cais/HarmBench-Llama-2-13b-cls', speculative_config=None, tokenizer='cais/HarmBench-Llama-2-13b-cls', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=2048, download_dir=None, load_format=auto, tensor_parallel_size=1, pipeline_parallel_size=1, data_parallel_size=1, disable_custom_all_reduce=False, quantization=None, enforce_eager=True, enable_return_routed_experts=False, kv_cache_dtype=auto, device_config=cuda, structured_outputs_config=StructuredOutputsConfig(backend='auto', disable_fallback=False, disable_any_whitespace=False, disable_additional_properties=False, reasoning_parser='', reasoning_parser_plugin='', enable_in_reasoning=False), observability_config=ObservabilityConfig(show_hidden_metrics_for_version=None, otlp_traces_endpoint=None, collect_detailed_traces=None, kv_cache_metrics=False, kv_cache_metrics_sample=0.01, cudagraph_metrics=False, enable_layerwise_nvtx_tracing=False, enable_mfu_metrics=False, enable_mm_processor_stats=False, enable_logging_iteration_details=False), seed=0, served_model_name=cais/HarmBench-Llama-2-13b-cls, enable_prefix_caching=True, enable_chunked_prefill=True, pooler_config=None, compilation_config={'level': None, 'mode': <CompilationMode.NONE: 0>, 'debug_dump_path': None, 'cache_dir': '', 'compile_cache_save_format': 'binary', 'backend': 'inductor', 'custom_ops': ['all'], 'splitting_ops': [], 'compile_mm_encoder': False, 'compile_sizes': [], 'compile_ranges_split_points': [16384], 'inductor_compile_config': {'enable_auto_functionalized_v2': False, 'combo_kernels': True, 'benchmark_combo_kernel': True}, 'inductor_passes': {}, 'cudagraph_mode': <CUDAGraphMode.NONE: 0>, 'cudagraph_num_of_warmups': 0, 'cudagraph_capture_sizes': [], 'cudagraph_copy_inputs': False, 'cudagraph_specialize_lora': True, 'use_inductor_graph_partition': False, 'pass_config': {'fuse_norm_quant': True, 'fuse_act_quant': True, 'fuse_attn_quant': False, 'enable_sp': False, 'fuse_gemm_comms': False, 'fuse_allreduce_rms': False}, 'max_cudagraph_capture_size': 0, 'dynamic_shapes_config': {'type': <DynamicShapesType.BACKED: 'backed'>, 'evaluate_guards': False, 'assume_32_bit_indexing': False}, 'local_cache_dir': None, 'fast_moe_cold_start': True, 'static_all_moe_layers': []}
+(EngineCore_DP0 pid=3566872) INFO 04-17 12:10:17 [parallel_state.py:1393] world_size=1 rank=0 local_rank=0 distributed_init_method=tcp://10.10.0.193:46473 backend=nccl
+(EngineCore_DP0 pid=3566872) INFO 04-17 12:10:17 [parallel_state.py:1715] rank 0 in world size 1 is assigned as DP rank 0, PP rank 0, PCP rank 0, TP rank 0, EP rank N/A, EPLB rank N/A
+(EngineCore_DP0 pid=3566872) INFO 04-17 12:10:17 [base.py:106] Offloader set to NoopOffloader
+(EngineCore_DP0 pid=3566872) INFO 04-17 12:10:17 [gpu_model_runner.py:4255] Starting to load model cais/HarmBench-Llama-2-13b-cls...
+(EngineCore_DP0 pid=3566872) INFO 04-17 12:10:23 [cuda.py:405] Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTION'].
+(EngineCore_DP0 pid=3566872) INFO 04-17 12:10:23 [flash_attn.py:587] Using FlashAttention version 2
+(EngineCore_DP0 pid=3566872) INFO 04-17 12:11:14 [default_loader.py:293] Loading weights took 50.66 seconds
+(EngineCore_DP0 pid=3566872) INFO 04-17 12:11:15 [gpu_model_runner.py:4338] Model loading took 24.28 GiB memory and 56.782003 seconds
+(EngineCore_DP0 pid=3566872) INFO 04-17 12:11:18 [gpu_worker.py:424] Available KV cache memory: 59.37 GiB
+(EngineCore_DP0 pid=3566872) INFO 04-17 12:11:18 [kv_cache_utils.py:1314] GPU KV cache size: 77,808 tokens
+(EngineCore_DP0 pid=3566872) INFO 04-17 12:11:18 [kv_cache_utils.py:1319] Maximum concurrency for 2,048 tokens per request: 37.99x
+(EngineCore_DP0 pid=3566872) INFO 04-17 12:11:18 [core.py:282] init engine (profile, create kv cache, warmup model) took 3.82 seconds
+(EngineCore_DP0 pid=3566872) INFO 04-17 12:11:19 [vllm.py:747] Asynchronous scheduling is enabled.
+(EngineCore_DP0 pid=3566872) WARNING 04-17 12:11:19 [vllm.py:781] Enforce eager set, disabling torch.compile and CUDAGraphs. This is equivalent to setting -cc.mode=none -cc.cudagraph_mode=none
+(EngineCore_DP0 pid=3566872) WARNING 04-17 12:11:19 [vllm.py:792] Inductor compilation was disabled by user settings, optimizations settings that are only active during inductor compilation will be ignored.
+(EngineCore_DP0 pid=3566872) INFO 04-17 12:11:19 [vllm.py:957] Cudagraph is disabled under eager mode
+INFO 04-17 12:11:19 [llm.py:388] Supported tasks: ['generate']
+2026-04-17 12:11:19,433 - __main__ - INFO - Classifier loaded successfully
+2026-04-17 12:11:19,433 - __main__ - INFO - Loading input JSON from /lustre/nvwulf/projects/ZhouGroup-nvwulf/Users/solhapark/pretraining-trace/data/olmo2_1b/harmbench_copyright.json ...
+2026-04-17 12:11:19,670 - __main__ - INFO - Loaded 100 records
+2026-04-17 12:11:21,333 - __main__ - INFO - Processed 10 / 100 records...
+2026-04-17 12:11:22,962 - __main__ - INFO - Processed 20 / 100 records...
+2026-04-17 12:11:24,374 - __main__ - INFO - Processed 30 / 100 records...
+2026-04-17 12:11:25,922 - __main__ - INFO - Processed 40 / 100 records...
+2026-04-17 12:11:27,605 - __main__ - INFO - Processed 50 / 100 records...
+2026-04-17 12:11:29,314 - __main__ - INFO - Processed 60 / 100 records...
+2026-04-17 12:11:31,615 - __main__ - INFO - Processed 70 / 100 records...
+2026-04-17 12:11:33,390 - __main__ - INFO - Processed 80 / 100 records...
+2026-04-17 12:11:35,237 - __main__ - INFO - Processed 90 / 100 records...
+2026-04-17 12:11:37,028 - __main__ - INFO - Processed 100 / 100 records...
+2026-04-17 12:11:37,028 - __main__ - INFO - Saving results to /lustre/nvwulf/projects/ZhouGroup-nvwulf/Users/solhapark/pretraining-trace/data/olmo2_1b/harmbench_copyright_labeled.json...
+2026-04-17 12:11:37,034 - __main__ - INFO - ==================================================
+2026-04-17 12:11:37,034 - __main__ - INFO - Summary
+2026-04-17 12:11:37,034 - __main__ - INFO - ==================================================
+2026-04-17 12:11:37,034 - __main__ - INFO -   Total records         : 100
+2026-04-17 12:11:37,034 - __main__ - INFO -   Records with hb_label : 100
+2026-04-17 12:11:37,034 - __main__ - INFO -     Compliant (label=1) : 0
+2026-04-17 12:11:37,034 - __main__ - INFO -     Refused   (label=0) : 100
+2026-04-17 12:11:37,034 - __main__ - INFO -   Records with error    : 0
+2026-04-17 12:11:37,034 - __main__ - INFO -   Attack Success Rate   : 0.0%
+2026-04-17 12:11:37,035 - __main__ - INFO - ==================================================
+2026-04-17 12:11:37,035 - __main__ - INFO - === Job finished at Fri Apr 17 12:11:37 PM  2026 ===
+2026-04-17 12:11:37,035 - __main__ - INFO - === Elapsed time: 0 days 00:02:06 (total 126.489 seconds) ===
 === Done: olmo2-1b ===
 ============================================================
-=== Evaluating: olmo2-7b, config=standard
-=== Time: Fri Mar 13 10:55:53 PM EDT 2026
+=== Evaluating: olmo2-7b, config=copyright
+=== Time: Fri Apr 17 12:11:40 PM EDT 2026
 ============================================================
-2026-03-13 22:55:56,429 - __main__ - INFO - Logging to file: logs/olmo2-7b/eval_harmbench_standard.log
-2026-03-13 22:55:56,432 - __main__ - INFO - === Job started at Fri Mar 13 10:55:56 PM  2026 ===
-2026-03-13 22:55:56,432 - __main__ - INFO - Model key  : olmo2-7b
-2026-03-13 22:55:56,432 - __main__ - INFO - Input      : data/olmo2_7b/harmbench_standard.json
-2026-03-13 22:55:56,432 - __main__ - INFO - Output     : results/olmo2_7b/harmbench_standard_labeled.json
-2026-03-13 22:56:03,399 - __main__ - INFO - Loading classifier tokenizer from cais/HarmBench-Llama-2-13b-cls ...
-2026-03-13 22:56:03,640 - __main__ - INFO - Loading classifier model from cais/HarmBench-Llama-2-13b-cls ...
-INFO 03-13 22:56:03 [utils.py:238] non-default args: {'disable_log_stats': True, 'enforce_eager': True, 'model': 'cais/HarmBench-Llama-2-13b-cls'}
-INFO 03-13 22:56:03 [model.py:531] Resolved architecture: LlamaForCausalLM
-INFO 03-13 22:56:03 [model.py:1554] Using max model len 2048
-INFO 03-13 22:56:04 [scheduler.py:231] Chunked prefill is enabled with max_num_batched_tokens=16384.
-INFO 03-13 22:56:04 [vllm.py:747] Asynchronous scheduling is enabled.
-WARNING 03-13 22:56:04 [vllm.py:781] Enforce eager set, disabling torch.compile and CUDAGraphs. This is equivalent to setting -cc.mode=none -cc.cudagraph_mode=none
-WARNING 03-13 22:56:04 [vllm.py:792] Inductor compilation was disabled by user settings, optimizations settings that are only active during inductor compilation will be ignored.
-INFO 03-13 22:56:05 [vllm.py:957] Cudagraph is disabled under eager mode
-(EngineCore_DP0 pid=322004) INFO 03-13 22:56:15 [core.py:101] Initializing a V1 LLM engine (v0.17.0) with config: model='cais/HarmBench-Llama-2-13b-cls', speculative_config=None, tokenizer='cais/HarmBench-Llama-2-13b-cls', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=2048, download_dir=None, load_format=auto, tensor_parallel_size=1, pipeline_parallel_size=1, data_parallel_size=1, disable_custom_all_reduce=False, quantization=None, enforce_eager=True, enable_return_routed_experts=False, kv_cache_dtype=auto, device_config=cuda, structured_outputs_config=StructuredOutputsConfig(backend='auto', disable_fallback=False, disable_any_whitespace=False, disable_additional_properties=False, reasoning_parser='', reasoning_parser_plugin='', enable_in_reasoning=False), observability_config=ObservabilityConfig(show_hidden_metrics_for_version=None, otlp_traces_endpoint=None, collect_detailed_traces=None, kv_cache_metrics=False, kv_cache_metrics_sample=0.01, cudagraph_metrics=False, enable_layerwise_nvtx_tracing=False, enable_mfu_metrics=False, enable_mm_processor_stats=False, enable_logging_iteration_details=False), seed=0, served_model_name=cais/HarmBench-Llama-2-13b-cls, enable_prefix_caching=True, enable_chunked_prefill=True, pooler_config=None, compilation_config={'level': None, 'mode': <CompilationMode.NONE: 0>, 'debug_dump_path': None, 'cache_dir': '', 'compile_cache_save_format': 'binary', 'backend': 'inductor', 'custom_ops': ['all'], 'splitting_ops': [], 'compile_mm_encoder': False, 'compile_sizes': [], 'compile_ranges_split_points': [16384], 'inductor_compile_config': {'enable_auto_functionalized_v2': False, 'combo_kernels': True, 'benchmark_combo_kernel': True}, 'inductor_passes': {}, 'cudagraph_mode': <CUDAGraphMode.NONE: 0>, 'cudagraph_num_of_warmups': 0, 'cudagraph_capture_sizes': [], 'cudagraph_copy_inputs': False, 'cudagraph_specialize_lora': True, 'use_inductor_graph_partition': False, 'pass_config': {'fuse_norm_quant': True, 'fuse_act_quant': True, 'fuse_attn_quant': False, 'enable_sp': False, 'fuse_gemm_comms': False, 'fuse_allreduce_rms': False}, 'max_cudagraph_capture_size': 0, 'dynamic_shapes_config': {'type': <DynamicShapesType.BACKED: 'backed'>, 'evaluate_guards': False, 'assume_32_bit_indexing': False}, 'local_cache_dir': None, 'fast_moe_cold_start': True, 'static_all_moe_layers': []}
-(EngineCore_DP0 pid=322004) INFO 03-13 22:56:17 [parallel_state.py:1393] world_size=1 rank=0 local_rank=0 distributed_init_method=tcp://10.10.0.191:40473 backend=nccl
-(EngineCore_DP0 pid=322004) INFO 03-13 22:56:17 [parallel_state.py:1715] rank 0 in world size 1 is assigned as DP rank 0, PP rank 0, PCP rank 0, TP rank 0, EP rank N/A, EPLB rank N/A
-(EngineCore_DP0 pid=322004) INFO 03-13 22:56:18 [base.py:106] Offloader set to NoopOffloader
-(EngineCore_DP0 pid=322004) INFO 03-13 22:56:18 [gpu_model_runner.py:4255] Starting to load model cais/HarmBench-Llama-2-13b-cls...
-(EngineCore_DP0 pid=322004) INFO 03-13 22:56:19 [cuda.py:405] Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTION'].
-(EngineCore_DP0 pid=322004) INFO 03-13 22:56:19 [flash_attn.py:587] Using FlashAttention version 2
-(EngineCore_DP0 pid=322004) INFO 03-13 22:56:39 [default_loader.py:293] Loading weights took 19.49 seconds
-(EngineCore_DP0 pid=322004) INFO 03-13 22:56:41 [gpu_model_runner.py:4338] Model loading took 24.28 GiB memory and 20.659015 seconds
-(EngineCore_DP0 pid=322004) INFO 03-13 22:56:44 [gpu_worker.py:424] Available KV cache memory: 59.37 GiB
-(EngineCore_DP0 pid=322004) INFO 03-13 22:56:44 [kv_cache_utils.py:1314] GPU KV cache size: 77,808 tokens
-(EngineCore_DP0 pid=322004) INFO 03-13 22:56:44 [kv_cache_utils.py:1319] Maximum concurrency for 2,048 tokens per request: 37.99x
-(EngineCore_DP0 pid=322004) INFO 03-13 22:56:44 [core.py:282] init engine (profile, create kv cache, warmup model) took 3.77 seconds
-(EngineCore_DP0 pid=322004) INFO 03-13 22:56:45 [vllm.py:747] Asynchronous scheduling is enabled.
-(EngineCore_DP0 pid=322004) WARNING 03-13 22:56:45 [vllm.py:781] Enforce eager set, disabling torch.compile and CUDAGraphs. This is equivalent to setting -cc.mode=none -cc.cudagraph_mode=none
-(EngineCore_DP0 pid=322004) WARNING 03-13 22:56:45 [vllm.py:792] Inductor compilation was disabled by user settings, optimizations settings that are only active during inductor compilation will be ignored.
-(EngineCore_DP0 pid=322004) INFO 03-13 22:56:45 [vllm.py:957] Cudagraph is disabled under eager mode
-INFO 03-13 22:56:45 [llm.py:388] Supported tasks: ['generate']
-2026-03-13 22:56:45,917 - __main__ - WARNING - Failed to load classifier: CachedLlamaTokenizerFast has no attribute tokenizer
-2026-03-13 22:56:45,918 - __main__ - WARNING - Classifier-based evaluation will be skipped.
-2026-03-13 22:56:45,918 - __main__ - INFO - Loading input JSON from /lustre/nvwulf/scratch/solhapark/pretraining-trace/data/olmo2_7b/harmbench_standard.json ...
-2026-03-13 22:56:45,945 - __main__ - INFO - Loaded 200 records
-2026-03-13 22:56:47,487 - __main__ - INFO - Processed 10 / 200 records...
-2026-03-13 22:56:48,651 - __main__ - INFO - Processed 20 / 200 records...
-2026-03-13 22:56:49,757 - __main__ - INFO - Processed 30 / 200 records...
-2026-03-13 22:56:50,840 - __main__ - INFO - Processed 40 / 200 records...
-2026-03-13 22:56:51,934 - __main__ - INFO - Processed 50 / 200 records...
-2026-03-13 22:56:52,996 - __main__ - INFO - Processed 60 / 200 records...
-2026-03-13 22:56:54,117 - __main__ - INFO - Processed 70 / 200 records...
-2026-03-13 22:56:55,187 - __main__ - INFO - Processed 80 / 200 records...
-2026-03-13 22:56:56,317 - __main__ - INFO - Processed 90 / 200 records...
-2026-03-13 22:56:57,310 - __main__ - INFO - Processed 100 / 200 records...
-2026-03-13 22:56:58,402 - __main__ - INFO - Processed 110 / 200 records...
-2026-03-13 22:56:59,538 - __main__ - INFO - Processed 120 / 200 records...
-2026-03-13 22:57:00,576 - __main__ - INFO - Processed 130 / 200 records...
-2026-03-13 22:57:01,713 - __main__ - INFO - Processed 140 / 200 records...
-2026-03-13 22:57:02,866 - __main__ - INFO - Processed 150 / 200 records...
-2026-03-13 22:57:03,941 - __main__ - INFO - Processed 160 / 200 records...
-2026-03-13 22:57:05,061 - __main__ - INFO - Processed 170 / 200 records...
-2026-03-13 22:57:06,189 - __main__ - INFO - Processed 180 / 200 records...
-2026-03-13 22:57:07,317 - __main__ - INFO - Processed 190 / 200 records...
-2026-03-13 22:57:08,454 - __main__ - INFO - Processed 200 / 200 records...
-2026-03-13 22:57:08,454 - __main__ - INFO - Saving results to /lustre/nvwulf/scratch/solhapark/pretraining-trace/results/olmo2_7b/harmbench_standard_labeled.json...
-2026-03-13 22:57:08,467 - __main__ - INFO - ==================================================
-2026-03-13 22:57:08,467 - __main__ - INFO - Summary
-2026-03-13 22:57:08,467 - __main__ - INFO - ==================================================
-2026-03-13 22:57:08,467 - __main__ - INFO -   Total records         : 200
-2026-03-13 22:57:08,467 - __main__ - INFO -   Records with hb_label : 200
-2026-03-13 22:57:08,467 - __main__ - INFO -     Compliant (label=1) : 38
-2026-03-13 22:57:08,467 - __main__ - INFO -     Refused   (label=0) : 162
-2026-03-13 22:57:08,467 - __main__ - INFO -   Records with error    : 0
-2026-03-13 22:57:08,467 - __main__ - INFO -   Attack Success Rate   : 19.0%
-2026-03-13 22:57:08,468 - __main__ - INFO - ==================================================
-2026-03-13 22:57:08,468 - __main__ - INFO - === Job finished at Fri Mar 13 10:57:08 PM  2026 ===
-2026-03-13 22:57:08,468 - __main__ - INFO - === Elapsed time: 0 days 00:01:12 (total 72.036 seconds) ===
+2026-04-17 12:11:44,064 - __main__ - INFO - Logging to file: logs/olmo2_7b/eval_harmbench_copyright.log
+2026-04-17 12:11:44,066 - __main__ - INFO - === Job started at Fri Apr 17 12:11:44 PM  2026 ===
+2026-04-17 12:11:44,066 - __main__ - INFO - Model key  : olmo2-7b
+2026-04-17 12:11:44,066 - __main__ - INFO - Input      : data/olmo2_7b/harmbench_copyright.json
+2026-04-17 12:11:44,066 - __main__ - INFO - Output     : data/olmo2_7b/harmbench_copyright_labeled.json
+2026-04-17 12:11:50,989 - __main__ - INFO - Loading classifier tokenizer from cais/HarmBench-Llama-2-13b-cls ...
+2026-04-17 12:11:51,253 - __main__ - INFO - Loading classifier model from cais/HarmBench-Llama-2-13b-cls ...
+INFO 04-17 12:11:51 [utils.py:238] non-default args: {'disable_log_stats': True, 'enforce_eager': True, 'model': 'cais/HarmBench-Llama-2-13b-cls'}
+INFO 04-17 12:11:51 [model.py:531] Resolved architecture: LlamaForCausalLM
+INFO 04-17 12:11:51 [model.py:1554] Using max model len 2048
+INFO 04-17 12:11:51 [scheduler.py:231] Chunked prefill is enabled with max_num_batched_tokens=16384.
+INFO 04-17 12:11:51 [vllm.py:747] Asynchronous scheduling is enabled.
+WARNING 04-17 12:11:51 [vllm.py:781] Enforce eager set, disabling torch.compile and CUDAGraphs. This is equivalent to setting -cc.mode=none -cc.cudagraph_mode=none
+WARNING 04-17 12:11:51 [vllm.py:792] Inductor compilation was disabled by user settings, optimizations settings that are only active during inductor compilation will be ignored.
+INFO 04-17 12:11:52 [vllm.py:957] Cudagraph is disabled under eager mode
+(EngineCore_DP0 pid=3567068) INFO 04-17 12:12:02 [core.py:101] Initializing a V1 LLM engine (v0.17.0) with config: model='cais/HarmBench-Llama-2-13b-cls', speculative_config=None, tokenizer='cais/HarmBench-Llama-2-13b-cls', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=2048, download_dir=None, load_format=auto, tensor_parallel_size=1, pipeline_parallel_size=1, data_parallel_size=1, disable_custom_all_reduce=False, quantization=None, enforce_eager=True, enable_return_routed_experts=False, kv_cache_dtype=auto, device_config=cuda, structured_outputs_config=StructuredOutputsConfig(backend='auto', disable_fallback=False, disable_any_whitespace=False, disable_additional_properties=False, reasoning_parser='', reasoning_parser_plugin='', enable_in_reasoning=False), observability_config=ObservabilityConfig(show_hidden_metrics_for_version=None, otlp_traces_endpoint=None, collect_detailed_traces=None, kv_cache_metrics=False, kv_cache_metrics_sample=0.01, cudagraph_metrics=False, enable_layerwise_nvtx_tracing=False, enable_mfu_metrics=False, enable_mm_processor_stats=False, enable_logging_iteration_details=False), seed=0, served_model_name=cais/HarmBench-Llama-2-13b-cls, enable_prefix_caching=True, enable_chunked_prefill=True, pooler_config=None, compilation_config={'level': None, 'mode': <CompilationMode.NONE: 0>, 'debug_dump_path': None, 'cache_dir': '', 'compile_cache_save_format': 'binary', 'backend': 'inductor', 'custom_ops': ['all'], 'splitting_ops': [], 'compile_mm_encoder': False, 'compile_sizes': [], 'compile_ranges_split_points': [16384], 'inductor_compile_config': {'enable_auto_functionalized_v2': False, 'combo_kernels': True, 'benchmark_combo_kernel': True}, 'inductor_passes': {}, 'cudagraph_mode': <CUDAGraphMode.NONE: 0>, 'cudagraph_num_of_warmups': 0, 'cudagraph_capture_sizes': [], 'cudagraph_copy_inputs': False, 'cudagraph_specialize_lora': True, 'use_inductor_graph_partition': False, 'pass_config': {'fuse_norm_quant': True, 'fuse_act_quant': True, 'fuse_attn_quant': False, 'enable_sp': False, 'fuse_gemm_comms': False, 'fuse_allreduce_rms': False}, 'max_cudagraph_capture_size': 0, 'dynamic_shapes_config': {'type': <DynamicShapesType.BACKED: 'backed'>, 'evaluate_guards': False, 'assume_32_bit_indexing': False}, 'local_cache_dir': None, 'fast_moe_cold_start': True, 'static_all_moe_layers': []}
+(EngineCore_DP0 pid=3567068) INFO 04-17 12:12:04 [parallel_state.py:1393] world_size=1 rank=0 local_rank=0 distributed_init_method=tcp://10.10.0.193:60235 backend=nccl
+(EngineCore_DP0 pid=3567068) INFO 04-17 12:12:04 [parallel_state.py:1715] rank 0 in world size 1 is assigned as DP rank 0, PP rank 0, PCP rank 0, TP rank 0, EP rank N/A, EPLB rank N/A
+(EngineCore_DP0 pid=3567068) INFO 04-17 12:12:04 [base.py:106] Offloader set to NoopOffloader
+(EngineCore_DP0 pid=3567068) INFO 04-17 12:12:04 [gpu_model_runner.py:4255] Starting to load model cais/HarmBench-Llama-2-13b-cls...
+(EngineCore_DP0 pid=3567068) INFO 04-17 12:12:05 [cuda.py:405] Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTION'].
+(EngineCore_DP0 pid=3567068) INFO 04-17 12:12:05 [flash_attn.py:587] Using FlashAttention version 2
+(EngineCore_DP0 pid=3567068) INFO 04-17 12:12:14 [default_loader.py:293] Loading weights took 8.96 seconds
+(EngineCore_DP0 pid=3567068) INFO 04-17 12:12:15 [gpu_model_runner.py:4338] Model loading took 24.28 GiB memory and 9.823430 seconds
+(EngineCore_DP0 pid=3567068) INFO 04-17 12:12:17 [gpu_worker.py:424] Available KV cache memory: 59.37 GiB
+(EngineCore_DP0 pid=3567068) INFO 04-17 12:12:17 [kv_cache_utils.py:1314] GPU KV cache size: 77,808 tokens
+(EngineCore_DP0 pid=3567068) INFO 04-17 12:12:17 [kv_cache_utils.py:1319] Maximum concurrency for 2,048 tokens per request: 37.99x
+(EngineCore_DP0 pid=3567068) INFO 04-17 12:12:17 [core.py:282] init engine (profile, create kv cache, warmup model) took 2.07 seconds
+(EngineCore_DP0 pid=3567068) INFO 04-17 12:12:17 [vllm.py:747] Asynchronous scheduling is enabled.
+(EngineCore_DP0 pid=3567068) WARNING 04-17 12:12:17 [vllm.py:781] Enforce eager set, disabling torch.compile and CUDAGraphs. This is equivalent to setting -cc.mode=none -cc.cudagraph_mode=none
+(EngineCore_DP0 pid=3567068) WARNING 04-17 12:12:17 [vllm.py:792] Inductor compilation was disabled by user settings, optimizations settings that are only active during inductor compilation will be ignored.
+(EngineCore_DP0 pid=3567068) INFO 04-17 12:12:17 [vllm.py:957] Cudagraph is disabled under eager mode
+INFO 04-17 12:12:17 [llm.py:388] Supported tasks: ['generate']
+2026-04-17 12:12:17,732 - __main__ - INFO - Classifier loaded successfully
+2026-04-17 12:12:17,732 - __main__ - INFO - Loading input JSON from /lustre/nvwulf/projects/ZhouGroup-nvwulf/Users/solhapark/pretraining-trace/data/olmo2_7b/harmbench_copyright.json ...
+2026-04-17 12:12:17,750 - __main__ - INFO - Loaded 100 records
+2026-04-17 12:12:17,973 - __main__ - INFO - Processed 10 / 100 records...
+2026-04-17 12:12:19,171 - __main__ - INFO - Processed 20 / 100 records...
+2026-04-17 12:12:19,663 - __main__ - INFO - Processed 30 / 100 records...
+2026-04-17 12:12:20,427 - __main__ - INFO - Processed 40 / 100 records...
+2026-04-17 12:12:20,852 - __main__ - INFO - Processed 50 / 100 records...
+2026-04-17 12:12:21,266 - __main__ - INFO - Processed 60 / 100 records...
+2026-04-17 12:12:21,937 - __main__ - INFO - Processed 70 / 100 records...
+2026-04-17 12:12:22,613 - __main__ - INFO - Processed 80 / 100 records...
+2026-04-17 12:12:23,552 - __main__ - INFO - Processed 90 / 100 records...
+2026-04-17 12:12:24,402 - __main__ - INFO - Processed 100 / 100 records...
+2026-04-17 12:12:24,402 - __main__ - INFO - Saving results to /lustre/nvwulf/projects/ZhouGroup-nvwulf/Users/solhapark/pretraining-trace/data/olmo2_7b/harmbench_copyright_labeled.json...
+2026-04-17 12:12:24,408 - __main__ - INFO - ==================================================
+2026-04-17 12:12:24,408 - __main__ - INFO - Summary
+2026-04-17 12:12:24,408 - __main__ - INFO - ==================================================
+2026-04-17 12:12:24,408 - __main__ - INFO -   Total records         : 100
+2026-04-17 12:12:24,408 - __main__ - INFO -   Records with hb_label : 100
+2026-04-17 12:12:24,408 - __main__ - INFO -     Compliant (label=1) : 1
+2026-04-17 12:12:24,408 - __main__ - INFO -     Refused   (label=0) : 99
+2026-04-17 12:12:24,408 - __main__ - INFO -   Records with error    : 0
+2026-04-17 12:12:24,408 - __main__ - INFO -   Attack Success Rate   : 1.0%
+2026-04-17 12:12:24,409 - __main__ - INFO - ==================================================
+2026-04-17 12:12:24,409 - __main__ - INFO - === Job finished at Fri Apr 17 12:12:24 PM  2026 ===
+2026-04-17 12:12:24,409 - __main__ - INFO - === Elapsed time: 0 days 00:00:40 (total 40.343 seconds) ===
 === Done: olmo2-7b ===
 ============================================================
-=== Evaluating: olmo2-13b, config=standard
-=== Time: Fri Mar 13 10:57:12 PM EDT 2026
+=== Evaluating: olmo2-13b, config=copyright
+=== Time: Fri Apr 17 12:12:25 PM EDT 2026
 ============================================================
-2026-03-13 22:57:15,341 - __main__ - INFO - Logging to file: logs/olmo2-13b/eval_harmbench_standard.log
-2026-03-13 22:57:15,344 - __main__ - INFO - === Job started at Fri Mar 13 10:57:15 PM  2026 ===
-2026-03-13 22:57:15,344 - __main__ - INFO - Model key  : olmo2-13b
-2026-03-13 22:57:15,344 - __main__ - INFO - Input      : data/olmo2_13b/harmbench_standard.json
-2026-03-13 22:57:15,344 - __main__ - INFO - Output     : results/olmo2_13b/harmbench_standard_labeled.json
-2026-03-13 22:57:22,515 - __main__ - INFO - Loading classifier tokenizer from cais/HarmBench-Llama-2-13b-cls ...
-2026-03-13 22:57:22,739 - __main__ - INFO - Loading classifier model from cais/HarmBench-Llama-2-13b-cls ...
-INFO 03-13 22:57:22 [utils.py:238] non-default args: {'disable_log_stats': True, 'enforce_eager': True, 'model': 'cais/HarmBench-Llama-2-13b-cls'}
-INFO 03-13 22:57:23 [model.py:531] Resolved architecture: LlamaForCausalLM
-INFO 03-13 22:57:23 [model.py:1554] Using max model len 2048
-INFO 03-13 22:57:23 [scheduler.py:231] Chunked prefill is enabled with max_num_batched_tokens=16384.
-INFO 03-13 22:57:23 [vllm.py:747] Asynchronous scheduling is enabled.
-WARNING 03-13 22:57:23 [vllm.py:781] Enforce eager set, disabling torch.compile and CUDAGraphs. This is equivalent to setting -cc.mode=none -cc.cudagraph_mode=none
-WARNING 03-13 22:57:23 [vllm.py:792] Inductor compilation was disabled by user settings, optimizations settings that are only active during inductor compilation will be ignored.
-INFO 03-13 22:57:24 [vllm.py:957] Cudagraph is disabled under eager mode
-(EngineCore_DP0 pid=322234) INFO 03-13 22:57:33 [core.py:101] Initializing a V1 LLM engine (v0.17.0) with config: model='cais/HarmBench-Llama-2-13b-cls', speculative_config=None, tokenizer='cais/HarmBench-Llama-2-13b-cls', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=2048, download_dir=None, load_format=auto, tensor_parallel_size=1, pipeline_parallel_size=1, data_parallel_size=1, disable_custom_all_reduce=False, quantization=None, enforce_eager=True, enable_return_routed_experts=False, kv_cache_dtype=auto, device_config=cuda, structured_outputs_config=StructuredOutputsConfig(backend='auto', disable_fallback=False, disable_any_whitespace=False, disable_additional_properties=False, reasoning_parser='', reasoning_parser_plugin='', enable_in_reasoning=False), observability_config=ObservabilityConfig(show_hidden_metrics_for_version=None, otlp_traces_endpoint=None, collect_detailed_traces=None, kv_cache_metrics=False, kv_cache_metrics_sample=0.01, cudagraph_metrics=False, enable_layerwise_nvtx_tracing=False, enable_mfu_metrics=False, enable_mm_processor_stats=False, enable_logging_iteration_details=False), seed=0, served_model_name=cais/HarmBench-Llama-2-13b-cls, enable_prefix_caching=True, enable_chunked_prefill=True, pooler_config=None, compilation_config={'level': None, 'mode': <CompilationMode.NONE: 0>, 'debug_dump_path': None, 'cache_dir': '', 'compile_cache_save_format': 'binary', 'backend': 'inductor', 'custom_ops': ['all'], 'splitting_ops': [], 'compile_mm_encoder': False, 'compile_sizes': [], 'compile_ranges_split_points': [16384], 'inductor_compile_config': {'enable_auto_functionalized_v2': False, 'combo_kernels': True, 'benchmark_combo_kernel': True}, 'inductor_passes': {}, 'cudagraph_mode': <CUDAGraphMode.NONE: 0>, 'cudagraph_num_of_warmups': 0, 'cudagraph_capture_sizes': [], 'cudagraph_copy_inputs': False, 'cudagraph_specialize_lora': True, 'use_inductor_graph_partition': False, 'pass_config': {'fuse_norm_quant': True, 'fuse_act_quant': True, 'fuse_attn_quant': False, 'enable_sp': False, 'fuse_gemm_comms': False, 'fuse_allreduce_rms': False}, 'max_cudagraph_capture_size': 0, 'dynamic_shapes_config': {'type': <DynamicShapesType.BACKED: 'backed'>, 'evaluate_guards': False, 'assume_32_bit_indexing': False}, 'local_cache_dir': None, 'fast_moe_cold_start': True, 'static_all_moe_layers': []}
-(EngineCore_DP0 pid=322234) INFO 03-13 22:57:36 [parallel_state.py:1393] world_size=1 rank=0 local_rank=0 distributed_init_method=tcp://10.10.0.191:59661 backend=nccl
-(EngineCore_DP0 pid=322234) INFO 03-13 22:57:36 [parallel_state.py:1715] rank 0 in world size 1 is assigned as DP rank 0, PP rank 0, PCP rank 0, TP rank 0, EP rank N/A, EPLB rank N/A
-(EngineCore_DP0 pid=322234) INFO 03-13 22:57:37 [base.py:106] Offloader set to NoopOffloader
-(EngineCore_DP0 pid=322234) INFO 03-13 22:57:37 [gpu_model_runner.py:4255] Starting to load model cais/HarmBench-Llama-2-13b-cls...
-(EngineCore_DP0 pid=322234) INFO 03-13 22:57:38 [cuda.py:405] Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTION'].
-(EngineCore_DP0 pid=322234) INFO 03-13 22:57:38 [flash_attn.py:587] Using FlashAttention version 2
-(EngineCore_DP0 pid=322234) INFO 03-13 22:57:58 [default_loader.py:293] Loading weights took 19.97 seconds
-(EngineCore_DP0 pid=322234) INFO 03-13 22:58:00 [gpu_model_runner.py:4338] Model loading took 24.28 GiB memory and 21.212117 seconds
-(EngineCore_DP0 pid=322234) INFO 03-13 22:58:04 [gpu_worker.py:424] Available KV cache memory: 59.37 GiB
-(EngineCore_DP0 pid=322234) INFO 03-13 22:58:04 [kv_cache_utils.py:1314] GPU KV cache size: 77,808 tokens
-(EngineCore_DP0 pid=322234) INFO 03-13 22:58:04 [kv_cache_utils.py:1319] Maximum concurrency for 2,048 tokens per request: 37.99x
-(EngineCore_DP0 pid=322234) INFO 03-13 22:58:04 [core.py:282] init engine (profile, create kv cache, warmup model) took 3.71 seconds
-(EngineCore_DP0 pid=322234) INFO 03-13 22:58:05 [vllm.py:747] Asynchronous scheduling is enabled.
-(EngineCore_DP0 pid=322234) WARNING 03-13 22:58:05 [vllm.py:781] Enforce eager set, disabling torch.compile and CUDAGraphs. This is equivalent to setting -cc.mode=none -cc.cudagraph_mode=none
-(EngineCore_DP0 pid=322234) WARNING 03-13 22:58:05 [vllm.py:792] Inductor compilation was disabled by user settings, optimizations settings that are only active during inductor compilation will be ignored.
-(EngineCore_DP0 pid=322234) INFO 03-13 22:58:05 [vllm.py:957] Cudagraph is disabled under eager mode
-INFO 03-13 22:58:05 [llm.py:388] Supported tasks: ['generate']
-2026-03-13 22:58:05,488 - __main__ - WARNING - Failed to load classifier: CachedLlamaTokenizerFast has no attribute tokenizer
-2026-03-13 22:58:05,488 - __main__ - WARNING - Classifier-based evaluation will be skipped.
-2026-03-13 22:58:05,488 - __main__ - INFO - Loading input JSON from /lustre/nvwulf/scratch/solhapark/pretraining-trace/data/olmo2_13b/harmbench_standard.json ...
-2026-03-13 22:58:05,529 - __main__ - INFO - Loaded 200 records
-2026-03-13 22:58:06,983 - __main__ - INFO - Processed 10 / 200 records...
-2026-03-13 22:58:08,133 - __main__ - INFO - Processed 20 / 200 records...
-2026-03-13 22:58:09,272 - __main__ - INFO - Processed 30 / 200 records...
-2026-03-13 22:58:10,350 - __main__ - INFO - Processed 40 / 200 records...
-2026-03-13 22:58:11,464 - __main__ - INFO - Processed 50 / 200 records...
-2026-03-13 22:58:12,489 - __main__ - INFO - Processed 60 / 200 records...
-2026-03-13 22:58:13,498 - __main__ - INFO - Processed 70 / 200 records...
-2026-03-13 22:58:14,610 - __main__ - INFO - Processed 80 / 200 records...
-2026-03-13 22:58:15,727 - __main__ - INFO - Processed 90 / 200 records...
-2026-03-13 22:58:16,826 - __main__ - INFO - Processed 100 / 200 records...
-2026-03-13 22:58:17,830 - __main__ - INFO - Processed 110 / 200 records...
-2026-03-13 22:58:18,949 - __main__ - INFO - Processed 120 / 200 records...
-2026-03-13 22:58:20,027 - __main__ - INFO - Processed 130 / 200 records...
-2026-03-13 22:58:21,126 - __main__ - INFO - Processed 140 / 200 records...
-2026-03-13 22:58:22,285 - __main__ - INFO - Processed 150 / 200 records...
-2026-03-13 22:58:23,422 - __main__ - INFO - Processed 160 / 200 records...
-2026-03-13 22:58:24,505 - __main__ - INFO - Processed 170 / 200 records...
-2026-03-13 22:58:25,643 - __main__ - INFO - Processed 180 / 200 records...
-2026-03-13 22:58:26,696 - __main__ - INFO - Processed 190 / 200 records...
-2026-03-13 22:58:27,835 - __main__ - INFO - Processed 200 / 200 records...
-2026-03-13 22:58:27,835 - __main__ - INFO - Saving results to /lustre/nvwulf/scratch/solhapark/pretraining-trace/results/olmo2_13b/harmbench_standard_labeled.json...
-2026-03-13 22:58:27,847 - __main__ - INFO - ==================================================
-2026-03-13 22:58:27,848 - __main__ - INFO - Summary
-2026-03-13 22:58:27,848 - __main__ - INFO - ==================================================
-2026-03-13 22:58:27,848 - __main__ - INFO -   Total records         : 200
-2026-03-13 22:58:27,848 - __main__ - INFO -   Records with hb_label : 200
-2026-03-13 22:58:27,848 - __main__ - INFO -     Compliant (label=1) : 45
-2026-03-13 22:58:27,848 - __main__ - INFO -     Refused   (label=0) : 155
-2026-03-13 22:58:27,848 - __main__ - INFO -   Records with error    : 0
-2026-03-13 22:58:27,848 - __main__ - INFO -   Attack Success Rate   : 22.5%
-2026-03-13 22:58:27,849 - __main__ - INFO - ==================================================
-2026-03-13 22:58:27,849 - __main__ - INFO - === Job finished at Fri Mar 13 10:58:27 PM  2026 ===
-2026-03-13 22:58:27,849 - __main__ - INFO - === Elapsed time: 0 days 00:01:12 (total 72.505 seconds) ===
+2026-04-17 12:12:29,194 - __main__ - INFO - Logging to file: logs/olmo2_13b/eval_harmbench_copyright.log
+2026-04-17 12:12:29,195 - __main__ - INFO - === Job started at Fri Apr 17 12:12:29 PM  2026 ===
+2026-04-17 12:12:29,195 - __main__ - INFO - Model key  : olmo2-13b
+2026-04-17 12:12:29,195 - __main__ - INFO - Input      : data/olmo2_13b/harmbench_copyright.json
+2026-04-17 12:12:29,195 - __main__ - INFO - Output     : data/olmo2_13b/harmbench_copyright_labeled.json
+2026-04-17 12:12:34,577 - __main__ - INFO - Loading classifier tokenizer from cais/HarmBench-Llama-2-13b-cls ...
+2026-04-17 12:12:34,834 - __main__ - INFO - Loading classifier model from cais/HarmBench-Llama-2-13b-cls ...
+INFO 04-17 12:12:34 [utils.py:238] non-default args: {'disable_log_stats': True, 'enforce_eager': True, 'model': 'cais/HarmBench-Llama-2-13b-cls'}
+INFO 04-17 12:12:35 [model.py:531] Resolved architecture: LlamaForCausalLM
+INFO 04-17 12:12:35 [model.py:1554] Using max model len 2048
+INFO 04-17 12:12:35 [scheduler.py:231] Chunked prefill is enabled with max_num_batched_tokens=16384.
+INFO 04-17 12:12:35 [vllm.py:747] Asynchronous scheduling is enabled.
+WARNING 04-17 12:12:35 [vllm.py:781] Enforce eager set, disabling torch.compile and CUDAGraphs. This is equivalent to setting -cc.mode=none -cc.cudagraph_mode=none
+WARNING 04-17 12:12:35 [vllm.py:792] Inductor compilation was disabled by user settings, optimizations settings that are only active during inductor compilation will be ignored.
+INFO 04-17 12:12:36 [vllm.py:957] Cudagraph is disabled under eager mode
+(EngineCore_DP0 pid=3567346) INFO 04-17 12:12:44 [core.py:101] Initializing a V1 LLM engine (v0.17.0) with config: model='cais/HarmBench-Llama-2-13b-cls', speculative_config=None, tokenizer='cais/HarmBench-Llama-2-13b-cls', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=2048, download_dir=None, load_format=auto, tensor_parallel_size=1, pipeline_parallel_size=1, data_parallel_size=1, disable_custom_all_reduce=False, quantization=None, enforce_eager=True, enable_return_routed_experts=False, kv_cache_dtype=auto, device_config=cuda, structured_outputs_config=StructuredOutputsConfig(backend='auto', disable_fallback=False, disable_any_whitespace=False, disable_additional_properties=False, reasoning_parser='', reasoning_parser_plugin='', enable_in_reasoning=False), observability_config=ObservabilityConfig(show_hidden_metrics_for_version=None, otlp_traces_endpoint=None, collect_detailed_traces=None, kv_cache_metrics=False, kv_cache_metrics_sample=0.01, cudagraph_metrics=False, enable_layerwise_nvtx_tracing=False, enable_mfu_metrics=False, enable_mm_processor_stats=False, enable_logging_iteration_details=False), seed=0, served_model_name=cais/HarmBench-Llama-2-13b-cls, enable_prefix_caching=True, enable_chunked_prefill=True, pooler_config=None, compilation_config={'level': None, 'mode': <CompilationMode.NONE: 0>, 'debug_dump_path': None, 'cache_dir': '', 'compile_cache_save_format': 'binary', 'backend': 'inductor', 'custom_ops': ['all'], 'splitting_ops': [], 'compile_mm_encoder': False, 'compile_sizes': [], 'compile_ranges_split_points': [16384], 'inductor_compile_config': {'enable_auto_functionalized_v2': False, 'combo_kernels': True, 'benchmark_combo_kernel': True}, 'inductor_passes': {}, 'cudagraph_mode': <CUDAGraphMode.NONE: 0>, 'cudagraph_num_of_warmups': 0, 'cudagraph_capture_sizes': [], 'cudagraph_copy_inputs': False, 'cudagraph_specialize_lora': True, 'use_inductor_graph_partition': False, 'pass_config': {'fuse_norm_quant': True, 'fuse_act_quant': True, 'fuse_attn_quant': False, 'enable_sp': False, 'fuse_gemm_comms': False, 'fuse_allreduce_rms': False}, 'max_cudagraph_capture_size': 0, 'dynamic_shapes_config': {'type': <DynamicShapesType.BACKED: 'backed'>, 'evaluate_guards': False, 'assume_32_bit_indexing': False}, 'local_cache_dir': None, 'fast_moe_cold_start': True, 'static_all_moe_layers': []}
+(EngineCore_DP0 pid=3567346) INFO 04-17 12:12:45 [parallel_state.py:1393] world_size=1 rank=0 local_rank=0 distributed_init_method=tcp://10.10.0.193:50821 backend=nccl
+(EngineCore_DP0 pid=3567346) INFO 04-17 12:12:45 [parallel_state.py:1715] rank 0 in world size 1 is assigned as DP rank 0, PP rank 0, PCP rank 0, TP rank 0, EP rank N/A, EPLB rank N/A
+(EngineCore_DP0 pid=3567346) INFO 04-17 12:12:46 [base.py:106] Offloader set to NoopOffloader
+(EngineCore_DP0 pid=3567346) INFO 04-17 12:12:46 [gpu_model_runner.py:4255] Starting to load model cais/HarmBench-Llama-2-13b-cls...
+(EngineCore_DP0 pid=3567346) INFO 04-17 12:12:46 [cuda.py:405] Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTION'].
+(EngineCore_DP0 pid=3567346) INFO 04-17 12:12:46 [flash_attn.py:587] Using FlashAttention version 2
+(EngineCore_DP0 pid=3567346) INFO 04-17 12:12:55 [default_loader.py:293] Loading weights took 8.70 seconds
+(EngineCore_DP0 pid=3567346) INFO 04-17 12:12:56 [gpu_model_runner.py:4338] Model loading took 24.28 GiB memory and 9.567087 seconds
+(EngineCore_DP0 pid=3567346) INFO 04-17 12:12:58 [gpu_worker.py:424] Available KV cache memory: 59.37 GiB
+(EngineCore_DP0 pid=3567346) INFO 04-17 12:12:58 [kv_cache_utils.py:1314] GPU KV cache size: 77,808 tokens
+(EngineCore_DP0 pid=3567346) INFO 04-17 12:12:58 [kv_cache_utils.py:1319] Maximum concurrency for 2,048 tokens per request: 37.99x
+(EngineCore_DP0 pid=3567346) INFO 04-17 12:12:58 [core.py:282] init engine (profile, create kv cache, warmup model) took 2.03 seconds
+(EngineCore_DP0 pid=3567346) INFO 04-17 12:12:58 [vllm.py:747] Asynchronous scheduling is enabled.
+(EngineCore_DP0 pid=3567346) WARNING 04-17 12:12:58 [vllm.py:781] Enforce eager set, disabling torch.compile and CUDAGraphs. This is equivalent to setting -cc.mode=none -cc.cudagraph_mode=none
+(EngineCore_DP0 pid=3567346) WARNING 04-17 12:12:58 [vllm.py:792] Inductor compilation was disabled by user settings, optimizations settings that are only active during inductor compilation will be ignored.
+(EngineCore_DP0 pid=3567346) INFO 04-17 12:12:58 [vllm.py:957] Cudagraph is disabled under eager mode
+INFO 04-17 12:12:58 [llm.py:388] Supported tasks: ['generate']
+2026-04-17 12:12:58,704 - __main__ - INFO - Classifier loaded successfully
+2026-04-17 12:12:58,704 - __main__ - INFO - Loading input JSON from /lustre/nvwulf/projects/ZhouGroup-nvwulf/Users/solhapark/pretraining-trace/data/olmo2_13b/harmbench_copyright.json ...
+2026-04-17 12:12:58,733 - __main__ - INFO - Loaded 100 records
+2026-04-17 12:13:00,189 - __main__ - INFO - Processed 10 / 100 records...
+2026-04-17 12:13:01,543 - __main__ - INFO - Processed 20 / 100 records...
+2026-04-17 12:13:03,053 - __main__ - INFO - Processed 30 / 100 records...
+2026-04-17 12:13:04,396 - __main__ - INFO - Processed 40 / 100 records...
+2026-04-17 12:13:05,727 - __main__ - INFO - Processed 50 / 100 records...
+2026-04-17 12:13:06,545 - __main__ - INFO - Processed 60 / 100 records...
+2026-04-17 12:13:07,696 - __main__ - INFO - Processed 70 / 100 records...
+2026-04-17 12:13:08,618 - __main__ - INFO - Processed 80 / 100 records...
+2026-04-17 12:13:09,296 - __main__ - INFO - Processed 90 / 100 records...
+2026-04-17 12:13:10,071 - __main__ - INFO - Processed 100 / 100 records...
+2026-04-17 12:13:10,071 - __main__ - INFO - Saving results to /lustre/nvwulf/projects/ZhouGroup-nvwulf/Users/solhapark/pretraining-trace/data/olmo2_13b/harmbench_copyright_labeled.json...
+2026-04-17 12:13:10,077 - __main__ - INFO - ==================================================
+2026-04-17 12:13:10,077 - __main__ - INFO - Summary
+2026-04-17 12:13:10,078 - __main__ - INFO - ==================================================
+2026-04-17 12:13:10,078 - __main__ - INFO -   Total records         : 100
+2026-04-17 12:13:10,078 - __main__ - INFO -   Records with hb_label : 100
+2026-04-17 12:13:10,078 - __main__ - INFO -     Compliant (label=1) : 13
+2026-04-17 12:13:10,078 - __main__ - INFO -     Refused   (label=0) : 87
+2026-04-17 12:13:10,078 - __main__ - INFO -   Records with error    : 0
+2026-04-17 12:13:10,078 - __main__ - INFO -   Attack Success Rate   : 13.0%
+2026-04-17 12:13:10,078 - __main__ - INFO - ==================================================
+2026-04-17 12:13:10,078 - __main__ - INFO - === Job finished at Fri Apr 17 12:13:10 PM  2026 ===
+2026-04-17 12:13:10,078 - __main__ - INFO - === Elapsed time: 0 days 00:00:40 (total 40.882 seconds) ===
 === Done: olmo2-13b ===
 ============================================================
-=== Evaluating: olmo2-32b, config=standard
-=== Time: Fri Mar 13 10:58:31 PM EDT 2026
+=== Evaluating: olmo2-32b, config=copyright
+=== Time: Fri Apr 17 12:13:11 PM EDT 2026
 ============================================================
-2026-03-13 22:58:34,860 - __main__ - INFO - Logging to file: logs/olmo2-32b/eval_harmbench_standard.log
-2026-03-13 22:58:34,863 - __main__ - INFO - === Job started at Fri Mar 13 10:58:34 PM  2026 ===
-2026-03-13 22:58:34,863 - __main__ - INFO - Model key  : olmo2-32b
-2026-03-13 22:58:34,863 - __main__ - INFO - Input      : data/olmo2_32b/harmbench_standard.json
-2026-03-13 22:58:34,863 - __main__ - INFO - Output     : results/olmo2_32b/harmbench_standard_labeled.json
-2026-03-13 22:58:41,997 - __main__ - INFO - Loading classifier tokenizer from cais/HarmBench-Llama-2-13b-cls ...
-2026-03-13 22:58:42,377 - __main__ - INFO - Loading classifier model from cais/HarmBench-Llama-2-13b-cls ...
-INFO 03-13 22:58:42 [utils.py:238] non-default args: {'disable_log_stats': True, 'enforce_eager': True, 'model': 'cais/HarmBench-Llama-2-13b-cls'}
-INFO 03-13 22:58:42 [model.py:531] Resolved architecture: LlamaForCausalLM
-INFO 03-13 22:58:42 [model.py:1554] Using max model len 2048
-INFO 03-13 22:58:42 [scheduler.py:231] Chunked prefill is enabled with max_num_batched_tokens=16384.
-INFO 03-13 22:58:42 [vllm.py:747] Asynchronous scheduling is enabled.
-WARNING 03-13 22:58:42 [vllm.py:781] Enforce eager set, disabling torch.compile and CUDAGraphs. This is equivalent to setting -cc.mode=none -cc.cudagraph_mode=none
-WARNING 03-13 22:58:42 [vllm.py:792] Inductor compilation was disabled by user settings, optimizations settings that are only active during inductor compilation will be ignored.
-INFO 03-13 22:58:44 [vllm.py:957] Cudagraph is disabled under eager mode
-(EngineCore_DP0 pid=322484) INFO 03-13 22:58:54 [core.py:101] Initializing a V1 LLM engine (v0.17.0) with config: model='cais/HarmBench-Llama-2-13b-cls', speculative_config=None, tokenizer='cais/HarmBench-Llama-2-13b-cls', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=2048, download_dir=None, load_format=auto, tensor_parallel_size=1, pipeline_parallel_size=1, data_parallel_size=1, disable_custom_all_reduce=False, quantization=None, enforce_eager=True, enable_return_routed_experts=False, kv_cache_dtype=auto, device_config=cuda, structured_outputs_config=StructuredOutputsConfig(backend='auto', disable_fallback=False, disable_any_whitespace=False, disable_additional_properties=False, reasoning_parser='', reasoning_parser_plugin='', enable_in_reasoning=False), observability_config=ObservabilityConfig(show_hidden_metrics_for_version=None, otlp_traces_endpoint=None, collect_detailed_traces=None, kv_cache_metrics=False, kv_cache_metrics_sample=0.01, cudagraph_metrics=False, enable_layerwise_nvtx_tracing=False, enable_mfu_metrics=False, enable_mm_processor_stats=False, enable_logging_iteration_details=False), seed=0, served_model_name=cais/HarmBench-Llama-2-13b-cls, enable_prefix_caching=True, enable_chunked_prefill=True, pooler_config=None, compilation_config={'level': None, 'mode': <CompilationMode.NONE: 0>, 'debug_dump_path': None, 'cache_dir': '', 'compile_cache_save_format': 'binary', 'backend': 'inductor', 'custom_ops': ['all'], 'splitting_ops': [], 'compile_mm_encoder': False, 'compile_sizes': [], 'compile_ranges_split_points': [16384], 'inductor_compile_config': {'enable_auto_functionalized_v2': False, 'combo_kernels': True, 'benchmark_combo_kernel': True}, 'inductor_passes': {}, 'cudagraph_mode': <CUDAGraphMode.NONE: 0>, 'cudagraph_num_of_warmups': 0, 'cudagraph_capture_sizes': [], 'cudagraph_copy_inputs': False, 'cudagraph_specialize_lora': True, 'use_inductor_graph_partition': False, 'pass_config': {'fuse_norm_quant': True, 'fuse_act_quant': True, 'fuse_attn_quant': False, 'enable_sp': False, 'fuse_gemm_comms': False, 'fuse_allreduce_rms': False}, 'max_cudagraph_capture_size': 0, 'dynamic_shapes_config': {'type': <DynamicShapesType.BACKED: 'backed'>, 'evaluate_guards': False, 'assume_32_bit_indexing': False}, 'local_cache_dir': None, 'fast_moe_cold_start': True, 'static_all_moe_layers': []}
-(EngineCore_DP0 pid=322484) INFO 03-13 22:58:56 [parallel_state.py:1393] world_size=1 rank=0 local_rank=0 distributed_init_method=tcp://10.10.0.191:40155 backend=nccl
-(EngineCore_DP0 pid=322484) INFO 03-13 22:58:56 [parallel_state.py:1715] rank 0 in world size 1 is assigned as DP rank 0, PP rank 0, PCP rank 0, TP rank 0, EP rank N/A, EPLB rank N/A
-(EngineCore_DP0 pid=322484) INFO 03-13 22:58:57 [base.py:106] Offloader set to NoopOffloader
-(EngineCore_DP0 pid=322484) INFO 03-13 22:58:57 [gpu_model_runner.py:4255] Starting to load model cais/HarmBench-Llama-2-13b-cls...
-(EngineCore_DP0 pid=322484) INFO 03-13 22:58:58 [cuda.py:405] Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTION'].
-(EngineCore_DP0 pid=322484) INFO 03-13 22:58:58 [flash_attn.py:587] Using FlashAttention version 2
-(EngineCore_DP0 pid=322484) INFO 03-13 22:59:18 [default_loader.py:293] Loading weights took 19.21 seconds
-(EngineCore_DP0 pid=322484) INFO 03-13 22:59:19 [gpu_model_runner.py:4338] Model loading took 24.28 GiB memory and 20.363731 seconds
-(EngineCore_DP0 pid=322484) INFO 03-13 22:59:23 [gpu_worker.py:424] Available KV cache memory: 59.37 GiB
-(EngineCore_DP0 pid=322484) INFO 03-13 22:59:23 [kv_cache_utils.py:1314] GPU KV cache size: 77,808 tokens
-(EngineCore_DP0 pid=322484) INFO 03-13 22:59:23 [kv_cache_utils.py:1319] Maximum concurrency for 2,048 tokens per request: 37.99x
-(EngineCore_DP0 pid=322484) INFO 03-13 22:59:23 [core.py:282] init engine (profile, create kv cache, warmup model) took 4.02 seconds
-(EngineCore_DP0 pid=322484) INFO 03-13 22:59:24 [vllm.py:747] Asynchronous scheduling is enabled.
-(EngineCore_DP0 pid=322484) WARNING 03-13 22:59:24 [vllm.py:781] Enforce eager set, disabling torch.compile and CUDAGraphs. This is equivalent to setting -cc.mode=none -cc.cudagraph_mode=none
-(EngineCore_DP0 pid=322484) WARNING 03-13 22:59:24 [vllm.py:792] Inductor compilation was disabled by user settings, optimizations settings that are only active during inductor compilation will be ignored.
-(EngineCore_DP0 pid=322484) INFO 03-13 22:59:24 [vllm.py:957] Cudagraph is disabled under eager mode
-INFO 03-13 22:59:24 [llm.py:388] Supported tasks: ['generate']
-2026-03-13 22:59:24,330 - __main__ - WARNING - Failed to load classifier: CachedLlamaTokenizerFast has no attribute tokenizer
-2026-03-13 22:59:24,330 - __main__ - WARNING - Classifier-based evaluation will be skipped.
-2026-03-13 22:59:24,330 - __main__ - INFO - Loading input JSON from /lustre/nvwulf/scratch/solhapark/pretraining-trace/data/olmo2_32b/harmbench_standard.json ...
-2026-03-13 22:59:24,452 - __main__ - INFO - Loaded 200 records
-2026-03-13 22:59:25,962 - __main__ - INFO - Processed 10 / 200 records...
-2026-03-13 22:59:27,104 - __main__ - INFO - Processed 20 / 200 records...
-2026-03-13 22:59:28,162 - __main__ - INFO - Processed 30 / 200 records...
-2026-03-13 22:59:29,170 - __main__ - INFO - Processed 40 / 200 records...
-2026-03-13 22:59:30,276 - __main__ - INFO - Processed 50 / 200 records...
-2026-03-13 22:59:31,317 - __main__ - INFO - Processed 60 / 200 records...
-2026-03-13 22:59:32,387 - __main__ - INFO - Processed 70 / 200 records...
-2026-03-13 22:59:33,494 - __main__ - INFO - Processed 80 / 200 records...
-2026-03-13 22:59:34,649 - __main__ - INFO - Processed 90 / 200 records...
-2026-03-13 22:59:35,574 - __main__ - INFO - Processed 100 / 200 records...
-2026-03-13 22:59:36,606 - __main__ - INFO - Processed 110 / 200 records...
-2026-03-13 22:59:37,757 - __main__ - INFO - Processed 120 / 200 records...
-2026-03-13 22:59:38,869 - __main__ - INFO - Processed 130 / 200 records...
-2026-03-13 22:59:39,933 - __main__ - INFO - Processed 140 / 200 records...
-2026-03-13 22:59:41,083 - __main__ - INFO - Processed 150 / 200 records...
-2026-03-13 22:59:42,211 - __main__ - INFO - Processed 160 / 200 records...
-2026-03-13 22:59:43,293 - __main__ - INFO - Processed 170 / 200 records...
-2026-03-13 22:59:44,428 - __main__ - INFO - Processed 180 / 200 records...
-2026-03-13 22:59:45,547 - __main__ - INFO - Processed 190 / 200 records...
-2026-03-13 22:59:46,645 - __main__ - INFO - Processed 200 / 200 records...
-2026-03-13 22:59:46,645 - __main__ - INFO - Saving results to /lustre/nvwulf/scratch/solhapark/pretraining-trace/results/olmo2_32b/harmbench_standard_labeled.json...
-2026-03-13 22:59:46,656 - __main__ - INFO - ==================================================
-2026-03-13 22:59:46,656 - __main__ - INFO - Summary
-2026-03-13 22:59:46,656 - __main__ - INFO - ==================================================
-2026-03-13 22:59:46,656 - __main__ - INFO -   Total records         : 200
-2026-03-13 22:59:46,656 - __main__ - INFO -   Records with hb_label : 200
-2026-03-13 22:59:46,656 - __main__ - INFO -     Compliant (label=1) : 39
-2026-03-13 22:59:46,656 - __main__ - INFO -     Refused   (label=0) : 161
-2026-03-13 22:59:46,656 - __main__ - INFO -   Records with error    : 0
-2026-03-13 22:59:46,656 - __main__ - INFO -   Attack Success Rate   : 19.5%
-2026-03-13 22:59:46,657 - __main__ - INFO - ==================================================
-2026-03-13 22:59:46,657 - __main__ - INFO - === Job finished at Fri Mar 13 10:59:46 PM  2026 ===
-2026-03-13 22:59:46,657 - __main__ - INFO - === Elapsed time: 0 days 00:01:11 (total 71.793 seconds) ===
+2026-04-17 12:13:13,876 - __main__ - INFO - Logging to file: logs/olmo2_32b/eval_harmbench_copyright.log
+2026-04-17 12:13:13,878 - __main__ - INFO - === Job started at Fri Apr 17 12:13:13 PM  2026 ===
+2026-04-17 12:13:13,878 - __main__ - INFO - Model key  : olmo2-32b
+2026-04-17 12:13:13,878 - __main__ - INFO - Input      : data/olmo2_32b/harmbench_copyright.json
+2026-04-17 12:13:13,878 - __main__ - INFO - Output     : data/olmo2_32b/harmbench_copyright_labeled.json
+2026-04-17 12:13:17,745 - __main__ - INFO - Loading classifier tokenizer from cais/HarmBench-Llama-2-13b-cls ...
+2026-04-17 12:13:17,984 - __main__ - INFO - Loading classifier model from cais/HarmBench-Llama-2-13b-cls ...
+INFO 04-17 12:13:17 [utils.py:238] non-default args: {'disable_log_stats': True, 'enforce_eager': True, 'model': 'cais/HarmBench-Llama-2-13b-cls'}
+INFO 04-17 12:13:18 [model.py:531] Resolved architecture: LlamaForCausalLM
+INFO 04-17 12:13:18 [model.py:1554] Using max model len 2048
+INFO 04-17 12:13:18 [scheduler.py:231] Chunked prefill is enabled with max_num_batched_tokens=16384.
+INFO 04-17 12:13:18 [vllm.py:747] Asynchronous scheduling is enabled.
+WARNING 04-17 12:13:18 [vllm.py:781] Enforce eager set, disabling torch.compile and CUDAGraphs. This is equivalent to setting -cc.mode=none -cc.cudagraph_mode=none
+WARNING 04-17 12:13:18 [vllm.py:792] Inductor compilation was disabled by user settings, optimizations settings that are only active during inductor compilation will be ignored.
+INFO 04-17 12:13:19 [vllm.py:957] Cudagraph is disabled under eager mode
+(EngineCore_DP0 pid=3567492) INFO 04-17 12:13:23 [core.py:101] Initializing a V1 LLM engine (v0.17.0) with config: model='cais/HarmBench-Llama-2-13b-cls', speculative_config=None, tokenizer='cais/HarmBench-Llama-2-13b-cls', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=2048, download_dir=None, load_format=auto, tensor_parallel_size=1, pipeline_parallel_size=1, data_parallel_size=1, disable_custom_all_reduce=False, quantization=None, enforce_eager=True, enable_return_routed_experts=False, kv_cache_dtype=auto, device_config=cuda, structured_outputs_config=StructuredOutputsConfig(backend='auto', disable_fallback=False, disable_any_whitespace=False, disable_additional_properties=False, reasoning_parser='', reasoning_parser_plugin='', enable_in_reasoning=False), observability_config=ObservabilityConfig(show_hidden_metrics_for_version=None, otlp_traces_endpoint=None, collect_detailed_traces=None, kv_cache_metrics=False, kv_cache_metrics_sample=0.01, cudagraph_metrics=False, enable_layerwise_nvtx_tracing=False, enable_mfu_metrics=False, enable_mm_processor_stats=False, enable_logging_iteration_details=False), seed=0, served_model_name=cais/HarmBench-Llama-2-13b-cls, enable_prefix_caching=True, enable_chunked_prefill=True, pooler_config=None, compilation_config={'level': None, 'mode': <CompilationMode.NONE: 0>, 'debug_dump_path': None, 'cache_dir': '', 'compile_cache_save_format': 'binary', 'backend': 'inductor', 'custom_ops': ['all'], 'splitting_ops': [], 'compile_mm_encoder': False, 'compile_sizes': [], 'compile_ranges_split_points': [16384], 'inductor_compile_config': {'enable_auto_functionalized_v2': False, 'combo_kernels': True, 'benchmark_combo_kernel': True}, 'inductor_passes': {}, 'cudagraph_mode': <CUDAGraphMode.NONE: 0>, 'cudagraph_num_of_warmups': 0, 'cudagraph_capture_sizes': [], 'cudagraph_copy_inputs': False, 'cudagraph_specialize_lora': True, 'use_inductor_graph_partition': False, 'pass_config': {'fuse_norm_quant': True, 'fuse_act_quant': True, 'fuse_attn_quant': False, 'enable_sp': False, 'fuse_gemm_comms': False, 'fuse_allreduce_rms': False}, 'max_cudagraph_capture_size': 0, 'dynamic_shapes_config': {'type': <DynamicShapesType.BACKED: 'backed'>, 'evaluate_guards': False, 'assume_32_bit_indexing': False}, 'local_cache_dir': None, 'fast_moe_cold_start': True, 'static_all_moe_layers': []}
+(EngineCore_DP0 pid=3567492) INFO 04-17 12:13:25 [parallel_state.py:1393] world_size=1 rank=0 local_rank=0 distributed_init_method=tcp://10.10.0.193:49501 backend=nccl
+(EngineCore_DP0 pid=3567492) INFO 04-17 12:13:25 [parallel_state.py:1715] rank 0 in world size 1 is assigned as DP rank 0, PP rank 0, PCP rank 0, TP rank 0, EP rank N/A, EPLB rank N/A
+(EngineCore_DP0 pid=3567492) INFO 04-17 12:13:25 [base.py:106] Offloader set to NoopOffloader
+(EngineCore_DP0 pid=3567492) INFO 04-17 12:13:25 [gpu_model_runner.py:4255] Starting to load model cais/HarmBench-Llama-2-13b-cls...
+(EngineCore_DP0 pid=3567492) INFO 04-17 12:13:26 [cuda.py:405] Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTION'].
+(EngineCore_DP0 pid=3567492) INFO 04-17 12:13:26 [flash_attn.py:587] Using FlashAttention version 2
+(EngineCore_DP0 pid=3567492) INFO 04-17 12:13:35 [default_loader.py:293] Loading weights took 8.68 seconds
+(EngineCore_DP0 pid=3567492) INFO 04-17 12:13:35 [gpu_model_runner.py:4338] Model loading took 24.28 GiB memory and 9.578774 seconds
+(EngineCore_DP0 pid=3567492) INFO 04-17 12:13:37 [gpu_worker.py:424] Available KV cache memory: 59.37 GiB
+(EngineCore_DP0 pid=3567492) INFO 04-17 12:13:37 [kv_cache_utils.py:1314] GPU KV cache size: 77,808 tokens
+(EngineCore_DP0 pid=3567492) INFO 04-17 12:13:37 [kv_cache_utils.py:1319] Maximum concurrency for 2,048 tokens per request: 37.99x
+(EngineCore_DP0 pid=3567492) INFO 04-17 12:13:37 [core.py:282] init engine (profile, create kv cache, warmup model) took 2.03 seconds
+(EngineCore_DP0 pid=3567492) INFO 04-17 12:13:37 [vllm.py:747] Asynchronous scheduling is enabled.
+(EngineCore_DP0 pid=3567492) WARNING 04-17 12:13:37 [vllm.py:781] Enforce eager set, disabling torch.compile and CUDAGraphs. This is equivalent to setting -cc.mode=none -cc.cudagraph_mode=none
+(EngineCore_DP0 pid=3567492) WARNING 04-17 12:13:37 [vllm.py:792] Inductor compilation was disabled by user settings, optimizations settings that are only active during inductor compilation will be ignored.
+(EngineCore_DP0 pid=3567492) INFO 04-17 12:13:37 [vllm.py:957] Cudagraph is disabled under eager mode
+INFO 04-17 12:13:37 [llm.py:388] Supported tasks: ['generate']
+2026-04-17 12:13:37,980 - __main__ - INFO - Classifier loaded successfully
+2026-04-17 12:13:37,980 - __main__ - INFO - Loading input JSON from /lustre/nvwulf/projects/ZhouGroup-nvwulf/Users/solhapark/pretraining-trace/data/olmo2_32b/harmbench_copyright.json ...
+2026-04-17 12:13:38,006 - __main__ - INFO - Loaded 100 records
+2026-04-17 12:13:38,549 - __main__ - INFO - Processed 10 / 100 records...
+2026-04-17 12:13:38,832 - __main__ - INFO - Processed 20 / 100 records...
+2026-04-17 12:13:39,287 - __main__ - INFO - Processed 30 / 100 records...
+2026-04-17 12:13:39,630 - __main__ - INFO - Processed 40 / 100 records...
+2026-04-17 12:13:39,986 - __main__ - INFO - Processed 50 / 100 records...
+2026-04-17 12:13:41,193 - __main__ - INFO - Processed 60 / 100 records...
+2026-04-17 12:13:42,609 - __main__ - INFO - Processed 70 / 100 records...
+2026-04-17 12:13:43,774 - __main__ - INFO - Processed 80 / 100 records...
+2026-04-17 12:13:44,980 - __main__ - INFO - Processed 90 / 100 records...
+2026-04-17 12:13:46,089 - __main__ - INFO - Processed 100 / 100 records...
+2026-04-17 12:13:46,089 - __main__ - INFO - Saving results to /lustre/nvwulf/projects/ZhouGroup-nvwulf/Users/solhapark/pretraining-trace/data/olmo2_32b/harmbench_copyright_labeled.json...
+2026-04-17 12:13:46,096 - __main__ - INFO - ==================================================
+2026-04-17 12:13:46,096 - __main__ - INFO - Summary
+2026-04-17 12:13:46,096 - __main__ - INFO - ==================================================
+2026-04-17 12:13:46,096 - __main__ - INFO -   Total records         : 100
+2026-04-17 12:13:46,096 - __main__ - INFO -   Records with hb_label : 100
+2026-04-17 12:13:46,096 - __main__ - INFO -     Compliant (label=1) : 5
+2026-04-17 12:13:46,096 - __main__ - INFO -     Refused   (label=0) : 95
+2026-04-17 12:13:46,096 - __main__ - INFO -   Records with error    : 0
+2026-04-17 12:13:46,096 - __main__ - INFO -   Attack Success Rate   : 5.0%
+2026-04-17 12:13:46,097 - __main__ - INFO - ==================================================
+2026-04-17 12:13:46,097 - __main__ - INFO - === Job finished at Fri Apr 17 12:13:46 PM  2026 ===
+2026-04-17 12:13:46,097 - __main__ - INFO - === Elapsed time: 0 days 00:00:32 (total 32.219 seconds) ===
 === Done: olmo2-32b ===
 ============================================================
-=== Evaluating: olmo2-1b-instruct, config=standard
-=== Time: Fri Mar 13 10:59:50 PM EDT 2026
+=== Evaluating: olmo2-1b-instruct, config=copyright
+=== Time: Fri Apr 17 12:13:47 PM EDT 2026
 ============================================================
-2026-03-13 22:59:53,735 - __main__ - INFO - Logging to file: logs/olmo2-1b-instruct/eval_harmbench_standard.log
-2026-03-13 22:59:53,738 - __main__ - INFO - === Job started at Fri Mar 13 10:59:53 PM  2026 ===
-2026-03-13 22:59:53,738 - __main__ - INFO - Model key  : olmo2-1b-instruct
-2026-03-13 22:59:53,738 - __main__ - INFO - Input      : data/olmo2_1b_instruct/harmbench_standard.json
-2026-03-13 22:59:53,738 - __main__ - INFO - Output     : results/olmo2_1b_instruct/harmbench_standard_labeled.json
-2026-03-13 23:00:00,438 - __main__ - INFO - Loading classifier tokenizer from cais/HarmBench-Llama-2-13b-cls ...
-2026-03-13 23:00:00,725 - __main__ - INFO - Loading classifier model from cais/HarmBench-Llama-2-13b-cls ...
-INFO 03-13 23:00:00 [utils.py:238] non-default args: {'disable_log_stats': True, 'enforce_eager': True, 'model': 'cais/HarmBench-Llama-2-13b-cls'}
-INFO 03-13 23:00:01 [model.py:531] Resolved architecture: LlamaForCausalLM
-INFO 03-13 23:00:01 [model.py:1554] Using max model len 2048
-INFO 03-13 23:00:01 [scheduler.py:231] Chunked prefill is enabled with max_num_batched_tokens=16384.
-INFO 03-13 23:00:01 [vllm.py:747] Asynchronous scheduling is enabled.
-WARNING 03-13 23:00:01 [vllm.py:781] Enforce eager set, disabling torch.compile and CUDAGraphs. This is equivalent to setting -cc.mode=none -cc.cudagraph_mode=none
-WARNING 03-13 23:00:01 [vllm.py:792] Inductor compilation was disabled by user settings, optimizations settings that are only active during inductor compilation will be ignored.
-INFO 03-13 23:00:03 [vllm.py:957] Cudagraph is disabled under eager mode
-(EngineCore_DP0 pid=322973) INFO 03-13 23:00:12 [core.py:101] Initializing a V1 LLM engine (v0.17.0) with config: model='cais/HarmBench-Llama-2-13b-cls', speculative_config=None, tokenizer='cais/HarmBench-Llama-2-13b-cls', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=2048, download_dir=None, load_format=auto, tensor_parallel_size=1, pipeline_parallel_size=1, data_parallel_size=1, disable_custom_all_reduce=False, quantization=None, enforce_eager=True, enable_return_routed_experts=False, kv_cache_dtype=auto, device_config=cuda, structured_outputs_config=StructuredOutputsConfig(backend='auto', disable_fallback=False, disable_any_whitespace=False, disable_additional_properties=False, reasoning_parser='', reasoning_parser_plugin='', enable_in_reasoning=False), observability_config=ObservabilityConfig(show_hidden_metrics_for_version=None, otlp_traces_endpoint=None, collect_detailed_traces=None, kv_cache_metrics=False, kv_cache_metrics_sample=0.01, cudagraph_metrics=False, enable_layerwise_nvtx_tracing=False, enable_mfu_metrics=False, enable_mm_processor_stats=False, enable_logging_iteration_details=False), seed=0, served_model_name=cais/HarmBench-Llama-2-13b-cls, enable_prefix_caching=True, enable_chunked_prefill=True, pooler_config=None, compilation_config={'level': None, 'mode': <CompilationMode.NONE: 0>, 'debug_dump_path': None, 'cache_dir': '', 'compile_cache_save_format': 'binary', 'backend': 'inductor', 'custom_ops': ['all'], 'splitting_ops': [], 'compile_mm_encoder': False, 'compile_sizes': [], 'compile_ranges_split_points': [16384], 'inductor_compile_config': {'enable_auto_functionalized_v2': False, 'combo_kernels': True, 'benchmark_combo_kernel': True}, 'inductor_passes': {}, 'cudagraph_mode': <CUDAGraphMode.NONE: 0>, 'cudagraph_num_of_warmups': 0, 'cudagraph_capture_sizes': [], 'cudagraph_copy_inputs': False, 'cudagraph_specialize_lora': True, 'use_inductor_graph_partition': False, 'pass_config': {'fuse_norm_quant': True, 'fuse_act_quant': True, 'fuse_attn_quant': False, 'enable_sp': False, 'fuse_gemm_comms': False, 'fuse_allreduce_rms': False}, 'max_cudagraph_capture_size': 0, 'dynamic_shapes_config': {'type': <DynamicShapesType.BACKED: 'backed'>, 'evaluate_guards': False, 'assume_32_bit_indexing': False}, 'local_cache_dir': None, 'fast_moe_cold_start': True, 'static_all_moe_layers': []}
-(EngineCore_DP0 pid=322973) INFO 03-13 23:00:15 [parallel_state.py:1393] world_size=1 rank=0 local_rank=0 distributed_init_method=tcp://10.10.0.191:36993 backend=nccl
-(EngineCore_DP0 pid=322973) INFO 03-13 23:00:15 [parallel_state.py:1715] rank 0 in world size 1 is assigned as DP rank 0, PP rank 0, PCP rank 0, TP rank 0, EP rank N/A, EPLB rank N/A
-(EngineCore_DP0 pid=322973) INFO 03-13 23:00:16 [base.py:106] Offloader set to NoopOffloader
-(EngineCore_DP0 pid=322973) INFO 03-13 23:00:16 [gpu_model_runner.py:4255] Starting to load model cais/HarmBench-Llama-2-13b-cls...
-(EngineCore_DP0 pid=322973) INFO 03-13 23:00:17 [cuda.py:405] Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTION'].
-(EngineCore_DP0 pid=322973) INFO 03-13 23:00:17 [flash_attn.py:587] Using FlashAttention version 2
-(EngineCore_DP0 pid=322973) INFO 03-13 23:00:36 [default_loader.py:293] Loading weights took 19.11 seconds
-(EngineCore_DP0 pid=322973) INFO 03-13 23:00:38 [gpu_model_runner.py:4338] Model loading took 24.28 GiB memory and 20.264850 seconds
-(EngineCore_DP0 pid=322973) INFO 03-13 23:00:41 [gpu_worker.py:424] Available KV cache memory: 59.37 GiB
-(EngineCore_DP0 pid=322973) INFO 03-13 23:00:41 [kv_cache_utils.py:1314] GPU KV cache size: 77,808 tokens
-(EngineCore_DP0 pid=322973) INFO 03-13 23:00:41 [kv_cache_utils.py:1319] Maximum concurrency for 2,048 tokens per request: 37.99x
-(EngineCore_DP0 pid=322973) INFO 03-13 23:00:41 [core.py:282] init engine (profile, create kv cache, warmup model) took 3.64 seconds
-(EngineCore_DP0 pid=322973) INFO 03-13 23:00:42 [vllm.py:747] Asynchronous scheduling is enabled.
-(EngineCore_DP0 pid=322973) WARNING 03-13 23:00:42 [vllm.py:781] Enforce eager set, disabling torch.compile and CUDAGraphs. This is equivalent to setting -cc.mode=none -cc.cudagraph_mode=none
-(EngineCore_DP0 pid=322973) WARNING 03-13 23:00:42 [vllm.py:792] Inductor compilation was disabled by user settings, optimizations settings that are only active during inductor compilation will be ignored.
-(EngineCore_DP0 pid=322973) INFO 03-13 23:00:42 [vllm.py:957] Cudagraph is disabled under eager mode
-INFO 03-13 23:00:42 [llm.py:388] Supported tasks: ['generate']
-2026-03-13 23:00:42,703 - __main__ - WARNING - Failed to load classifier: CachedLlamaTokenizerFast has no attribute tokenizer
-2026-03-13 23:00:42,704 - __main__ - WARNING - Classifier-based evaluation will be skipped.
-2026-03-13 23:00:42,704 - __main__ - INFO - Loading input JSON from /lustre/nvwulf/scratch/solhapark/pretraining-trace/data/olmo2_1b_instruct/harmbench_standard.json ...
-2026-03-13 23:00:42,752 - __main__ - INFO - Loaded 200 records
-2026-03-13 23:00:44,038 - __main__ - INFO - Processed 10 / 200 records...
-2026-03-13 23:00:44,982 - __main__ - INFO - Processed 20 / 200 records...
-2026-03-13 23:00:45,925 - __main__ - INFO - Processed 30 / 200 records...
-2026-03-13 23:00:47,089 - __main__ - INFO - Processed 40 / 200 records...
-2026-03-13 23:00:48,137 - __main__ - INFO - Processed 50 / 200 records...
-2026-03-13 23:00:49,177 - __main__ - INFO - Processed 60 / 200 records...
-2026-03-13 23:00:50,122 - __main__ - INFO - Processed 70 / 200 records...
-2026-03-13 23:00:50,988 - __main__ - INFO - Processed 80 / 200 records...
-2026-03-13 23:00:51,853 - __main__ - INFO - Processed 90 / 200 records...
-2026-03-13 23:00:52,801 - __main__ - INFO - Processed 100 / 200 records...
-2026-03-13 23:00:53,685 - __main__ - INFO - Processed 110 / 200 records...
-2026-03-13 23:00:54,582 - __main__ - INFO - Processed 120 / 200 records...
-2026-03-13 23:00:55,464 - __main__ - INFO - Processed 130 / 200 records...
-2026-03-13 23:00:56,391 - __main__ - INFO - Processed 140 / 200 records...
-2026-03-13 23:00:57,278 - __main__ - INFO - Processed 150 / 200 records...
-2026-03-13 23:00:58,236 - __main__ - INFO - Processed 160 / 200 records...
-2026-03-13 23:00:59,139 - __main__ - INFO - Processed 170 / 200 records...
-2026-03-13 23:01:00,231 - __main__ - INFO - Processed 180 / 200 records...
-2026-03-13 23:01:01,360 - __main__ - INFO - Processed 190 / 200 records...
-2026-03-13 23:01:02,221 - __main__ - INFO - Processed 200 / 200 records...
-2026-03-13 23:01:02,221 - __main__ - INFO - Saving results to /lustre/nvwulf/scratch/solhapark/pretraining-trace/results/olmo2_1b_instruct/harmbench_standard_labeled.json...
-2026-03-13 23:01:02,231 - __main__ - INFO - ==================================================
-2026-03-13 23:01:02,231 - __main__ - INFO - Summary
-2026-03-13 23:01:02,231 - __main__ - INFO - ==================================================
-2026-03-13 23:01:02,231 - __main__ - INFO -   Total records         : 200
-2026-03-13 23:01:02,231 - __main__ - INFO -   Records with hb_label : 200
-2026-03-13 23:01:02,231 - __main__ - INFO -     Compliant (label=1) : 16
-2026-03-13 23:01:02,231 - __main__ - INFO -     Refused   (label=0) : 184
-2026-03-13 23:01:02,231 - __main__ - INFO -   Records with error    : 0
-2026-03-13 23:01:02,231 - __main__ - INFO -   Attack Success Rate   : 8.0%
-2026-03-13 23:01:02,231 - __main__ - INFO - ==================================================
-2026-03-13 23:01:02,231 - __main__ - INFO - === Job finished at Fri Mar 13 11:01:02 PM  2026 ===
-2026-03-13 23:01:02,231 - __main__ - INFO - === Elapsed time: 0 days 00:01:08 (total 68.494 seconds) ===
+2026-04-17 12:13:49,164 - __main__ - INFO - Logging to file: logs/olmo2_1b_instruct/eval_harmbench_copyright.log
+2026-04-17 12:13:49,166 - __main__ - INFO - === Job started at Fri Apr 17 12:13:49 PM  2026 ===
+2026-04-17 12:13:49,166 - __main__ - INFO - Model key  : olmo2-1b-instruct
+2026-04-17 12:13:49,166 - __main__ - INFO - Input      : data/olmo2_1b_instruct/harmbench_copyright.json
+2026-04-17 12:13:49,166 - __main__ - INFO - Output     : data/olmo2_1b_instruct/harmbench_copyright_labeled.json
+2026-04-17 12:13:52,056 - __main__ - INFO - Loading classifier tokenizer from cais/HarmBench-Llama-2-13b-cls ...
+2026-04-17 12:13:52,283 - __main__ - INFO - Loading classifier model from cais/HarmBench-Llama-2-13b-cls ...
+INFO 04-17 12:13:52 [utils.py:238] non-default args: {'disable_log_stats': True, 'enforce_eager': True, 'model': 'cais/HarmBench-Llama-2-13b-cls'}
+INFO 04-17 12:13:52 [model.py:531] Resolved architecture: LlamaForCausalLM
+INFO 04-17 12:13:52 [model.py:1554] Using max model len 2048
+INFO 04-17 12:13:52 [scheduler.py:231] Chunked prefill is enabled with max_num_batched_tokens=16384.
+INFO 04-17 12:13:52 [vllm.py:747] Asynchronous scheduling is enabled.
+WARNING 04-17 12:13:52 [vllm.py:781] Enforce eager set, disabling torch.compile and CUDAGraphs. This is equivalent to setting -cc.mode=none -cc.cudagraph_mode=none
+WARNING 04-17 12:13:52 [vllm.py:792] Inductor compilation was disabled by user settings, optimizations settings that are only active during inductor compilation will be ignored.
+INFO 04-17 12:13:53 [vllm.py:957] Cudagraph is disabled under eager mode
+(EngineCore_DP0 pid=3567639) INFO 04-17 12:13:58 [core.py:101] Initializing a V1 LLM engine (v0.17.0) with config: model='cais/HarmBench-Llama-2-13b-cls', speculative_config=None, tokenizer='cais/HarmBench-Llama-2-13b-cls', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=2048, download_dir=None, load_format=auto, tensor_parallel_size=1, pipeline_parallel_size=1, data_parallel_size=1, disable_custom_all_reduce=False, quantization=None, enforce_eager=True, enable_return_routed_experts=False, kv_cache_dtype=auto, device_config=cuda, structured_outputs_config=StructuredOutputsConfig(backend='auto', disable_fallback=False, disable_any_whitespace=False, disable_additional_properties=False, reasoning_parser='', reasoning_parser_plugin='', enable_in_reasoning=False), observability_config=ObservabilityConfig(show_hidden_metrics_for_version=None, otlp_traces_endpoint=None, collect_detailed_traces=None, kv_cache_metrics=False, kv_cache_metrics_sample=0.01, cudagraph_metrics=False, enable_layerwise_nvtx_tracing=False, enable_mfu_metrics=False, enable_mm_processor_stats=False, enable_logging_iteration_details=False), seed=0, served_model_name=cais/HarmBench-Llama-2-13b-cls, enable_prefix_caching=True, enable_chunked_prefill=True, pooler_config=None, compilation_config={'level': None, 'mode': <CompilationMode.NONE: 0>, 'debug_dump_path': None, 'cache_dir': '', 'compile_cache_save_format': 'binary', 'backend': 'inductor', 'custom_ops': ['all'], 'splitting_ops': [], 'compile_mm_encoder': False, 'compile_sizes': [], 'compile_ranges_split_points': [16384], 'inductor_compile_config': {'enable_auto_functionalized_v2': False, 'combo_kernels': True, 'benchmark_combo_kernel': True}, 'inductor_passes': {}, 'cudagraph_mode': <CUDAGraphMode.NONE: 0>, 'cudagraph_num_of_warmups': 0, 'cudagraph_capture_sizes': [], 'cudagraph_copy_inputs': False, 'cudagraph_specialize_lora': True, 'use_inductor_graph_partition': False, 'pass_config': {'fuse_norm_quant': True, 'fuse_act_quant': True, 'fuse_attn_quant': False, 'enable_sp': False, 'fuse_gemm_comms': False, 'fuse_allreduce_rms': False}, 'max_cudagraph_capture_size': 0, 'dynamic_shapes_config': {'type': <DynamicShapesType.BACKED: 'backed'>, 'evaluate_guards': False, 'assume_32_bit_indexing': False}, 'local_cache_dir': None, 'fast_moe_cold_start': True, 'static_all_moe_layers': []}
+(EngineCore_DP0 pid=3567639) INFO 04-17 12:13:59 [parallel_state.py:1393] world_size=1 rank=0 local_rank=0 distributed_init_method=tcp://10.10.0.193:43843 backend=nccl
+(EngineCore_DP0 pid=3567639) INFO 04-17 12:13:59 [parallel_state.py:1715] rank 0 in world size 1 is assigned as DP rank 0, PP rank 0, PCP rank 0, TP rank 0, EP rank N/A, EPLB rank N/A
+(EngineCore_DP0 pid=3567639) INFO 04-17 12:13:59 [base.py:106] Offloader set to NoopOffloader
+(EngineCore_DP0 pid=3567639) INFO 04-17 12:13:59 [gpu_model_runner.py:4255] Starting to load model cais/HarmBench-Llama-2-13b-cls...
+(EngineCore_DP0 pid=3567639) INFO 04-17 12:14:00 [cuda.py:405] Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTION'].
+(EngineCore_DP0 pid=3567639) INFO 04-17 12:14:00 [flash_attn.py:587] Using FlashAttention version 2
+(EngineCore_DP0 pid=3567639) INFO 04-17 12:14:09 [default_loader.py:293] Loading weights took 8.71 seconds
+(EngineCore_DP0 pid=3567639) INFO 04-17 12:14:09 [gpu_model_runner.py:4338] Model loading took 24.28 GiB memory and 9.535578 seconds
+(EngineCore_DP0 pid=3567639) INFO 04-17 12:14:11 [gpu_worker.py:424] Available KV cache memory: 59.37 GiB
+(EngineCore_DP0 pid=3567639) INFO 04-17 12:14:11 [kv_cache_utils.py:1314] GPU KV cache size: 77,808 tokens
+(EngineCore_DP0 pid=3567639) INFO 04-17 12:14:11 [kv_cache_utils.py:1319] Maximum concurrency for 2,048 tokens per request: 37.99x
+(EngineCore_DP0 pid=3567639) INFO 04-17 12:14:11 [core.py:282] init engine (profile, create kv cache, warmup model) took 2.00 seconds
+(EngineCore_DP0 pid=3567639) INFO 04-17 12:14:12 [vllm.py:747] Asynchronous scheduling is enabled.
+(EngineCore_DP0 pid=3567639) WARNING 04-17 12:14:12 [vllm.py:781] Enforce eager set, disabling torch.compile and CUDAGraphs. This is equivalent to setting -cc.mode=none -cc.cudagraph_mode=none
+(EngineCore_DP0 pid=3567639) WARNING 04-17 12:14:12 [vllm.py:792] Inductor compilation was disabled by user settings, optimizations settings that are only active during inductor compilation will be ignored.
+(EngineCore_DP0 pid=3567639) INFO 04-17 12:14:12 [vllm.py:957] Cudagraph is disabled under eager mode
+INFO 04-17 12:14:12 [llm.py:388] Supported tasks: ['generate']
+2026-04-17 12:14:12,014 - __main__ - INFO - Classifier loaded successfully
+2026-04-17 12:14:12,015 - __main__ - INFO - Loading input JSON from /lustre/nvwulf/projects/ZhouGroup-nvwulf/Users/solhapark/pretraining-trace/data/olmo2_1b_instruct/harmbench_copyright.json ...
+2026-04-17 12:14:12,044 - __main__ - INFO - Loaded 100 records
+2026-04-17 12:14:12,248 - __main__ - INFO - Processed 10 / 100 records...
+2026-04-17 12:14:12,430 - __main__ - INFO - Processed 20 / 100 records...
+2026-04-17 12:14:12,555 - __main__ - INFO - Processed 30 / 100 records...
+2026-04-17 12:14:12,678 - __main__ - INFO - Processed 40 / 100 records...
+2026-04-17 12:14:12,865 - __main__ - INFO - Processed 50 / 100 records...
+2026-04-17 12:14:14,020 - __main__ - INFO - Processed 60 / 100 records...
+2026-04-17 12:14:15,079 - __main__ - INFO - Processed 70 / 100 records...
+2026-04-17 12:14:16,400 - __main__ - INFO - Processed 80 / 100 records...
+2026-04-17 12:14:17,574 - __main__ - INFO - Processed 90 / 100 records...
+2026-04-17 12:14:18,766 - __main__ - INFO - Processed 100 / 100 records...
+2026-04-17 12:14:18,766 - __main__ - INFO - Saving results to /lustre/nvwulf/projects/ZhouGroup-nvwulf/Users/solhapark/pretraining-trace/data/olmo2_1b_instruct/harmbench_copyright_labeled.json...
+2026-04-17 12:14:18,772 - __main__ - INFO - ==================================================
+2026-04-17 12:14:18,772 - __main__ - INFO - Summary
+2026-04-17 12:14:18,772 - __main__ - INFO - ==================================================
+2026-04-17 12:14:18,772 - __main__ - INFO -   Total records         : 100
+2026-04-17 12:14:18,772 - __main__ - INFO -   Records with hb_label : 100
+2026-04-17 12:14:18,772 - __main__ - INFO -     Compliant (label=1) : 0
+2026-04-17 12:14:18,772 - __main__ - INFO -     Refused   (label=0) : 100
+2026-04-17 12:14:18,772 - __main__ - INFO -   Records with error    : 0
+2026-04-17 12:14:18,772 - __main__ - INFO -   Attack Success Rate   : 0.0%
+2026-04-17 12:14:18,773 - __main__ - INFO - ==================================================
+2026-04-17 12:14:18,773 - __main__ - INFO - === Job finished at Fri Apr 17 12:14:18 PM  2026 ===
+2026-04-17 12:14:18,773 - __main__ - INFO - === Elapsed time: 0 days 00:00:29 (total 29.607 seconds) ===
 === Done: olmo2-1b-instruct ===
 ============================================================
-=== Evaluating: olmo2-7b-instruct, config=standard
-=== Time: Fri Mar 13 11:01:06 PM EDT 2026
+=== Evaluating: olmo2-7b-instruct, config=copyright
+=== Time: Fri Apr 17 12:14:20 PM EDT 2026
 ============================================================
-2026-03-13 23:01:09,078 - __main__ - INFO - Logging to file: logs/olmo2-7b-instruct/eval_harmbench_standard.log
-2026-03-13 23:01:09,081 - __main__ - INFO - === Job started at Fri Mar 13 11:01:09 PM  2026 ===
-2026-03-13 23:01:09,081 - __main__ - INFO - Model key  : olmo2-7b-instruct
-2026-03-13 23:01:09,081 - __main__ - INFO - Input      : data/olmo2_7b_instruct/harmbench_standard.json
-2026-03-13 23:01:09,081 - __main__ - INFO - Output     : results/olmo2_7b_instruct/harmbench_standard_labeled.json
-2026-03-13 23:01:16,140 - __main__ - INFO - Loading classifier tokenizer from cais/HarmBench-Llama-2-13b-cls ...
-2026-03-13 23:01:16,424 - __main__ - INFO - Loading classifier model from cais/HarmBench-Llama-2-13b-cls ...
-INFO 03-13 23:01:16 [utils.py:238] non-default args: {'disable_log_stats': True, 'enforce_eager': True, 'model': 'cais/HarmBench-Llama-2-13b-cls'}
-INFO 03-13 23:01:16 [model.py:531] Resolved architecture: LlamaForCausalLM
-INFO 03-13 23:01:16 [model.py:1554] Using max model len 2048
-INFO 03-13 23:01:17 [scheduler.py:231] Chunked prefill is enabled with max_num_batched_tokens=16384.
-INFO 03-13 23:01:17 [vllm.py:747] Asynchronous scheduling is enabled.
-WARNING 03-13 23:01:17 [vllm.py:781] Enforce eager set, disabling torch.compile and CUDAGraphs. This is equivalent to setting -cc.mode=none -cc.cudagraph_mode=none
-WARNING 03-13 23:01:17 [vllm.py:792] Inductor compilation was disabled by user settings, optimizations settings that are only active during inductor compilation will be ignored.
-INFO 03-13 23:01:18 [vllm.py:957] Cudagraph is disabled under eager mode
-(EngineCore_DP0 pid=323157) INFO 03-13 23:01:28 [core.py:101] Initializing a V1 LLM engine (v0.17.0) with config: model='cais/HarmBench-Llama-2-13b-cls', speculative_config=None, tokenizer='cais/HarmBench-Llama-2-13b-cls', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=2048, download_dir=None, load_format=auto, tensor_parallel_size=1, pipeline_parallel_size=1, data_parallel_size=1, disable_custom_all_reduce=False, quantization=None, enforce_eager=True, enable_return_routed_experts=False, kv_cache_dtype=auto, device_config=cuda, structured_outputs_config=StructuredOutputsConfig(backend='auto', disable_fallback=False, disable_any_whitespace=False, disable_additional_properties=False, reasoning_parser='', reasoning_parser_plugin='', enable_in_reasoning=False), observability_config=ObservabilityConfig(show_hidden_metrics_for_version=None, otlp_traces_endpoint=None, collect_detailed_traces=None, kv_cache_metrics=False, kv_cache_metrics_sample=0.01, cudagraph_metrics=False, enable_layerwise_nvtx_tracing=False, enable_mfu_metrics=False, enable_mm_processor_stats=False, enable_logging_iteration_details=False), seed=0, served_model_name=cais/HarmBench-Llama-2-13b-cls, enable_prefix_caching=True, enable_chunked_prefill=True, pooler_config=None, compilation_config={'level': None, 'mode': <CompilationMode.NONE: 0>, 'debug_dump_path': None, 'cache_dir': '', 'compile_cache_save_format': 'binary', 'backend': 'inductor', 'custom_ops': ['all'], 'splitting_ops': [], 'compile_mm_encoder': False, 'compile_sizes': [], 'compile_ranges_split_points': [16384], 'inductor_compile_config': {'enable_auto_functionalized_v2': False, 'combo_kernels': True, 'benchmark_combo_kernel': True}, 'inductor_passes': {}, 'cudagraph_mode': <CUDAGraphMode.NONE: 0>, 'cudagraph_num_of_warmups': 0, 'cudagraph_capture_sizes': [], 'cudagraph_copy_inputs': False, 'cudagraph_specialize_lora': True, 'use_inductor_graph_partition': False, 'pass_config': {'fuse_norm_quant': True, 'fuse_act_quant': True, 'fuse_attn_quant': False, 'enable_sp': False, 'fuse_gemm_comms': False, 'fuse_allreduce_rms': False}, 'max_cudagraph_capture_size': 0, 'dynamic_shapes_config': {'type': <DynamicShapesType.BACKED: 'backed'>, 'evaluate_guards': False, 'assume_32_bit_indexing': False}, 'local_cache_dir': None, 'fast_moe_cold_start': True, 'static_all_moe_layers': []}
-(EngineCore_DP0 pid=323157) INFO 03-13 23:01:30 [parallel_state.py:1393] world_size=1 rank=0 local_rank=0 distributed_init_method=tcp://10.10.0.191:36969 backend=nccl
-(EngineCore_DP0 pid=323157) INFO 03-13 23:01:30 [parallel_state.py:1715] rank 0 in world size 1 is assigned as DP rank 0, PP rank 0, PCP rank 0, TP rank 0, EP rank N/A, EPLB rank N/A
-(EngineCore_DP0 pid=323157) INFO 03-13 23:01:31 [base.py:106] Offloader set to NoopOffloader
-(EngineCore_DP0 pid=323157) INFO 03-13 23:01:31 [gpu_model_runner.py:4255] Starting to load model cais/HarmBench-Llama-2-13b-cls...
-(EngineCore_DP0 pid=323157) INFO 03-13 23:01:32 [cuda.py:405] Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTION'].
-(EngineCore_DP0 pid=323157) INFO 03-13 23:01:32 [flash_attn.py:587] Using FlashAttention version 2
-(EngineCore_DP0 pid=323157) INFO 03-13 23:01:52 [default_loader.py:293] Loading weights took 19.21 seconds
-(EngineCore_DP0 pid=323157) INFO 03-13 23:01:53 [gpu_model_runner.py:4338] Model loading took 24.28 GiB memory and 20.318626 seconds
-(EngineCore_DP0 pid=323157) INFO 03-13 23:01:57 [gpu_worker.py:424] Available KV cache memory: 59.37 GiB
-(EngineCore_DP0 pid=323157) INFO 03-13 23:01:57 [kv_cache_utils.py:1314] GPU KV cache size: 77,808 tokens
-(EngineCore_DP0 pid=323157) INFO 03-13 23:01:57 [kv_cache_utils.py:1319] Maximum concurrency for 2,048 tokens per request: 37.99x
-(EngineCore_DP0 pid=323157) INFO 03-13 23:01:57 [core.py:282] init engine (profile, create kv cache, warmup model) took 3.80 seconds
-(EngineCore_DP0 pid=323157) INFO 03-13 23:01:58 [vllm.py:747] Asynchronous scheduling is enabled.
-(EngineCore_DP0 pid=323157) WARNING 03-13 23:01:58 [vllm.py:781] Enforce eager set, disabling torch.compile and CUDAGraphs. This is equivalent to setting -cc.mode=none -cc.cudagraph_mode=none
-(EngineCore_DP0 pid=323157) WARNING 03-13 23:01:58 [vllm.py:792] Inductor compilation was disabled by user settings, optimizations settings that are only active during inductor compilation will be ignored.
-(EngineCore_DP0 pid=323157) INFO 03-13 23:01:58 [vllm.py:957] Cudagraph is disabled under eager mode
-INFO 03-13 23:01:58 [llm.py:388] Supported tasks: ['generate']
-2026-03-13 23:01:58,099 - __main__ - WARNING - Failed to load classifier: CachedLlamaTokenizerFast has no attribute tokenizer
-2026-03-13 23:01:58,100 - __main__ - WARNING - Classifier-based evaluation will be skipped.
-2026-03-13 23:01:58,100 - __main__ - INFO - Loading input JSON from /lustre/nvwulf/scratch/solhapark/pretraining-trace/data/olmo2_7b_instruct/harmbench_standard.json ...
-2026-03-13 23:01:58,131 - __main__ - INFO - Loaded 200 records
-2026-03-13 23:01:59,366 - __main__ - INFO - Processed 10 / 200 records...
-2026-03-13 23:02:00,244 - __main__ - INFO - Processed 20 / 200 records...
-2026-03-13 23:02:01,114 - __main__ - INFO - Processed 30 / 200 records...
-2026-03-13 23:02:02,211 - __main__ - INFO - Processed 40 / 200 records...
-2026-03-13 23:02:03,220 - __main__ - INFO - Processed 50 / 200 records...
-2026-03-13 23:02:04,139 - __main__ - INFO - Processed 60 / 200 records...
-2026-03-13 23:02:05,091 - __main__ - INFO - Processed 70 / 200 records...
-2026-03-13 23:02:06,054 - __main__ - INFO - Processed 80 / 200 records...
-2026-03-13 23:02:07,017 - __main__ - INFO - Processed 90 / 200 records...
-2026-03-13 23:02:07,961 - __main__ - INFO - Processed 100 / 200 records...
-2026-03-13 23:02:08,820 - __main__ - INFO - Processed 110 / 200 records...
-2026-03-13 23:02:09,658 - __main__ - INFO - Processed 120 / 200 records...
-2026-03-13 23:02:10,576 - __main__ - INFO - Processed 130 / 200 records...
-2026-03-13 23:02:11,512 - __main__ - INFO - Processed 140 / 200 records...
-2026-03-13 23:02:12,440 - __main__ - INFO - Processed 150 / 200 records...
-2026-03-13 23:02:13,372 - __main__ - INFO - Processed 160 / 200 records...
-2026-03-13 23:02:14,298 - __main__ - INFO - Processed 170 / 200 records...
-2026-03-13 23:02:15,344 - __main__ - INFO - Processed 180 / 200 records...
-2026-03-13 23:02:16,404 - __main__ - INFO - Processed 190 / 200 records...
-2026-03-13 23:02:17,300 - __main__ - INFO - Processed 200 / 200 records...
-2026-03-13 23:02:17,300 - __main__ - INFO - Saving results to /lustre/nvwulf/scratch/solhapark/pretraining-trace/results/olmo2_7b_instruct/harmbench_standard_labeled.json...
-2026-03-13 23:02:17,309 - __main__ - INFO - ==================================================
-2026-03-13 23:02:17,310 - __main__ - INFO - Summary
-2026-03-13 23:02:17,310 - __main__ - INFO - ==================================================
-2026-03-13 23:02:17,310 - __main__ - INFO -   Total records         : 200
-2026-03-13 23:02:17,310 - __main__ - INFO -   Records with hb_label : 200
-2026-03-13 23:02:17,310 - __main__ - INFO -     Compliant (label=1) : 6
-2026-03-13 23:02:17,310 - __main__ - INFO -     Refused   (label=0) : 194
-2026-03-13 23:02:17,310 - __main__ - INFO -   Records with error    : 0
-2026-03-13 23:02:17,310 - __main__ - INFO -   Attack Success Rate   : 3.0%
-2026-03-13 23:02:17,310 - __main__ - INFO - ==================================================
-2026-03-13 23:02:17,310 - __main__ - INFO - === Job finished at Fri Mar 13 11:02:17 PM  2026 ===
-2026-03-13 23:02:17,311 - __main__ - INFO - === Elapsed time: 0 days 00:01:08 (total 68.230 seconds) ===
+2026-04-17 12:14:21,815 - __main__ - INFO - Logging to file: logs/olmo2_7b_instruct/eval_harmbench_copyright.log
+2026-04-17 12:14:21,817 - __main__ - INFO - === Job started at Fri Apr 17 12:14:21 PM  2026 ===
+2026-04-17 12:14:21,817 - __main__ - INFO - Model key  : olmo2-7b-instruct
+2026-04-17 12:14:21,817 - __main__ - INFO - Input      : data/olmo2_7b_instruct/harmbench_copyright.json
+2026-04-17 12:14:21,817 - __main__ - INFO - Output     : data/olmo2_7b_instruct/harmbench_copyright_labeled.json
+2026-04-17 12:14:24,653 - __main__ - INFO - Loading classifier tokenizer from cais/HarmBench-Llama-2-13b-cls ...
+2026-04-17 12:14:24,896 - __main__ - INFO - Loading classifier model from cais/HarmBench-Llama-2-13b-cls ...
+INFO 04-17 12:14:24 [utils.py:238] non-default args: {'disable_log_stats': True, 'enforce_eager': True, 'model': 'cais/HarmBench-Llama-2-13b-cls'}
+INFO 04-17 12:14:25 [model.py:531] Resolved architecture: LlamaForCausalLM
+INFO 04-17 12:14:25 [model.py:1554] Using max model len 2048
+INFO 04-17 12:14:25 [scheduler.py:231] Chunked prefill is enabled with max_num_batched_tokens=16384.
+INFO 04-17 12:14:25 [vllm.py:747] Asynchronous scheduling is enabled.
+WARNING 04-17 12:14:25 [vllm.py:781] Enforce eager set, disabling torch.compile and CUDAGraphs. This is equivalent to setting -cc.mode=none -cc.cudagraph_mode=none
+WARNING 04-17 12:14:25 [vllm.py:792] Inductor compilation was disabled by user settings, optimizations settings that are only active during inductor compilation will be ignored.
+INFO 04-17 12:14:26 [vllm.py:957] Cudagraph is disabled under eager mode
+(EngineCore_DP0 pid=3567851) INFO 04-17 12:14:30 [core.py:101] Initializing a V1 LLM engine (v0.17.0) with config: model='cais/HarmBench-Llama-2-13b-cls', speculative_config=None, tokenizer='cais/HarmBench-Llama-2-13b-cls', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=2048, download_dir=None, load_format=auto, tensor_parallel_size=1, pipeline_parallel_size=1, data_parallel_size=1, disable_custom_all_reduce=False, quantization=None, enforce_eager=True, enable_return_routed_experts=False, kv_cache_dtype=auto, device_config=cuda, structured_outputs_config=StructuredOutputsConfig(backend='auto', disable_fallback=False, disable_any_whitespace=False, disable_additional_properties=False, reasoning_parser='', reasoning_parser_plugin='', enable_in_reasoning=False), observability_config=ObservabilityConfig(show_hidden_metrics_for_version=None, otlp_traces_endpoint=None, collect_detailed_traces=None, kv_cache_metrics=False, kv_cache_metrics_sample=0.01, cudagraph_metrics=False, enable_layerwise_nvtx_tracing=False, enable_mfu_metrics=False, enable_mm_processor_stats=False, enable_logging_iteration_details=False), seed=0, served_model_name=cais/HarmBench-Llama-2-13b-cls, enable_prefix_caching=True, enable_chunked_prefill=True, pooler_config=None, compilation_config={'level': None, 'mode': <CompilationMode.NONE: 0>, 'debug_dump_path': None, 'cache_dir': '', 'compile_cache_save_format': 'binary', 'backend': 'inductor', 'custom_ops': ['all'], 'splitting_ops': [], 'compile_mm_encoder': False, 'compile_sizes': [], 'compile_ranges_split_points': [16384], 'inductor_compile_config': {'enable_auto_functionalized_v2': False, 'combo_kernels': True, 'benchmark_combo_kernel': True}, 'inductor_passes': {}, 'cudagraph_mode': <CUDAGraphMode.NONE: 0>, 'cudagraph_num_of_warmups': 0, 'cudagraph_capture_sizes': [], 'cudagraph_copy_inputs': False, 'cudagraph_specialize_lora': True, 'use_inductor_graph_partition': False, 'pass_config': {'fuse_norm_quant': True, 'fuse_act_quant': True, 'fuse_attn_quant': False, 'enable_sp': False, 'fuse_gemm_comms': False, 'fuse_allreduce_rms': False}, 'max_cudagraph_capture_size': 0, 'dynamic_shapes_config': {'type': <DynamicShapesType.BACKED: 'backed'>, 'evaluate_guards': False, 'assume_32_bit_indexing': False}, 'local_cache_dir': None, 'fast_moe_cold_start': True, 'static_all_moe_layers': []}
+(EngineCore_DP0 pid=3567851) INFO 04-17 12:14:31 [parallel_state.py:1393] world_size=1 rank=0 local_rank=0 distributed_init_method=tcp://10.10.0.193:55329 backend=nccl
+(EngineCore_DP0 pid=3567851) INFO 04-17 12:14:31 [parallel_state.py:1715] rank 0 in world size 1 is assigned as DP rank 0, PP rank 0, PCP rank 0, TP rank 0, EP rank N/A, EPLB rank N/A
+(EngineCore_DP0 pid=3567851) INFO 04-17 12:14:31 [base.py:106] Offloader set to NoopOffloader
+(EngineCore_DP0 pid=3567851) INFO 04-17 12:14:31 [gpu_model_runner.py:4255] Starting to load model cais/HarmBench-Llama-2-13b-cls...
+(EngineCore_DP0 pid=3567851) INFO 04-17 12:14:32 [cuda.py:405] Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTION'].
+(EngineCore_DP0 pid=3567851) INFO 04-17 12:14:32 [flash_attn.py:587] Using FlashAttention version 2
+(EngineCore_DP0 pid=3567851) INFO 04-17 12:14:41 [default_loader.py:293] Loading weights took 8.68 seconds
+(EngineCore_DP0 pid=3567851) INFO 04-17 12:14:41 [gpu_model_runner.py:4338] Model loading took 24.28 GiB memory and 9.431412 seconds
+(EngineCore_DP0 pid=3567851) INFO 04-17 12:14:43 [gpu_worker.py:424] Available KV cache memory: 59.37 GiB
+(EngineCore_DP0 pid=3567851) INFO 04-17 12:14:43 [kv_cache_utils.py:1314] GPU KV cache size: 77,808 tokens
+(EngineCore_DP0 pid=3567851) INFO 04-17 12:14:43 [kv_cache_utils.py:1319] Maximum concurrency for 2,048 tokens per request: 37.99x
+(EngineCore_DP0 pid=3567851) INFO 04-17 12:14:43 [core.py:282] init engine (profile, create kv cache, warmup model) took 1.97 seconds
+(EngineCore_DP0 pid=3567851) INFO 04-17 12:14:44 [vllm.py:747] Asynchronous scheduling is enabled.
+(EngineCore_DP0 pid=3567851) WARNING 04-17 12:14:44 [vllm.py:781] Enforce eager set, disabling torch.compile and CUDAGraphs. This is equivalent to setting -cc.mode=none -cc.cudagraph_mode=none
+(EngineCore_DP0 pid=3567851) WARNING 04-17 12:14:44 [vllm.py:792] Inductor compilation was disabled by user settings, optimizations settings that are only active during inductor compilation will be ignored.
+(EngineCore_DP0 pid=3567851) INFO 04-17 12:14:44 [vllm.py:957] Cudagraph is disabled under eager mode
+INFO 04-17 12:14:44 [llm.py:388] Supported tasks: ['generate']
+2026-04-17 12:14:44,296 - __main__ - INFO - Classifier loaded successfully
+2026-04-17 12:14:44,296 - __main__ - INFO - Loading input JSON from /lustre/nvwulf/projects/ZhouGroup-nvwulf/Users/solhapark/pretraining-trace/data/olmo2_7b_instruct/harmbench_copyright.json ...
+2026-04-17 12:14:44,316 - __main__ - INFO - Loaded 100 records
+2026-04-17 12:14:44,457 - __main__ - INFO - Processed 10 / 100 records...
+2026-04-17 12:14:44,589 - __main__ - INFO - Processed 20 / 100 records...
+2026-04-17 12:14:44,715 - __main__ - INFO - Processed 30 / 100 records...
+2026-04-17 12:14:44,885 - __main__ - INFO - Processed 40 / 100 records...
+2026-04-17 12:14:45,144 - __main__ - INFO - Processed 50 / 100 records...
+2026-04-17 12:14:45,329 - __main__ - INFO - Processed 60 / 100 records...
+2026-04-17 12:14:45,721 - __main__ - INFO - Processed 70 / 100 records...
+2026-04-17 12:14:46,371 - __main__ - INFO - Processed 80 / 100 records...
+2026-04-17 12:14:46,583 - __main__ - INFO - Processed 90 / 100 records...
+2026-04-17 12:14:47,034 - __main__ - INFO - Processed 100 / 100 records...
+2026-04-17 12:14:47,034 - __main__ - INFO - Saving results to /lustre/nvwulf/projects/ZhouGroup-nvwulf/Users/solhapark/pretraining-trace/data/olmo2_7b_instruct/harmbench_copyright_labeled.json...
+2026-04-17 12:14:47,040 - __main__ - INFO - ==================================================
+2026-04-17 12:14:47,040 - __main__ - INFO - Summary
+2026-04-17 12:14:47,040 - __main__ - INFO - ==================================================
+2026-04-17 12:14:47,040 - __main__ - INFO -   Total records         : 100
+2026-04-17 12:14:47,040 - __main__ - INFO -   Records with hb_label : 100
+2026-04-17 12:14:47,040 - __main__ - INFO -     Compliant (label=1) : 0
+2026-04-17 12:14:47,040 - __main__ - INFO -     Refused   (label=0) : 100
+2026-04-17 12:14:47,040 - __main__ - INFO -   Records with error    : 0
+2026-04-17 12:14:47,040 - __main__ - INFO -   Attack Success Rate   : 0.0%
+2026-04-17 12:14:47,040 - __main__ - INFO - ==================================================
+2026-04-17 12:14:47,040 - __main__ - INFO - === Job finished at Fri Apr 17 12:14:47 PM  2026 ===
+2026-04-17 12:14:47,040 - __main__ - INFO - === Elapsed time: 0 days 00:00:25 (total 25.223 seconds) ===
 === Done: olmo2-7b-instruct ===
 ============================================================
-=== Evaluating: olmo2-13b-instruct, config=standard
-=== Time: Fri Mar 13 11:02:21 PM EDT 2026
+=== Evaluating: olmo2-13b-instruct, config=copyright
+=== Time: Fri Apr 17 12:14:48 PM EDT 2026
 ============================================================
-2026-03-13 23:02:24,347 - __main__ - INFO - Logging to file: logs/olmo2-13b-instruct/eval_harmbench_standard.log
-2026-03-13 23:02:24,349 - __main__ - INFO - === Job started at Fri Mar 13 11:02:24 PM  2026 ===
-2026-03-13 23:02:24,349 - __main__ - INFO - Model key  : olmo2-13b-instruct
-2026-03-13 23:02:24,349 - __main__ - INFO - Input      : data/olmo2_13b_instruct/harmbench_standard.json
-2026-03-13 23:02:24,349 - __main__ - INFO - Output     : results/olmo2_13b_instruct/harmbench_standard_labeled.json
-2026-03-13 23:02:31,276 - __main__ - INFO - Loading classifier tokenizer from cais/HarmBench-Llama-2-13b-cls ...
-2026-03-13 23:02:31,566 - __main__ - INFO - Loading classifier model from cais/HarmBench-Llama-2-13b-cls ...
-INFO 03-13 23:02:31 [utils.py:238] non-default args: {'disable_log_stats': True, 'enforce_eager': True, 'model': 'cais/HarmBench-Llama-2-13b-cls'}
-INFO 03-13 23:02:31 [model.py:531] Resolved architecture: LlamaForCausalLM
-INFO 03-13 23:02:31 [model.py:1554] Using max model len 2048
-INFO 03-13 23:02:32 [scheduler.py:231] Chunked prefill is enabled with max_num_batched_tokens=16384.
-INFO 03-13 23:02:32 [vllm.py:747] Asynchronous scheduling is enabled.
-WARNING 03-13 23:02:32 [vllm.py:781] Enforce eager set, disabling torch.compile and CUDAGraphs. This is equivalent to setting -cc.mode=none -cc.cudagraph_mode=none
-WARNING 03-13 23:02:32 [vllm.py:792] Inductor compilation was disabled by user settings, optimizations settings that are only active during inductor compilation will be ignored.
-INFO 03-13 23:02:34 [vllm.py:957] Cudagraph is disabled under eager mode
-(EngineCore_DP0 pid=323406) INFO 03-13 23:02:43 [core.py:101] Initializing a V1 LLM engine (v0.17.0) with config: model='cais/HarmBench-Llama-2-13b-cls', speculative_config=None, tokenizer='cais/HarmBench-Llama-2-13b-cls', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=2048, download_dir=None, load_format=auto, tensor_parallel_size=1, pipeline_parallel_size=1, data_parallel_size=1, disable_custom_all_reduce=False, quantization=None, enforce_eager=True, enable_return_routed_experts=False, kv_cache_dtype=auto, device_config=cuda, structured_outputs_config=StructuredOutputsConfig(backend='auto', disable_fallback=False, disable_any_whitespace=False, disable_additional_properties=False, reasoning_parser='', reasoning_parser_plugin='', enable_in_reasoning=False), observability_config=ObservabilityConfig(show_hidden_metrics_for_version=None, otlp_traces_endpoint=None, collect_detailed_traces=None, kv_cache_metrics=False, kv_cache_metrics_sample=0.01, cudagraph_metrics=False, enable_layerwise_nvtx_tracing=False, enable_mfu_metrics=False, enable_mm_processor_stats=False, enable_logging_iteration_details=False), seed=0, served_model_name=cais/HarmBench-Llama-2-13b-cls, enable_prefix_caching=True, enable_chunked_prefill=True, pooler_config=None, compilation_config={'level': None, 'mode': <CompilationMode.NONE: 0>, 'debug_dump_path': None, 'cache_dir': '', 'compile_cache_save_format': 'binary', 'backend': 'inductor', 'custom_ops': ['all'], 'splitting_ops': [], 'compile_mm_encoder': False, 'compile_sizes': [], 'compile_ranges_split_points': [16384], 'inductor_compile_config': {'enable_auto_functionalized_v2': False, 'combo_kernels': True, 'benchmark_combo_kernel': True}, 'inductor_passes': {}, 'cudagraph_mode': <CUDAGraphMode.NONE: 0>, 'cudagraph_num_of_warmups': 0, 'cudagraph_capture_sizes': [], 'cudagraph_copy_inputs': False, 'cudagraph_specialize_lora': True, 'use_inductor_graph_partition': False, 'pass_config': {'fuse_norm_quant': True, 'fuse_act_quant': True, 'fuse_attn_quant': False, 'enable_sp': False, 'fuse_gemm_comms': False, 'fuse_allreduce_rms': False}, 'max_cudagraph_capture_size': 0, 'dynamic_shapes_config': {'type': <DynamicShapesType.BACKED: 'backed'>, 'evaluate_guards': False, 'assume_32_bit_indexing': False}, 'local_cache_dir': None, 'fast_moe_cold_start': True, 'static_all_moe_layers': []}
-(EngineCore_DP0 pid=323406) INFO 03-13 23:02:45 [parallel_state.py:1393] world_size=1 rank=0 local_rank=0 distributed_init_method=tcp://10.10.0.191:35247 backend=nccl
-(EngineCore_DP0 pid=323406) INFO 03-13 23:02:46 [parallel_state.py:1715] rank 0 in world size 1 is assigned as DP rank 0, PP rank 0, PCP rank 0, TP rank 0, EP rank N/A, EPLB rank N/A
-(EngineCore_DP0 pid=323406) INFO 03-13 23:02:47 [base.py:106] Offloader set to NoopOffloader
-(EngineCore_DP0 pid=323406) INFO 03-13 23:02:47 [gpu_model_runner.py:4255] Starting to load model cais/HarmBench-Llama-2-13b-cls...
-(EngineCore_DP0 pid=323406) INFO 03-13 23:02:48 [cuda.py:405] Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTION'].
-(EngineCore_DP0 pid=323406) INFO 03-13 23:02:48 [flash_attn.py:587] Using FlashAttention version 2
-(EngineCore_DP0 pid=323406) INFO 03-13 23:03:08 [default_loader.py:293] Loading weights took 19.32 seconds
-(EngineCore_DP0 pid=323406) INFO 03-13 23:03:09 [gpu_model_runner.py:4338] Model loading took 24.28 GiB memory and 20.480253 seconds
-(EngineCore_DP0 pid=323406) INFO 03-13 23:03:13 [gpu_worker.py:424] Available KV cache memory: 59.37 GiB
-(EngineCore_DP0 pid=323406) INFO 03-13 23:03:13 [kv_cache_utils.py:1314] GPU KV cache size: 77,808 tokens
-(EngineCore_DP0 pid=323406) INFO 03-13 23:03:13 [kv_cache_utils.py:1319] Maximum concurrency for 2,048 tokens per request: 37.99x
-(EngineCore_DP0 pid=323406) INFO 03-13 23:03:13 [core.py:282] init engine (profile, create kv cache, warmup model) took 3.61 seconds
-(EngineCore_DP0 pid=323406) INFO 03-13 23:03:14 [vllm.py:747] Asynchronous scheduling is enabled.
-(EngineCore_DP0 pid=323406) WARNING 03-13 23:03:14 [vllm.py:781] Enforce eager set, disabling torch.compile and CUDAGraphs. This is equivalent to setting -cc.mode=none -cc.cudagraph_mode=none
-(EngineCore_DP0 pid=323406) WARNING 03-13 23:03:14 [vllm.py:792] Inductor compilation was disabled by user settings, optimizations settings that are only active during inductor compilation will be ignored.
-(EngineCore_DP0 pid=323406) INFO 03-13 23:03:14 [vllm.py:957] Cudagraph is disabled under eager mode
-INFO 03-13 23:03:14 [llm.py:388] Supported tasks: ['generate']
-2026-03-13 23:03:14,315 - __main__ - WARNING - Failed to load classifier: CachedLlamaTokenizerFast has no attribute tokenizer
-2026-03-13 23:03:14,316 - __main__ - WARNING - Classifier-based evaluation will be skipped.
-2026-03-13 23:03:14,316 - __main__ - INFO - Loading input JSON from /lustre/nvwulf/scratch/solhapark/pretraining-trace/data/olmo2_13b_instruct/harmbench_standard.json ...
-2026-03-13 23:03:14,369 - __main__ - INFO - Loaded 200 records
-2026-03-13 23:03:15,717 - __main__ - INFO - Processed 10 / 200 records...
-2026-03-13 23:03:16,673 - __main__ - INFO - Processed 20 / 200 records...
-2026-03-13 23:03:17,582 - __main__ - INFO - Processed 30 / 200 records...
-2026-03-13 23:03:18,682 - __main__ - INFO - Processed 40 / 200 records...
-2026-03-13 23:03:19,763 - __main__ - INFO - Processed 50 / 200 records...
-2026-03-13 23:03:20,779 - __main__ - INFO - Processed 60 / 200 records...
-2026-03-13 23:03:21,769 - __main__ - INFO - Processed 70 / 200 records...
-2026-03-13 23:03:22,767 - __main__ - INFO - Processed 80 / 200 records...
-2026-03-13 23:03:23,655 - __main__ - INFO - Processed 90 / 200 records...
-2026-03-13 23:03:24,665 - __main__ - INFO - Processed 100 / 200 records...
-2026-03-13 23:03:25,582 - __main__ - INFO - Processed 110 / 200 records...
-2026-03-13 23:03:26,524 - __main__ - INFO - Processed 120 / 200 records...
-2026-03-13 23:03:27,458 - __main__ - INFO - Processed 130 / 200 records...
-2026-03-13 23:03:28,340 - __main__ - INFO - Processed 140 / 200 records...
-2026-03-13 23:03:29,293 - __main__ - INFO - Processed 150 / 200 records...
-2026-03-13 23:03:30,254 - __main__ - INFO - Processed 160 / 200 records...
-2026-03-13 23:03:31,153 - __main__ - INFO - Processed 170 / 200 records...
-2026-03-13 23:03:32,195 - __main__ - INFO - Processed 180 / 200 records...
-2026-03-13 23:03:33,272 - __main__ - INFO - Processed 190 / 200 records...
-2026-03-13 23:03:34,199 - __main__ - INFO - Processed 200 / 200 records...
-2026-03-13 23:03:34,200 - __main__ - INFO - Saving results to /lustre/nvwulf/scratch/solhapark/pretraining-trace/results/olmo2_13b_instruct/harmbench_standard_labeled.json...
-2026-03-13 23:03:34,209 - __main__ - INFO - ==================================================
-2026-03-13 23:03:34,209 - __main__ - INFO - Summary
-2026-03-13 23:03:34,209 - __main__ - INFO - ==================================================
-2026-03-13 23:03:34,209 - __main__ - INFO -   Total records         : 200
-2026-03-13 23:03:34,209 - __main__ - INFO -   Records with hb_label : 200
-2026-03-13 23:03:34,209 - __main__ - INFO -     Compliant (label=1) : 8
-2026-03-13 23:03:34,209 - __main__ - INFO -     Refused   (label=0) : 192
-2026-03-13 23:03:34,210 - __main__ - INFO -   Records with error    : 0
-2026-03-13 23:03:34,210 - __main__ - INFO -   Attack Success Rate   : 4.0%
-2026-03-13 23:03:34,210 - __main__ - INFO - ==================================================
-2026-03-13 23:03:34,210 - __main__ - INFO - === Job finished at Fri Mar 13 11:03:34 PM  2026 ===
-2026-03-13 23:03:34,210 - __main__ - INFO - === Elapsed time: 0 days 00:01:09 (total 69.861 seconds) ===
+2026-04-17 12:14:49,964 - __main__ - INFO - Logging to file: logs/olmo2_13b_instruct/eval_harmbench_copyright.log
+2026-04-17 12:14:49,965 - __main__ - INFO - === Job started at Fri Apr 17 12:14:49 PM  2026 ===
+2026-04-17 12:14:49,965 - __main__ - INFO - Model key  : olmo2-13b-instruct
+2026-04-17 12:14:49,965 - __main__ - INFO - Input      : data/olmo2_13b_instruct/harmbench_copyright.json
+2026-04-17 12:14:49,966 - __main__ - INFO - Output     : data/olmo2_13b_instruct/harmbench_copyright_labeled.json
+2026-04-17 12:14:52,743 - __main__ - INFO - Loading classifier tokenizer from cais/HarmBench-Llama-2-13b-cls ...
+2026-04-17 12:14:52,980 - __main__ - INFO - Loading classifier model from cais/HarmBench-Llama-2-13b-cls ...
+INFO 04-17 12:14:52 [utils.py:238] non-default args: {'disable_log_stats': True, 'enforce_eager': True, 'model': 'cais/HarmBench-Llama-2-13b-cls'}
+INFO 04-17 12:14:53 [model.py:531] Resolved architecture: LlamaForCausalLM
+INFO 04-17 12:14:53 [model.py:1554] Using max model len 2048
+INFO 04-17 12:14:53 [scheduler.py:231] Chunked prefill is enabled with max_num_batched_tokens=16384.
+INFO 04-17 12:14:53 [vllm.py:747] Asynchronous scheduling is enabled.
+WARNING 04-17 12:14:53 [vllm.py:781] Enforce eager set, disabling torch.compile and CUDAGraphs. This is equivalent to setting -cc.mode=none -cc.cudagraph_mode=none
+WARNING 04-17 12:14:53 [vllm.py:792] Inductor compilation was disabled by user settings, optimizations settings that are only active during inductor compilation will be ignored.
+INFO 04-17 12:14:54 [vllm.py:957] Cudagraph is disabled under eager mode
+(EngineCore_DP0 pid=3568051) INFO 04-17 12:14:58 [core.py:101] Initializing a V1 LLM engine (v0.17.0) with config: model='cais/HarmBench-Llama-2-13b-cls', speculative_config=None, tokenizer='cais/HarmBench-Llama-2-13b-cls', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=2048, download_dir=None, load_format=auto, tensor_parallel_size=1, pipeline_parallel_size=1, data_parallel_size=1, disable_custom_all_reduce=False, quantization=None, enforce_eager=True, enable_return_routed_experts=False, kv_cache_dtype=auto, device_config=cuda, structured_outputs_config=StructuredOutputsConfig(backend='auto', disable_fallback=False, disable_any_whitespace=False, disable_additional_properties=False, reasoning_parser='', reasoning_parser_plugin='', enable_in_reasoning=False), observability_config=ObservabilityConfig(show_hidden_metrics_for_version=None, otlp_traces_endpoint=None, collect_detailed_traces=None, kv_cache_metrics=False, kv_cache_metrics_sample=0.01, cudagraph_metrics=False, enable_layerwise_nvtx_tracing=False, enable_mfu_metrics=False, enable_mm_processor_stats=False, enable_logging_iteration_details=False), seed=0, served_model_name=cais/HarmBench-Llama-2-13b-cls, enable_prefix_caching=True, enable_chunked_prefill=True, pooler_config=None, compilation_config={'level': None, 'mode': <CompilationMode.NONE: 0>, 'debug_dump_path': None, 'cache_dir': '', 'compile_cache_save_format': 'binary', 'backend': 'inductor', 'custom_ops': ['all'], 'splitting_ops': [], 'compile_mm_encoder': False, 'compile_sizes': [], 'compile_ranges_split_points': [16384], 'inductor_compile_config': {'enable_auto_functionalized_v2': False, 'combo_kernels': True, 'benchmark_combo_kernel': True}, 'inductor_passes': {}, 'cudagraph_mode': <CUDAGraphMode.NONE: 0>, 'cudagraph_num_of_warmups': 0, 'cudagraph_capture_sizes': [], 'cudagraph_copy_inputs': False, 'cudagraph_specialize_lora': True, 'use_inductor_graph_partition': False, 'pass_config': {'fuse_norm_quant': True, 'fuse_act_quant': True, 'fuse_attn_quant': False, 'enable_sp': False, 'fuse_gemm_comms': False, 'fuse_allreduce_rms': False}, 'max_cudagraph_capture_size': 0, 'dynamic_shapes_config': {'type': <DynamicShapesType.BACKED: 'backed'>, 'evaluate_guards': False, 'assume_32_bit_indexing': False}, 'local_cache_dir': None, 'fast_moe_cold_start': True, 'static_all_moe_layers': []}
+(EngineCore_DP0 pid=3568051) INFO 04-17 12:14:59 [parallel_state.py:1393] world_size=1 rank=0 local_rank=0 distributed_init_method=tcp://10.10.0.193:58019 backend=nccl
+(EngineCore_DP0 pid=3568051) INFO 04-17 12:14:59 [parallel_state.py:1715] rank 0 in world size 1 is assigned as DP rank 0, PP rank 0, PCP rank 0, TP rank 0, EP rank N/A, EPLB rank N/A
+(EngineCore_DP0 pid=3568051) INFO 04-17 12:14:59 [base.py:106] Offloader set to NoopOffloader
+(EngineCore_DP0 pid=3568051) INFO 04-17 12:14:59 [gpu_model_runner.py:4255] Starting to load model cais/HarmBench-Llama-2-13b-cls...
+(EngineCore_DP0 pid=3568051) INFO 04-17 12:15:00 [cuda.py:405] Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTION'].
+(EngineCore_DP0 pid=3568051) INFO 04-17 12:15:00 [flash_attn.py:587] Using FlashAttention version 2
+(EngineCore_DP0 pid=3568051) INFO 04-17 12:15:09 [default_loader.py:293] Loading weights took 8.68 seconds
+(EngineCore_DP0 pid=3568051) INFO 04-17 12:15:09 [gpu_model_runner.py:4338] Model loading took 24.28 GiB memory and 9.274902 seconds
+(EngineCore_DP0 pid=3568051) INFO 04-17 12:15:11 [gpu_worker.py:424] Available KV cache memory: 59.37 GiB
+(EngineCore_DP0 pid=3568051) INFO 04-17 12:15:11 [kv_cache_utils.py:1314] GPU KV cache size: 77,808 tokens
+(EngineCore_DP0 pid=3568051) INFO 04-17 12:15:11 [kv_cache_utils.py:1319] Maximum concurrency for 2,048 tokens per request: 37.99x
+(EngineCore_DP0 pid=3568051) INFO 04-17 12:15:11 [core.py:282] init engine (profile, create kv cache, warmup model) took 1.97 seconds
+(EngineCore_DP0 pid=3568051) INFO 04-17 12:15:11 [vllm.py:747] Asynchronous scheduling is enabled.
+(EngineCore_DP0 pid=3568051) WARNING 04-17 12:15:11 [vllm.py:781] Enforce eager set, disabling torch.compile and CUDAGraphs. This is equivalent to setting -cc.mode=none -cc.cudagraph_mode=none
+(EngineCore_DP0 pid=3568051) WARNING 04-17 12:15:11 [vllm.py:792] Inductor compilation was disabled by user settings, optimizations settings that are only active during inductor compilation will be ignored.
+(EngineCore_DP0 pid=3568051) INFO 04-17 12:15:11 [vllm.py:957] Cudagraph is disabled under eager mode
+INFO 04-17 12:15:11 [llm.py:388] Supported tasks: ['generate']
+2026-04-17 12:15:11,937 - __main__ - INFO - Classifier loaded successfully
+2026-04-17 12:15:11,937 - __main__ - INFO - Loading input JSON from /lustre/nvwulf/projects/ZhouGroup-nvwulf/Users/solhapark/pretraining-trace/data/olmo2_13b_instruct/harmbench_copyright.json ...
+2026-04-17 12:15:11,952 - __main__ - INFO - Loaded 100 records
+2026-04-17 12:15:12,145 - __main__ - INFO - Processed 10 / 100 records...
+2026-04-17 12:15:12,271 - __main__ - INFO - Processed 20 / 100 records...
+2026-04-17 12:15:12,438 - __main__ - INFO - Processed 30 / 100 records...
+2026-04-17 12:15:12,605 - __main__ - INFO - Processed 40 / 100 records...
+2026-04-17 12:15:12,752 - __main__ - INFO - Processed 50 / 100 records...
+2026-04-17 12:15:12,940 - __main__ - INFO - Processed 60 / 100 records...
+2026-04-17 12:15:13,331 - __main__ - INFO - Processed 70 / 100 records...
+2026-04-17 12:15:14,245 - __main__ - INFO - Processed 80 / 100 records...
+2026-04-17 12:15:14,723 - __main__ - INFO - Processed 90 / 100 records...
+2026-04-17 12:15:15,206 - __main__ - INFO - Processed 100 / 100 records...
+2026-04-17 12:15:15,206 - __main__ - INFO - Saving results to /lustre/nvwulf/projects/ZhouGroup-nvwulf/Users/solhapark/pretraining-trace/data/olmo2_13b_instruct/harmbench_copyright_labeled.json...
+2026-04-17 12:15:15,212 - __main__ - INFO - ==================================================
+2026-04-17 12:15:15,212 - __main__ - INFO - Summary
+2026-04-17 12:15:15,212 - __main__ - INFO - ==================================================
+2026-04-17 12:15:15,212 - __main__ - INFO -   Total records         : 100
+2026-04-17 12:15:15,212 - __main__ - INFO -   Records with hb_label : 100
+2026-04-17 12:15:15,212 - __main__ - INFO -     Compliant (label=1) : 0
+2026-04-17 12:15:15,212 - __main__ - INFO -     Refused   (label=0) : 100
+2026-04-17 12:15:15,212 - __main__ - INFO -   Records with error    : 0
+2026-04-17 12:15:15,212 - __main__ - INFO -   Attack Success Rate   : 0.0%
+2026-04-17 12:15:15,212 - __main__ - INFO - ==================================================
+2026-04-17 12:15:15,212 - __main__ - INFO - === Job finished at Fri Apr 17 12:15:15 PM  2026 ===
+2026-04-17 12:15:15,212 - __main__ - INFO - === Elapsed time: 0 days 00:00:25 (total 25.246 seconds) ===
 === Done: olmo2-13b-instruct ===
 ============================================================
-=== Evaluating: olmo2-32b-instruct, config=standard
-=== Time: Fri Mar 13 11:03:38 PM EDT 2026
+=== Evaluating: olmo2-32b-instruct, config=copyright
+=== Time: Fri Apr 17 12:15:16 PM EDT 2026
 ============================================================
-2026-03-13 23:03:41,333 - __main__ - INFO - Logging to file: logs/olmo2-32b-instruct/eval_harmbench_standard.log
-2026-03-13 23:03:41,335 - __main__ - INFO - === Job started at Fri Mar 13 11:03:41 PM  2026 ===
-2026-03-13 23:03:41,335 - __main__ - INFO - Model key  : olmo2-32b-instruct
-2026-03-13 23:03:41,335 - __main__ - INFO - Input      : data/olmo2_32b_instruct/harmbench_standard.json
-2026-03-13 23:03:41,335 - __main__ - INFO - Output     : results/olmo2_32b_instruct/harmbench_standard_labeled.json
-2026-03-13 23:03:48,275 - __main__ - INFO - Loading classifier tokenizer from cais/HarmBench-Llama-2-13b-cls ...
-2026-03-13 23:03:48,521 - __main__ - INFO - Loading classifier model from cais/HarmBench-Llama-2-13b-cls ...
-INFO 03-13 23:03:48 [utils.py:238] non-default args: {'disable_log_stats': True, 'enforce_eager': True, 'model': 'cais/HarmBench-Llama-2-13b-cls'}
-INFO 03-13 23:03:48 [model.py:531] Resolved architecture: LlamaForCausalLM
-INFO 03-13 23:03:48 [model.py:1554] Using max model len 2048
-INFO 03-13 23:03:49 [scheduler.py:231] Chunked prefill is enabled with max_num_batched_tokens=16384.
-INFO 03-13 23:03:49 [vllm.py:747] Asynchronous scheduling is enabled.
-WARNING 03-13 23:03:49 [vllm.py:781] Enforce eager set, disabling torch.compile and CUDAGraphs. This is equivalent to setting -cc.mode=none -cc.cudagraph_mode=none
-WARNING 03-13 23:03:49 [vllm.py:792] Inductor compilation was disabled by user settings, optimizations settings that are only active during inductor compilation will be ignored.
-INFO 03-13 23:03:50 [vllm.py:957] Cudagraph is disabled under eager mode
-(EngineCore_DP0 pid=323660) INFO 03-13 23:04:00 [core.py:101] Initializing a V1 LLM engine (v0.17.0) with config: model='cais/HarmBench-Llama-2-13b-cls', speculative_config=None, tokenizer='cais/HarmBench-Llama-2-13b-cls', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=2048, download_dir=None, load_format=auto, tensor_parallel_size=1, pipeline_parallel_size=1, data_parallel_size=1, disable_custom_all_reduce=False, quantization=None, enforce_eager=True, enable_return_routed_experts=False, kv_cache_dtype=auto, device_config=cuda, structured_outputs_config=StructuredOutputsConfig(backend='auto', disable_fallback=False, disable_any_whitespace=False, disable_additional_properties=False, reasoning_parser='', reasoning_parser_plugin='', enable_in_reasoning=False), observability_config=ObservabilityConfig(show_hidden_metrics_for_version=None, otlp_traces_endpoint=None, collect_detailed_traces=None, kv_cache_metrics=False, kv_cache_metrics_sample=0.01, cudagraph_metrics=False, enable_layerwise_nvtx_tracing=False, enable_mfu_metrics=False, enable_mm_processor_stats=False, enable_logging_iteration_details=False), seed=0, served_model_name=cais/HarmBench-Llama-2-13b-cls, enable_prefix_caching=True, enable_chunked_prefill=True, pooler_config=None, compilation_config={'level': None, 'mode': <CompilationMode.NONE: 0>, 'debug_dump_path': None, 'cache_dir': '', 'compile_cache_save_format': 'binary', 'backend': 'inductor', 'custom_ops': ['all'], 'splitting_ops': [], 'compile_mm_encoder': False, 'compile_sizes': [], 'compile_ranges_split_points': [16384], 'inductor_compile_config': {'enable_auto_functionalized_v2': False, 'combo_kernels': True, 'benchmark_combo_kernel': True}, 'inductor_passes': {}, 'cudagraph_mode': <CUDAGraphMode.NONE: 0>, 'cudagraph_num_of_warmups': 0, 'cudagraph_capture_sizes': [], 'cudagraph_copy_inputs': False, 'cudagraph_specialize_lora': True, 'use_inductor_graph_partition': False, 'pass_config': {'fuse_norm_quant': True, 'fuse_act_quant': True, 'fuse_attn_quant': False, 'enable_sp': False, 'fuse_gemm_comms': False, 'fuse_allreduce_rms': False}, 'max_cudagraph_capture_size': 0, 'dynamic_shapes_config': {'type': <DynamicShapesType.BACKED: 'backed'>, 'evaluate_guards': False, 'assume_32_bit_indexing': False}, 'local_cache_dir': None, 'fast_moe_cold_start': True, 'static_all_moe_layers': []}
-(EngineCore_DP0 pid=323660) INFO 03-13 23:04:02 [parallel_state.py:1393] world_size=1 rank=0 local_rank=0 distributed_init_method=tcp://10.10.0.191:48659 backend=nccl
-(EngineCore_DP0 pid=323660) INFO 03-13 23:04:02 [parallel_state.py:1715] rank 0 in world size 1 is assigned as DP rank 0, PP rank 0, PCP rank 0, TP rank 0, EP rank N/A, EPLB rank N/A
-(EngineCore_DP0 pid=323660) INFO 03-13 23:04:03 [base.py:106] Offloader set to NoopOffloader
-(EngineCore_DP0 pid=323660) INFO 03-13 23:04:03 [gpu_model_runner.py:4255] Starting to load model cais/HarmBench-Llama-2-13b-cls...
-(EngineCore_DP0 pid=323660) INFO 03-13 23:04:04 [cuda.py:405] Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTION'].
-(EngineCore_DP0 pid=323660) INFO 03-13 23:04:04 [flash_attn.py:587] Using FlashAttention version 2
-(EngineCore_DP0 pid=323660) INFO 03-13 23:04:22 [default_loader.py:293] Loading weights took 18.01 seconds
-(EngineCore_DP0 pid=323660) INFO 03-13 23:04:23 [gpu_model_runner.py:4338] Model loading took 24.28 GiB memory and 19.101235 seconds
-(EngineCore_DP0 pid=323660) INFO 03-13 23:04:27 [gpu_worker.py:424] Available KV cache memory: 59.37 GiB
-(EngineCore_DP0 pid=323660) INFO 03-13 23:04:27 [kv_cache_utils.py:1314] GPU KV cache size: 77,808 tokens
-(EngineCore_DP0 pid=323660) INFO 03-13 23:04:27 [kv_cache_utils.py:1319] Maximum concurrency for 2,048 tokens per request: 37.99x
-(EngineCore_DP0 pid=323660) INFO 03-13 23:04:27 [core.py:282] init engine (profile, create kv cache, warmup model) took 3.63 seconds
-(EngineCore_DP0 pid=323660) INFO 03-13 23:04:28 [vllm.py:747] Asynchronous scheduling is enabled.
-(EngineCore_DP0 pid=323660) WARNING 03-13 23:04:28 [vllm.py:781] Enforce eager set, disabling torch.compile and CUDAGraphs. This is equivalent to setting -cc.mode=none -cc.cudagraph_mode=none
-(EngineCore_DP0 pid=323660) WARNING 03-13 23:04:28 [vllm.py:792] Inductor compilation was disabled by user settings, optimizations settings that are only active during inductor compilation will be ignored.
-(EngineCore_DP0 pid=323660) INFO 03-13 23:04:28 [vllm.py:957] Cudagraph is disabled under eager mode
-INFO 03-13 23:04:28 [llm.py:388] Supported tasks: ['generate']
-2026-03-13 23:04:28,452 - __main__ - WARNING - Failed to load classifier: CachedLlamaTokenizerFast has no attribute tokenizer
-2026-03-13 23:04:28,453 - __main__ - WARNING - Classifier-based evaluation will be skipped.
-2026-03-13 23:04:28,453 - __main__ - INFO - Loading input JSON from /lustre/nvwulf/scratch/solhapark/pretraining-trace/data/olmo2_32b_instruct/harmbench_standard.json ...
-2026-03-13 23:04:28,495 - __main__ - INFO - Loaded 200 records
-2026-03-13 23:04:29,763 - __main__ - INFO - Processed 10 / 200 records...
-2026-03-13 23:04:30,627 - __main__ - INFO - Processed 20 / 200 records...
-2026-03-13 23:04:31,448 - __main__ - INFO - Processed 30 / 200 records...
-2026-03-13 23:04:32,605 - __main__ - INFO - Processed 40 / 200 records...
-2026-03-13 23:04:33,646 - __main__ - INFO - Processed 50 / 200 records...
-2026-03-13 23:04:34,625 - __main__ - INFO - Processed 60 / 200 records...
-2026-03-13 23:04:35,533 - __main__ - INFO - Processed 70 / 200 records...
-2026-03-13 23:04:36,558 - __main__ - INFO - Processed 80 / 200 records...
-2026-03-13 23:04:37,483 - __main__ - INFO - Processed 90 / 200 records...
-2026-03-13 23:04:38,411 - __main__ - INFO - Processed 100 / 200 records...
-2026-03-13 23:04:39,289 - __main__ - INFO - Processed 110 / 200 records...
-2026-03-13 23:04:40,113 - __main__ - INFO - Processed 120 / 200 records...
-2026-03-13 23:04:40,969 - __main__ - INFO - Processed 130 / 200 records...
-2026-03-13 23:04:41,828 - __main__ - INFO - Processed 140 / 200 records...
-2026-03-13 23:04:42,704 - __main__ - INFO - Processed 150 / 200 records...
-2026-03-13 23:04:43,653 - __main__ - INFO - Processed 160 / 200 records...
-2026-03-13 23:04:44,573 - __main__ - INFO - Processed 170 / 200 records...
-2026-03-13 23:04:45,606 - __main__ - INFO - Processed 180 / 200 records...
-2026-03-13 23:04:46,625 - __main__ - INFO - Processed 190 / 200 records...
-2026-03-13 23:04:47,569 - __main__ - INFO - Processed 200 / 200 records...
-2026-03-13 23:04:47,570 - __main__ - INFO - Saving results to /lustre/nvwulf/scratch/solhapark/pretraining-trace/results/olmo2_32b_instruct/harmbench_standard_labeled.json...
-2026-03-13 23:04:47,581 - __main__ - INFO - ==================================================
-2026-03-13 23:04:47,581 - __main__ - INFO - Summary
-2026-03-13 23:04:47,581 - __main__ - INFO - ==================================================
-2026-03-13 23:04:47,581 - __main__ - INFO -   Total records         : 200
-2026-03-13 23:04:47,581 - __main__ - INFO -   Records with hb_label : 200
-2026-03-13 23:04:47,581 - __main__ - INFO -     Compliant (label=1) : 18
-2026-03-13 23:04:47,581 - __main__ - INFO -     Refused   (label=0) : 182
-2026-03-13 23:04:47,581 - __main__ - INFO -   Records with error    : 0
-2026-03-13 23:04:47,581 - __main__ - INFO -   Attack Success Rate   : 9.0%
-2026-03-13 23:04:47,582 - __main__ - INFO - ==================================================
-2026-03-13 23:04:47,582 - __main__ - INFO - === Job finished at Fri Mar 13 11:04:47 PM  2026 ===
-2026-03-13 23:04:47,583 - __main__ - INFO - === Elapsed time: 0 days 00:01:06 (total 66.247 seconds) ===
+2026-04-17 12:15:18,151 - __main__ - INFO - Logging to file: logs/olmo2_32b_instruct/eval_harmbench_copyright.log
+2026-04-17 12:15:18,153 - __main__ - INFO - === Job started at Fri Apr 17 12:15:18 PM  2026 ===
+2026-04-17 12:15:18,153 - __main__ - INFO - Model key  : olmo2-32b-instruct
+2026-04-17 12:15:18,153 - __main__ - INFO - Input      : data/olmo2_32b_instruct/harmbench_copyright.json
+2026-04-17 12:15:18,153 - __main__ - INFO - Output     : data/olmo2_32b_instruct/harmbench_copyright_labeled.json
+2026-04-17 12:15:20,963 - __main__ - INFO - Loading classifier tokenizer from cais/HarmBench-Llama-2-13b-cls ...
+2026-04-17 12:15:21,206 - __main__ - INFO - Loading classifier model from cais/HarmBench-Llama-2-13b-cls ...
+INFO 04-17 12:15:21 [utils.py:238] non-default args: {'disable_log_stats': True, 'enforce_eager': True, 'model': 'cais/HarmBench-Llama-2-13b-cls'}
+INFO 04-17 12:15:21 [model.py:531] Resolved architecture: LlamaForCausalLM
+INFO 04-17 12:15:21 [model.py:1554] Using max model len 2048
+INFO 04-17 12:15:21 [scheduler.py:231] Chunked prefill is enabled with max_num_batched_tokens=16384.
+INFO 04-17 12:15:21 [vllm.py:747] Asynchronous scheduling is enabled.
+WARNING 04-17 12:15:21 [vllm.py:781] Enforce eager set, disabling torch.compile and CUDAGraphs. This is equivalent to setting -cc.mode=none -cc.cudagraph_mode=none
+WARNING 04-17 12:15:21 [vllm.py:792] Inductor compilation was disabled by user settings, optimizations settings that are only active during inductor compilation will be ignored.
+INFO 04-17 12:15:22 [vllm.py:957] Cudagraph is disabled under eager mode
+(EngineCore_DP0 pid=3568258) INFO 04-17 12:15:26 [core.py:101] Initializing a V1 LLM engine (v0.17.0) with config: model='cais/HarmBench-Llama-2-13b-cls', speculative_config=None, tokenizer='cais/HarmBench-Llama-2-13b-cls', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=2048, download_dir=None, load_format=auto, tensor_parallel_size=1, pipeline_parallel_size=1, data_parallel_size=1, disable_custom_all_reduce=False, quantization=None, enforce_eager=True, enable_return_routed_experts=False, kv_cache_dtype=auto, device_config=cuda, structured_outputs_config=StructuredOutputsConfig(backend='auto', disable_fallback=False, disable_any_whitespace=False, disable_additional_properties=False, reasoning_parser='', reasoning_parser_plugin='', enable_in_reasoning=False), observability_config=ObservabilityConfig(show_hidden_metrics_for_version=None, otlp_traces_endpoint=None, collect_detailed_traces=None, kv_cache_metrics=False, kv_cache_metrics_sample=0.01, cudagraph_metrics=False, enable_layerwise_nvtx_tracing=False, enable_mfu_metrics=False, enable_mm_processor_stats=False, enable_logging_iteration_details=False), seed=0, served_model_name=cais/HarmBench-Llama-2-13b-cls, enable_prefix_caching=True, enable_chunked_prefill=True, pooler_config=None, compilation_config={'level': None, 'mode': <CompilationMode.NONE: 0>, 'debug_dump_path': None, 'cache_dir': '', 'compile_cache_save_format': 'binary', 'backend': 'inductor', 'custom_ops': ['all'], 'splitting_ops': [], 'compile_mm_encoder': False, 'compile_sizes': [], 'compile_ranges_split_points': [16384], 'inductor_compile_config': {'enable_auto_functionalized_v2': False, 'combo_kernels': True, 'benchmark_combo_kernel': True}, 'inductor_passes': {}, 'cudagraph_mode': <CUDAGraphMode.NONE: 0>, 'cudagraph_num_of_warmups': 0, 'cudagraph_capture_sizes': [], 'cudagraph_copy_inputs': False, 'cudagraph_specialize_lora': True, 'use_inductor_graph_partition': False, 'pass_config': {'fuse_norm_quant': True, 'fuse_act_quant': True, 'fuse_attn_quant': False, 'enable_sp': False, 'fuse_gemm_comms': False, 'fuse_allreduce_rms': False}, 'max_cudagraph_capture_size': 0, 'dynamic_shapes_config': {'type': <DynamicShapesType.BACKED: 'backed'>, 'evaluate_guards': False, 'assume_32_bit_indexing': False}, 'local_cache_dir': None, 'fast_moe_cold_start': True, 'static_all_moe_layers': []}
+(EngineCore_DP0 pid=3568258) INFO 04-17 12:15:27 [parallel_state.py:1393] world_size=1 rank=0 local_rank=0 distributed_init_method=tcp://10.10.0.193:48705 backend=nccl
+(EngineCore_DP0 pid=3568258) INFO 04-17 12:15:27 [parallel_state.py:1715] rank 0 in world size 1 is assigned as DP rank 0, PP rank 0, PCP rank 0, TP rank 0, EP rank N/A, EPLB rank N/A
+(EngineCore_DP0 pid=3568258) INFO 04-17 12:15:27 [base.py:106] Offloader set to NoopOffloader
+(EngineCore_DP0 pid=3568258) INFO 04-17 12:15:27 [gpu_model_runner.py:4255] Starting to load model cais/HarmBench-Llama-2-13b-cls...
+(EngineCore_DP0 pid=3568258) INFO 04-17 12:15:28 [cuda.py:405] Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTION'].
+(EngineCore_DP0 pid=3568258) INFO 04-17 12:15:28 [flash_attn.py:587] Using FlashAttention version 2
+(EngineCore_DP0 pid=3568258) INFO 04-17 12:15:37 [default_loader.py:293] Loading weights took 8.68 seconds
+(EngineCore_DP0 pid=3568258) INFO 04-17 12:15:37 [gpu_model_runner.py:4338] Model loading took 24.28 GiB memory and 9.377611 seconds
+(EngineCore_DP0 pid=3568258) INFO 04-17 12:15:39 [gpu_worker.py:424] Available KV cache memory: 59.37 GiB
+(EngineCore_DP0 pid=3568258) INFO 04-17 12:15:39 [kv_cache_utils.py:1314] GPU KV cache size: 77,808 tokens
+(EngineCore_DP0 pid=3568258) INFO 04-17 12:15:39 [kv_cache_utils.py:1319] Maximum concurrency for 2,048 tokens per request: 37.99x
+(EngineCore_DP0 pid=3568258) INFO 04-17 12:15:39 [core.py:282] init engine (profile, create kv cache, warmup model) took 1.97 seconds
+(EngineCore_DP0 pid=3568258) INFO 04-17 12:15:40 [vllm.py:747] Asynchronous scheduling is enabled.
+(EngineCore_DP0 pid=3568258) WARNING 04-17 12:15:40 [vllm.py:781] Enforce eager set, disabling torch.compile and CUDAGraphs. This is equivalent to setting -cc.mode=none -cc.cudagraph_mode=none
+(EngineCore_DP0 pid=3568258) WARNING 04-17 12:15:40 [vllm.py:792] Inductor compilation was disabled by user settings, optimizations settings that are only active during inductor compilation will be ignored.
+(EngineCore_DP0 pid=3568258) INFO 04-17 12:15:40 [vllm.py:957] Cudagraph is disabled under eager mode
+INFO 04-17 12:15:40 [llm.py:388] Supported tasks: ['generate']
+2026-04-17 12:15:40,257 - __main__ - INFO - Classifier loaded successfully
+2026-04-17 12:15:40,257 - __main__ - INFO - Loading input JSON from /lustre/nvwulf/projects/ZhouGroup-nvwulf/Users/solhapark/pretraining-trace/data/olmo2_32b_instruct/harmbench_copyright.json ...
+2026-04-17 12:15:40,286 - __main__ - INFO - Loaded 100 records
+2026-04-17 12:15:40,524 - __main__ - INFO - Processed 10 / 100 records...
+2026-04-17 12:15:40,724 - __main__ - INFO - Processed 20 / 100 records...
+2026-04-17 12:15:40,946 - __main__ - INFO - Processed 30 / 100 records...
+2026-04-17 12:15:41,156 - __main__ - INFO - Processed 40 / 100 records...
+2026-04-17 12:15:41,351 - __main__ - INFO - Processed 50 / 100 records...
+2026-04-17 12:15:41,939 - __main__ - INFO - Processed 60 / 100 records...
+2026-04-17 12:15:42,786 - __main__ - INFO - Processed 70 / 100 records...
+2026-04-17 12:15:43,602 - __main__ - INFO - Processed 80 / 100 records...
+2026-04-17 12:15:44,346 - __main__ - INFO - Processed 90 / 100 records...
+2026-04-17 12:15:45,114 - __main__ - INFO - Processed 100 / 100 records...
+2026-04-17 12:15:45,114 - __main__ - INFO - Saving results to /lustre/nvwulf/projects/ZhouGroup-nvwulf/Users/solhapark/pretraining-trace/data/olmo2_32b_instruct/harmbench_copyright_labeled.json...
+2026-04-17 12:15:45,120 - __main__ - INFO - ==================================================
+2026-04-17 12:15:45,120 - __main__ - INFO - Summary
+2026-04-17 12:15:45,120 - __main__ - INFO - ==================================================
+2026-04-17 12:15:45,120 - __main__ - INFO -   Total records         : 100
+2026-04-17 12:15:45,120 - __main__ - INFO -   Records with hb_label : 100
+2026-04-17 12:15:45,120 - __main__ - INFO -     Compliant (label=1) : 0
+2026-04-17 12:15:45,120 - __main__ - INFO -     Refused   (label=0) : 100
+2026-04-17 12:15:45,120 - __main__ - INFO -   Records with error    : 0
+2026-04-17 12:15:45,120 - __main__ - INFO -   Attack Success Rate   : 0.0%
+2026-04-17 12:15:45,121 - __main__ - INFO - ==================================================
+2026-04-17 12:15:45,121 - __main__ - INFO - === Job finished at Fri Apr 17 12:15:45 PM  2026 ===
+2026-04-17 12:15:45,121 - __main__ - INFO - === Elapsed time: 0 days 00:00:26 (total 26.968 seconds) ===
 === Done: olmo2-32b-instruct ===
 
-=== All evaluations finished: Fri Mar 13 11:04:52 PM EDT 2026 ===
+=== All evaluations finished: Fri Apr 17 12:15:46 PM EDT 2026 ===

@@ -1,0 +1,53 @@
+=== Job started: Fri Apr 17 03:30:21 AM EDT 2026 ===
+=== Node: b40x4-09, GPU: NVIDIA RTX PRO 6000 Blackwell Server Edition ===
+=== Model: olmo2-1b-instruct, config=copyright ===
+=== Output: /lustre/nvwulf/projects/ZhouGroup-nvwulf/Users/solhapark/pretraining-trace/data/olmo2_1b_instruct/harmbench_copyright.json ===
+2026-04-17 03:30:40,013 - __main__ - INFO - Logging to file: logs/olmo2_1b_instruct/harmbench_copyright.log
+2026-04-17 03:30:40,014 - __main__ - INFO - ======================================================================
+2026-04-17 03:30:40,014 - __main__ - INFO - === Job started at Fri Apr 17 03:30:40 AM  2026 ===
+2026-04-17 03:30:40,014 - __main__ - INFO - ======================================================================
+2026-04-17 03:30:40,014 - __main__ - INFO - Model key       : olmo2-1b-instruct
+2026-04-17 03:30:40,014 - __main__ - INFO - HuggingFace ID  : allenai/OLMo-2-0425-1B-Instruct
+2026-04-17 03:30:40,014 - __main__ - INFO - Model type      : instruct
+2026-04-17 03:30:40,014 - __main__ - INFO - Max context len : 4096
+2026-04-17 03:30:40,014 - __main__ - INFO - Max new tokens  : 1024
+2026-04-17 03:30:40,014 - __main__ - INFO - Config (category): copyright
+2026-04-17 03:30:40,014 - __main__ - INFO - Output JSON     : /lustre/nvwulf/projects/ZhouGroup-nvwulf/Users/solhapark/pretraining-trace/data/olmo2_1b_instruct/harmbench_copyright.json
+2026-04-17 03:30:40,014 - __main__ - INFO - Seed            : 42
+2026-04-17 03:30:40,256 - __main__ - INFO - Total rows in CSV: 400, After filtering 'copyright': 100
+2026-04-17 03:30:40,258 - __main__ - INFO - Device: cuda
+2026-04-17 03:30:40,258 - __main__ - INFO - Loading tokenizer: allenai/OLMo-2-0425-1B-Instruct ...
+2026-04-17 03:30:40,718 - __main__ - INFO - Loading model: allenai/OLMo-2-0425-1B-Instruct ...
+2026-04-17 03:30:40,901 - __main__ - INFO - Pre-load status (torch): gpu=0 (NVIDIA RTX PRO 6000 Blackwell Server Edition), allocated=0.00 GiB, reserved=0.00 GiB
+2026-04-17 03:30:40,926 - __main__ - INFO - Pre-load status (nvidia-smi): 0, 0, 559, 97887
+2026-04-17 03:34:08,722 - __main__ - INFO - Post-load status (torch): gpu=0 (NVIDIA RTX PRO 6000 Blackwell Server Edition), allocated=2.77 GiB, reserved=2.89 GiB
+2026-04-17 03:34:08,753 - __main__ - INFO - Post-load status (nvidia-smi): 0, 38, 3521, 97887
+2026-04-17 03:34:08,753 - __main__ - INFO - Model loaded successfully: allenai/OLMo-2-0425-1B-Instruct
+2026-04-17 03:34:08,874 - __main__ - INFO - Results saved to: /lustre/nvwulf/projects/ZhouGroup-nvwulf/Users/solhapark/pretraining-trace/data/olmo2_7b/harmbench_copyright.json
+2026-04-17 03:34:08,876 - __main__ - INFO - ======================================================================
+2026-04-17 03:34:08,876 - __main__ - INFO - SUMMARY
+2026-04-17 03:34:08,876 - __main__ - INFO - ======================================================================
+2026-04-17 03:34:08,876 - __main__ - INFO -   Model          : olmo2-7b (allenai/OLMo-2-1124-7B)
+2026-04-17 03:34:08,876 - __main__ - INFO -   Config         : copyright
+2026-04-17 03:34:08,876 - __main__ - INFO -   Total records  : 100
+2026-04-17 03:34:08,876 - __main__ - INFO -   Successful     : 100
+2026-04-17 03:34:08,876 - __main__ - INFO -   Errors         : 0
+2026-04-17 03:34:08,876 - __main__ - INFO -   Finish reason  : eos=70, length=30
+2026-04-17 03:34:08,876 - __main__ - INFO -   Response tokens: min=2, max=1024, mean=412.7
+2026-04-17 03:34:08,876 - __main__ - INFO - === Job finished at Fri Apr 17 03:34:08 AM  2026 ===
+2026-04-17 03:34:08,876 - __main__ - INFO - === Elapsed time: 0 days 00:45:30 (total 2730.160 seconds) ===
+=== Job finished: Fri Apr 17 03:34:09 AM EDT 2026 ===
+2026-04-17 03:39:09,884 - __main__ - INFO - Results saved to: /lustre/nvwulf/projects/ZhouGroup-nvwulf/Users/solhapark/pretraining-trace/data/olmo2_1b_instruct/harmbench_copyright.json
+2026-04-17 03:39:09,886 - __main__ - INFO - ======================================================================
+2026-04-17 03:39:09,886 - __main__ - INFO - SUMMARY
+2026-04-17 03:39:09,886 - __main__ - INFO - ======================================================================
+2026-04-17 03:39:09,886 - __main__ - INFO -   Model          : olmo2-1b-instruct (allenai/OLMo-2-0425-1B-Instruct)
+2026-04-17 03:39:09,886 - __main__ - INFO -   Config         : copyright
+2026-04-17 03:39:09,886 - __main__ - INFO -   Total records  : 100
+2026-04-17 03:39:09,887 - __main__ - INFO -   Successful     : 100
+2026-04-17 03:39:09,887 - __main__ - INFO -   Errors         : 0
+2026-04-17 03:39:09,887 - __main__ - INFO -   Finish reason  : eos=92, length=8
+2026-04-17 03:39:09,887 - __main__ - INFO -   Response tokens: min=65, max=1024, mean=409.0
+2026-04-17 03:39:09,887 - __main__ - INFO - === Job finished at Fri Apr 17 03:39:09 AM  2026 ===
+2026-04-17 03:39:09,887 - __main__ - INFO - === Elapsed time: 0 days 00:08:29 (total 509.872 seconds) ===
+=== Job finished: Fri Apr 17 03:39:10 AM EDT 2026 ===
