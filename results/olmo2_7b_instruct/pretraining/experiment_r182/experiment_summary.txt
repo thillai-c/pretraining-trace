@@ -1,0 +1,97 @@
+
+================================================================================
+EXPERIMENT SUMMARY - vs Human Ground Truth
+================================================================================
+Model            Condition     N   SpanAcc    CtxAcc  trivial F1   ambig F1  unsafe F1
+--------------------------------------------------------------------------------
+gpt-4.1-mini     baseline     88    68.18%    81.82%      73.12%      0.00%     80.00%
+gpt-4.1-mini     improved     88    79.55%    81.82%      75.36%      0.00%     94.12%
+gpt-5-mini       baseline     88    55.68%    87.50%      53.66%     42.11%     94.12%
+gpt-5-mini       improved     88    69.32%    82.95%      74.73%     23.53%     77.78%
+gpt-5.4-mini     baseline     88    55.68%    85.23%      64.86%     48.00%    100.00%
+gpt-5.4-mini     improved     88    75.00%    79.55%      76.60%     20.00%    100.00%
+gpt-5.4-nano     baseline     88    50.00%    82.95%      63.06%     13.33%     66.67%
+gpt-5.4-nano     improved     88    46.59%    80.68%      61.95%      0.00%     52.63%
+================================================================================
+
+DETAILED PER-LABEL METRICS
+
+-- gpt-4.1-mini | baseline --
+  Span Safety Label  (88 pairs, accuracy=68.18%)
+    unsafe                 P=100.00%  R=66.67%  F1=80.00%  support=9
+    safe_but_relevant      P=80.00%  R=46.51%  F1=58.82%  support=43
+    trivial                P=59.65%  R=94.44%  F1=73.12%  support=36
+  Context Safety     (88 pairs, accuracy=81.82%)
+    unsafe_context         P=0.00%  R=0.00%  F1=0.00%  support=4
+    ambiguous_context      P=0.00%  R=0.00%  F1=0.00%  support=12
+    safe_context           P=81.82%  R=100.00%  F1=90.00%  support=72
+
+-- gpt-4.1-mini | improved --
+  Span Safety Label  (88 pairs, accuracy=79.55%)
+    unsafe                 P=100.00%  R=88.89%  F1=94.12%  support=9
+    safe_but_relevant      P=76.60%  R=83.72%  F1=80.00%  support=43
+    trivial                P=78.79%  R=72.22%  F1=75.36%  support=36
+  Context Safety     (88 pairs, accuracy=81.82%)
+    unsafe_context         P=0.00%  R=0.00%  F1=0.00%  support=4
+    ambiguous_context      P=0.00%  R=0.00%  F1=0.00%  support=12
+    safe_context           P=81.82%  R=100.00%  F1=90.00%  support=72
+
+-- gpt-5-mini | baseline --
+  Span Safety Label  (88 pairs, accuracy=55.68%)
+    unsafe                 P=100.00%  R=88.89%  F1=94.12%  support=9
+    safe_but_relevant      P=55.88%  R=44.19%  F1=49.35%  support=43
+    trivial                P=47.83%  R=61.11%  F1=53.66%  support=36
+  Context Safety     (88 pairs, accuracy=87.50%)
+    unsafe_context         P=50.00%  R=100.00%  F1=66.67%  support=4
+    ambiguous_context      P=57.14%  R=33.33%  F1=42.11%  support=12
+    safe_context           P=94.52%  R=95.83%  F1=95.17%  support=72
+
+-- gpt-5-mini | improved --
+  Span Safety Label  (88 pairs, accuracy=69.32%)
+    unsafe                 P=77.78%  R=77.78%  F1=77.78%  support=9
+    safe_but_relevant      P=83.33%  R=46.51%  F1=59.70%  support=43
+    trivial                P=61.82%  R=94.44%  F1=74.73%  support=36
+  Context Safety     (88 pairs, accuracy=82.95%)
+    unsafe_context         P=37.50%  R=75.00%  F1=50.00%  support=4
+    ambiguous_context      P=40.00%  R=16.67%  F1=23.53%  support=12
+    safe_context           P=90.67%  R=94.44%  F1=92.52%  support=72
+
+-- gpt-5.4-mini | baseline --
+  Span Safety Label  (88 pairs, accuracy=55.68%)
+    unsafe                 P=100.00%  R=100.00%  F1=100.00%  support=9
+    safe_but_relevant      P=100.00%  R=9.30%  F1=17.02%  support=43
+    trivial                P=48.00%  R=100.00%  F1=64.86%  support=36
+  Context Safety     (88 pairs, accuracy=85.23%)
+    unsafe_context         P=0.00%  R=0.00%  F1=0.00%  support=4
+    ambiguous_context      P=46.15%  R=50.00%  F1=48.00%  support=12
+    safe_context           P=92.00%  R=95.83%  F1=93.88%  support=72
+
+-- gpt-5.4-mini | improved --
+  Span Safety Label  (88 pairs, accuracy=75.00%)
+    unsafe                 P=100.00%  R=100.00%  F1=100.00%  support=9
+    safe_but_relevant      P=100.00%  R=48.84%  F1=65.62%  support=43
+    trivial                P=62.07%  R=100.00%  F1=76.60%  support=36
+  Context Safety     (88 pairs, accuracy=79.55%)
+    unsafe_context         P=0.00%  R=0.00%  F1=0.00%  support=4
+    ambiguous_context      P=25.00%  R=16.67%  F1=20.00%  support=12
+    safe_context           P=86.08%  R=94.44%  F1=90.07%  support=72
+
+-- gpt-5.4-nano | baseline --
+  Span Safety Label  (88 pairs, accuracy=50.00%)
+    unsafe                 P=66.67%  R=66.67%  F1=66.67%  support=9
+    safe_but_relevant      P=75.00%  R=6.98%  F1=12.77%  support=43
+    trivial                P=46.67%  R=97.22%  F1=63.06%  support=36
+  Context Safety     (88 pairs, accuracy=82.95%)
+    unsafe_context         P=42.86%  R=75.00%  F1=54.55%  support=4
+    ambiguous_context      P=33.33%  R=8.33%  F1=13.33%  support=12
+    safe_context           P=88.46%  R=95.83%  F1=92.00%  support=72
+
+-- gpt-5.4-nano | improved --
+  Span Safety Label  (88 pairs, accuracy=46.59%)
+    unsafe                 P=50.00%  R=55.56%  F1=52.63%  support=9
+    safe_but_relevant      P=100.00%  R=2.33%  F1=4.55%  support=43
+    trivial                P=45.45%  R=97.22%  F1=61.95%  support=36
+  Context Safety     (88 pairs, accuracy=80.68%)
+    unsafe_context         P=0.00%  R=0.00%  F1=0.00%  support=4
+    ambiguous_context      P=0.00%  R=0.00%  F1=0.00%  support=12
+    safe_context           P=82.56%  R=98.61%  F1=89.87%  support=72

@@ -1,38 +1,37 @@
 #!/usr/bin/env bash
-# Build infini-gram package and rust_indexing (one-time)
+# Create an infinigram conda environment under $HOME/envs
 
 set -euo pipefail
 
-SCRATCH="${SCRATCH:-/gpfs/scratch/solhapark}"
-ENV_DIR="/gpfs/home/solhapark/envs/infinigram"
-PKG_DIR="${SCRATCH}/pretraining-trace/infini-gram/pkg"
+# HOME is set automatically by the system
+ENV_DIR="${HOME}/envs/infinigram"
 
-if [[ ! -d "${PKG_DIR}" ]]; then
-  echo "Missing infini-gram/pkg. Run: git submodule update --init"
-  exit 1
-fi
-
-# Load required modules
+# Load Anaconda module (provides conda)
 module load anaconda/3
-module load gcc/12.3.0
-
-# Initialize conda for non-interactive shell
-source "$(conda info --base)/etc/profile.d/conda.sh"
-conda activate "${ENV_DIR}"
-
-echo "=== Installing infini-gram (cpp_engine) ==="
-cd "${PKG_DIR}"
-pip install -q pybind11
-pip install -e .
-
-echo "=== Building rust_indexing ==="
-module load rust 2>/dev/null || module load Rust 2>/dev/null || true
-
-if command -v cargo &>/dev/null; then
-  cargo build --release
-else
-  echo "cargo not found"
+command -v conda &>/dev/null || {
+  echo "conda not found after 'module load anaconda/3'. Check: module avail anaconda"
   exit 1
-fi
+}
 
+# Ensure the envs directory exists
+mkdir -p "${HOME}/envs"
+
+echo "=== Creating infinigram env at: ${ENV_DIR} ==="
+# Use conda-forge to ensure prebuilt binary packages (especially numpy/zstandard)
+conda create --prefix "${ENV_DIR}" -y -c conda-forge python=3.11 pip
+
+echo "=== Activating conda environment ==="
+source "$(conda info --base)/bin/activate" "${ENV_DIR}"
+
+echo "=== Installing indexing.py dependencies via conda-forge ==="
+# Install packages with C/C++ extensions via conda to avoid source builds
+conda install -y -c conda-forge numpy tqdm zstandard
+
+echo "=== Installing transformers via pip ==="
+# transformers is mostly pure Python and safe to install via pip
+pip install transformers requests python-dotenv
+
+echo ""
 echo "=== Done ==="
+echo "Activate with:"
+echo "  source activate ${ENV_DIR}"
