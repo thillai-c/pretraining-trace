@@ -39,7 +39,9 @@ Usage:
         --compliant_only \
         --windows 100 500 1000
 
-    python e2_windowed_cooccurrence.py --model olmo2-7b-instruct --training-phase pretraining --config standard --e2-llm gpt-5-mini --api_index v4_olmo-mix-1124_llama --top_n 5 10 15 20 --compliant_only --windows 100 500 1000
+    python e2_windowed_cooccurrence.py --model olmo2-1b --training-phase mid_training --config standard --e2-llm gpt-5-mini --index_dir ./index/dolmino-mix-1124 --top_n 5 10 15 20 --compliant_only --windows 100 500 1000
+
+    python e2_windowed_cooccurrence.py --model olmo2-1b-instruct --training-phase post_training --config standard --e2-llm gpt-5-mini --index_dir ./index/post-training/1b --top_n 5 10 15 20 --compliant_only --windows 100 500 1000
 
     # Override paths explicitly (must match your --config filenames)
     python e2_windowed_cooccurrence.py \

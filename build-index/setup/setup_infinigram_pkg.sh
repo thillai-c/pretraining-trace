@@ -1,37 +1,38 @@
 #!/usr/bin/env bash
-# Create an infinigram conda environment under $HOME/envs
+# Build infini-gram package (cpp_engine) and rust_indexing (one-time).
 
 set -euo pipefail
 
-# HOME is set automatically by the system
-ENV_DIR="${HOME}/envs/infinigram"
+ENV_DIR="/gpfs/home/solhapark/envs/infinigram"
+PROJECT_DIR="/gpfs/projects/ZhouJGroup/Users/solhapark/pretraining-trace"
+PKG_DIR="${PROJECT_DIR}/infini-gram/pkg"
 
-# Load Anaconda module (provides conda)
-module load anaconda/3
-command -v conda &>/dev/null || {
-  echo "conda not found after 'module load anaconda/3'. Check: module avail anaconda"
+if [[ ! -d "${PKG_DIR}" ]]; then
+  echo "Missing infini-gram/pkg. Run: git submodule update --init"
   exit 1
-}
+fi
 
-# Ensure the envs directory exists
-mkdir -p "${HOME}/envs"
+# Load required modules
+module load anaconda/3
+module load gcc/12.3.0
 
-echo "=== Creating infinigram env at: ${ENV_DIR} ==="
-# Use conda-forge to ensure prebuilt binary packages (especially numpy/zstandard)
-conda create --prefix "${ENV_DIR}" -y -c conda-forge python=3.11 pip
+# Initialize conda for non-interactive shell
+source "$(conda info --base)/etc/profile.d/conda.sh"
+conda activate "${ENV_DIR}"
 
-echo "=== Activating conda environment ==="
-source "$(conda info --base)/bin/activate" "${ENV_DIR}"
+echo "=== Installing infini-gram (cpp_engine) ==="
+cd "${PKG_DIR}"
+pip install -q pybind11
+pip install -e .
 
-echo "=== Installing indexing.py dependencies via conda-forge ==="
-# Install packages with C/C++ extensions via conda to avoid source builds
-conda install -y -c conda-forge numpy tqdm zstandard
+echo "=== Building rust_indexing ==="
+module load rust 2>/dev/null || module load Rust 2>/dev/null || true
 
-echo "=== Installing transformers via pip ==="
-# transformers is mostly pure Python and safe to install via pip
-pip install transformers requests python-dotenv
+if command -v cargo &>/dev/null; then
+  cargo build --release
+else
+  echo "cargo not found"
+  exit 1
+fi
 
-echo ""
 echo "=== Done ==="
-echo "Activate with:"
-echo "  source activate ${ENV_DIR}"
