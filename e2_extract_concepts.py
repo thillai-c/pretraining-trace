@@ -20,13 +20,13 @@ Usage:
     python e2_extract_concepts.py --model olmo2-7b-instruct --training-phase pretraining --config standard --batch
 
     # Collect mode: retrieve batch results and save JSON
-    python e2_extract_concepts.py --model olmo2-7b-instruct --training-phase pretraining --config standard --collect
+    python e2_extract_concepts.py --model olmo2-7b-instruct --training-phase mid_training --config standard --collect
 
     # Retry mode: re-run failed records
     python e2_extract_concepts.py --model olmo2-7b-instruct --training-phase pretraining --config standard --retry
 
-    # Optional: put artifacts in a different LLM subfolder than the default
-    python e2_extract_concepts.py --model olmo2-7b-instruct --training-phase pretraining --config standard --batch --e2-llm gpt-5.4-mini
+    # Use --e2-llm to set BOTH the extraction model and the output subfolder
+    python e2_extract_concepts.py --model olmo2-7b-instruct --training-phase pretraining --config standard --batch --e2-llm gpt-5-mini
 
 Reference:
     - utils.py: shared helpers (model params, logger, IO, JSON parsing)
@@ -756,18 +756,14 @@ def parse_args():
     parser.add_argument("--input", type=str, default=None,
                         help="Override input path (default: "
                              "results/{out_dir}/{training_phase}/e1_verbatim_{config}.json)")
-    parser.add_argument("--extraction_model", type=str,
-                        default="gpt-5.4-mini",
-                        help="OpenAI model for concept extraction "
-                             "(default: gpt-5.4-mini)")
     parser.add_argument(
         "--e2-llm",
         type=str,
-        default="gpt-5.4-mini",
+        default="gpt-5-mini",
         dest="e2_llm",
-        help="LLM run subfolder: outputs go to "
-             "results/{out_dir}/{training_phase}/{e2_llm}/ (sanitized; default: %(default)s). "
-             "Includes e2_concepts_{config}.json and batch_e2/. "
+        help="OpenAI model used for E2 Stage 1 extraction AND the run subfolder name. "
+             "Outputs go to results/{out_dir}/{training_phase}/{e2_llm}/ "
+             "(sanitized; default: %(default)s). Includes e2_concepts_{config}.json and batch_e2/. "
              "Use the same --e2-llm in e2_rank_concepts.py and e2_windowed_cooccurrence.py.",
     )
 
@@ -815,7 +811,7 @@ def run_one_phase(
     logger.info("  Phase results root: %s", model_results_root(args.model, training_phase))
     logger.info("  E2 output root (--e2-llm): %s",
                 label_run_root(args.model, training_phase, args.e2_llm))
-    logger.info("  Extraction LLM: %s", args.extraction_model)
+    logger.info("  Extraction LLM (--e2-llm): %s", args.e2_llm)
     logger.info("=" * 70)
 
     # Load E1 results
@@ -833,11 +829,11 @@ def run_one_phase(
 
     # Dispatch to mode
     if args.test:
-        run_test(client, args.model, filtered, args.extraction_model,
+        run_test(client, args.model, filtered, args.e2_llm,
                  logger, training_phase, args.e2_llm, args.record_id,
                  config=args.config)
     elif args.batch:
-        run_batch(client, args.model, filtered, args.extraction_model, logger,
+        run_batch(client, args.model, filtered, args.e2_llm, logger,
                   training_phase, args.e2_llm, config=args.config)
     elif args.collect:
         batch_id = args.batch_id
@@ -859,11 +855,11 @@ def run_one_phase(
         if not batch_id:
             logger.error("--batch_id required for --collect mode.")
             sys.exit(1)
-        run_collect(client, args.model, filtered, args.extraction_model,
+        run_collect(client, args.model, filtered, args.e2_llm,
                     batch_id, logger, training_phase, args.e2_llm,
                     config=args.config)
     elif args.retry:
-        run_retry(client, args.model, filtered, args.extraction_model, logger,
+        run_retry(client, args.model, filtered, args.e2_llm, logger,
                   training_phase, args.e2_llm, config=args.config)
 
 

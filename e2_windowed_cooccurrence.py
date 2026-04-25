@@ -39,7 +39,7 @@ Usage:
         --compliant_only \
         --windows 100 500 1000
 
-    python e2_windowed_cooccurrence.py --model olmo2-7b-instruct --training-phase pretraining --config standard --e2-llm gpt-5.4-mini --api_index v4_olmo-mix-1124_llama --top_n 5 10 15 20 --compliant_only --windows 100 500 1000
+    python e2_windowed_cooccurrence.py --model olmo2-7b-instruct --training-phase pretraining --config standard --e2-llm gpt-5-mini --api_index v4_olmo-mix-1124_llama --top_n 5 10 15 20 --compliant_only --windows 100 500 1000
 
     # Override paths explicitly (must match your --config filenames)
     python e2_windowed_cooccurrence.py \
@@ -306,9 +306,11 @@ def init_engine(args, tokenizer, logger):
         corpus_size = corpus_result.get("count", 0)
         logger.info("Corpus size (local): %d tokens", corpus_size)
         if corpus_size == 0:
-            logger.warning("Corpus size is 0; falling back to hardcoded "
-                           "Pile-train size: 383,299,358,652")
-            corpus_size = 383_299_358_652
+            logger.warning(
+                "Corpus size is 0; falling back to hardcoded "
+                "v4_olmo-mix-1124_llama size: 4,575,475,702,047 "
+            )
+            corpus_size = 4_575_475_702_047
     else:
         logger.info("Backend: HTTP API index=%s", args.api_index)
         engine = InfiniGramAPIEngine(

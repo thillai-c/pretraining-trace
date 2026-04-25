@@ -22,7 +22,7 @@ Usage:
         --api_index v4_olmo-mix-1124_llama \
         --config contextual
     
-    python e1_verbatim_trace.py --model olmo2-7b --api_index v4_olmo-mix-1124_llama --config contextual
+    python e1_verbatim_trace.py --model olmo2-7b --api_index v4_olmo-mix-1124_llama --config copyright
 
     # OLMo 2 with local dolmino index (mid-training; default output: results/{model}/mid_training/...)
     python e1_verbatim_trace.py \

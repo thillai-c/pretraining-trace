@@ -17,7 +17,7 @@ cd "$REPO_ROOT"
 
 CONFIG="${CONFIG:-standard}"
 TRAINING_PHASE="${TRAINING_PHASE:-pretraining}"
-E2_LLM="${E2_LLM:-gpt-5.4-mini}"
+E2_LLM="${E2_LLM:-gpt-5-mini}"
 API_INDEX="${API_INDEX:-v4_olmo-mix-1124_llama}"
 # Space-separated integers for --top_n (passed as multiple args)
 TOP_NS="${TOP_NS:-5 10 15 20}"
@@ -32,7 +32,7 @@ PYTHON="${PYTHON:-python}"
 # Must match choices=list(MODELS.keys()) in e2_windowed_cooccurrence.py (olmo2-* only).
 MODELS=(
   olmo2-1b-instruct
-  olmo2-7b-instruct
+  # olmo2-7b-instruct
   olmo2-13b-instruct
   olmo2-32b-instruct
   olmo2-1b

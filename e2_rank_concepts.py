@@ -21,7 +21,7 @@ Usage:
     python e2_rank_concepts.py --model olmo2-7b-instruct --training-phase pretraining --config standard --batch
 
     # Collect mode: retrieve batch results and save JSON
-    python e2_rank_concepts.py --model olmo2-7b-instruct --training-phase pretraining --config standard --collect
+    python e2_rank_concepts.py --model olmo2-7b-instruct --training-phase mid_training --config standard --collect
 
     # Retry mode: re-run failed records
     python e2_rank_concepts.py --model olmo2-7b-instruct --training-phase pretraining --config standard --retry
@@ -374,7 +374,7 @@ def compute_sanity_flags(parsed: dict, input_concepts: list) -> list:
     return flags
 
 
-def build_record_output(record, parsed: dict, rank_model: str) -> dict:
+def build_record_output(record, parsed: dict, e2_llm: str) -> dict:
     """Build the output JSON entry for a single ranked record.
 
     Copies the Stage 1 metadata fields (id, prompt, response, etc.)
@@ -400,7 +400,7 @@ def build_record_output(record, parsed: dict, rank_model: str) -> dict:
         "ranking_sanity_flags": compute_sanity_flags(parsed, record.get("concepts", [])),
 
         # Stage 2 provenance
-        "rank_model": rank_model,
+        "rank_model": e2_llm,
         "rank_prompt_version": RANK_PROMPT_VERSION,
         "ranked_at": datetime.now().isoformat(),
 
@@ -417,7 +417,7 @@ def build_record_output(record, parsed: dict, rank_model: str) -> dict:
 # Test mode: 1 record, synchronous API call
 # ============================================================
 
-def run_test(client, model_key, records, rank_model, logger, training_phase,
+def run_test(client, model_key, records, logger, training_phase,
              e2_llm: str, record_id=None, config: str = "standard"):
     """Run concept ranking on a single record using synchronous API call."""
     if not records:
@@ -450,16 +450,16 @@ def run_test(client, model_key, records, rank_model, logger, training_phase,
     user_msg = build_user_message(rec)
     logger.info("  user message length: %d chars", len(user_msg))
 
-    logger.info("  Calling OpenAI API (%s)...", rank_model)
+    logger.info("  Calling OpenAI API (%s)...", e2_llm)
     start = time.time()
     try:
         response = client.chat.completions.create(
-            model=rank_model,
+            model=e2_llm,
             messages=[
                 {"role": "system", "content": SYSTEM_PROMPT},
                 {"role": "user", "content": user_msg},
             ],
-            **get_model_params(rank_model),
+            **get_model_params(e2_llm),
         )
     except Exception as e:
         logger.error("  API call failed: %s", e)
@@ -510,7 +510,7 @@ def run_test(client, model_key, records, rank_model, logger, training_phase,
         label_run_root(model_key, training_phase, e2_llm),
         s2_name.replace(".json", "_test.json"),
     )
-    output_row = build_record_output(rec, parsed, rank_model)
+    output_row = build_record_output(rec, parsed, e2_llm)
     save_output_json([output_row], test_path)
     logger.info("  Test output saved to %s", test_path)
 
@@ -519,7 +519,7 @@ def run_test(client, model_key, records, rank_model, logger, training_phase,
 # Batch mode: submit to OpenAI Batch API
 # ============================================================
 
-def run_batch(client, model_key, records, rank_model, logger, training_phase,
+def run_batch(client, model_key, records, logger, training_phase,
               e2_llm: str, config: str = "standard"):
     """Submit all Stage 1 records to OpenAI Batch API for ranking."""
     if not records:
@@ -552,12 +552,12 @@ def run_batch(client, model_key, records, rank_model, logger, training_phase,
                 "method": "POST",
                 "url": "/v1/chat/completions",
                 "body": {
-                    "model": rank_model,
+                    "model": e2_llm,
                     "messages": [
                         {"role": "system", "content": SYSTEM_PROMPT},
                         {"role": "user", "content": user_msg},
                     ],
-                    **get_model_params(rank_model),
+                    **get_model_params(e2_llm),
                 },
             }
             f.write(json.dumps(request) + "\n")
@@ -587,7 +587,7 @@ def run_batch(client, model_key, records, rank_model, logger, training_phase,
         metadata={
             "model_key": model_key,
             "training_phase": training_phase,
-            "rank_model": rank_model,
+            "rank_model": e2_llm,
             "rank_prompt_version": RANK_PROMPT_VERSION,
             "description": "E2 Stage 2 concept ranking",
         },
@@ -616,7 +616,7 @@ def run_batch(client, model_key, records, rank_model, logger, training_phase,
             "model_key": model_key,
             "training_phase": training_phase,
             "harmbench_config": config,
-            "rank_model": rank_model,
+            "rank_model": e2_llm,
             "e2_llm": e2_llm,
             "rank_prompt_version": RANK_PROMPT_VERSION,
             "num_records": n_requests,
@@ -630,7 +630,7 @@ def run_batch(client, model_key, records, rank_model, logger, training_phase,
 # Collect mode: retrieve batch results and save JSON
 # ============================================================
 
-def run_collect(client, model_key, records, rank_model, batch_id, logger,
+def run_collect(client, model_key, records, batch_id, logger,
                 training_phase, e2_llm: str, config: str = "standard"):
     """Retrieve batch results and convert to ranked JSON."""
     results_root = label_run_root(model_key, training_phase, e2_llm)
@@ -724,7 +724,7 @@ def run_collect(client, model_key, records, rank_model, batch_id, logger,
                                "error": "parse failure"})
                 continue
 
-            row = build_record_output(rec, parsed, rank_model)
+            row = build_record_output(rec, parsed, e2_llm)
             if row["ranking_sanity_flags"]:
                 logger.warning("  Record id=%d: ranking sanity flags: %s",
                                record_id, ", ".join(row["ranking_sanity_flags"]))
@@ -759,7 +759,7 @@ def run_collect(client, model_key, records, rank_model, batch_id, logger,
 # Retry mode: re-run failed records and merge into existing JSON
 # ============================================================
 
-def run_retry(client, model_key, records, rank_model, logger, training_phase,
+def run_retry(client, model_key, records, logger, training_phase,
               e2_llm: str, config: str = "standard"):
     """Re-run failed records from batch_errors.json synchronously,
     and merge results into the existing ranked output JSON."""
@@ -810,17 +810,17 @@ def run_retry(client, model_key, records, rank_model, logger, training_phase,
         logger.info("RETRY: record id=%d", record_id)
 
         user_msg = build_user_message(rec)
-        logger.info("  Calling OpenAI API (%s)...", rank_model)
+        logger.info("  Calling OpenAI API (%s)...", e2_llm)
 
         start = time.time()
         try:
             response = client.chat.completions.create(
-                model=rank_model,
+                model=e2_llm,
                 messages=[
                     {"role": "system", "content": SYSTEM_PROMPT},
                     {"role": "user", "content": user_msg},
                 ],
-                **get_model_params(rank_model),
+                **get_model_params(e2_llm),
             )
         except Exception as e:
             logger.error("  API call failed: %s", e)
@@ -843,7 +843,7 @@ def run_retry(client, model_key, records, rank_model, logger, training_phase,
             logger.error("  Record id=%d: failed to parse response.", record_id)
             continue
 
-        row = build_record_output(rec, parsed, rank_model)
+        row = build_record_output(rec, parsed, e2_llm)
         if row["ranking_sanity_flags"]:
             logger.warning("  Record id=%d: ranking sanity flags: %s",
                            record_id, ", ".join(row["ranking_sanity_flags"]))
@@ -898,18 +898,14 @@ def parse_args():
     parser.add_argument("--input", type=str, default=None,
                         help="Override Stage 1 input path (default: "
                              "results/{out_dir}/{training_phase}/{e2_llm}/e2_concepts_{config}.json)")
-    parser.add_argument("--rank_model", type=str,
-                        default="gpt-5.4-mini",
-                        help="OpenAI model for concept ranking "
-                             "(default: gpt-5.4-mini)")
     parser.add_argument(
         "--e2-llm",
         type=str,
-        default="gpt-5.4-mini",
+        default="gpt-5-mini",
         dest="e2_llm",
-        help="Subdirectory under results/{out_dir}/{training_phase}/ for Stage 1/2 "
-             "JSON and batch_e2_rank (sanitized; default: %(default)s). Must match "
-             "the directory used by e2_extract_concepts.py.",
+        help="OpenAI model used for E2 Stage 2 ranking AND the run subfolder name. "
+             "Stage 1 input and Stage 2 outputs live under results/{out_dir}/{training_phase}/{e2_llm}/ "
+             "(sanitized; default: %(default)s). Must match the directory used by e2_extract_concepts.py.",
     )
 
     # Mode selection (mutually exclusive)
@@ -956,7 +952,7 @@ def run_one_phase(
     logger.info("  Phase results root: %s", model_results_root(args.model, training_phase))
     logger.info("  E2 output root (--e2-llm): %s",
                 label_run_root(args.model, training_phase, args.e2_llm))
-    logger.info("  Rank LLM: %s", args.rank_model)
+    logger.info("  Rank LLM (--e2-llm): %s", args.e2_llm)
     logger.info("  Rank prompt version: %s", RANK_PROMPT_VERSION)
     logger.info("=" * 70)
 
@@ -975,11 +971,11 @@ def run_one_phase(
                     r.get("semantic_category", ""))
 
     if args.test:
-        run_test(client, args.model, records, args.rank_model,
+        run_test(client, args.model, records,
                  logger, training_phase, args.e2_llm, args.record_id,
                  config=args.config)
     elif args.batch:
-        run_batch(client, args.model, records, args.rank_model, logger,
+        run_batch(client, args.model, records, logger,
                   training_phase, args.e2_llm, config=args.config)
     elif args.collect:
         batch_id = args.batch_id
@@ -1001,11 +997,11 @@ def run_one_phase(
         if not batch_id:
             logger.error("--batch_id required for --collect mode.")
             sys.exit(1)
-        run_collect(client, args.model, records, args.rank_model,
+        run_collect(client, args.model, records,
                     batch_id, logger, training_phase, args.e2_llm,
                     config=args.config)
     elif args.retry:
-        run_retry(client, args.model, records, args.rank_model, logger,
+        run_retry(client, args.model, records, logger,
                   training_phase, args.e2_llm, config=args.config)
 
 
