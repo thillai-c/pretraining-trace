@@ -3,7 +3,26 @@ import json
 import csv
 import numpy as np
 
-def display_record(e1_result, id=None, index=None, show_e1=True, show_e2=False, indent=2):
+def display_record(e1_result, id=None, index=None, *, config=None, model_dir=None, compact=False, 
+                   hide_prompt=False, show_e1=True, show_e2=False, indent=2):
+    if config is not None or model_dir is not None:
+        filtered = []
+        for r in e1_result:
+            if config is not None and r.get("config") != config:
+                continue
+            if model_dir is not None and r.get("model_dir") != model_dir:
+                continue
+            filtered.append(r)
+        e1_result = filtered
+
+    if not e1_result:
+        print(f"\n{'='*80}")
+        print("Error: No records to display after filtering")
+        print(f"  config   : {config}")
+        print(f"  model_dir: {model_dir}")
+        print(f"{'='*80}\n")
+        return
+
     record = None
     record_index = None
 
@@ -16,6 +35,8 @@ def display_record(e1_result, id=None, index=None, show_e1=True, show_e2=False, 
         if record is None:
             print(f"\n{'='*80}")
             print(f"Error: Record with ID {id} not found")
+            if config is not None or model_dir is not None:
+                print(f"  (filtered by config={config}, model_dir={model_dir}; {len(e1_result)} candidates)")
             print(f"{'='*80}\n")
             return
     elif index is not None:
@@ -38,20 +59,33 @@ def display_record(e1_result, id=None, index=None, show_e1=True, show_e2=False, 
     else:
         label_str = f"Unknown (hb_label={hb_label})"
     title = f"{label_str} - Record ID: {record.get('id', 'N/A')} (from {len(e1_result)} total records)"
-
-    print(f"\n{'='*80}")
-    if id is not None:
-        print(f"{title}")
+    if compact:
+        cfg_str = record.get("config", "N/A")
+        model_dir_str = record.get("model_dir", "N/A")
+        model_str = record.get("model", record.get("model_key", "N/A"))
+        print(
+            f"\n[{cfg_str} | {model_dir_str}] {label_str} | id={record.get('id', 'N/A')} | model={model_str} | finish={record.get('finish_reason', 'N/A')}"
+        )
     else:
-        print(f"{title} - Displaying index {record_index}")
-    print(f"{'='*80}\n")
+        print(f"\n{'='*80}")
+        if id is not None:
+            print(f"{title}")
+        else:
+            print(f"{title} - Displaying index {record_index}")
+        print(f"{'='*80}\n")
 
     record_copy = record.copy()
     record_copy.pop('e1', None)
     record_copy.pop('e2', None)
-    print(f"{'─'*80}")
-    print(f"Record ID: {record_copy.get('id', 'N/A')}")
-    print(f"{'─'*80}")
+    if hide_prompt:
+        record_copy.pop("prompt", None)
+        record_copy.pop("__prompt", None)
+        record_copy.pop("__prompt_key", None)
+
+    if not compact:
+        print(f"{'─'*80}")
+        print(f"Record ID: {record_copy.get('id', 'N/A')}")
+        print(f"{'─'*80}")
     print(json.dumps(record_copy, indent=indent, ensure_ascii=False))
     print()
 
@@ -771,7 +805,7 @@ def compare_labels(record_id: int, all_records, model: str,
 
 def inspect_record(model_dir, record_id, span_idx=None):
     """Quick wrapper to view a specific record's span details."""
-    from utils import view_span
+    from nb_utils import view_span
     RESULTS_DIR = '../results'
     with open(f"{RESULTS_DIR}/{model_dir}/e1_verbatim_standard.json") as f:
         records = json.load(f)
