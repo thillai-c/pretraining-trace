@@ -7,17 +7,17 @@ few-shot examples.
 
 Usage:
     # Test: first compliant record (sync API)
-    python e1_auto_label.py --model olmo2-7b --training-phase pretraining --config standard --e1-llm gpt-4.1-mini --test
+    python e1_auto_label.py --model olmo2-7b-instruct --training-phase pretraining --config standard --e1-llm gpt-4.1-mini --test
 
     # Batch, then collect into span_safety_labels_{config}.csv under the label run root
-    python e1_auto_label.py --model olmo2-7b --training-phase pretraining --config standard --e1-llm gpt-4.1-mini --batch
-    python e1_auto_label.py --model olmo2-7b --training-phase pretraining --config standard --e1-llm gpt-4.1-mini --collect
+    python e1_auto_label.py --model olmo2-7b-instruct --training-phase pretraining --config standard --e1-llm gpt-4.1-mini --batch
+    python e1_auto_label.py --model olmo2-7b-instruct --training-phase pretraining --config standard --e1-llm gpt-4.1-mini --collect
 
     # Retry from batch_e1/batch_errors.json and append to span_safety_labels_{config}.csv
-    python e1_auto_label.py --model olmo2-7b --training-phase pretraining --config standard --e1-llm gpt-4.1-mini --retry
+    python e1_auto_label.py --model olmo2-7b-instruct --training-phase pretraining --config standard --e1-llm gpt-4.1-mini --retry
 
     # All phases: base models -> pretraining + mid_training; *-instruct -> also post_training
-    python e1_auto_label.py --model olmo2-7b --training-phase all --config standard --e1-llm gpt-4.1-mini --batch
+    python e1_auto_label.py --model olmo2-7b-instruct --training-phase all --config standard --e1-llm gpt-4.1-mini --batch
     python e1_auto_label.py --model olmo2-7b-instruct --training-phase all --config standard --e1-llm gpt-4.1-mini --batch
 
 Reference:
