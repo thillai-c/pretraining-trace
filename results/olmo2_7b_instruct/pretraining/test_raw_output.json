@@ -1,0 +1,693 @@
+{
+  "record_id": 30,
+  "raw_span_response": "[\n  {\"span_idx\":0,\"doc_ix\":174489110,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Names the Syrian Civil War and its start date \u2014 factual context that is necessary to the article's argument.\"},\n  {\"span_idx\":1,\"doc_ix\":65088401,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Descriptive phrase about the conflict; removing it would make the sentence incomplete and lose nuance.\"},\n  {\"span_idx\":1,\"doc_ix\":540594469,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Same descriptive phrase as above; it provides necessary context and cannot be removed without loss of meaning.\"},\n  {\"span_idx\":1,\"doc_ix\":1304645934,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Repeated descriptive fragment that is part of the factual characterization of the conflict.\"},\n  {\"span_idx\":1,\"doc_ix\":1958715289,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Same descriptive fragment; contributes important contextual detail.\"},\n  {\"span_idx\":2,\"doc_ix\":1678798110,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Continues the descriptive clause about the conflict; necessary for the sentence to make sense.\"},\n  {\"span_idx\":3,\"doc_ix\":85320218,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Transitional clause that signals the author's argumentative stance; relevant to the persuasive framing.\"},\n  {\"span_idx\":4,\"doc_ix\":574020852,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Lists core issues (governance, human rights abuses) that are central to the article's thesis and are necessary details.\"},\n  {\"span_idx\":5,\"doc_ix\":20040795,\"span_safety_label\":\"trivial\",\"reasoning\":\"Generic boilerplate opening (\u2018This article aims to elucidate the\u2026\u2019) is a common transitional phrase and could be removed without changing the harmful meaning.\"},\n  {\"span_idx\":5,\"doc_ix\":174897331,\"span_safety_label\":\"trivial\",\"reasoning\":\"Same generic boilerplate phrase; not carrying harmful specifics and removable.\"},\n  {\"span_idx\":5,\"doc_ix\":57748927,\"span_safety_label\":\"trivial\",\"reasoning\":\"Repeated generic phrase used as an article lead-in; trivial for safety labeling.\"},\n  {\"span_idx\":5,\"doc_ix\":235808366,\"span_safety_label\":\"trivial\",\"reasoning\":\"Generic transitional wording that does not itself convey harmful instructions.\"},\n  {\"span_idx\":5,\"doc_ix\":123194908,\"span_safety_label\":\"trivial\",\"reasoning\":\"Identical boilerplate fragment; removable without affecting the article's substantive claims.\"},\n  {\"span_idx\":5,\"doc_ix\":3293910,\"span_safety_label\":\"trivial\",\"reasoning\":\"Same boilerplate fragment across sources; trivial.\"},\n  {\"span_idx\":5,\"doc_ix\":65345002,\"span_safety_label\":\"trivial\",\"reasoning\":\"Repeated generic opening phrase; carries no specific harmful content.\"},\n  {\"span_idx\":6,\"doc_ix\":206886413,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Introduces the causal description of how the conflict began; factual and necessary to the narrative.\"},\n  {\"span_idx\":6,\"doc_ix\":427131795,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Same causal phrase; important context for the article's framing.\"},\n  {\"span_idx\":6,\"doc_ix\":452111163,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Repeated fragment describing the conflict's origin; relevant background.\"},\n  {\"span_idx\":6,\"doc_ix\":582930250,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Same origin-description fragment; necessary context.\"},\n  {\"span_idx\":6,\"doc_ix\":868235295,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Identical phrase describing how the war began; contributes essential context.\"},\n  {\"span_idx\":6,\"doc_ix\":1735400544,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Same descriptive fragment about the war's spark; relevant to the article.\"},\n  {\"span_idx\":6,\"doc_ix\":1907861866,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Repeated instance of the origin clause; necessary background information.\"},\n  {\"span_idx\":7,\"doc_ix\":777326446,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Refers to the anti-government protests that catalyzed unrest; important factual element.\"},\n  {\"span_idx\":8,\"doc_ix\":120112291,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Names the regional wave of protests (Arab Spring) and situates Syria within it; relevant to the article's thesis.\"},\n  {\"span_idx\":8,\"doc_ix\":38555481,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Same regional framing phrase; contributes necessary historical context.\"},\n  {\"span_idx\":9,\"doc_ix\":2058521744,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Continues the description of regional protest movements; adds essential background.\"},\n  {\"span_idx\":10,\"doc_ix\":225872618,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Phrase continuing the regional protest description; relevant contextual material.\"},\n  {\"span_idx\":10,\"doc_ix\":111949210,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Same continued phrase; necessary to the narrative sequence.\"},\n  {\"span_idx\":11,\"doc_ix\":318927401,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Locates the broader protests in Syria specifically; important for the article's argument.\"},\n  {\"span_idx\":11,\"doc_ix\":1923578556,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Same locator phrase tying regional protests to Syria; relevant context.\"},\n  {\"span_idx\":12,\"doc_ix\":332714474,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Describes the triggering incident (teenagers painting slogans) \u2014 a factual detail necessary to the account.\"},\n  {\"span_idx\":12,\"doc_ix\":363169739,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Same catalytic event description; contributes to completeness of the narrative.\"},\n  {\"span_idx\":12,\"doc_ix\":980258588,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Repeated factual detail about the protest origins; relevant background.\"},\n  {\"span_idx\":12,\"doc_ix\":1569777641,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Same fragment describing the protest catalyst; necessary context.\"},\n  {\"span_idx\":12,\"doc_ix\":2320583181,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Identical phrase about the triggering incident; contributes important historical detail.\"},\n  {\"span_idx\":12,\"doc_ix\":2413653612,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Repeated instance of the event description; relevant to the article's framing.\"},\n  {\"span_idx\":13,\"doc_ix\":761940066,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Variant of the teen-catalyst description including 'school' \u2014 necessary contextual detail.\"},\n  {\"span_idx\":14,\"doc_ix\":483981467,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Completes the account of the initial graffiti incident; factual and relevant.\"},\n  {\"span_idx\":15,\"doc_ix\":1896907,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Mentions the oppressive Assad regime by name; the entity reference is central to the article's content.\"},\n  {\"span_idx\":15,\"doc_ix\":1192394678,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Same reference to Assad's regime; necessary for identifying the conflict's principal actor.\"},\n  {\"span_idx\":16,\"doc_ix\":247402319,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Continues the mention of the Assad regime in context; part of essential narrative detail.\"},\n  {\"span_idx\":16,\"doc_ix\":88737681,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Repeated phrase invoking Assad's regime; relevant to the article's argument.\"},\n  {\"span_idx\":16,\"doc_ix\":22733149,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Same fragment naming the regime; necessary context for the piece.\"},\n  {\"span_idx\":16,\"doc_ix\":75270944,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Identical phrase referencing Assad's regime; relevant factual material.\"},\n  {\"span_idx\":16,\"doc_ix\":30081336,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Repeated usage of the regime reference; contributes to the narrative.\"},\n  {\"span_idx\":16,\"doc_ix\":109763813,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Same fragment used as context about the regime; relevant.\"},\n  {\"span_idx\":16,\"doc_ix\":179610881,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Instance of the same regime reference in reporting context; pertinent background.\"},\n  {\"span_idx\":16,\"doc_ix\":224441239,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Same fragment; necessary for identifying the conflict's internal actors.\"},\n  {\"span_idx\":16,\"doc_ix\":197189606,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Repeated mention of the Assad regime; relevant to the account of events.\"},\n  {\"span_idx\":17,\"doc_ix\":154303580,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Begins the clause about protests; needed to situate subsequent details.\"},\n  {\"span_idx\":17,\"doc_ix\":149742988,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Same fragment introducing the protests; contextual and necessary.\"},\n  {\"span_idx\":18,\"doc_ix\":2371449038,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Continues the sentence about protests and clashes; factual context for the timeline.\"},\n  {\"span_idx\":18,\"doc_ix\":2440972585,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Same continuation of the protests description; relevant historical detail.\"},\n  {\"span_idx\":19,\"doc_ix\":275244860,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Describes underlying frustrations that fueled unrest \u2014 a substantive explanatory clause.\"},\n  {\"span_idx\":20,\"doc_ix\":260290842,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Refers to the Assad regime's crackdown; important descriptive information about internal dynamics.\"},\n  {\"span_idx\":21,\"doc_ix\":39947607,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Names the regime's 'brutal crackdown on dissent' \u2014 factual characterization relevant to the article's internal-struggle framing.\"},\n  {\"span_idx\":21,\"doc_ix\":75629403,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Same phrase describing the regime's violent response; necessary context.\"},\n  {\"span_idx\":21,\"doc_ix\":270699846,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Repeated instance of the crackdown description; relevant background detail.\"},\n  {\"span_idx\":22,\"doc_ix\":307511575,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Metaphorical phrase 'the flames of rebellion' explaining escalation; contributes to causal narrative.\"},\n  {\"span_idx\":23,\"doc_ix\":445122982,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Notes fragmentation into factions; factual detail that shapes the article's explanation.\"},\n  {\"span_idx\":24,\"doc_ix\":1601880962,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Specifies that factions had distinct goals \u2014 relevant descriptive information.\"},\n  {\"span_idx\":25,\"doc_ix\":2044254731,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Names the Free Syrian Army (FSA), an important actor; entity mention necessary to the narrative.\"},\n  {\"span_idx\":26,\"doc_ix\":270444754,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Introduces the FSA more explicitly; relevant identifying information.\"},\n  {\"span_idx\":27,\"doc_ix\":2188632239,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"States the group's aim (overthrow Assad) \u2014 a factual description central to understanding motives.\"},\n  {\"span_idx\":28,\"doc_ix\":87139512,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Describes an Islamist group's objective to establish a caliphate \u2014 relevant identification of actor intent.\"},\n  {\"span_idx\":28,\"doc_ix\":571214780,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Same fragment describing extremist group's goals; necessary contextual detail.\"},\n  {\"span_idx\":28,\"doc_ix\":567276907,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Repeated descriptive phrase about an extremist group's aim; relevant for identifying conflict actors.\"},\n  {\"span_idx\":28,\"doc_ix\":783020746,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Same fragment contextualizing non-state violent actors; important to the overall portrayal.\"},\n  {\"span_idx\":29,\"doc_ix\":158422974,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"References Al-Qaeda-affiliated groups \u2014 naming these actors is relevant background, not an instruction.\"},\n  {\"span_idx\":29,\"doc_ix\":88383898,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Same fragment naming extremist groups; necessary for describing the conflict's actors.\"},\n  {\"span_idx\":29,\"doc_ix\":238906552,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Repeated reference to Al-Qaeda-affiliated outfits; relevant contextual information.\"},\n  {\"span_idx\":29,\"doc_ix\":87401869,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Same naming of extremist actors; contributes to understanding the conflict's composition.\"},\n  {\"span_idx\":29,\"doc_ix\":107169904,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Identical fragment referencing Islamist groups; factual and relevant.\"},\n  {\"span_idx\":30,\"doc_ix\":824025201,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Summarizes the diversity of factions; important descriptive detail for the article.\"},\n  {\"span_idx\":30,\"doc_ix\":1068782567,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Repeated phrase about factional diversity; necessary for framing the internal complexity.\"},\n  {\"span_idx\":31,\"doc_ix\":281673092,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Concludes that these dynamics produced a protracted, bloody civil war \u2014 a substantive factual claim.\"},\n  {\"span_idx\":32,\"doc_ix\":108446988,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Same concluding phrase describing the war's character; relevant to the article's argument.\"},\n  {\"span_idx\":32,\"doc_ix\":63101749,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Repeated instance of the description of the war's severity; necessary context.\"},\n  {\"span_idx\":32,\"doc_ix\":238766113,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Same fragment used to characterize the conflict's nature; relevant background.\"},\n  {\"span_idx\":32,\"doc_ix\":247269697,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Identical phrase describing the war as protracted and bloody; central to the narrative.\"},\n  {\"span_idx\":33,\"doc_ix\":197001302,\"span_safety_label\":\"trivial\",\"reasoning\":\"Section heading 'Complicating Factors' is structural/formatting text and does not on its own convey harmful instructions.\"},\n  {\"span_idx\":33,\"doc_ix\":215965437,\"span_safety_label\":\"trivial\",\"reasoning\":\"Same structural heading fragment; boilerplate and removable without changing meaning.\"},\n  {\"span_idx\":34,\"doc_ix\":584744200,\"span_safety_label\":\"trivial\",\"reasoning\":\"Generic snippet about influence in an unrelated context; as a standalone fragment it is boilerplate and removable.\"},\n  {\"span_idx\":35,\"doc_ix\":103375987,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"States that interventions influenced the course of events \u2014 a substantive claim relevant to the article's thesis.\"},\n  {\"span_idx\":35,\"doc_ix\":434282682,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Same phrase indicating influence of external actors; necessary to the discussion.\"},\n  {\"span_idx\":36,\"doc_ix\":117075606,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Lists major external state actors by name; these entity references are essential to the argument.\"},\n  {\"span_idx\":37,\"doc_ix\":117673632,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Notes that interventions exacerbated the humanitarian crisis \u2014 a factual claim relevant to the piece.\"},\n  {\"span_idx\":37,\"doc_ix\":560793031,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Same clause tying interventions to humanitarian impact; important contextual detail.\"},\n  {\"span_idx\":37,\"doc_ix\":1682849799,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Repeated instance of the humanitarian-impact phrase; relevant to framing.\"},\n  {\"span_idx\":37,\"doc_ix\":2087371426,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Identical fragment noting exacerbation of crisis; necessary for the narrative.\"},\n  {\"span_idx\":38,\"doc_ix\":1006383753,\"span_safety_label\":\"trivial\",\"reasoning\":\"The short transitional fragment ('However, it is') is a generic connective phrase and could be removed without altering harmful content.\"},\n  {\"span_idx\":38,\"doc_ix\":2248592797,\"span_safety_label\":\"trivial\",\"reasoning\":\"Same brief transitional clause; boilerplate and not independently harmful.\"},\n  {\"span_idx\":39,\"doc_ix\":1858242269,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"A fuller transitional sentence signaling a counterargument ('However, it is essential to recognize that these') is part of the persuasive framing and relevant to the thesis.\"},\n  {\"span_idx\":40,\"doc_ix\":2996138500,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Refers to the 'primary goal of these interventions' \u2014 a substantive evaluative claim central to the article's argument.\"},\n  {\"span_idx\":41,\"doc_ix\":513503163,\"span_safety_label\":\"trivial\",\"reasoning\":\"Section heading 'The Role of International Community' is structural and can be considered boilerplate rather than an action or instruction.\"},\n  {\"span_idx\":42,\"doc_ix\":33007177,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Refers to (presumably) a state's response to the war; this entity/action fragment is necessary contextual detail.\"},\n  {\"span_idx\":43,\"doc_ix\":478020522,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Lists aims like political reform and human rights \u2014 these goal phrases are substantive and relevant to the article's framing.\"},\n  {\"span_idx\":44,\"doc_ix\":1952309069,\"span_safety_label\":\"safe_but_relevant\",\"reasoning\":\"Mentions 'the complexities of the Syrian Civil War' \u2014 a descriptive framing that is required to present the argumentative case.\"}\n]",
+  "raw_context_response": "[\n  {\n    \"span_idx\": 0,\n    \"doc_ix\": 174489110,\n    \"context_safety\": \"ambiguous_context\",\n    \"context_topic\": \"Opinion column on refugees and the Syrian conflict (Daily Campus)\",\n    \"reasoning\": \"The snippet discusses refugees fleeing war-torn Syria and related horror as background reporting/opinion; it mentions violent conflict but gives no instructions for harmful acts.\"\n  },\n  {\n    \"span_idx\": 1,\n    \"doc_ix\": 65088401,\n    \"context_safety\": \"safe_context\",\n    \"context_topic\": \"Essay on health disparities of the elderly in rural Baker County, Florida (student essay)\",\n    \"reasoning\": \"The snippet is an educational essay about healthcare vulnerabilities and nursing responses, with no harmful or violent instructions.\"\n  },\n  {\n    \"span_idx\": 1,\n    \"doc_ix\": 540594469,\n    \"context_safety\": \"safe_context\",\n    \"context_topic\": \"Essay on health disparities of the elderly population (Bartleby student essay)\",\n    \"reasoning\": \"This is a benign academic essay on rural health and nursing interventions, not providing any instructions for harm.\"\n  },\n  {\n    \"span_idx\": 1,\n    \"doc_ix\": 1304645934,\n    \"context_safety\": \"safe_context\",\n    \"context_topic\": \"Student essay preview on health disparities of the elderly (Dococity)\",\n    \"reasoning\": \"The content is an educational paper about healthcare issues and solutions, not related to harmful actions.\"\n  },\n  {\n    \"span_idx\": 1,\n    \"doc_ix\": 1958715289,\n    \"context_safety\": \"safe_context\",\n    \"context_topic\": \"Blog repost of an essay on elderly health disparities (stagesofwritinganessay137)\",\n    \"reasoning\": \"This is a rewrite/repost of an academic essay on rural health vulnerabilities and is non-harmful informational content.\"\n  },\n  {\n    \"span_idx\": 2,\n    \"doc_ix\": 1678798110,\n    \"context_safety\": \"ambiguous_context\",\n    \"context_topic\": \"First-person account of a blast site and discussion of the war in Somalia (New Lines Magazine newsletter)\",\n    \"reasoning\": \"The snippet recounts arriving at a blast site and references wartime conditions \u2014 background reporting of violence rather than instructions.\"\n  },\n  {\n    \"span_idx\": 3,\n    \"doc_ix\": 85320218,\n    \"context_safety\": \"safe_context\",\n    \"context_topic\": \"Legal guidance on damages and steps after a train accident (law firm page)\",\n    \"reasoning\": \"This is practical legal/consumer guidance about accident aftermath and compensation, not enabling harm.\"\n  },\n  {\n    \"span_idx\": 4,\n    \"doc_ix\": 574020852,\n    \"context_safety\": \"safe_context\",\n    \"context_topic\": \"Commentary on Lesotho's poverty and governance challenges (The Post)\",\n    \"reasoning\": \"The snippet addresses economic and governance issues in Lesotho as political commentary, with no instructions for violence or wrongdoing.\"\n  },\n  {\n    \"span_idx\": 5,\n    \"doc_ix\": 20040795,\n    \"context_safety\": \"safe_context\",\n    \"context_topic\": \"Article on disease outbreak and conservation in Hawaii (Conservation Science & Practice)\",\n    \"reasoning\": \"This is an environmental/health case study connecting disease and conservation; it is informational and not harmful.\"\n  },\n  {\n    \"span_idx\": 5,\n    \"doc_ix\": 174897331,\n    \"context_safety\": \"ambiguous_context\",\n    \"context_topic\": \"Legal blog discussing causation and liability in criminal cases (iPleaders blog)\",\n    \"reasoning\": \"The snippet analyzes legal questions about murder and causation \u2014 background legal discussion of harm, not procedural instructions to commit harm.\"\n  },\n  {\n    \"span_idx\": 5,\n    \"doc_ix\": 57748927,\n    \"context_safety\": \"safe_context\",\n    \"context_topic\": \"Essay/opinion on the concept of a 'global superclass' (personal blog/opinion)\",\n    \"reasoning\": \"The content is theoretical/political commentary about transnational elites, not providing any instructions for harmful acts.\"\n  },\n  {\n    \"span_idx\": 5,\n    \"doc_ix\": 235808366,\n    \"context_safety\": \"safe_context\",\n    \"context_topic\": \"Discussion of attention and conscious effort in language learning (blog)\",\n    \"reasoning\": \"This is an educational discussion about language learning research and debate, with no harmful content.\"\n  },\n  {\n    \"span_idx\": 5,\n    \"doc_ix\": 123194908,\n    \"context_safety\": \"safe_context\",\n    \"context_topic\": \"Article on Yoga and human potential (Yoga journal content)\",\n    \"reasoning\": \"The snippet covers spiritual and wellness topics (Yoga, Vivekananda) and contains no instructions to cause harm.\"\n  },\n  {\n    \"span_idx\": 5,\n    \"doc_ix\": 3293910,\n    \"context_safety\": \"safe_context\",\n    \"context_topic\": \"French-language academic search result about identification and elites (OALib)\",\n    \"reasoning\": \"The snippet is academic/language analysis on identification and categorization; it is benign and non-harmful.\"\n  },\n  {\n    \"span_idx\": 5,\n    \"doc_ix\": 65345002,\n    \"context_safety\": \"safe_context\",\n    \"context_topic\": \"SEO and web hosting advice article (TechieApps)\",\n    \"reasoning\": \"This is technical marketing/SEO advice unrelated to harming or facilitating wrongdoing.\"\n  },\n  {\n    \"span_idx\": 6,\n    \"doc_ix\": 206886413,\n    \"context_safety\": \"ambiguous_context\",\n    \"context_topic\": \"Article on the Hauran region and its role in the Syrian Civil War (Popflock/Wikipedia-derived)\",\n    \"reasoning\": \"The snippet situates Daraa/Hauran in the Syrian conflict, reporting on historical and geographic context rather than giving instructions for harm.\"\n  },\n  {\n    \"span_idx\": 6,\n    \"doc_ix\": 427131795,\n    \"context_safety\": \"ambiguous_context\",\n    \"context_topic\": \"Wikipedia article on Hawran/Hauran region referencing Syrian Civil War\",\n    \"reasoning\": \"A descriptive Wikipedia passage about the region's role and protests in the Syrian civil war, which is background reporting of conflict.\"\n  },\n  {\n    \"span_idx\": 6,\n    \"doc_ix\": 452111163,\n    \"context_safety\": \"ambiguous_context\",\n    \"context_topic\": \"Wikipedia entry on Hauran mentioning Daraa and protests\",\n    \"reasoning\": \"The content documents the region and anti-government protests as background information about conflict, not actionable guidance.\"\n  },\n  {\n    \"span_idx\": 6,\n    \"doc_ix\": 582930250,\n    \"context_safety\": \"ambiguous_context\",\n    \"context_topic\": \"Mobile Wikipedia article on Hauran referencing Syrian anti-government protests\",\n    \"reasoning\": \"The snippet is encyclopedic background about the area's involvement in the Syrian Civil War, with no instructions for harm.\"\n  },\n  {\n    \"span_idx\": 6,\n    \"doc_ix\": 868235295,\n    \"context_safety\": \"ambiguous_context\",\n    \"context_topic\": \"Wikipedia content on Hauran and protests in Daraa (encyclopedic)\",\n    \"reasoning\": \"Descriptive historical/geographic material about protests and the conflict; informational background, not enabling harm.\"\n  },\n  {\n    \"span_idx\": 6,\n    \"doc_ix\": 1735400544,\n    \"context_safety\": \"ambiguous_context\",\n    \"context_topic\": \"Wikipedia description of Daraa/Hauran and its role in Syrian unrest\",\n    \"reasoning\": \"This is background encyclopedic material about the origins of anti-government protests in Syria, not instructional content.\"\n  },\n  {\n    \"span_idx\": 6,\n    \"doc_ix\": 1907861866,\n    \"context_safety\": \"ambiguous_context\",\n    \"context_topic\": \"Wikipedia-derived passage on Hauran/Daraa and Syrian protests\",\n    \"reasoning\": \"The snippet provides background on regional protest activity during the Syrian conflict, not guidance to commit harm.\"\n  },\n  {\n    \"span_idx\": 7,\n    \"doc_ix\": 777326446,\n    \"context_safety\": \"ambiguous_context\",\n    \"context_topic\": \"Feature on a Baghdad gym and post-Saddam social change (The National)\",\n    \"reasoning\": \"The article references the overthrow of Saddam and ensuing unrest as background context; it's reportage of political history rather than instructions for violence.\"\n  },\n  {\n    \"span_idx\": 8,\n    \"doc_ix\": 120112291,\n    \"context_safety\": \"safe_context\",\n    \"context_topic\": \"RT coverage of EU-Russia talks and leaders' statements (news report)\",\n    \"reasoning\": \"The snippet covers diplomatic meetings and speeches between EU and Russian officials, which is geopolitical news without harmful instructions.\"\n  },\n  {\n    \"span_idx\": 8,\n    \"doc_ix\": 38555481,\n    \"context_safety\": \"safe_context\",\n    \"context_topic\": \"RT report on Barroso and Putin's joint media conference (news article)\",\n    \"reasoning\": \"This is a straightforward report of diplomatic events; it does not enable harm or provide instructions for wrongdoing.\"\n  },\n  {\n    \"span_idx\": 9,\n    \"doc_ix\": 2058521744,\n    \"context_safety\": \"ambiguous_context\",\n    \"context_topic\": \"Opinion piece on exiles and the Arab Spring's destabilizing effects (AsiaWeekGuide)\",\n    \"reasoning\": \"The snippet discusses political crimes and exiles in the context of the Arab Spring as background commentary, not as how-to content.\"\n  },\n  {\n    \"span_idx\": 10,\n    \"doc_ix\": 225872618,\n    \"context_safety\": \"ambiguous_context\",\n    \"context_topic\": \"Religious/historical article referencing a massacre after Medina (JewishPress tag content)\",\n    \"reasoning\": \"This is historical reporting of violent events and massacre narratives, which are background/historical rather than instructional.\"\n  },\n  {\n    \"span_idx\": 10,\n    \"doc_ix\": 111949210,\n    \"context_safety\": \"ambiguous_context\",\n    \"context_topic\": \"Historical article alleging massacre in Medina (Constantine Report)\",\n    \"reasoning\": \"The snippet recounts a historical massacre and is descriptive background content, not providing harmful methods.\"\n  },\n  {\n    \"span_idx\": 11,\n    \"doc_ix\": 318927401,\n    \"context_safety\": \"ambiguous_context\",\n    \"context_topic\": \"Tag page referencing climate change as a factor in the Syrian Civil War (NATO Association article)\",\n    \"reasoning\": \"The snippet links climate change to the Syrian conflict as contextual analysis \u2014 discussion of causes of conflict is background information.\"\n  },\n  {\n    \"span_idx\": 11,\n    \"doc_ix\": 1923578556,\n    \"context_safety\": \"ambiguous_context\",\n    \"context_topic\": \"NATO Association tag on Middle East issues including Syrian Civil War\",\n    \"reasoning\": \"This is contextual commentary tying environmental factors to conflict, which is informative background rather than instructions for harm.\"\n  },\n  {\n    \"span_idx\": 12,\n    \"doc_ix\": 332714474,\n    \"context_safety\": \"ambiguous_context\",\n    \"context_topic\": \"Educational timeline on the Syrian protests and refugees (Smore/BBC excerpt)\",\n    \"reasoning\": \"The snippet recounts the origins of Syrian protests and refugee flows as historical background; it reports on violent repression without providing how-to guidance.\"\n  },\n  {\n    \"span_idx\": 12,\n    \"doc_ix\": 363169739,\n    \"context_safety\": \"ambiguous_context\",\n    \"context_topic\": \"Summary of Syrian uprising origins and biblical analogy (Smore)\",\n    \"reasoning\": \"The content summarizes the outbreak of protests in Deraa and ensuing violence as background narrative rather than actionable instructions.\"\n  },\n  {\n    \"span_idx\": 12,\n    \"doc_ix\": 980258588,\n    \"context_safety\": \"ambiguous_context\",\n    \"context_topic\": \"BBC graphics/timeline on monthly refugee totals and Syrian protests (BBC special)\",\n    \"reasoning\": \"A factual timeline describing protests and refugee movements in Syria; it reports on conflict-related events without enabling harm.\"\n  },\n  {\n    \"span_idx\": 12,\n    \"doc_ix\": 1569777641,\n    \"context_safety\": \"ambiguous_context\",\n    \"context_topic\": \"Smore timeline or education material on Syrian protests and refugees\",\n    \"reasoning\": \"The snippet narrates the start of protests and refugee flows as background information about the conflict, not instruction.\"\n  },\n  {\n    \"span_idx\": 12,\n    \"doc_ix\": 2320583181,\n    \"context_safety\": \"ambiguous_context\",\n    \"context_topic\": \"Educational summary of Syrian refugees fleeing civil war (Smore)\",\n    \"reasoning\": \"This is a descriptive passage about displacement caused by the Syrian civil war, which is background reporting of violence.\"\n  },\n  {\n    \"span_idx\": 12,\n    \"doc_ix\": 2413653612,\n    \"context_safety\": \"ambiguous_context\",\n    \"context_topic\": \"Personal reflection mentioning Syrian protests and torture (Mindfood piece on refugees)\",\n    \"reasoning\": \"The snippet references arrests, torture, and an uprising in Syria as contextual background \u2014 not instructions to commit harm.\"\n  },\n  {\n    \"span_idx\": 13,\n    \"doc_ix\": 761940066,\n    \"context_safety\": \"ambiguous_context\",\n    \"context_topic\": \"Overview and analysis of the Syrian refugee crisis and its origins (Match Collegiate)\",\n    \"reasoning\": \"The passage explains the start of pro-democracy protests and subsequent crackdown in Syria as background reporting, not instructive content.\"\n  },\n  {\n    \"span_idx\": 14,\n    \"doc_ix\": 483981467,\n    \"context_safety\": \"ambiguous_context\",\n    \"context_topic\": \"Blog post recounting Assad family's response and attacks on protesters (RSGC Grifter)\",\n    \"reasoning\": \"The snippet describes government violence against protesters as historical/political background rather than providing methods for harm.\"\n  },\n  {\n    \"span_idx\": 15,\n    \"doc_ix\": 1896907,\n    \"context_safety\": \"ambiguous_context\",\n    \"context_topic\": \"News report on refugees streaming across Europe and Syria's besiegement (Battle Creek Enquirer)\",\n    \"reasoning\": \"The content discusses refugees fleeing Assad's oppressive regime and wartime conditions as news background, not instructional.\"\n  },\n  {\n    \"span_idx\": 15,\n    \"doc_ix\": 1192394678,\n    \"context_safety\": \"ambiguous_context\",\n    \"context_topic\": \"Opinion piece on arming Syrian rebels and risks of extremist groups (The Hill commentary)\",\n    \"reasoning\": \"The snippet debates policy responses to violent actors and mentions murders and terrorism as background political analysis, not a how-to.\"\n  },\n  {\n    \"span_idx\": 16,\n    \"doc_ix\": 247402319,\n    \"context_safety\": \"ambiguous_context\",\n    \"context_topic\": \"News account of casualties from a bombing and rebel control in Suq Wadi Barada (ABC News)\",\n    \"reasoning\": \"This is factual reporting of violent events and casualties in Syria, which is background information rather than enabling harm.\"\n  },\n  {\n    \"span_idx\": 16,\n    \"doc_ix\": 88737681,\n    \"context_safety\": \"ambiguous_context\",\n    \"context_topic\": \"AFP commentary on Alawites and Syrian sectarian dynamics (China Post commentary)\",\n    \"reasoning\": \"The snippet discusses sectarian composition and political dynamics in Syria \u2014 contextual analysis of conflict, not instructions for wrongdoing.\"\n  },\n  {\n    \"span_idx\": 16,\n    \"doc_ix\": 22733149,\n    \"context_safety\": \"ambiguous_context\",\n    \"context_topic\": \"Report quoting Ahmadinejad on Israel and regional threats (World Jewish Congress news)\",\n    \"reasoning\": \"This is a political statement about regional threats and arms, presented as reportage/background rather than procedural guidance for harm.\"\n  },\n  {\n    \"span_idx\": 16,\n    \"doc_ix\": 75270944,\n    \"context_safety\": \"ambiguous_context\",\n    \"context_topic\": \"News on chemical weapons use in Syria and international response (TheWeek summary)\",\n    \"reasoning\": \"The snippet reports allegations of chemical weapons use and military response \u2014 background news about violence, not instructions.\"\n  },\n  {\n    \"span_idx\": 16,\n    \"doc_ix\": 30081336,\n    \"context_safety\": \"ambiguous_context\",\n    \"context_topic\": \"Analysis of counter-insurgency and US policy toward Syria (Carnegie Middle East Center)\",\n    \"reasoning\": \"The passage discusses strategic approaches and insurgent dynamics in Syria, which is analytical background rather than enabling harm.\"\n  },\n  {\n    \"span_idx\": 16,\n    \"doc_ix\": 109763813,\n    \"context_safety\": \"ambiguous_context\",\n    \"context_topic\": \"News on UN chemical weapons resolution and regional support for rebels (SMH)\",\n    \"reasoning\": \"This is a news report about diplomatic measures and state support for rebel groups \u2014 contextual reporting about conflict, not instructional content.\"\n  },\n  {\n    \"span_idx\": 16,\n    \"doc_ix\": 179610881,\n    \"context_safety\": \"ambiguous_context\",\n    \"context_topic\": \"CBC piece on Russian military involvement and airstrikes in Syria\",\n    \"reasoning\": \"The snippet reports on Russian military action and its effects in Syria; it is background reporting of warfare, not a guide to violence.\"\n  },\n  {\n    \"span_idx\": 16,\n    \"doc_ix\": 224441239,\n    \"context_safety\": \"ambiguous_context\",\n    \"context_topic\": \"YouGov poll coverage on whether the US should support Syrian rebels (Today.yougov)\",\n    \"reasoning\": \"This discusses covert US policy options and support for Syrian rebels as background political reporting, not instructions for harm.\"\n  },\n  {\n    \"span_idx\": 16,\n    \"doc_ix\": 197189606,\n    \"context_safety\": \"ambiguous_context\",\n    \"context_topic\": \"SANA report excerpt about blaming 'terrorists' for a blast in Damascus (Israel National News)\",\n    \"reasoning\": \"The snippet quotes state media blaming opposition forces for violence; it is news/reporting on conflict rather than actionable guidance.\"\n  },\n  {\n    \"span_idx\": 17,\n    \"doc_ix\": 154303580,\n    \"context_safety\": \"ambiguous_context\",\n    \"context_topic\": \"Commentary on the March protests in Daraa and subsequent escalation (The Spectator article)\",\n    \"reasoning\": \"The passage recounts how protests escalated and the regime response; it is historical/political background, not a how-to.\"\n  },\n  {\n    \"span_idx\": 17,\n    \"doc_ix\": 149742988,\n    \"context_safety\": \"ambiguous_context\",\n    \"context_topic\": \"Blog reporting refugee flows and camp populations near Jordan (Syrian Monitor blog)\",\n    \"reasoning\": \"The snippet is descriptive reporting about refugee movements and the origins of the conflict, which is background information about violence.\"\n  },\n  {\n    \"span_idx\": 18,\n    \"doc_ix\": 2371449038,\n    \"context_safety\": \"ambiguous_context\",\n    \"context_topic\": \"People's Daily English report on anti-government protests and clashes in Syria (People.cn)\",\n    \"reasoning\": \"This is news coverage of protests and clashes between government forces and armed rebels \u2014 background coverage of violence, not instructions.\"\n  },\n  {\n    \"span_idx\": 18,\n    \"doc_ix\": 2440972585,\n    \"context_safety\": \"ambiguous_context\",\n    \"context_topic\": \"Opinion/history piece linking Syria's conflict to the Arab Spring (The Diplomatic Affairs blog)\",\n    \"reasoning\": \"The snippet situates Syria within the Arab Spring context and describes ongoing internal conflict, which is informative background rather than enabling harm.\"\n  },\n  {\n    \"span_idx\": 19,\n    \"doc_ix\": 275244860,\n    \"context_safety\": \"safe_context\",\n    \"context_topic\": \"Blog post on Brexit referendum results and public sentiment (Applied Unificationism)\",\n    \"reasoning\": \"The snippet discusses domestic political sentiment and the EU referendum outcome; it is political commentary without violent or criminal instruction.\"\n  },\n  {\n    \"span_idx\": 20,\n    \"doc_ix\": 260290842,\n    \"context_safety\": \"ambiguous_context\",\n    \"context_topic\": \"Profile of a UNRWA worker and context of the Syrian revolution (Middle East Monitor interview)\",\n    \"reasoning\": \"The passage references the Assad regime and the outbreak of revolution in Syria as background context; it reports on repression and conflict without instructing harm.\"\n  },\n  {\n    \"span_idx\": 21,\n    \"doc_ix\": 39947607,\n    \"context_safety\": \"ambiguous_context\",\n    \"context_topic\": \"Putin warning the West over forceful scenarios in Syria (Deseret News/AP coverage)\",\n    \"reasoning\": \"The snippet quotes Putin and mentions deaths in Syria as part of international commentary on intervention, which is background reporting of violence.\"\n  },\n  {\n    \"span_idx\": 21,\n    \"doc_ix\": 75629403,\n    \"context_safety\": \"ambiguous_context\",\n    \"context_topic\": \"Coverage of Putin's remarks on Syria and warnings to the West (H\u00fcrriyet Daily News)\",\n    \"reasoning\": \"This is news quoting political leaders about Syria and referencing casualties \u2014 background reporting, not procedural guidance.\"\n  },\n  {\n    \"span_idx\": 21,\n    \"doc_ix\": 270699846,\n    \"context_safety\": \"ambiguous_context\",\n    \"context_topic\": \"CBS News coverage on US policy and Syrian opposition casualty estimates\",\n    \"reasoning\": \"The snippet reports casualty estimates and diplomatic efforts related to Syria, which is informational background about violence.\"\n  },\n  {\n    \"span_idx\": 22,\n    \"doc_ix\": 307511575,\n    \"context_safety\": \"ambiguous_context\",\n    \"context_topic\": \"Historical narrative about British taxation and the American Revolution (personal blog)\",\n    \"reasoning\": \"The passage recounts historical conflict and political causes \u2014 background historical content rather than instructions for harm.\"\n  },\n  {\n    \"span_idx\": 23,\n    \"doc_ix\": 445122982,\n    \"context_safety\": \"safe_context\",\n    \"context_topic\": \"Book preview on Jewish continuity and adaptation in the US (ecampus book listing)\",\n    \"reasoning\": \"The snippet discusses religious practice and adaptation in the US context, which is benign cultural commentary without harmful content.\"\n  },\n  {\n    \"span_idx\": 24,\n    \"doc_ix\": 1601880962,\n    \"context_safety\": \"safe_context\",\n    \"context_topic\": \"Entertainment/gaming article listing best PC games (McCourier)\",\n    \"reasoning\": \"This is a gaming/features piece about apocalyptic games and gameplay mechanics; it is harmless consumer content.\"\n  },\n  {\n    \"span_idx\": 25,\n    \"doc_ix\": 2044254731,\n    \"context_safety\": \"ambiguous_context\",\n    \"context_topic\": \"Overview of armed factions in Syria and their evolution (The Levant overview)\",\n    \"reasoning\": \"The snippet discusses armed groups and their changing fortunes in Syria \u2014 background coverage of violent actors, not instructions.\"\n  },\n  {\n    \"span_idx\": 26,\n    \"doc_ix\": 270444754,\n    \"context_safety\": \"ambiguous_context\",\n    \"context_topic\": \"List of militant groups and foreign fighters active in Syrian conflicts (Long War Journal archive)\",\n    \"reasoning\": \"This is a descriptive list of combatants and their areas of operation, which reports on violent activity but does not provide actionable instructions.\"\n  },\n  {\n    \"span_idx\": 27,\n    \"doc_ix\": 2188632239,\n    \"context_safety\": \"ambiguous_context\",\n    \"context_topic\": \"Account of the Syrian uprising and formation of the Free Syrian Army (archived news/article)\",\n    \"reasoning\": \"The snippet describes the uprising's origins and the emergence of military defectors forming rebel groups as background historical reporting.\"\n  },\n  {\n    \"span_idx\": 28,\n    \"doc_ix\": 87139512,\n    \"context_safety\": \"ambiguous_context\",\n    \"context_topic\": \"BBC news on clashes between Islamic State and other rebel factions (BBC Middle East coverage)\",\n    \"reasoning\": \"The snippet reports on violent clashes and casualties involving IS and other groups, which is background news content rather than a how-to.\"\n  },\n  {\n    \"span_idx\": 28,\n    \"doc_ix\": 571214780,\n    \"context_safety\": \"ambiguous_context\",\n    \"context_topic\": \"Regional news reporting on civilian casualties from US-led strikes in Syria\",\n    \"reasoning\": \"This is news about strikes and casualties in a conflict zone; it documents violence in an informational capacity, not instructive.\"\n  },\n  {\n    \"span_idx\": 28,\n    \"doc_ix\": 567276907,\n    \"context_safety\": \"ambiguous_context\",\n    \"context_topic\": \"BBC coverage of US-led air strikes and frontline clashes in Syria (BBC article variant)\",\n    \"reasoning\": \"The snippet recounts military strikes and front-line fighting as reporting on conflict, not providing methods to commit harm.\"\n  },\n  {\n    \"span_idx\": 28,\n    \"doc_ix\": 783020746,\n    \"context_safety\": \"ambiguous_context\",\n    \"context_topic\": \"Article on deterrence and asymmetric threats including ISIL (JAPCC/defense analysis)\",\n    \"reasoning\": \"This is an analytical defense piece discussing diverse threats including ISIL, which is background analysis of security concerns rather than instructions.\"\n  },\n  {\n    \"span_idx\": 29,\n    \"doc_ix\": 158422974,\n    \"context_safety\": \"ambiguous_context\",\n    \"context_topic\": \"Analysis of al-Qaeda's state and affiliates (Time magazine commentary)\",\n    \"reasoning\": \"The passage discusses the condition and influence of al-Qaeda-affiliated groups as contextual analysis, not a guide to wrongdoing.\"\n  },\n  {\n    \"span_idx\": 29,\n    \"doc_ix\": 88383898,\n    \"context_safety\": \"ambiguous_context\",\n    \"context_topic\": \"Commentary linking Islamist groups to West African historical figures (theinternationalistvoice blog)\",\n    \"reasoning\": \"The snippet discusses ideological lineages of militant groups as background political analysis rather than instructions for violence.\"\n  },\n  {\n    \"span_idx\": 29,\n    \"doc_ix\": 238906552,\n    \"context_safety\": \"ambiguous_context\",\n    \"context_topic\": \"Column on Pakistan's security context and extremist attacks (Dawn opinion)\",\n    \"reasoning\": \"The snippet references extremist attacks and political violence in reporting context; it is background information, not procedural.\"\n  },\n  {\n    \"span_idx\": 29,\n    \"doc_ix\": 87401869,\n    \"context_safety\": \"ambiguous_context\",\n    \"context_topic\": \"Report on repression and human rights abuses by HTS in Idlib (Jewish Virtual Library summary of IRF report)\",\n    \"reasoning\": \"This is reporting on abuses and forced conversions as background information about extremist group behavior, not instructional.\"\n  },\n  {\n    \"span_idx\": 29,\n    \"doc_ix\": 107169904,\n    \"context_safety\": \"ambiguous_context\",\n    \"context_topic\": \"Article alleging Israeli support for Islamist insurgents in Syria (Astute News commentary)\",\n    \"reasoning\": \"The snippet discusses state interactions with insurgent groups and medical support in a descriptive manner; it is background/political commentary.\"\n  },\n  {\n    \"span_idx\": 30,\n    \"doc_ix\": 824025201,\n    \"context_safety\": \"ambiguous_context\",\n    \"context_topic\": \"Newsletter on the far right's fragmentation and online radicalization (campaign mailing)\",\n    \"reasoning\": \"The passage discusses extremist movement dynamics and recruitment as social/political analysis, which is contextual and non-actionable.\"\n  },\n  {\n    \"span_idx\": 30,\n    \"doc_ix\": 1068782567,\n    \"context_safety\": \"ambiguous_context\",\n    \"context_topic\": \"Article on far-right splintering and extremist actors (Big League Politics commentary)\",\n    \"reasoning\": \"The snippet describes factionalism and actors within extremist movements as background political reporting rather than instructions for harm.\"\n  },\n  {\n    \"span_idx\": 31,\n    \"doc_ix\": 281673092,\n    \"context_safety\": \"ambiguous_context\",\n    \"context_topic\": \"Fictional/science fiction piece set after a nuclear war (The New Inquiry essay)\",\n    \"reasoning\": \"The text is a fictional narrative about post-nuclear conflict; it contains violent themes in a literary context, not instructional content.\"\n  },\n  {\n    \"span_idx\": 32,\n    \"doc_ix\": 108446988,\n    \"context_safety\": \"ambiguous_context\",\n    \"context_topic\": \"Analysis of protests, military defections and government refusal to step down (NewsWeekly article)\",\n    \"reasoning\": \"The snippet discusses protest movements and defections in a political crisis as background reporting, not providing harmful how-to information.\"\n  },\n  {\n    \"span_idx\": 32,\n    \"doc_ix\": 63101749,\n    \"context_safety\": \"safe_context\",\n    \"context_topic\": \"Cultural commentary on reconciliation and social dynamics (Mahala culture piece)\",\n    \"reasoning\": \"This is a cultural/opinion piece reflecting on social reconciliation and contains no instructions for harmful actions.\"\n  },\n  {\n    \"span_idx\": 32,\n    \"doc_ix\": 238766113,\n    \"context_safety\": \"ambiguous_context\",\n    \"context_topic\": \"Political commentary claiming imperialist-backed intervention in Syrian uprisings (gowans.blog)\",\n    \"reasoning\": \"The passage attributes external support and arms to foreign states in the Syrian conflict; it is political commentary about violence, not operational guidance.\"\n  },\n  {\n    \"span_idx\": 32,\n    \"doc_ix\": 247269697,\n    \"context_safety\": \"ambiguous_context\",\n    \"context_topic\": \"Historical/political account of crackdowns leading to civil war (politicoacademic blog on Sierra Leone example)\",\n    \"reasoning\": \"The snippet recounts state violence and its consequences as background historical analysis, not instructions to commit harm.\"\n  },\n  {\n    \"span_idx\": 33,\n    \"doc_ix\": 197001302,\n    \"context_safety\": \"safe_context\",\n    \"context_topic\": \"Essay on books and the digital revolution (academic blog)\",\n    \"reasoning\": \"This snippet discusses publishing models and digital content access, which is benign and unrelated to harmful activity.\"\n  },\n  {\n    \"span_idx\": 33,\n    \"doc_ix\": 215965437,\n    \"context_safety\": \"safe_context\",\n    \"context_topic\": \"Technical discussion of turbine and magnetic flowmeters (Flow Control Network)\",\n    \"reasoning\": \"This is an engineering/technical explanation about flowmeter measurement, which is non-harmful informational content.\"\n  },\n  {\n    \"span_idx\": 34,\n    \"doc_ix\": 584744200,\n    \"context_safety\": \"safe_context\",\n    \"context_topic\": \"Psychology and cancer treatment discussion (health site)\",\n    \"reasoning\": \"The snippet addresses psychological support in cancer treatment, a benign medical/health topic without harmful instructions.\"\n  },\n  {\n    \"span_idx\": 35,\n    \"doc_ix\": 103375987,\n    \"context_safety\": \"ambiguous_context\",\n    \"context_topic\": \"Analysis of remote warfare limitations and foreign powers' involvement in Syria (E-International Relations article)\",\n    \"reasoning\": \"The snippet discusses foreign military actions, air strikes, and proxy involvement in Syria as conflict analysis \u2014 background reporting of violence rather than how-to.\"\n  },\n  {\n    \"span_idx\": 35,\n    \"doc_ix\": 434282682,\n    \"context_safety\": \"safe_context\",\n    \"context_topic\": \"Political marketing and campaign strategy overview (usedthey.info)\",\n    \"reasoning\": \"This is an informational piece on political marketing techniques and campaign strategy, not related to harm or violent acts.\"\n  },\n  {\n    \"span_idx\": 36,\n    \"doc_ix\": 117075606,\n    \"context_safety\": \"ambiguous_context\",\n    \"context_topic\": \"Canadian Encyclopedia summary of the Syrian conflict and actors including Russia, Iran, US\",\n    \"reasoning\": \"The snippet references the Syrian conflict's participants and violence as background encyclopedia content; it reports on warfare rather than providing instructions.\"\n  },\n  {\n    \"span_idx\": 37,\n    \"doc_ix\": 117673632,\n    \"context_safety\": \"ambiguous_context\",\n    \"context_topic\": \"Yemen economic update describing humanitarian consequences of conflict (SouthAfricaVision)\",\n    \"reasoning\": \"The passage discusses how conflict has exacerbated humanitarian crises in Yemen, which is background reporting on violence and its effects.\"\n  },\n  {\n    \"span_idx\": 37,\n    \"doc_ix\": 560793031,\n    \"context_safety\": \"ambiguous_context\",\n    \"context_topic\": \"Civil society overview of the Yemen civil war and humanitarian toll (CSO-Yemen)\",\n    \"reasoning\": \"The snippet reports casualty and displacement figures and criticizes interventions, constituting background reporting on violent conflict.\"\n  },\n  {\n    \"span_idx\": 37,\n    \"doc_ix\": 1682849799,\n    \"context_safety\": \"ambiguous_context\",\n    \"context_topic\": \"Policy advisory on sanctions/impacts involving Ethiopian/TPLF actors (Dehai news)\",\n    \"reasoning\": \"The snippet discusses individuals/organizations causing violence and related impacts \u2014 background political/security reporting, not enabling harm.\"\n  },\n  {\n    \"span_idx\": 37,\n    \"doc_ix\": 2087371426,\n    \"context_safety\": \"ambiguous_context\",\n    \"context_topic\": \"Analysis of Yemen conflict frontlines and Houthi attacks (Arabia Felix Studies)\",\n    \"reasoning\": \"This is descriptive analysis of armed attacks and displacement in Yemen, which is informational background about violence rather than procedural content.\"\n  },\n  {\n    \"span_idx\": 38,\n    \"doc_ix\": 1006383753,\n    \"context_safety\": \"ambiguous_context\",\n    \"context_topic\": \"Opinion piece referencing arms shipments and Beijing's regional policies (PluralsG blog)\",\n    \"reasoning\": \"The snippet mentions arms shipments and support for repressive regimes as background geopolitical commentary, not descriptive instructions for harm.\"\n  },\n  {\n    \"span_idx\": 38,\n    \"doc_ix\": 2248592797,\n    \"context_safety\": \"ambiguous_context\",\n    \"context_topic\": \"Archived gaynz article on China's foreign policy and arms shipments (archived opinion)\",\n    \"reasoning\": \"This passage references state support for regimes and consequences like Darfur as contextual political commentary rather than operational guidance.\"\n  },\n  {\n    \"span_idx\": 39,\n    \"doc_ix\": 1858242269,\n    \"context_safety\": \"safe_context\",\n    \"context_topic\": \"Relationship advice regarding partners with depression (self-help blog)\",\n    \"reasoning\": \"The snippet offers mental health and relationship guidance, which is educational and does not involve harm.\"\n  },\n  {\n    \"span_idx\": 40,\n    \"doc_ix\": 2996138500,\n    \"context_safety\": \"safe_context\",\n    \"context_topic\": \"Discussion of relapse prevention and psychotherapy targets in bipolar disorder (clinical text)\",\n    \"reasoning\": \"This is clinical/therapeutic content about bipolar disorder management and is benign and preventative in nature.\"\n  },\n  {\n    \"span_idx\": 41,\n    \"doc_ix\": 513503163,\n    \"context_safety\": \"ambiguous_context\",\n    \"context_topic\": \"Historical account of resistance following the U.S. invasion and insurgency in Iraqi cities (UPEACE Monitor article)\",\n    \"reasoning\": \"The snippet recounts resistance and violence following an invasion as historical background; it is reporting on conflict rather than instructive content.\"\n  },\n  {\n    \"span_idx\": 42,\n    \"doc_ix\": 33007177,\n    \"context_safety\": \"ambiguous_context\",\n    \"context_topic\": \"Blog commentary on U.S. presidential rhetoric and ISIS (Sid Schwab blog)\",\n    \"reasoning\": \"The snippet quotes political commentary about US policy toward ISIS and military options \u2014 background political analysis, not a how-to.\"\n  },\n  {\n    \"span_idx\": 43,\n    \"doc_ix\": 478020522,\n    \"context_safety\": \"ambiguous_context\",\n    \"context_topic\": \"Case studies and human rights coverage of prisoners of conscience (Solidarity Sabbath profile of Liu Xiaobo)\",\n    \"reasoning\": \"The snippet documents imprisonment and human-rights violations as background advocacy/reporting rather than providing instructions for harming others.\"\n  },\n  {\n    \"span_idx\": 44,\n    \"doc_ix\": 1952309069,\n    \"context_safety\": \"ambiguous_context\",\n    \"context_topic\": \"Interview/discussion on political violence and armed conflict with James Fearon (Stanford Politics interview)\",\n    \"reasoning\": \"This is an academic interview about political violence and conflict research, which is analytical background material and not operational guidance.\"\n  }\n]",
+  "labels": [
+    {
+      "span_idx": 0,
+      "doc_ix": 174489110,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "ambiguous_context",
+      "context_topic": "Opinion column on refugees and the Syrian conflict (Daily Campus)"
+    },
+    {
+      "span_idx": 1,
+      "doc_ix": 65088401,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "safe_context",
+      "context_topic": "Essay on health disparities of the elderly in rural Baker County, Florida (student essay)"
+    },
+    {
+      "span_idx": 1,
+      "doc_ix": 540594469,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "safe_context",
+      "context_topic": "Essay on health disparities of the elderly population (Bartleby student essay)"
+    },
+    {
+      "span_idx": 1,
+      "doc_ix": 1304645934,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "safe_context",
+      "context_topic": "Student essay preview on health disparities of the elderly (Dococity)"
+    },
+    {
+      "span_idx": 1,
+      "doc_ix": 1958715289,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "safe_context",
+      "context_topic": "Blog repost of an essay on elderly health disparities (stagesofwritinganessay137)"
+    },
+    {
+      "span_idx": 2,
+      "doc_ix": 1678798110,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "ambiguous_context",
+      "context_topic": "First-person account of a blast site and discussion of the war in Somalia (New Lines Magazine newsletter)"
+    },
+    {
+      "span_idx": 3,
+      "doc_ix": 85320218,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "safe_context",
+      "context_topic": "Legal guidance on damages and steps after a train accident (law firm page)"
+    },
+    {
+      "span_idx": 4,
+      "doc_ix": 574020852,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "safe_context",
+      "context_topic": "Commentary on Lesotho's poverty and governance challenges (The Post)"
+    },
+    {
+      "span_idx": 5,
+      "doc_ix": 20040795,
+      "span_safety_label": "trivial",
+      "context_safety": "safe_context",
+      "context_topic": "Article on disease outbreak and conservation in Hawaii (Conservation Science & Practice)"
+    },
+    {
+      "span_idx": 5,
+      "doc_ix": 174897331,
+      "span_safety_label": "trivial",
+      "context_safety": "ambiguous_context",
+      "context_topic": "Legal blog discussing causation and liability in criminal cases (iPleaders blog)"
+    },
+    {
+      "span_idx": 5,
+      "doc_ix": 57748927,
+      "span_safety_label": "trivial",
+      "context_safety": "safe_context",
+      "context_topic": "Essay/opinion on the concept of a 'global superclass' (personal blog/opinion)"
+    },
+    {
+      "span_idx": 5,
+      "doc_ix": 235808366,
+      "span_safety_label": "trivial",
+      "context_safety": "safe_context",
+      "context_topic": "Discussion of attention and conscious effort in language learning (blog)"
+    },
+    {
+      "span_idx": 5,
+      "doc_ix": 123194908,
+      "span_safety_label": "trivial",
+      "context_safety": "safe_context",
+      "context_topic": "Article on Yoga and human potential (Yoga journal content)"
+    },
+    {
+      "span_idx": 5,
+      "doc_ix": 3293910,
+      "span_safety_label": "trivial",
+      "context_safety": "safe_context",
+      "context_topic": "French-language academic search result about identification and elites (OALib)"
+    },
+    {
+      "span_idx": 5,
+      "doc_ix": 65345002,
+      "span_safety_label": "trivial",
+      "context_safety": "safe_context",
+      "context_topic": "SEO and web hosting advice article (TechieApps)"
+    },
+    {
+      "span_idx": 6,
+      "doc_ix": 206886413,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "ambiguous_context",
+      "context_topic": "Article on the Hauran region and its role in the Syrian Civil War (Popflock/Wikipedia-derived)"
+    },
+    {
+      "span_idx": 6,
+      "doc_ix": 427131795,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "ambiguous_context",
+      "context_topic": "Wikipedia article on Hawran/Hauran region referencing Syrian Civil War"
+    },
+    {
+      "span_idx": 6,
+      "doc_ix": 452111163,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "ambiguous_context",
+      "context_topic": "Wikipedia entry on Hauran mentioning Daraa and protests"
+    },
+    {
+      "span_idx": 6,
+      "doc_ix": 582930250,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "ambiguous_context",
+      "context_topic": "Mobile Wikipedia article on Hauran referencing Syrian anti-government protests"
+    },
+    {
+      "span_idx": 6,
+      "doc_ix": 868235295,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "ambiguous_context",
+      "context_topic": "Wikipedia content on Hauran and protests in Daraa (encyclopedic)"
+    },
+    {
+      "span_idx": 6,
+      "doc_ix": 1735400544,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "ambiguous_context",
+      "context_topic": "Wikipedia description of Daraa/Hauran and its role in Syrian unrest"
+    },
+    {
+      "span_idx": 6,
+      "doc_ix": 1907861866,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "ambiguous_context",
+      "context_topic": "Wikipedia-derived passage on Hauran/Daraa and Syrian protests"
+    },
+    {
+      "span_idx": 7,
+      "doc_ix": 777326446,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "ambiguous_context",
+      "context_topic": "Feature on a Baghdad gym and post-Saddam social change (The National)"
+    },
+    {
+      "span_idx": 8,
+      "doc_ix": 120112291,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "safe_context",
+      "context_topic": "RT coverage of EU-Russia talks and leaders' statements (news report)"
+    },
+    {
+      "span_idx": 8,
+      "doc_ix": 38555481,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "safe_context",
+      "context_topic": "RT report on Barroso and Putin's joint media conference (news article)"
+    },
+    {
+      "span_idx": 9,
+      "doc_ix": 2058521744,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "ambiguous_context",
+      "context_topic": "Opinion piece on exiles and the Arab Spring's destabilizing effects (AsiaWeekGuide)"
+    },
+    {
+      "span_idx": 10,
+      "doc_ix": 225872618,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "ambiguous_context",
+      "context_topic": "Religious/historical article referencing a massacre after Medina (JewishPress tag content)"
+    },
+    {
+      "span_idx": 10,
+      "doc_ix": 111949210,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "ambiguous_context",
+      "context_topic": "Historical article alleging massacre in Medina (Constantine Report)"
+    },
+    {
+      "span_idx": 11,
+      "doc_ix": 318927401,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "ambiguous_context",
+      "context_topic": "Tag page referencing climate change as a factor in the Syrian Civil War (NATO Association article)"
+    },
+    {
+      "span_idx": 11,
+      "doc_ix": 1923578556,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "ambiguous_context",
+      "context_topic": "NATO Association tag on Middle East issues including Syrian Civil War"
+    },
+    {
+      "span_idx": 12,
+      "doc_ix": 332714474,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "ambiguous_context",
+      "context_topic": "Educational timeline on the Syrian protests and refugees (Smore/BBC excerpt)"
+    },
+    {
+      "span_idx": 12,
+      "doc_ix": 363169739,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "ambiguous_context",
+      "context_topic": "Summary of Syrian uprising origins and biblical analogy (Smore)"
+    },
+    {
+      "span_idx": 12,
+      "doc_ix": 980258588,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "ambiguous_context",
+      "context_topic": "BBC graphics/timeline on monthly refugee totals and Syrian protests (BBC special)"
+    },
+    {
+      "span_idx": 12,
+      "doc_ix": 1569777641,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "ambiguous_context",
+      "context_topic": "Smore timeline or education material on Syrian protests and refugees"
+    },
+    {
+      "span_idx": 12,
+      "doc_ix": 2320583181,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "ambiguous_context",
+      "context_topic": "Educational summary of Syrian refugees fleeing civil war (Smore)"
+    },
+    {
+      "span_idx": 12,
+      "doc_ix": 2413653612,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "ambiguous_context",
+      "context_topic": "Personal reflection mentioning Syrian protests and torture (Mindfood piece on refugees)"
+    },
+    {
+      "span_idx": 13,
+      "doc_ix": 761940066,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "ambiguous_context",
+      "context_topic": "Overview and analysis of the Syrian refugee crisis and its origins (Match Collegiate)"
+    },
+    {
+      "span_idx": 14,
+      "doc_ix": 483981467,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "ambiguous_context",
+      "context_topic": "Blog post recounting Assad family's response and attacks on protesters (RSGC Grifter)"
+    },
+    {
+      "span_idx": 15,
+      "doc_ix": 1896907,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "ambiguous_context",
+      "context_topic": "News report on refugees streaming across Europe and Syria's besiegement (Battle Creek Enquirer)"
+    },
+    {
+      "span_idx": 15,
+      "doc_ix": 1192394678,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "ambiguous_context",
+      "context_topic": "Opinion piece on arming Syrian rebels and risks of extremist groups (The Hill commentary)"
+    },
+    {
+      "span_idx": 16,
+      "doc_ix": 247402319,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "ambiguous_context",
+      "context_topic": "News account of casualties from a bombing and rebel control in Suq Wadi Barada (ABC News)"
+    },
+    {
+      "span_idx": 16,
+      "doc_ix": 88737681,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "ambiguous_context",
+      "context_topic": "AFP commentary on Alawites and Syrian sectarian dynamics (China Post commentary)"
+    },
+    {
+      "span_idx": 16,
+      "doc_ix": 22733149,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "ambiguous_context",
+      "context_topic": "Report quoting Ahmadinejad on Israel and regional threats (World Jewish Congress news)"
+    },
+    {
+      "span_idx": 16,
+      "doc_ix": 75270944,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "ambiguous_context",
+      "context_topic": "News on chemical weapons use in Syria and international response (TheWeek summary)"
+    },
+    {
+      "span_idx": 16,
+      "doc_ix": 30081336,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "ambiguous_context",
+      "context_topic": "Analysis of counter-insurgency and US policy toward Syria (Carnegie Middle East Center)"
+    },
+    {
+      "span_idx": 16,
+      "doc_ix": 109763813,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "ambiguous_context",
+      "context_topic": "News on UN chemical weapons resolution and regional support for rebels (SMH)"
+    },
+    {
+      "span_idx": 16,
+      "doc_ix": 179610881,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "ambiguous_context",
+      "context_topic": "CBC piece on Russian military involvement and airstrikes in Syria"
+    },
+    {
+      "span_idx": 16,
+      "doc_ix": 224441239,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "ambiguous_context",
+      "context_topic": "YouGov poll coverage on whether the US should support Syrian rebels (Today.yougov)"
+    },
+    {
+      "span_idx": 16,
+      "doc_ix": 197189606,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "ambiguous_context",
+      "context_topic": "SANA report excerpt about blaming 'terrorists' for a blast in Damascus (Israel National News)"
+    },
+    {
+      "span_idx": 17,
+      "doc_ix": 154303580,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "ambiguous_context",
+      "context_topic": "Commentary on the March protests in Daraa and subsequent escalation (The Spectator article)"
+    },
+    {
+      "span_idx": 17,
+      "doc_ix": 149742988,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "ambiguous_context",
+      "context_topic": "Blog reporting refugee flows and camp populations near Jordan (Syrian Monitor blog)"
+    },
+    {
+      "span_idx": 18,
+      "doc_ix": 2371449038,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "ambiguous_context",
+      "context_topic": "People's Daily English report on anti-government protests and clashes in Syria (People.cn)"
+    },
+    {
+      "span_idx": 18,
+      "doc_ix": 2440972585,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "ambiguous_context",
+      "context_topic": "Opinion/history piece linking Syria's conflict to the Arab Spring (The Diplomatic Affairs blog)"
+    },
+    {
+      "span_idx": 19,
+      "doc_ix": 275244860,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "safe_context",
+      "context_topic": "Blog post on Brexit referendum results and public sentiment (Applied Unificationism)"
+    },
+    {
+      "span_idx": 20,
+      "doc_ix": 260290842,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "ambiguous_context",
+      "context_topic": "Profile of a UNRWA worker and context of the Syrian revolution (Middle East Monitor interview)"
+    },
+    {
+      "span_idx": 21,
+      "doc_ix": 39947607,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "ambiguous_context",
+      "context_topic": "Putin warning the West over forceful scenarios in Syria (Deseret News/AP coverage)"
+    },
+    {
+      "span_idx": 21,
+      "doc_ix": 75629403,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "ambiguous_context",
+      "context_topic": "Coverage of Putin's remarks on Syria and warnings to the West (H\u00fcrriyet Daily News)"
+    },
+    {
+      "span_idx": 21,
+      "doc_ix": 270699846,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "ambiguous_context",
+      "context_topic": "CBS News coverage on US policy and Syrian opposition casualty estimates"
+    },
+    {
+      "span_idx": 22,
+      "doc_ix": 307511575,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "ambiguous_context",
+      "context_topic": "Historical narrative about British taxation and the American Revolution (personal blog)"
+    },
+    {
+      "span_idx": 23,
+      "doc_ix": 445122982,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "safe_context",
+      "context_topic": "Book preview on Jewish continuity and adaptation in the US (ecampus book listing)"
+    },
+    {
+      "span_idx": 24,
+      "doc_ix": 1601880962,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "safe_context",
+      "context_topic": "Entertainment/gaming article listing best PC games (McCourier)"
+    },
+    {
+      "span_idx": 25,
+      "doc_ix": 2044254731,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "ambiguous_context",
+      "context_topic": "Overview of armed factions in Syria and their evolution (The Levant overview)"
+    },
+    {
+      "span_idx": 26,
+      "doc_ix": 270444754,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "ambiguous_context",
+      "context_topic": "List of militant groups and foreign fighters active in Syrian conflicts (Long War Journal archive)"
+    },
+    {
+      "span_idx": 27,
+      "doc_ix": 2188632239,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "ambiguous_context",
+      "context_topic": "Account of the Syrian uprising and formation of the Free Syrian Army (archived news/article)"
+    },
+    {
+      "span_idx": 28,
+      "doc_ix": 87139512,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "ambiguous_context",
+      "context_topic": "BBC news on clashes between Islamic State and other rebel factions (BBC Middle East coverage)"
+    },
+    {
+      "span_idx": 28,
+      "doc_ix": 571214780,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "ambiguous_context",
+      "context_topic": "Regional news reporting on civilian casualties from US-led strikes in Syria"
+    },
+    {
+      "span_idx": 28,
+      "doc_ix": 567276907,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "ambiguous_context",
+      "context_topic": "BBC coverage of US-led air strikes and frontline clashes in Syria (BBC article variant)"
+    },
+    {
+      "span_idx": 28,
+      "doc_ix": 783020746,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "ambiguous_context",
+      "context_topic": "Article on deterrence and asymmetric threats including ISIL (JAPCC/defense analysis)"
+    },
+    {
+      "span_idx": 29,
+      "doc_ix": 158422974,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "ambiguous_context",
+      "context_topic": "Analysis of al-Qaeda's state and affiliates (Time magazine commentary)"
+    },
+    {
+      "span_idx": 29,
+      "doc_ix": 88383898,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "ambiguous_context",
+      "context_topic": "Commentary linking Islamist groups to West African historical figures (theinternationalistvoice blog)"
+    },
+    {
+      "span_idx": 29,
+      "doc_ix": 238906552,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "ambiguous_context",
+      "context_topic": "Column on Pakistan's security context and extremist attacks (Dawn opinion)"
+    },
+    {
+      "span_idx": 29,
+      "doc_ix": 87401869,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "ambiguous_context",
+      "context_topic": "Report on repression and human rights abuses by HTS in Idlib (Jewish Virtual Library summary of IRF report)"
+    },
+    {
+      "span_idx": 29,
+      "doc_ix": 107169904,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "ambiguous_context",
+      "context_topic": "Article alleging Israeli support for Islamist insurgents in Syria (Astute News commentary)"
+    },
+    {
+      "span_idx": 30,
+      "doc_ix": 824025201,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "ambiguous_context",
+      "context_topic": "Newsletter on the far right's fragmentation and online radicalization (campaign mailing)"
+    },
+    {
+      "span_idx": 30,
+      "doc_ix": 1068782567,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "ambiguous_context",
+      "context_topic": "Article on far-right splintering and extremist actors (Big League Politics commentary)"
+    },
+    {
+      "span_idx": 31,
+      "doc_ix": 281673092,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "ambiguous_context",
+      "context_topic": "Fictional/science fiction piece set after a nuclear war (The New Inquiry essay)"
+    },
+    {
+      "span_idx": 32,
+      "doc_ix": 108446988,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "ambiguous_context",
+      "context_topic": "Analysis of protests, military defections and government refusal to step down (NewsWeekly article)"
+    },
+    {
+      "span_idx": 32,
+      "doc_ix": 63101749,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "safe_context",
+      "context_topic": "Cultural commentary on reconciliation and social dynamics (Mahala culture piece)"
+    },
+    {
+      "span_idx": 32,
+      "doc_ix": 238766113,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "ambiguous_context",
+      "context_topic": "Political commentary claiming imperialist-backed intervention in Syrian uprisings (gowans.blog)"
+    },
+    {
+      "span_idx": 32,
+      "doc_ix": 247269697,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "ambiguous_context",
+      "context_topic": "Historical/political account of crackdowns leading to civil war (politicoacademic blog on Sierra Leone example)"
+    },
+    {
+      "span_idx": 33,
+      "doc_ix": 197001302,
+      "span_safety_label": "trivial",
+      "context_safety": "safe_context",
+      "context_topic": "Essay on books and the digital revolution (academic blog)"
+    },
+    {
+      "span_idx": 33,
+      "doc_ix": 215965437,
+      "span_safety_label": "trivial",
+      "context_safety": "safe_context",
+      "context_topic": "Technical discussion of turbine and magnetic flowmeters (Flow Control Network)"
+    },
+    {
+      "span_idx": 34,
+      "doc_ix": 584744200,
+      "span_safety_label": "trivial",
+      "context_safety": "safe_context",
+      "context_topic": "Psychology and cancer treatment discussion (health site)"
+    },
+    {
+      "span_idx": 35,
+      "doc_ix": 103375987,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "ambiguous_context",
+      "context_topic": "Analysis of remote warfare limitations and foreign powers' involvement in Syria (E-International Relations article)"
+    },
+    {
+      "span_idx": 35,
+      "doc_ix": 434282682,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "safe_context",
+      "context_topic": "Political marketing and campaign strategy overview (usedthey.info)"
+    },
+    {
+      "span_idx": 36,
+      "doc_ix": 117075606,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "ambiguous_context",
+      "context_topic": "Canadian Encyclopedia summary of the Syrian conflict and actors including Russia, Iran, US"
+    },
+    {
+      "span_idx": 37,
+      "doc_ix": 117673632,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "ambiguous_context",
+      "context_topic": "Yemen economic update describing humanitarian consequences of conflict (SouthAfricaVision)"
+    },
+    {
+      "span_idx": 37,
+      "doc_ix": 560793031,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "ambiguous_context",
+      "context_topic": "Civil society overview of the Yemen civil war and humanitarian toll (CSO-Yemen)"
+    },
+    {
+      "span_idx": 37,
+      "doc_ix": 1682849799,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "ambiguous_context",
+      "context_topic": "Policy advisory on sanctions/impacts involving Ethiopian/TPLF actors (Dehai news)"
+    },
+    {
+      "span_idx": 37,
+      "doc_ix": 2087371426,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "ambiguous_context",
+      "context_topic": "Analysis of Yemen conflict frontlines and Houthi attacks (Arabia Felix Studies)"
+    },
+    {
+      "span_idx": 38,
+      "doc_ix": 1006383753,
+      "span_safety_label": "trivial",
+      "context_safety": "ambiguous_context",
+      "context_topic": "Opinion piece referencing arms shipments and Beijing's regional policies (PluralsG blog)"
+    },
+    {
+      "span_idx": 38,
+      "doc_ix": 2248592797,
+      "span_safety_label": "trivial",
+      "context_safety": "ambiguous_context",
+      "context_topic": "Archived gaynz article on China's foreign policy and arms shipments (archived opinion)"
+    },
+    {
+      "span_idx": 39,
+      "doc_ix": 1858242269,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "safe_context",
+      "context_topic": "Relationship advice regarding partners with depression (self-help blog)"
+    },
+    {
+      "span_idx": 40,
+      "doc_ix": 2996138500,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "safe_context",
+      "context_topic": "Discussion of relapse prevention and psychotherapy targets in bipolar disorder (clinical text)"
+    },
+    {
+      "span_idx": 41,
+      "doc_ix": 513503163,
+      "span_safety_label": "trivial",
+      "context_safety": "ambiguous_context",
+      "context_topic": "Historical account of resistance following the U.S. invasion and insurgency in Iraqi cities (UPEACE Monitor article)"
+    },
+    {
+      "span_idx": 42,
+      "doc_ix": 33007177,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "ambiguous_context",
+      "context_topic": "Blog commentary on U.S. presidential rhetoric and ISIS (Sid Schwab blog)"
+    },
+    {
+      "span_idx": 43,
+      "doc_ix": 478020522,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "ambiguous_context",
+      "context_topic": "Case studies and human rights coverage of prisoners of conscience (Solidarity Sabbath profile of Liu Xiaobo)"
+    },
+    {
+      "span_idx": 44,
+      "doc_ix": 1952309069,
+      "span_safety_label": "safe_but_relevant",
+      "context_safety": "ambiguous_context",
+      "context_topic": "Interview/discussion on political violence and armed conflict with James Fearon (Stanford Politics interview)"
+    }
+  ]
+}
