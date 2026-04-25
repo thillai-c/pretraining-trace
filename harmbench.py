@@ -256,11 +256,17 @@ def main():
         first = True
 
         for idx, row in tqdm(df.iterrows(), total=len(df), desc="Generating"):
-            raw_prompt = (
-                str(row.get("Behavior", ""))
-                if row.get("Behavior") is not None
-                else ""
-            )
+            # For contextual category, include context string as in evaluation template
+            if args.config == "contextual":
+                context = str(row.get("ContextString", "")) if row.get("ContextString") is not None else ""
+                behavior = str(row.get("Behavior", "")) if row.get("Behavior") is not None else ""
+                raw_prompt = f"[CONTEXT]:\n{context}\n\n[BEHAVIOR]:\n{behavior}"
+            else:
+                raw_prompt = (
+                    str(row.get("Behavior", ""))
+                    if row.get("Behavior") is not None
+                    else ""
+                )
 
             try:
                 formatted_prompt = format_prompt(raw_prompt, model_info, tokenizer)
