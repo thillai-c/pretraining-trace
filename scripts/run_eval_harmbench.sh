@@ -44,14 +44,14 @@ CONFIG="contextual"
 
 # Models to evaluate
 MODELS=(
-  olmo2-1b
-  olmo2-7b
-  # olmo2-13b
-  # olmo2-32b
-  olmo2-1b-instruct
-  olmo2-7b-instruct
-  # olmo2-13b-instruct
-  # olmo2-32b-instruct
+  # olmo2-1b
+  # olmo2-7b
+  olmo2-13b
+  olmo2-32b
+  # olmo2-1b-instruct
+  # olmo2-7b-instruct
+  olmo2-13b-instruct
+  olmo2-32b-instruct
 )
 
 for m in "${MODELS[@]}"; do

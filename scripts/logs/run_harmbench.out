@@ -1,53 +1,56 @@
-=== Job started: Sat Apr 25 05:07:56 PM EDT 2026 ===
-=== Node: b40x4-06, GPU: NVIDIA RTX PRO 6000 Blackwell Server Edition ===
-=== Model: olmo2-1b-instruct, config=contextual ===
-=== Output: /lustre/nvwulf/projects/ZhouGroup-nvwulf/Users/solhapark/pretraining-trace/data/olmo2_1b_instruct/harmbench_contextual.json ===
-2026-04-25 17:08:03,225 - __main__ - INFO - Logging to file: logs/olmo2_1b_instruct/harmbench_contextual.log
-2026-04-25 17:08:03,227 - __main__ - INFO - ======================================================================
-2026-04-25 17:08:03,227 - __main__ - INFO - === Job started at Sat Apr 25 05:08:03 PM  2026 ===
-2026-04-25 17:08:03,227 - __main__ - INFO - ======================================================================
-2026-04-25 17:08:03,227 - __main__ - INFO - Model key       : olmo2-1b-instruct
-2026-04-25 17:08:03,227 - __main__ - INFO - HuggingFace ID  : allenai/OLMo-2-0425-1B-Instruct
-2026-04-25 17:08:03,227 - __main__ - INFO - Model type      : instruct
-2026-04-25 17:08:03,227 - __main__ - INFO - Max context len : 4096
-2026-04-25 17:08:03,227 - __main__ - INFO - Max new tokens  : 1024
-2026-04-25 17:08:03,227 - __main__ - INFO - Config (category): contextual
-2026-04-25 17:08:03,227 - __main__ - INFO - Output JSON     : /lustre/nvwulf/projects/ZhouGroup-nvwulf/Users/solhapark/pretraining-trace/data/olmo2_1b_instruct/harmbench_contextual.json
-2026-04-25 17:08:03,227 - __main__ - INFO - Seed            : 42
-2026-04-25 17:08:03,258 - __main__ - INFO - Total rows in CSV: 400, After filtering 'contextual': 100
-2026-04-25 17:08:03,259 - __main__ - INFO - Device: cuda
-2026-04-25 17:08:03,260 - __main__ - INFO - Loading tokenizer: allenai/OLMo-2-0425-1B-Instruct ...
-2026-04-25 17:08:03,663 - __main__ - INFO - Loading model: allenai/OLMo-2-0425-1B-Instruct ...
-2026-04-25 17:08:03,778 - __main__ - INFO - Pre-load status (torch): gpu=0 (NVIDIA RTX PRO 6000 Blackwell Server Edition), allocated=0.00 GiB, reserved=0.00 GiB
-2026-04-25 17:08:03,795 - __main__ - INFO - Pre-load status (nvidia-smi): 0, 0, 3390, 97887
-2026-04-25 17:11:52,697 - __main__ - INFO - Post-load status (torch): gpu=0 (NVIDIA RTX PRO 6000 Blackwell Server Edition), allocated=2.77 GiB, reserved=2.89 GiB
-2026-04-25 17:11:52,715 - __main__ - INFO - Post-load status (nvidia-smi): 0, 37, 6352, 97887
-2026-04-25 17:11:52,715 - __main__ - INFO - Model loaded successfully: allenai/OLMo-2-0425-1B-Instruct
-2026-04-25 17:12:53,248 - __main__ - INFO - Results saved to: /lustre/nvwulf/projects/ZhouGroup-nvwulf/Users/solhapark/pretraining-trace/data/olmo2_7b/harmbench_contextual.json
-2026-04-25 17:12:53,252 - __main__ - INFO - ======================================================================
-2026-04-25 17:12:53,252 - __main__ - INFO - SUMMARY
-2026-04-25 17:12:53,252 - __main__ - INFO - ======================================================================
-2026-04-25 17:12:53,252 - __main__ - INFO -   Model          : olmo2-7b (allenai/OLMo-2-1124-7B)
-2026-04-25 17:12:53,252 - __main__ - INFO -   Config         : contextual
-2026-04-25 17:12:53,252 - __main__ - INFO -   Total records  : 100
-2026-04-25 17:12:53,253 - __main__ - INFO -   Successful     : 100
-2026-04-25 17:12:53,253 - __main__ - INFO -   Errors         : 0
-2026-04-25 17:12:53,253 - __main__ - INFO -   Finish reason  : eos=60, length=40
-2026-04-25 17:12:53,253 - __main__ - INFO -   Response tokens: min=2, max=1024, mean=493.4
-2026-04-25 17:12:53,253 - __main__ - INFO - === Job finished at Sat Apr 25 05:12:53 PM  2026 ===
-2026-04-25 17:12:53,253 - __main__ - INFO - === Elapsed time: 0 days 00:50:39 (total 3039.769 seconds) ===
-=== Job finished: Sat Apr 25 05:12:53 PM EDT 2026 ===
-2026-04-25 17:18:29,888 - __main__ - INFO - Results saved to: /lustre/nvwulf/projects/ZhouGroup-nvwulf/Users/solhapark/pretraining-trace/data/olmo2_1b_instruct/harmbench_contextual.json
-2026-04-25 17:18:29,892 - __main__ - INFO - ======================================================================
-2026-04-25 17:18:29,892 - __main__ - INFO - SUMMARY
-2026-04-25 17:18:29,892 - __main__ - INFO - ======================================================================
-2026-04-25 17:18:29,892 - __main__ - INFO -   Model          : olmo2-1b-instruct (allenai/OLMo-2-0425-1B-Instruct)
-2026-04-25 17:18:29,892 - __main__ - INFO -   Config         : contextual
-2026-04-25 17:18:29,892 - __main__ - INFO -   Total records  : 100
-2026-04-25 17:18:29,892 - __main__ - INFO -   Successful     : 100
-2026-04-25 17:18:29,892 - __main__ - INFO -   Errors         : 0
-2026-04-25 17:18:29,892 - __main__ - INFO -   Finish reason  : eos=98, length=2
-2026-04-25 17:18:29,892 - __main__ - INFO -   Response tokens: min=49, max=1024, mean=529.2
-2026-04-25 17:18:29,892 - __main__ - INFO - === Job finished at Sat Apr 25 05:18:29 PM  2026 ===
-2026-04-25 17:18:29,892 - __main__ - INFO - === Elapsed time: 0 days 00:10:26 (total 626.665 seconds) ===
-=== Job finished: Sat Apr 25 05:18:30 PM EDT 2026 ===
+=== Job started: Sun Apr 26 04:01:51 AM EDT 2026 ===
+=== Node: b40x4-05, GPU: NVIDIA RTX PRO 6000 Blackwell Server Edition ===
+=== Model: olmo2-32b-instruct, config=contextual ===
+=== Output: /lustre/nvwulf/projects/ZhouGroup-nvwulf/Users/solhapark/pretraining-trace/data/olmo2_32b_instruct/harmbench_contextual.json ===
+2026-04-26 04:02:12,204 - __main__ - INFO - Logging to file: logs/olmo2_32b_instruct/harmbench_contextual.log
+2026-04-26 04:02:12,206 - __main__ - INFO - ======================================================================
+2026-04-26 04:02:12,206 - __main__ - INFO - === Job started at Sun Apr 26 04:02:12 AM  2026 ===
+2026-04-26 04:02:12,206 - __main__ - INFO - ======================================================================
+2026-04-26 04:02:12,206 - __main__ - INFO - Model key       : olmo2-32b-instruct
+2026-04-26 04:02:12,206 - __main__ - INFO - HuggingFace ID  : allenai/OLMo-2-0325-32B-Instruct
+2026-04-26 04:02:12,206 - __main__ - INFO - Model type      : instruct
+2026-04-26 04:02:12,206 - __main__ - INFO - Max context len : 4096
+2026-04-26 04:02:12,206 - __main__ - INFO - Max new tokens  : 1024
+2026-04-26 04:02:12,206 - __main__ - INFO - Config (category): contextual
+2026-04-26 04:02:12,206 - __main__ - INFO - Output JSON     : /lustre/nvwulf/projects/ZhouGroup-nvwulf/Users/solhapark/pretraining-trace/data/olmo2_32b_instruct/harmbench_contextual.json
+2026-04-26 04:02:12,206 - __main__ - INFO - Seed            : 42
+2026-04-26 04:02:12,418 - __main__ - INFO - Total rows in CSV: 400, After filtering 'contextual': 100
+2026-04-26 04:02:12,421 - __main__ - INFO - Device: cuda
+2026-04-26 04:02:12,422 - __main__ - INFO - Loading tokenizer: allenai/OLMo-2-0325-32B-Instruct ...
+2026-04-26 04:02:12,923 - __main__ - INFO - Loading model: allenai/OLMo-2-0325-32B-Instruct ...
+2026-04-26 04:02:13,046 - __main__ - INFO - Pre-load status (torch): gpu=0 (NVIDIA RTX PRO 6000 Blackwell Server Edition), allocated=0.00 GiB, reserved=0.00 GiB
+2026-04-26 04:02:13,062 - __main__ - INFO - Pre-load status (nvidia-smi): 0, 0, 559, 97887
+2026-04-26 05:31:11,591 - __main__ - INFO - Post-load status (torch): gpu=0 (NVIDIA RTX PRO 6000 Blackwell Server Edition), allocated=60.04 GiB, reserved=60.04 GiB
+2026-04-26 05:31:11,642 - __main__ - INFO - Post-load status (nvidia-smi): 0, 41, 62043, 97887
+2026-04-26 05:31:11,642 - __main__ - INFO - Model loaded successfully: allenai/OLMo-2-0325-32B-Instruct
+2026-04-26 06:06:03,816 - __main__ - INFO - Results saved to: /lustre/nvwulf/projects/ZhouGroup-nvwulf/Users/solhapark/pretraining-trace/data/olmo2_32b_instruct/harmbench_contextual.json
+2026-04-26 06:06:03,819 - __main__ - INFO - ======================================================================
+2026-04-26 06:06:03,819 - __main__ - INFO - SUMMARY
+2026-04-26 06:06:03,819 - __main__ - INFO - ======================================================================
+2026-04-26 06:06:03,819 - __main__ - INFO -   Model          : olmo2-32b-instruct (allenai/OLMo-2-0325-32B-Instruct)
+2026-04-26 06:06:03,819 - __main__ - INFO -   Config         : contextual
+2026-04-26 06:06:03,819 - __main__ - INFO -   Total records  : 100
+2026-04-26 06:06:03,819 - __main__ - INFO -   Successful     : 100
+2026-04-26 06:06:03,819 - __main__ - INFO -   Errors         : 0
+2026-04-26 06:06:03,819 - __main__ - INFO -   Finish reason  : eos=99, length=1
+2026-04-26 06:06:03,819 - __main__ - INFO -   Response tokens: min=50, max=1024, mean=409.6
+2026-04-26 06:06:03,820 - __main__ - INFO - === Job finished at Sun Apr 26 06:06:03 AM  2026 ===
+2026-04-26 06:06:03,820 - __main__ - INFO - === Elapsed time: 0 days 02:03:51 (total 7431.613 seconds) ===
+=== Job finished: Sun Apr 26 06:06:08 AM EDT 2026 ===
+2026-04-26 06:18:39,448 - __main__ - INFO - Post-load status (torch): gpu=0 (NVIDIA RTX PRO 6000 Blackwell Server Edition), allocated=60.04 GiB, reserved=60.04 GiB
+2026-04-26 06:18:39,498 - __main__ - INFO - Post-load status (nvidia-smi): 0, 26, 62043, 97887
+2026-04-26 06:18:39,566 - __main__ - INFO - Model loaded successfully: allenai/OLMo-2-0325-32B
+2026-04-26 07:05:47,837 - __main__ - INFO - Results saved to: /lustre/nvwulf/projects/ZhouGroup-nvwulf/Users/solhapark/pretraining-trace/data/olmo2_32b/harmbench_contextual.json
+2026-04-26 07:05:47,842 - __main__ - INFO - ======================================================================
+2026-04-26 07:05:47,842 - __main__ - INFO - SUMMARY
+2026-04-26 07:05:47,842 - __main__ - INFO - ======================================================================
+2026-04-26 07:05:47,842 - __main__ - INFO -   Model          : olmo2-32b (allenai/OLMo-2-0325-32B)
+2026-04-26 07:05:47,842 - __main__ - INFO -   Config         : contextual
+2026-04-26 07:05:47,842 - __main__ - INFO -   Total records  : 100
+2026-04-26 07:05:47,843 - __main__ - INFO -   Successful     : 100
+2026-04-26 07:05:47,843 - __main__ - INFO -   Errors         : 0
+2026-04-26 07:05:47,843 - __main__ - INFO -   Finish reason  : eos=65, length=35
+2026-04-26 07:05:47,843 - __main__ - INFO -   Response tokens: min=2, max=1024, mean=553.8
+2026-04-26 07:05:47,843 - __main__ - INFO - === Job finished at Sun Apr 26 07:05:47 AM  2026 ===
+2026-04-26 07:05:47,843 - __main__ - INFO - === Elapsed time: 0 days 03:37:58 (total 13078.174 seconds) ===
+=== Job finished: Sun Apr 26 07:05:48 AM EDT 2026 ===
