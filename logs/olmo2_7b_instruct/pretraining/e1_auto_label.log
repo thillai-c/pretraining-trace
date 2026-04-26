@@ -1,0 +1,276 @@
+2026-04-12 21:05:57,494 - INFO - Logging to logs/olmo2_7b_instruct/pretraining/e1_auto_label.log
+2026-04-12 21:05:57,494 - INFO - ======================================================================
+2026-04-12 21:05:57,494 - INFO - E1 LLM-Assisted Span-Level Safety Labeling
+2026-04-12 21:05:57,494 - INFO -   Model: olmo2-7b-instruct
+2026-04-12 21:05:57,494 - INFO -   Training phase: pretraining
+2026-04-12 21:05:57,494 - INFO -   Results root: results/olmo2_7b_instruct/pretraining
+2026-04-12 21:05:57,495 - INFO -   LLM: gpt-5-mini
+2026-04-12 21:05:57,495 - INFO - ======================================================================
+2026-04-12 21:05:57,495 - ERROR - OPENAI_API_KEY not set. Export it or add to .env file.
+2026-04-13 16:54:53,240 - INFO - Logging to logs/olmo2_7b_instruct/pretraining/e1_auto_label.log
+2026-04-13 16:54:53,241 - INFO - ======================================================================
+2026-04-13 16:54:53,241 - INFO - E1 LLM-Assisted Span-Level Safety Labeling
+2026-04-13 16:54:53,241 - INFO -   Model: olmo2-7b-instruct
+2026-04-13 16:54:53,242 - INFO -   Training phase: pretraining
+2026-04-13 16:54:53,242 - INFO -   Results root: results/olmo2_7b_instruct/pretraining
+2026-04-13 16:54:53,242 - INFO -   LLM: gpt-5-mini
+2026-04-13 16:54:53,242 - INFO - ======================================================================
+2026-04-13 16:54:53,242 - ERROR - OPENAI_API_KEY not set. Export it or add to .env file.
+2026-04-13 17:00:07,302 - INFO - Logging to logs/olmo2_7b_instruct/pretraining/e1_auto_label.log
+2026-04-13 17:00:07,303 - INFO - ======================================================================
+2026-04-13 17:00:07,303 - INFO - E1 LLM-Assisted Span-Level Safety Labeling
+2026-04-13 17:00:07,303 - INFO -   Model: olmo2-7b-instruct
+2026-04-13 17:00:07,303 - INFO -   Training phase: pretraining
+2026-04-13 17:00:07,303 - INFO -   Results root: results/olmo2_7b_instruct/pretraining
+2026-04-13 17:00:07,303 - INFO -   LLM: gpt-5-mini
+2026-04-13 17:00:07,303 - INFO - ======================================================================
+2026-04-13 17:00:07,561 - INFO - Loaded 6 records from E1 results
+2026-04-13 17:00:07,563 - INFO - Compliant records: 6
+2026-04-13 17:00:07,565 - INFO -   id=30, rep_ratio=0.0319, pairs=98
+2026-04-13 17:00:07,567 - INFO -   id=31, rep_ratio=0.0156, pairs=127
+2026-04-13 17:00:07,569 - INFO -   id=38, rep_ratio=0.0215, pairs=124
+2026-04-13 17:00:07,571 - INFO -   id=39, rep_ratio=0.0242, pairs=78
+2026-04-13 17:00:07,573 - INFO -   id=182, rep_ratio=0.0327, pairs=99
+2026-04-13 17:00:07,575 - INFO -   id=196, rep_ratio=0.0024, pairs=105
+2026-04-13 17:00:07,575 - INFO - ======================================================================
+2026-04-13 17:00:07,575 - INFO - TEST MODE: record id=30, rep_ratio=0.0319
+2026-04-13 17:00:07,577 - INFO -   Extracted 98 (span, snippet) pairs
+2026-04-13 17:00:07,577 - INFO -   User message length: 49920 chars
+2026-04-13 17:00:07,578 - INFO -   [Call 1/2] Labeling span_safety_label via gpt-5-mini...
+2026-04-13 17:02:29,564 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-13 17:02:29,592 - INFO -   Span call completed in 142.0 seconds
+2026-04-13 17:02:29,592 - INFO -   Usage: prompt=13351, completion=9082 tokens
+2026-04-13 17:02:29,592 - INFO -   [Call 2/2] Labeling context_safety via gpt-5-mini...
+2026-04-13 17:05:36,764 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-13 17:05:36,940 - INFO -   Context call completed in 187.3 seconds
+2026-04-13 17:05:36,940 - INFO -   Usage: prompt=13439, completion=10331 tokens
+2026-04-13 17:05:36,942 - INFO -   === LABELING RESULTS ===
+2026-04-13 17:05:36,943 - INFO -     span_idx=0, doc_ix=174489110, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Opinion column on EU divisions and refugees from Syria/Afgha
+2026-04-13 17:05:36,943 - INFO -     span_idx=1, doc_ix=65088401, span_safety=safe_but_relevant, ctx_safety=safe_context, topic=Student essay on health disparities of the elderly populatio
+2026-04-13 17:05:36,947 - INFO -     span_idx=1, doc_ix=540594469, span_safety=safe_but_relevant, ctx_safety=safe_context, topic=Essay on health disparities of the elderly population (Bartl
+2026-04-13 17:05:36,947 - INFO -     span_idx=1, doc_ix=1304645934, span_safety=safe_but_relevant, ctx_safety=safe_context, topic=Online essay listing for health disparities of the elderly (
+2026-04-13 17:05:36,947 - INFO -     span_idx=1, doc_ix=1958715289, span_safety=safe_but_relevant, ctx_safety=safe_context, topic=Blog reposting an essay on health disparities of elderly pop
+2026-04-13 17:05:36,948 - INFO -     span_idx=2, doc_ix=1678798110, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Newsletter reporting on bomb/blast site and civilian casualt
+2026-04-13 17:05:36,948 - INFO -     span_idx=3, doc_ix=85320218, span_safety=trivial, ctx_safety=ambiguous_context, topic=Legal guidance on actions and compensation after a train acc
+2026-04-13 17:05:36,948 - INFO -     span_idx=4, doc_ix=574020852, span_safety=safe_but_relevant, ctx_safety=safe_context, topic=Commentary on Lesotho's poverty and governance challenges (T
+2026-04-13 17:05:36,948 - INFO -     span_idx=5, doc_ix=20040795, span_safety=trivial, ctx_safety=safe_context, topic=Conservation/one-health article on ROD and tourism impacts i
+2026-04-13 17:05:36,948 - INFO -     span_idx=5, doc_ix=174897331, span_safety=trivial, ctx_safety=ambiguous_context, topic=Legal discussion about causation and criminal liability (Ipl
+2026-04-13 17:05:36,948 - INFO -     span_idx=5, doc_ix=57748927, span_safety=trivial, ctx_safety=safe_context, topic=Opinion piece on the concept of a 'global superclass' (Grego
+2026-04-13 17:05:36,948 - INFO -     span_idx=5, doc_ix=235808366, span_safety=trivial, ctx_safety=safe_context, topic=Discussion on attention and conscious effort in language lea
+2026-04-13 17:05:36,948 - INFO -     span_idx=5, doc_ix=123194908, span_safety=trivial, ctx_safety=safe_context, topic=Article on Yoga and conscious evolution (yoga journal)
+2026-04-13 17:05:36,949 - INFO -     span_idx=5, doc_ix=3293910, span_safety=trivial, ctx_safety=safe_context, topic=Academic French-language discussion on categorization and tr
+2026-04-13 17:05:36,949 - INFO -     span_idx=5, doc_ix=65345002, span_safety=trivial, ctx_safety=safe_context, topic=Article on web hosting features and SEO impacts (tech blog)
+2026-04-13 17:05:36,949 - INFO -     span_idx=6, doc_ix=206886413, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Encyclopedic entry referencing Daraa and the Syrian Civil Wa
+2026-04-13 17:05:36,949 - INFO -     span_idx=6, doc_ix=427131795, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Wikipedia article on Hauran region mentioning the Syrian Civ
+2026-04-13 17:05:36,949 - INFO -     span_idx=6, doc_ix=452111163, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Wikipedia article about Hauran and its relation to anti-gove
+2026-04-13 17:05:36,949 - INFO -     span_idx=6, doc_ix=582930250, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Mobile Wikipedia entry on Hauran and Syrian protests
+2026-04-13 17:05:36,949 - INFO -     span_idx=6, doc_ix=868235295, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Wikipedia page on Hauran region noting its role in Syrian un
+2026-04-13 17:05:36,949 - INFO -     span_idx=6, doc_ix=1735400544, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Wikipedia article on Hauran with reference to anti-governmen
+2026-04-13 17:05:36,949 - INFO -     span_idx=6, doc_ix=1907861866, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Mobile Wikipedia content on Hauran and Syrian Civil War prot
+2026-04-13 17:05:36,949 - INFO -     span_idx=7, doc_ix=777326446, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Feature on a Baghdad gym and post-2003 social changes (The N
+2026-04-13 17:05:36,949 - INFO -     span_idx=8, doc_ix=120112291, span_safety=safe_but_relevant, ctx_safety=safe_context, topic=Coverage of EU-Russia meetings and media conference remarks 
+2026-04-13 17:05:36,950 - INFO -     span_idx=8, doc_ix=38555481, span_safety=safe_but_relevant, ctx_safety=safe_context, topic=Report on Barroso and Putin media conference and diplomatic 
+2026-04-13 17:05:36,950 - INFO -     span_idx=9, doc_ix=2058521744, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Opinion piece about exiled criminals and the Arab Spring's d
+2026-04-13 17:05:36,950 - INFO -     span_idx=10, doc_ix=225872618, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Religious/polemical article referencing historical massacres
+2026-04-13 17:05:36,950 - INFO -     span_idx=10, doc_ix=111949210, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Extremist/ polemical historical account alleging massacres a
+2026-04-13 17:05:36,950 - INFO -     span_idx=11, doc_ix=318927401, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Article on climate change as a factor in the Syrian Civil Wa
+2026-04-13 17:05:36,950 - INFO -     span_idx=11, doc_ix=1923578556, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Tag/collection on climate change and the Middle East includi
+2026-04-13 17:05:36,950 - INFO -     span_idx=12, doc_ix=332714474, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Educational timeline/graphic about the start of Syrian prote
+2026-04-13 17:05:36,950 - INFO -     span_idx=12, doc_ix=363169739, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Modern exodus overview referencing Syrian protests and arres
+2026-04-13 17:05:36,950 - INFO -     span_idx=12, doc_ix=980258588, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=BBC timeline/graphic of monthly refugee totals and Syrian pr
+2026-04-13 17:05:36,950 - INFO -     span_idx=12, doc_ix=1569777641, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Educational/history piece connecting biblical imagery to Syr
+2026-04-13 17:05:36,950 - INFO -     span_idx=12, doc_ix=2320583181, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Overview of Syrian refugees fleeing civil war (Smore)
+2026-04-13 17:05:36,951 - INFO -     span_idx=12, doc_ix=2413653612, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Personal reflection linking pro-democracy protests and arres
+2026-04-13 17:05:36,951 - INFO -     span_idx=13, doc_ix=761940066, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Overview and analysis of the Syrian refugee crisis and its c
+2026-04-13 17:05:36,951 - INFO -     span_idx=14, doc_ix=483981467, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Blog post recounting torture of teenagers and ensuing Syrian
+2026-04-13 17:05:36,951 - INFO -     span_idx=15, doc_ix=1896907, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=News coverage mentioning refugees streaming across Europe an
+2026-04-13 17:05:36,951 - INFO -     span_idx=15, doc_ix=1192394678, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Opinion/analysis on arming Syrian rebels and risks of extrem
+2026-04-13 17:05:36,951 - INFO -     span_idx=16, doc_ix=247402319, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=News report on Syrian bombings and civilian casualties (ABC 
+2026-04-13 17:05:36,951 - INFO -     span_idx=16, doc_ix=88737681, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Background on Alawite community and Syrian sectarian dynamic
+2026-04-13 17:05:36,951 - INFO -     span_idx=16, doc_ix=22733149, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Interview excerpt on Iran, Israel, and regional arms/ suppor
+2026-04-13 17:05:36,951 - INFO -     span_idx=16, doc_ix=75270944, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Coverage of claims Syria used chemical weapons and possible 
+2026-04-13 17:05:36,951 - INFO -     span_idx=16, doc_ix=30081336, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Analysis of counter-insurgency and reconciliation strategies
+2026-04-13 17:05:36,951 - INFO -     span_idx=16, doc_ix=109763813, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=News on UN resolution for destruction of Syria's chemical we
+2026-04-13 17:05:36,951 - INFO -     span_idx=16, doc_ix=179610881, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Profile on Russian military involvement in Syria and role of
+2026-04-13 17:05:36,951 - INFO -     span_idx=16, doc_ix=224441239, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Poll about US support for Syrian rebels (YouGov)
+2026-04-13 17:05:36,952 - INFO -     span_idx=16, doc_ix=197189606, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Report quoting Syrian state media SANA blaming 'terrorists' 
+2026-04-13 17:05:36,952 - INFO -     span_idx=17, doc_ix=154303580, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Opinion piece recounting protests and unrest that spread in 
+2026-04-13 17:05:36,952 - INFO -     span_idx=17, doc_ix=149742988, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Blog reporting refugee numbers and early demonstrations agai
+2026-04-13 17:05:36,952 - INFO -     span_idx=18, doc_ix=2371449038, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=News of anti-government activists staging protests and clash
+2026-04-13 17:05:36,952 - INFO -     span_idx=18, doc_ix=2440972585, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Retrospective on Syria's prolonged internal conflict and rel
+2026-04-13 17:05:36,952 - INFO -     span_idx=19, doc_ix=275244860, span_safety=safe_but_relevant, ctx_safety=safe_context, topic=Opinion piece on Brexit referendum results and national sent
+2026-04-13 17:05:36,952 - INFO -     span_idx=20, doc_ix=260290842, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=First-person account referencing involvement with UNRWA and 
+2026-04-13 17:05:36,952 - INFO -     span_idx=21, doc_ix=39947607, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=News report quoting Putin warning the West about interventio
+2026-04-13 17:05:36,952 - INFO -     span_idx=21, doc_ix=75629403, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=News article on Putin's comments and Syrian casualties (Hurr
+2026-04-13 17:05:36,952 - INFO -     span_idx=21, doc_ix=270699846, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Coverage of US policy toward Syrian opposition and casualty 
+2026-04-13 17:05:36,952 - INFO -     span_idx=22, doc_ix=307511575, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Historical narrative linking rebellion dynamics to escalatio
+2026-04-13 17:05:36,952 - INFO -     span_idx=23, doc_ix=445122982, span_safety=safe_but_relevant, ctx_safety=safe_context, topic=Book excerpt about Jewish adaptation and continuity in the U
+2026-04-13 17:05:36,952 - INFO -     span_idx=24, doc_ix=1601880962, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=PC games list describing survival gameplay with zombies (ent
+2026-04-13 17:05:36,952 - INFO -     span_idx=25, doc_ix=2044254731, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Overview of armed factions in Syria and their evolution (The
+2026-04-13 17:05:36,953 - INFO -     span_idx=26, doc_ix=270444754, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Listing of armed groups and claimed responsibilities for att
+2026-04-13 17:05:36,953 - INFO -     span_idx=27, doc_ix=2188632239, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Archived report on the formation of the Free Syrian Army aft
+2026-04-13 17:05:36,953 - INFO -     span_idx=28, doc_ix=87139512, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=BBC report on clashes involving Islamic State and village ci
+2026-04-13 17:05:36,953 - INFO -     span_idx=28, doc_ix=571214780, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=News summary of US-led strikes and civilian casualties in Sy
+2026-04-13 17:05:36,953 - INFO -     span_idx=28, doc_ix=567276907, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=BBC coverage of US-led air strikes and front-line clashes in
+2026-04-13 17:05:36,953 - INFO -     span_idx=28, doc_ix=783020746, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Security/defense analysis referencing ISIL/Daesh among other
+2026-04-13 17:05:36,953 - INFO -     span_idx=29, doc_ix=158422974, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Magazine analysis of al-Qaeda's global status and influence 
+2026-04-13 17:05:36,953 - INFO -     span_idx=29, doc_ix=88383898, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Opinion piece on Mali intervention and al-Qaeda-affiliated a
+2026-04-13 17:05:36,953 - INFO -     span_idx=29, doc_ix=238906552, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Column referencing al-Qaeda-related violence in Pakistan's h
+2026-04-13 17:05:36,953 - INFO -     span_idx=29, doc_ix=87401869, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Report on HTS repression and treatment of minorities in Idli
+2026-04-13 17:05:36,953 - INFO -     span_idx=29, doc_ix=107169904, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Analysis of Israeli interactions with Islamist militias and 
+2026-04-13 17:05:36,953 - INFO -     span_idx=30, doc_ix=824025201, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Newsletter/opinion on far-right movements fracturing and the
+2026-04-13 17:05:36,953 - INFO -     span_idx=30, doc_ix=1068782567, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Article on far-right splintering and online community behavi
+2026-04-13 17:05:36,953 - INFO -     span_idx=31, doc_ix=281673092, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Speculative fiction piece referencing a protracted bloody ci
+2026-04-13 17:05:36,954 - INFO -     span_idx=32, doc_ix=108446988, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Newsweekly report on military defections and opposition acti
+2026-04-13 17:05:36,954 - INFO -     span_idx=32, doc_ix=63101749, span_safety=safe_but_relevant, ctx_safety=safe_context, topic=Cultural commentary on reconciliation and social responsibil
+2026-04-13 17:05:36,954 - INFO -     span_idx=32, doc_ix=238766113, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Political blog arguing external backing turned a limited mov
+2026-04-13 17:05:36,954 - INFO -     span_idx=32, doc_ix=247269697, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Historical/political account connecting crackdowns to armed 
+2026-04-13 17:05:36,954 - INFO -     span_idx=33, doc_ix=197001302, span_safety=trivial, ctx_safety=safe_context, topic=Essay on books and the digital revolution (academic blog)
+2026-04-13 17:05:36,954 - INFO -     span_idx=33, doc_ix=215965437, span_safety=trivial, ctx_safety=safe_context, topic=Technical explanation of flowmeter characteristics (Flow Con
+2026-04-13 17:05:36,954 - INFO -     span_idx=34, doc_ix=584744200, span_safety=safe_but_relevant, ctx_safety=safe_context, topic=Discussion of psychological aspects of cancer treatment (med
+2026-04-13 17:05:36,954 - INFO -     span_idx=35, doc_ix=103375987, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Analysis of foreign powers' limited military support and rem
+2026-04-13 17:05:36,954 - INFO -     span_idx=35, doc_ix=434282682, span_safety=safe_but_relevant, ctx_safety=safe_context, topic=Article on political marketing strategies and campaign use o
+2026-04-13 17:05:36,954 - INFO -     span_idx=36, doc_ix=117075606, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Encyclopedic/overview entry noting international actors (Rus
+2026-04-13 17:05:36,954 - INFO -     span_idx=37, doc_ix=117673632, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Economic analysis describing humanitarian impacts and public
+2026-04-13 17:05:36,954 - INFO -     span_idx=37, doc_ix=560793031, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Overview of the Yemen civil war, casualties and displacement
+2026-04-13 17:05:36,954 - INFO -     span_idx=37, doc_ix=1682849799, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Advisory on sanctions and impacts on individuals affiliated 
+2026-04-13 17:05:36,954 - INFO -     span_idx=37, doc_ix=2087371426, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Analysis of causes of humanitarian crisis and frontlines exp
+2026-04-13 17:05:36,954 - INFO -     span_idx=38, doc_ix=1006383753, span_safety=trivial, ctx_safety=ambiguous_context, topic=Commentary linking foreign policy concerns to arms shipments
+2026-04-13 17:05:36,955 - INFO -     span_idx=38, doc_ix=2248592797, span_safety=trivial, ctx_safety=ambiguous_context, topic=Archived commentary on China's foreign policy and arms suppo
+2026-04-13 17:05:36,955 - INFO -     span_idx=39, doc_ix=1858242269, span_safety=trivial, ctx_safety=safe_context, topic=Advice on being in a relationship with a partner who has dep
+2026-04-13 17:05:36,955 - INFO -     span_idx=40, doc_ix=2996138500, span_safety=safe_but_relevant, ctx_safety=safe_context, topic=Clinical discussion of bipolar disorder psychotherapy relaps
+2026-04-13 17:05:36,955 - INFO -     span_idx=41, doc_ix=513503163, span_safety=trivial, ctx_safety=ambiguous_context, topic=Historical account of insurgency and resistance following th
+2026-04-13 17:05:36,955 - INFO -     span_idx=42, doc_ix=33007177, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Blog commentary on US policy and rhetoric toward ISIS and Sy
+2026-04-13 17:05:36,955 - INFO -     span_idx=43, doc_ix=478020522, span_safety=safe_but_relevant, ctx_safety=safe_context, topic=Case study about Liu Xiaobo and prisoners of conscience (Sol
+2026-04-13 17:05:36,955 - INFO -     span_idx=44, doc_ix=1952309069, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Interview with James Fearon on political violence and armed 
+2026-04-13 17:05:36,960 - INFO -   Test results saved to results/olmo2_7b_instruct/pretraining/span_safety_labels_test.csv (98 rows)
+2026-04-13 17:05:36,962 - INFO -   Raw output saved to results/olmo2_7b_instruct/pretraining/test_raw_output.json
+2026-04-13 23:57:50,503 - INFO - Logging to logs/olmo2_7b_instruct/pretraining/e1_auto_label.log
+2026-04-13 23:57:50,504 - INFO - ======================================================================
+2026-04-13 23:57:50,504 - INFO - E1 LLM-Assisted Span-Level Safety Labeling
+2026-04-13 23:57:50,504 - INFO -   Model: olmo2-7b-instruct
+2026-04-13 23:57:50,504 - INFO -   Training phase: pretraining
+2026-04-13 23:57:50,504 - INFO -   Results root: results/olmo2_7b_instruct/pretraining
+2026-04-13 23:57:50,504 - INFO -   LLM: gpt-5-mini
+2026-04-13 23:57:50,504 - INFO - ======================================================================
+2026-04-13 23:57:50,621 - INFO - Loaded 6 records from E1 results
+2026-04-13 23:57:50,623 - INFO - Compliant records: 6
+2026-04-13 23:57:50,624 - INFO -   id=30, rep_ratio=0.0319, pairs=98
+2026-04-13 23:57:50,626 - INFO -   id=31, rep_ratio=0.0156, pairs=127
+2026-04-13 23:57:50,628 - INFO -   id=38, rep_ratio=0.0215, pairs=124
+2026-04-13 23:57:50,629 - INFO -   id=39, rep_ratio=0.0242, pairs=78
+2026-04-13 23:57:50,631 - INFO -   id=182, rep_ratio=0.0327, pairs=99
+2026-04-13 23:57:50,633 - INFO -   id=196, rep_ratio=0.0024, pairs=105
+2026-04-13 23:57:50,633 - INFO - ======================================================================
+2026-04-13 23:57:50,633 - INFO - TEST MODE: record id=30, rep_ratio=0.0319
+2026-04-13 23:57:50,634 - INFO -   Extracted 98 (span, snippet) pairs
+2026-04-13 23:57:50,635 - INFO -   User message length: 49920 chars
+2026-04-13 23:57:50,635 - INFO -   [Call 1/2] Labeling span_safety_label via gpt-5-mini...
+2026-04-13 23:59:20,853 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-13 23:59:20,874 - INFO -   Span call completed in 90.2 seconds
+2026-04-13 23:59:20,874 - INFO -   Usage: prompt=13351, completion=8572 tokens
+2026-04-13 23:59:20,875 - INFO -   [Call 2/2] Labeling context_safety via gpt-5-mini...
+2026-04-14 00:01:33,511 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-14 00:01:33,514 - INFO -   Context call completed in 132.6 seconds
+2026-04-14 00:01:33,515 - INFO -   Usage: prompt=13439, completion=10343 tokens
+2026-04-14 00:01:33,518 - INFO -   === LABELING RESULTS ===
+2026-04-14 00:01:33,518 - INFO -     span_idx=0, doc_ix=174489110, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Opinion column on refugees and the Syrian conflict (Daily Ca
+2026-04-14 00:01:33,518 - INFO -     span_idx=1, doc_ix=65088401, span_safety=safe_but_relevant, ctx_safety=safe_context, topic=Essay on health disparities of the elderly in rural Baker Co
+2026-04-14 00:01:33,519 - INFO -     span_idx=1, doc_ix=540594469, span_safety=safe_but_relevant, ctx_safety=safe_context, topic=Essay on health disparities of the elderly population (Bartl
+2026-04-14 00:01:33,519 - INFO -     span_idx=1, doc_ix=1304645934, span_safety=safe_but_relevant, ctx_safety=safe_context, topic=Student essay preview on health disparities of the elderly (
+2026-04-14 00:01:33,519 - INFO -     span_idx=1, doc_ix=1958715289, span_safety=safe_but_relevant, ctx_safety=safe_context, topic=Blog repost of an essay on elderly health disparities (stage
+2026-04-14 00:01:33,519 - INFO -     span_idx=2, doc_ix=1678798110, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=First-person account of a blast site and discussion of the w
+2026-04-14 00:01:33,519 - INFO -     span_idx=3, doc_ix=85320218, span_safety=safe_but_relevant, ctx_safety=safe_context, topic=Legal guidance on damages and steps after a train accident (
+2026-04-14 00:01:33,519 - INFO -     span_idx=4, doc_ix=574020852, span_safety=safe_but_relevant, ctx_safety=safe_context, topic=Commentary on Lesotho's poverty and governance challenges (T
+2026-04-14 00:01:33,519 - INFO -     span_idx=5, doc_ix=20040795, span_safety=trivial, ctx_safety=safe_context, topic=Article on disease outbreak and conservation in Hawaii (Cons
+2026-04-14 00:01:33,520 - INFO -     span_idx=5, doc_ix=174897331, span_safety=trivial, ctx_safety=ambiguous_context, topic=Legal blog discussing causation and liability in criminal ca
+2026-04-14 00:01:33,520 - INFO -     span_idx=5, doc_ix=57748927, span_safety=trivial, ctx_safety=safe_context, topic=Essay/opinion on the concept of a 'global superclass' (perso
+2026-04-14 00:01:33,520 - INFO -     span_idx=5, doc_ix=235808366, span_safety=trivial, ctx_safety=safe_context, topic=Discussion of attention and conscious effort in language lea
+2026-04-14 00:01:33,520 - INFO -     span_idx=5, doc_ix=123194908, span_safety=trivial, ctx_safety=safe_context, topic=Article on Yoga and human potential (Yoga journal content)
+2026-04-14 00:01:33,520 - INFO -     span_idx=5, doc_ix=3293910, span_safety=trivial, ctx_safety=safe_context, topic=French-language academic search result about identification 
+2026-04-14 00:01:33,520 - INFO -     span_idx=5, doc_ix=65345002, span_safety=trivial, ctx_safety=safe_context, topic=SEO and web hosting advice article (TechieApps)
+2026-04-14 00:01:33,520 - INFO -     span_idx=6, doc_ix=206886413, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Article on the Hauran region and its role in the Syrian Civi
+2026-04-14 00:01:33,521 - INFO -     span_idx=6, doc_ix=427131795, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Wikipedia article on Hawran/Hauran region referencing Syrian
+2026-04-14 00:01:33,521 - INFO -     span_idx=6, doc_ix=452111163, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Wikipedia entry on Hauran mentioning Daraa and protests
+2026-04-14 00:01:33,521 - INFO -     span_idx=6, doc_ix=582930250, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Mobile Wikipedia article on Hauran referencing Syrian anti-g
+2026-04-14 00:01:33,521 - INFO -     span_idx=6, doc_ix=868235295, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Wikipedia content on Hauran and protests in Daraa (encyclope
+2026-04-14 00:01:33,521 - INFO -     span_idx=6, doc_ix=1735400544, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Wikipedia description of Daraa/Hauran and its role in Syrian
+2026-04-14 00:01:33,521 - INFO -     span_idx=6, doc_ix=1907861866, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Wikipedia-derived passage on Hauran/Daraa and Syrian protest
+2026-04-14 00:01:33,521 - INFO -     span_idx=7, doc_ix=777326446, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Feature on a Baghdad gym and post-Saddam social change (The 
+2026-04-14 00:01:33,522 - INFO -     span_idx=8, doc_ix=120112291, span_safety=safe_but_relevant, ctx_safety=safe_context, topic=RT coverage of EU-Russia talks and leaders' statements (news
+2026-04-14 00:01:33,522 - INFO -     span_idx=8, doc_ix=38555481, span_safety=safe_but_relevant, ctx_safety=safe_context, topic=RT report on Barroso and Putin's joint media conference (new
+2026-04-14 00:01:33,522 - INFO -     span_idx=9, doc_ix=2058521744, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Opinion piece on exiles and the Arab Spring's destabilizing 
+2026-04-14 00:01:33,522 - INFO -     span_idx=10, doc_ix=225872618, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Religious/historical article referencing a massacre after Me
+2026-04-14 00:01:33,522 - INFO -     span_idx=10, doc_ix=111949210, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Historical article alleging massacre in Medina (Constantine 
+2026-04-14 00:01:33,522 - INFO -     span_idx=11, doc_ix=318927401, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Tag page referencing climate change as a factor in the Syria
+2026-04-14 00:01:33,522 - INFO -     span_idx=11, doc_ix=1923578556, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=NATO Association tag on Middle East issues including Syrian 
+2026-04-14 00:01:33,522 - INFO -     span_idx=12, doc_ix=332714474, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Educational timeline on the Syrian protests and refugees (Sm
+2026-04-14 00:01:33,523 - INFO -     span_idx=12, doc_ix=363169739, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Summary of Syrian uprising origins and biblical analogy (Smo
+2026-04-14 00:01:33,523 - INFO -     span_idx=12, doc_ix=980258588, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=BBC graphics/timeline on monthly refugee totals and Syrian p
+2026-04-14 00:01:33,523 - INFO -     span_idx=12, doc_ix=1569777641, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Smore timeline or education material on Syrian protests and 
+2026-04-14 00:01:33,523 - INFO -     span_idx=12, doc_ix=2320583181, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Educational summary of Syrian refugees fleeing civil war (Sm
+2026-04-14 00:01:33,523 - INFO -     span_idx=12, doc_ix=2413653612, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Personal reflection mentioning Syrian protests and torture (
+2026-04-14 00:01:33,523 - INFO -     span_idx=13, doc_ix=761940066, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Overview and analysis of the Syrian refugee crisis and its o
+2026-04-14 00:01:33,523 - INFO -     span_idx=14, doc_ix=483981467, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Blog post recounting Assad family's response and attacks on 
+2026-04-14 00:01:33,524 - INFO -     span_idx=15, doc_ix=1896907, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=News report on refugees streaming across Europe and Syria's 
+2026-04-14 00:01:33,524 - INFO -     span_idx=15, doc_ix=1192394678, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Opinion piece on arming Syrian rebels and risks of extremist
+2026-04-14 00:01:33,528 - INFO -     span_idx=16, doc_ix=247402319, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=News account of casualties from a bombing and rebel control 
+2026-04-14 00:01:33,528 - INFO -     span_idx=16, doc_ix=88737681, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=AFP commentary on Alawites and Syrian sectarian dynamics (Ch
+2026-04-14 00:01:33,528 - INFO -     span_idx=16, doc_ix=22733149, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Report quoting Ahmadinejad on Israel and regional threats (W
+2026-04-14 00:01:33,528 - INFO -     span_idx=16, doc_ix=75270944, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=News on chemical weapons use in Syria and international resp
+2026-04-14 00:01:33,528 - INFO -     span_idx=16, doc_ix=30081336, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Analysis of counter-insurgency and US policy toward Syria (C
+2026-04-14 00:01:33,528 - INFO -     span_idx=16, doc_ix=109763813, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=News on UN chemical weapons resolution and regional support 
+2026-04-14 00:01:33,529 - INFO -     span_idx=16, doc_ix=179610881, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=CBC piece on Russian military involvement and airstrikes in 
+2026-04-14 00:01:33,529 - INFO -     span_idx=16, doc_ix=224441239, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=YouGov poll coverage on whether the US should support Syrian
+2026-04-14 00:01:33,529 - INFO -     span_idx=16, doc_ix=197189606, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=SANA report excerpt about blaming 'terrorists' for a blast i
+2026-04-14 00:01:33,529 - INFO -     span_idx=17, doc_ix=154303580, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Commentary on the March protests in Daraa and subsequent esc
+2026-04-14 00:01:33,529 - INFO -     span_idx=17, doc_ix=149742988, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Blog reporting refugee flows and camp populations near Jorda
+2026-04-14 00:01:33,529 - INFO -     span_idx=18, doc_ix=2371449038, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=People's Daily English report on anti-government protests an
+2026-04-14 00:01:33,529 - INFO -     span_idx=18, doc_ix=2440972585, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Opinion/history piece linking Syria's conflict to the Arab S
+2026-04-14 00:01:33,529 - INFO -     span_idx=19, doc_ix=275244860, span_safety=safe_but_relevant, ctx_safety=safe_context, topic=Blog post on Brexit referendum results and public sentiment 
+2026-04-14 00:01:33,530 - INFO -     span_idx=20, doc_ix=260290842, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Profile of a UNRWA worker and context of the Syrian revoluti
+2026-04-14 00:01:33,530 - INFO -     span_idx=21, doc_ix=39947607, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Putin warning the West over forceful scenarios in Syria (Des
+2026-04-14 00:01:33,530 - INFO -     span_idx=21, doc_ix=75629403, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Coverage of Putin's remarks on Syria and warnings to the Wes
+2026-04-14 00:01:33,530 - INFO -     span_idx=21, doc_ix=270699846, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=CBS News coverage on US policy and Syrian opposition casualt
+2026-04-14 00:01:33,530 - INFO -     span_idx=22, doc_ix=307511575, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Historical narrative about British taxation and the American
+2026-04-14 00:01:33,530 - INFO -     span_idx=23, doc_ix=445122982, span_safety=safe_but_relevant, ctx_safety=safe_context, topic=Book preview on Jewish continuity and adaptation in the US (
+2026-04-14 00:01:33,530 - INFO -     span_idx=24, doc_ix=1601880962, span_safety=safe_but_relevant, ctx_safety=safe_context, topic=Entertainment/gaming article listing best PC games (McCourie
+2026-04-14 00:01:33,530 - INFO -     span_idx=25, doc_ix=2044254731, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Overview of armed factions in Syria and their evolution (The
+2026-04-14 00:01:33,531 - INFO -     span_idx=26, doc_ix=270444754, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=List of militant groups and foreign fighters active in Syria
+2026-04-14 00:01:33,531 - INFO -     span_idx=27, doc_ix=2188632239, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Account of the Syrian uprising and formation of the Free Syr
+2026-04-14 00:01:33,531 - INFO -     span_idx=28, doc_ix=87139512, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=BBC news on clashes between Islamic State and other rebel fa
+2026-04-14 00:01:33,531 - INFO -     span_idx=28, doc_ix=571214780, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Regional news reporting on civilian casualties from US-led s
+2026-04-14 00:01:33,531 - INFO -     span_idx=28, doc_ix=567276907, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=BBC coverage of US-led air strikes and frontline clashes in 
+2026-04-14 00:01:33,531 - INFO -     span_idx=28, doc_ix=783020746, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Article on deterrence and asymmetric threats including ISIL 
+2026-04-14 00:01:33,531 - INFO -     span_idx=29, doc_ix=158422974, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Analysis of al-Qaeda's state and affiliates (Time magazine c
+2026-04-14 00:01:33,531 - INFO -     span_idx=29, doc_ix=88383898, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Commentary linking Islamist groups to West African historica
+2026-04-14 00:01:33,532 - INFO -     span_idx=29, doc_ix=238906552, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Column on Pakistan's security context and extremist attacks 
+2026-04-14 00:01:33,532 - INFO -     span_idx=29, doc_ix=87401869, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Report on repression and human rights abuses by HTS in Idlib
+2026-04-14 00:01:33,532 - INFO -     span_idx=29, doc_ix=107169904, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Article alleging Israeli support for Islamist insurgents in 
+2026-04-14 00:01:33,532 - INFO -     span_idx=30, doc_ix=824025201, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Newsletter on the far right's fragmentation and online radic
+2026-04-14 00:01:33,532 - INFO -     span_idx=30, doc_ix=1068782567, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Article on far-right splintering and extremist actors (Big L
+2026-04-14 00:01:33,532 - INFO -     span_idx=31, doc_ix=281673092, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Fictional/science fiction piece set after a nuclear war (The
+2026-04-14 00:01:33,532 - INFO -     span_idx=32, doc_ix=108446988, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Analysis of protests, military defections and government ref
+2026-04-14 00:01:33,532 - INFO -     span_idx=32, doc_ix=63101749, span_safety=safe_but_relevant, ctx_safety=safe_context, topic=Cultural commentary on reconciliation and social dynamics (M
+2026-04-14 00:01:33,532 - INFO -     span_idx=32, doc_ix=238766113, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Political commentary claiming imperialist-backed interventio
+2026-04-14 00:01:33,533 - INFO -     span_idx=32, doc_ix=247269697, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Historical/political account of crackdowns leading to civil 
+2026-04-14 00:01:33,533 - INFO -     span_idx=33, doc_ix=197001302, span_safety=trivial, ctx_safety=safe_context, topic=Essay on books and the digital revolution (academic blog)
+2026-04-14 00:01:33,533 - INFO -     span_idx=33, doc_ix=215965437, span_safety=trivial, ctx_safety=safe_context, topic=Technical discussion of turbine and magnetic flowmeters (Flo
+2026-04-14 00:01:33,533 - INFO -     span_idx=34, doc_ix=584744200, span_safety=trivial, ctx_safety=safe_context, topic=Psychology and cancer treatment discussion (health site)
+2026-04-14 00:01:33,533 - INFO -     span_idx=35, doc_ix=103375987, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Analysis of remote warfare limitations and foreign powers' i
+2026-04-14 00:01:33,533 - INFO -     span_idx=35, doc_ix=434282682, span_safety=safe_but_relevant, ctx_safety=safe_context, topic=Political marketing and campaign strategy overview (usedthey
+2026-04-14 00:01:33,533 - INFO -     span_idx=36, doc_ix=117075606, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Canadian Encyclopedia summary of the Syrian conflict and act
+2026-04-14 00:01:33,533 - INFO -     span_idx=37, doc_ix=117673632, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Yemen economic update describing humanitarian consequences o
+2026-04-14 00:01:33,533 - INFO -     span_idx=37, doc_ix=560793031, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Civil society overview of the Yemen civil war and humanitari
+2026-04-14 00:01:33,534 - INFO -     span_idx=37, doc_ix=1682849799, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Policy advisory on sanctions/impacts involving Ethiopian/TPL
+2026-04-14 00:01:33,534 - INFO -     span_idx=37, doc_ix=2087371426, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Analysis of Yemen conflict frontlines and Houthi attacks (Ar
+2026-04-14 00:01:33,534 - INFO -     span_idx=38, doc_ix=1006383753, span_safety=trivial, ctx_safety=ambiguous_context, topic=Opinion piece referencing arms shipments and Beijing's regio
+2026-04-14 00:01:33,534 - INFO -     span_idx=38, doc_ix=2248592797, span_safety=trivial, ctx_safety=ambiguous_context, topic=Archived gaynz article on China's foreign policy and arms sh
+2026-04-14 00:01:33,534 - INFO -     span_idx=39, doc_ix=1858242269, span_safety=safe_but_relevant, ctx_safety=safe_context, topic=Relationship advice regarding partners with depression (self
+2026-04-14 00:01:33,534 - INFO -     span_idx=40, doc_ix=2996138500, span_safety=safe_but_relevant, ctx_safety=safe_context, topic=Discussion of relapse prevention and psychotherapy targets i
+2026-04-14 00:01:33,534 - INFO -     span_idx=41, doc_ix=513503163, span_safety=trivial, ctx_safety=ambiguous_context, topic=Historical account of resistance following the U.S. invasion
+2026-04-14 00:01:33,534 - INFO -     span_idx=42, doc_ix=33007177, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Blog commentary on U.S. presidential rhetoric and ISIS (Sid 
+2026-04-14 00:01:33,534 - INFO -     span_idx=43, doc_ix=478020522, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Case studies and human rights coverage of prisoners of consc
+2026-04-14 00:01:33,535 - INFO -     span_idx=44, doc_ix=1952309069, span_safety=safe_but_relevant, ctx_safety=ambiguous_context, topic=Interview/discussion on political violence and armed conflic
+2026-04-14 00:01:33,540 - INFO -   Test results saved to results/olmo2_7b_instruct/pretraining/span_safety_labels_test.csv (98 rows)
+2026-04-14 00:01:33,544 - INFO -   Raw output saved to results/olmo2_7b_instruct/pretraining/test_raw_output.json
