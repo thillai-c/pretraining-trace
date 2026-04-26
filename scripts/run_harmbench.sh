@@ -47,7 +47,7 @@ export TRANSFORMERS_CACHE="$HF_HOME/hub"
 
 mkdir -p logs
 
-CONFIG="${CONFIG:-copyright}"
+CONFIG="${CONFIG:-contextual}"
 
 if [ -z "${MODEL_KEY:-}" ]; then
     echo "ERROR: MODEL_KEY not set. Usage: sbatch --export=MODEL_KEY=olmo2-7b run_harmbench_olmo2.sh"
