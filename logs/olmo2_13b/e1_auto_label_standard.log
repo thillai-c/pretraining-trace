@@ -1,0 +1,1865 @@
+2026-04-25 14:27:00,444 - INFO - Logging to logs/olmo2_13b/e1_auto_label_standard.log
+2026-04-25 14:27:00,485 - INFO - ======================================================================
+2026-04-25 14:27:00,486 - INFO - E1 LLM-Assisted Span-Level Safety Labeling
+2026-04-25 14:27:00,486 - INFO -   Model: olmo2-13b
+2026-04-25 14:27:00,486 - INFO -   Config: standard
+2026-04-25 14:27:00,486 - INFO -   Training phase: pretraining
+2026-04-25 14:27:00,486 - INFO -   E1 input root: results/olmo2_13b/pretraining
+2026-04-25 14:27:00,486 - INFO -   Label run root: results/olmo2_13b/pretraining/gpt-4.1-mini
+2026-04-25 14:27:00,486 - INFO -   Label LLM (--e1-llm): gpt-4.1-mini
+2026-04-25 14:27:00,486 - INFO -   dotenv path: /gpfs/home/tmuthukumar/pretraining-trace/.env
+2026-04-25 14:27:00,487 - INFO -   dotenv loaded: True
+2026-04-25 14:27:00,487 - INFO -   OPENAI_API_KEY: ****...zH4A
+2026-04-25 14:27:00,487 - INFO - ======================================================================
+2026-04-25 14:27:01,236 - INFO - Loaded 45 records from E1 results
+2026-04-25 14:27:01,247 - INFO - Compliant records: 45
+2026-04-25 14:27:01,248 - INFO -   id=0, rep_ratio=0.0780, pairs=46
+2026-04-25 14:27:01,253 - INFO -   id=6, rep_ratio=0.9295, pairs=223
+2026-04-25 14:27:01,254 - INFO -   id=11, rep_ratio=0.0316, pairs=64
+2026-04-25 14:27:01,255 - INFO -   id=12, rep_ratio=0.8257, pairs=66
+2026-04-25 14:27:01,258 - INFO -   id=16, rep_ratio=0.8557, pairs=157
+2026-04-25 14:27:01,260 - INFO -   id=23, rep_ratio=0.1631, pairs=89
+2026-04-25 14:27:01,261 - INFO -   id=27, rep_ratio=0.7840, pairs=104
+2026-04-25 14:27:01,264 - INFO -   id=29, rep_ratio=0.5407, pairs=161
+2026-04-25 14:27:01,265 - INFO -   id=30, rep_ratio=0.0841, pairs=58
+2026-04-25 14:27:01,269 - INFO -   id=35, rep_ratio=0.9753, pairs=321
+2026-04-25 14:27:01,271 - INFO -   id=42, rep_ratio=0.9361, pairs=96
+2026-04-25 14:27:01,272 - INFO -   id=48, rep_ratio=0.0000, pairs=12
+2026-04-25 14:27:01,274 - INFO -   id=50, rep_ratio=0.0172, pairs=102
+2026-04-25 14:27:01,276 - INFO -   id=52, rep_ratio=0.8080, pairs=133
+2026-04-25 14:27:01,278 - INFO -   id=53, rep_ratio=0.9154, pairs=111
+2026-04-25 14:27:01,279 - INFO -   id=57, rep_ratio=0.9132, pairs=76
+2026-04-25 14:27:01,279 - INFO -   id=65, rep_ratio=0.0909, pairs=15
+2026-04-25 14:27:01,280 - INFO -   id=70, rep_ratio=0.9175, pairs=61
+2026-04-25 14:27:01,282 - INFO -   id=79, rep_ratio=0.6916, pairs=84
+2026-04-25 14:27:01,286 - INFO -   id=82, rep_ratio=0.8705, pairs=280
+2026-04-25 14:27:01,287 - INFO -   id=83, rep_ratio=0.9386, pairs=75
+2026-04-25 14:27:01,290 - INFO -   id=86, rep_ratio=0.7507, pairs=172
+2026-04-25 14:27:01,292 - INFO -   id=88, rep_ratio=0.8352, pairs=138
+2026-04-25 14:27:01,295 - INFO -   id=91, rep_ratio=0.9304, pairs=195
+2026-04-25 14:27:01,296 - INFO -   id=94, rep_ratio=0.9524, pairs=93
+2026-04-25 14:27:01,296 - INFO -   id=100, rep_ratio=0.0000, pairs=12
+2026-04-25 14:27:01,297 - INFO -   id=103, rep_ratio=0.0000, pairs=29
+2026-04-25 14:27:01,299 - INFO -   id=104, rep_ratio=0.8322, pairs=86
+2026-04-25 14:27:01,300 - INFO -   id=111, rep_ratio=0.9240, pairs=95
+2026-04-25 14:27:01,301 - INFO -   id=122, rep_ratio=0.0335, pairs=31
+2026-04-25 14:27:01,303 - INFO -   id=123, rep_ratio=0.8692, pairs=93
+2026-04-25 14:27:01,304 - INFO -   id=125, rep_ratio=0.8508, pairs=91
+2026-04-25 14:27:01,312 - INFO -   id=127, rep_ratio=0.9899, pairs=541
+2026-04-25 14:27:01,313 - INFO -   id=128, rep_ratio=0.9179, pairs=73
+2026-04-25 14:27:01,315 - INFO -   id=150, rep_ratio=0.6452, pairs=133
+2026-04-25 14:27:01,317 - INFO -   id=152, rep_ratio=0.8766, pairs=133
+2026-04-25 14:27:01,323 - INFO -   id=159, rep_ratio=0.9133, pairs=436
+2026-04-25 14:27:01,323 - INFO -   id=160, rep_ratio=0.0806, pairs=14
+2026-04-25 14:27:01,325 - INFO -   id=161, rep_ratio=0.8644, pairs=103
+2026-04-25 14:27:01,327 - INFO -   id=166, rep_ratio=0.9314, pairs=126
+2026-04-25 14:27:01,327 - INFO -   id=168, rep_ratio=0.9819, pairs=58
+2026-04-25 14:27:01,332 - INFO -   id=169, rep_ratio=0.9422, pairs=181
+2026-04-25 14:27:01,332 - INFO -   id=180, rep_ratio=0.0533, pairs=13
+2026-04-25 14:27:01,333 - INFO -   id=188, rep_ratio=0.1786, pairs=54
+2026-04-25 14:27:01,335 - INFO -   id=198, rep_ratio=0.0970, pairs=101
+2026-04-25 14:27:01,438 - INFO - Batch JSONL written: results/olmo2_13b/pretraining/gpt-4.1-mini/batch_e1/batch_input.jsonl
+2026-04-25 14:27:01,438 - INFO -   Records: 45, Total (span, snippet) pairs: 5335
+2026-04-25 14:27:01,439 - INFO - Uploading batch file to OpenAI...
+2026-04-25 14:27:04,287 - INFO - HTTP Request: POST https://api.openai.com/v1/files "HTTP/1.1 200 OK"
+2026-04-25 14:27:04,292 - INFO -   File uploaded: id=file-26YngyrfYJGkiTLR4N3cAy
+2026-04-25 14:27:04,292 - INFO - Creating batch...
+2026-04-25 14:27:04,600 - INFO - HTTP Request: POST https://api.openai.com/v1/batches "HTTP/1.1 200 OK"
+2026-04-25 14:27:04,610 - INFO -   Batch created: id=batch_69ed077858908190bdb97ab8dbce292c, status=validating
+2026-04-25 14:27:04,610 - INFO - 
+2026-04-25 14:27:04,611 - INFO - ======================================================================
+2026-04-25 14:27:04,611 - INFO - BATCH SUBMITTED SUCCESSFULLY
+2026-04-25 14:27:04,611 - INFO -   Batch ID: batch_69ed077858908190bdb97ab8dbce292c
+2026-04-25 14:27:04,611 - INFO -   To collect results, run:
+2026-04-25 14:27:04,611 - INFO -     python e1_auto_label.py --model olmo2-13b --training-phase pretraining --e1-llm gpt-4.1-mini --collect --batch_id batch_69ed077858908190bdb97ab8dbce292c
+2026-04-25 14:27:04,611 - INFO - ======================================================================
+2026-04-25 14:27:04,613 - INFO -   Batch metadata saved to results/olmo2_13b/pretraining/gpt-4.1-mini/batch_e1/batch_metadata.json
+2026-04-25 14:27:05,869 - INFO - Logging to logs/olmo2_13b/e1_auto_label_standard.log
+2026-04-25 14:27:05,912 - INFO - ======================================================================
+2026-04-25 14:27:05,912 - INFO - E1 LLM-Assisted Span-Level Safety Labeling
+2026-04-25 14:27:05,912 - INFO -   Model: olmo2-13b
+2026-04-25 14:27:05,912 - INFO -   Config: standard
+2026-04-25 14:27:05,912 - INFO -   Training phase: mid_training
+2026-04-25 14:27:05,912 - INFO -   E1 input root: results/olmo2_13b/mid_training
+2026-04-25 14:27:05,913 - INFO -   Label run root: results/olmo2_13b/mid_training/gpt-4.1-mini
+2026-04-25 14:27:05,913 - INFO -   Label LLM (--e1-llm): gpt-4.1-mini
+2026-04-25 14:27:05,913 - INFO -   dotenv path: /gpfs/home/tmuthukumar/pretraining-trace/.env
+2026-04-25 14:27:05,913 - INFO -   dotenv loaded: True
+2026-04-25 14:27:05,913 - INFO -   OPENAI_API_KEY: ****...zH4A
+2026-04-25 14:27:05,913 - INFO - ======================================================================
+2026-04-25 14:27:06,418 - INFO - Loaded 45 records from E1 results
+2026-04-25 14:27:06,430 - INFO - Compliant records: 45
+2026-04-25 14:27:06,431 - INFO -   id=0, rep_ratio=0.0780, pairs=62
+2026-04-25 14:27:06,438 - INFO -   id=6, rep_ratio=0.9295, pairs=239
+2026-04-25 14:27:06,439 - INFO -   id=11, rep_ratio=0.0316, pairs=69
+2026-04-25 14:27:06,442 - INFO -   id=12, rep_ratio=0.8257, pairs=197
+2026-04-25 14:27:06,444 - INFO -   id=16, rep_ratio=0.8557, pairs=146
+2026-04-25 14:27:06,445 - INFO -   id=23, rep_ratio=0.1631, pairs=107
+2026-04-25 14:27:06,445 - INFO -   id=27, rep_ratio=0.7840, pairs=71
+2026-04-25 14:27:06,449 - INFO -   id=29, rep_ratio=0.5407, pairs=166
+2026-04-25 14:27:06,451 - INFO -   id=30, rep_ratio=0.0841, pairs=97
+2026-04-25 14:27:06,451 - INFO -   id=35, rep_ratio=0.9753, pairs=69
+2026-04-25 14:27:06,453 - INFO -   id=42, rep_ratio=0.9361, pairs=105
+2026-04-25 14:27:06,453 - INFO -   id=48, rep_ratio=0.0000, pairs=9
+2026-04-25 14:27:06,455 - INFO -   id=50, rep_ratio=0.0172, pairs=117
+2026-04-25 14:27:06,458 - INFO -   id=52, rep_ratio=0.8080, pairs=217
+2026-04-25 14:27:06,461 - INFO -   id=53, rep_ratio=0.9154, pairs=107
+2026-04-25 14:27:06,462 - INFO -   id=57, rep_ratio=0.9132, pairs=91
+2026-04-25 14:27:06,463 - INFO -   id=65, rep_ratio=0.0909, pairs=22
+2026-04-25 14:27:06,465 - INFO -   id=70, rep_ratio=0.9175, pairs=106
+2026-04-25 14:27:06,467 - INFO -   id=79, rep_ratio=0.6916, pairs=162
+2026-04-25 14:27:06,468 - INFO -   id=82, rep_ratio=0.8705, pairs=83
+2026-04-25 14:27:06,470 - INFO -   id=83, rep_ratio=0.9386, pairs=138
+2026-04-25 14:27:06,473 - INFO -   id=86, rep_ratio=0.7507, pairs=197
+2026-04-25 14:27:06,475 - INFO -   id=88, rep_ratio=0.8352, pairs=149
+2026-04-25 14:27:06,476 - INFO -   id=91, rep_ratio=0.9304, pairs=117
+2026-04-25 14:27:06,483 - INFO -   id=94, rep_ratio=0.9524, pairs=433
+2026-04-25 14:27:06,484 - INFO -   id=100, rep_ratio=0.0000, pairs=15
+2026-04-25 14:27:06,484 - INFO -   id=103, rep_ratio=0.0000, pairs=19
+2026-04-25 14:27:06,485 - INFO -   id=104, rep_ratio=0.8322, pairs=79
+2026-04-25 14:27:06,490 - INFO -   id=111, rep_ratio=0.9240, pairs=296
+2026-04-25 14:27:06,491 - INFO -   id=122, rep_ratio=0.0335, pairs=48
+2026-04-25 14:27:06,493 - INFO -   id=123, rep_ratio=0.8692, pairs=55
+2026-04-25 14:27:06,494 - INFO -   id=125, rep_ratio=0.8508, pairs=84
+2026-04-25 14:27:06,497 - INFO -   id=127, rep_ratio=0.9899, pairs=324
+2026-04-25 14:27:06,499 - INFO -   id=128, rep_ratio=0.9179, pairs=122
+2026-04-25 14:27:06,501 - INFO -   id=150, rep_ratio=0.6452, pairs=157
+2026-04-25 14:27:06,502 - INFO -   id=152, rep_ratio=0.8766, pairs=79
+2026-04-25 14:27:06,507 - INFO -   id=159, rep_ratio=0.9133, pairs=263
+2026-04-25 14:27:06,507 - INFO -   id=160, rep_ratio=0.0806, pairs=25
+2026-04-25 14:27:06,510 - INFO -   id=161, rep_ratio=0.8644, pairs=193
+2026-04-25 14:27:06,515 - INFO -   id=166, rep_ratio=0.9314, pairs=522
+2026-04-25 14:27:06,515 - INFO -   id=168, rep_ratio=0.9819, pairs=58
+2026-04-25 14:27:06,516 - INFO -   id=169, rep_ratio=0.9422, pairs=72
+2026-04-25 14:27:06,516 - INFO -   id=180, rep_ratio=0.0533, pairs=14
+2026-04-25 14:27:06,520 - INFO -   id=188, rep_ratio=0.1786, pairs=292
+2026-04-25 14:27:06,522 - INFO -   id=198, rep_ratio=0.0970, pairs=119
+2026-04-25 14:27:06,626 - INFO - Batch JSONL written: results/olmo2_13b/mid_training/gpt-4.1-mini/batch_e1/batch_input.jsonl
+2026-04-25 14:27:06,626 - INFO -   Records: 45, Total (span, snippet) pairs: 6112
+2026-04-25 14:27:06,626 - INFO - Uploading batch file to OpenAI...
+2026-04-25 14:27:08,003 - INFO - HTTP Request: POST https://api.openai.com/v1/files "HTTP/1.1 200 OK"
+2026-04-25 14:27:08,007 - INFO -   File uploaded: id=file-KnJBueAkxPyo8xrfVaLpxf
+2026-04-25 14:27:08,007 - INFO - Creating batch...
+2026-04-25 14:27:08,365 - INFO - HTTP Request: POST https://api.openai.com/v1/batches "HTTP/1.1 200 OK"
+2026-04-25 14:27:08,376 - INFO -   Batch created: id=batch_69ed077c10248190b69c0ccb1d8c1fd3, status=validating
+2026-04-25 14:27:08,377 - INFO - 
+2026-04-25 14:27:08,377 - INFO - ======================================================================
+2026-04-25 14:27:08,377 - INFO - BATCH SUBMITTED SUCCESSFULLY
+2026-04-25 14:27:08,377 - INFO -   Batch ID: batch_69ed077c10248190b69c0ccb1d8c1fd3
+2026-04-25 14:27:08,377 - INFO -   To collect results, run:
+2026-04-25 14:27:08,377 - INFO -     python e1_auto_label.py --model olmo2-13b --training-phase mid_training --e1-llm gpt-4.1-mini --collect --batch_id batch_69ed077c10248190b69c0ccb1d8c1fd3
+2026-04-25 14:27:08,378 - INFO - ======================================================================
+2026-04-25 14:27:08,379 - INFO -   Batch metadata saved to results/olmo2_13b/mid_training/gpt-4.1-mini/batch_e1/batch_metadata.json
+2026-04-25 14:31:42,725 - INFO - Logging to logs/olmo2_13b/e1_auto_label_standard.log
+2026-04-25 14:31:42,767 - INFO - ======================================================================
+2026-04-25 14:31:42,767 - INFO - E1 LLM-Assisted Span-Level Safety Labeling
+2026-04-25 14:31:42,767 - INFO -   Model: olmo2-13b
+2026-04-25 14:31:42,767 - INFO -   Config: standard
+2026-04-25 14:31:42,767 - INFO -   Training phase: pretraining
+2026-04-25 14:31:42,767 - INFO -   E1 input root: results/olmo2_13b/pretraining
+2026-04-25 14:31:42,767 - INFO -   Label run root: results/olmo2_13b/pretraining/gpt-4.1-mini
+2026-04-25 14:31:42,767 - INFO -   Label LLM (--e1-llm): gpt-4.1-mini
+2026-04-25 14:31:42,768 - INFO -   dotenv path: /gpfs/home/tmuthukumar/pretraining-trace/.env
+2026-04-25 14:31:42,768 - INFO -   dotenv loaded: True
+2026-04-25 14:31:42,768 - INFO -   OPENAI_API_KEY: ****...zH4A
+2026-04-25 14:31:42,768 - INFO - ======================================================================
+2026-04-25 14:31:43,453 - INFO - Loaded 45 records from E1 results
+2026-04-25 14:31:43,468 - INFO - Compliant records: 45
+2026-04-25 14:31:43,469 - INFO -   id=0, rep_ratio=0.0780, pairs=46
+2026-04-25 14:31:43,476 - INFO -   id=6, rep_ratio=0.9295, pairs=223
+2026-04-25 14:31:43,477 - INFO -   id=11, rep_ratio=0.0316, pairs=64
+2026-04-25 14:31:43,479 - INFO -   id=12, rep_ratio=0.8257, pairs=66
+2026-04-25 14:31:43,482 - INFO -   id=16, rep_ratio=0.8557, pairs=157
+2026-04-25 14:31:43,484 - INFO -   id=23, rep_ratio=0.1631, pairs=89
+2026-04-25 14:31:43,486 - INFO -   id=27, rep_ratio=0.7840, pairs=104
+2026-04-25 14:31:43,490 - INFO -   id=29, rep_ratio=0.5407, pairs=161
+2026-04-25 14:31:43,491 - INFO -   id=30, rep_ratio=0.0841, pairs=58
+2026-04-25 14:31:43,497 - INFO -   id=35, rep_ratio=0.9753, pairs=321
+2026-04-25 14:31:43,499 - INFO -   id=42, rep_ratio=0.9361, pairs=96
+2026-04-25 14:31:43,500 - INFO -   id=48, rep_ratio=0.0000, pairs=12
+2026-04-25 14:31:43,502 - INFO -   id=50, rep_ratio=0.0172, pairs=102
+2026-04-25 14:31:43,505 - INFO -   id=52, rep_ratio=0.8080, pairs=133
+2026-04-25 14:31:43,507 - INFO -   id=53, rep_ratio=0.9154, pairs=111
+2026-04-25 14:31:43,509 - INFO -   id=57, rep_ratio=0.9132, pairs=76
+2026-04-25 14:31:43,509 - INFO -   id=65, rep_ratio=0.0909, pairs=15
+2026-04-25 14:31:43,510 - INFO -   id=70, rep_ratio=0.9175, pairs=61
+2026-04-25 14:31:43,512 - INFO -   id=79, rep_ratio=0.6916, pairs=84
+2026-04-25 14:31:43,517 - INFO -   id=82, rep_ratio=0.8705, pairs=280
+2026-04-25 14:31:43,518 - INFO -   id=83, rep_ratio=0.9386, pairs=75
+2026-04-25 14:31:43,521 - INFO -   id=86, rep_ratio=0.7507, pairs=172
+2026-04-25 14:31:43,524 - INFO -   id=88, rep_ratio=0.8352, pairs=138
+2026-04-25 14:31:43,528 - INFO -   id=91, rep_ratio=0.9304, pairs=195
+2026-04-25 14:31:43,530 - INFO -   id=94, rep_ratio=0.9524, pairs=93
+2026-04-25 14:31:43,530 - INFO -   id=100, rep_ratio=0.0000, pairs=12
+2026-04-25 14:31:43,531 - INFO -   id=103, rep_ratio=0.0000, pairs=29
+2026-04-25 14:31:43,533 - INFO -   id=104, rep_ratio=0.8322, pairs=86
+2026-04-25 14:31:43,535 - INFO -   id=111, rep_ratio=0.9240, pairs=95
+2026-04-25 14:31:43,536 - INFO -   id=122, rep_ratio=0.0335, pairs=31
+2026-04-25 14:31:43,538 - INFO -   id=123, rep_ratio=0.8692, pairs=93
+2026-04-25 14:31:43,540 - INFO -   id=125, rep_ratio=0.8508, pairs=91
+2026-04-25 14:31:43,549 - INFO -   id=127, rep_ratio=0.9899, pairs=541
+2026-04-25 14:31:43,551 - INFO -   id=128, rep_ratio=0.9179, pairs=73
+2026-04-25 14:31:43,553 - INFO -   id=150, rep_ratio=0.6452, pairs=133
+2026-04-25 14:31:43,556 - INFO -   id=152, rep_ratio=0.8766, pairs=133
+2026-04-25 14:31:43,563 - INFO -   id=159, rep_ratio=0.9133, pairs=436
+2026-04-25 14:31:43,563 - INFO -   id=160, rep_ratio=0.0806, pairs=14
+2026-04-25 14:31:43,565 - INFO -   id=161, rep_ratio=0.8644, pairs=103
+2026-04-25 14:31:43,567 - INFO -   id=166, rep_ratio=0.9314, pairs=126
+2026-04-25 14:31:43,568 - INFO -   id=168, rep_ratio=0.9819, pairs=58
+2026-04-25 14:31:43,571 - INFO -   id=169, rep_ratio=0.9422, pairs=181
+2026-04-25 14:31:43,572 - INFO -   id=180, rep_ratio=0.0533, pairs=13
+2026-04-25 14:31:43,573 - INFO -   id=188, rep_ratio=0.1786, pairs=54
+2026-04-25 14:31:43,575 - INFO -   id=198, rep_ratio=0.0970, pairs=101
+2026-04-25 14:31:43,576 - INFO - Loaded batch_id from metadata: batch_69ed077858908190bdb97ab8dbce292c
+2026-04-25 14:31:43,576 - INFO - Checking batch status for batch_69ed077858908190bdb97ab8dbce292c ...
+2026-04-25 14:31:44,188 - INFO - HTTP Request: GET https://api.openai.com/v1/batches/batch_69ed077858908190bdb97ab8dbce292c "HTTP/1.1 200 OK"
+2026-04-25 14:31:44,203 - INFO -   Status: failed
+2026-04-25 14:31:44,203 - INFO -   Request counts: BatchRequestCounts(completed=0, failed=0, total=0)
+2026-04-25 14:31:44,203 - ERROR -   Batch failed. Errors:
+2026-04-25 14:31:44,203 - ERROR -     token_limit_exceeded: Enqueued token limit reached for gpt-4.1-mini in organization org-x07ud5o34LRPUsbYidBy4wuj. Limit: 2,000,000 enqueued tokens. Please try again once some in_progress batches have been completed.
+2026-04-25 14:31:45,343 - INFO - Logging to logs/olmo2_13b/e1_auto_label_standard.log
+2026-04-25 14:31:45,386 - INFO - ======================================================================
+2026-04-25 14:31:45,386 - INFO - E1 LLM-Assisted Span-Level Safety Labeling
+2026-04-25 14:31:45,386 - INFO -   Model: olmo2-13b
+2026-04-25 14:31:45,386 - INFO -   Config: standard
+2026-04-25 14:31:45,386 - INFO -   Training phase: mid_training
+2026-04-25 14:31:45,386 - INFO -   E1 input root: results/olmo2_13b/mid_training
+2026-04-25 14:31:45,386 - INFO -   Label run root: results/olmo2_13b/mid_training/gpt-4.1-mini
+2026-04-25 14:31:45,386 - INFO -   Label LLM (--e1-llm): gpt-4.1-mini
+2026-04-25 14:31:45,386 - INFO -   dotenv path: /gpfs/home/tmuthukumar/pretraining-trace/.env
+2026-04-25 14:31:45,387 - INFO -   dotenv loaded: True
+2026-04-25 14:31:45,387 - INFO -   OPENAI_API_KEY: ****...zH4A
+2026-04-25 14:31:45,387 - INFO - ======================================================================
+2026-04-25 14:31:45,877 - INFO - Loaded 45 records from E1 results
+2026-04-25 14:31:45,889 - INFO - Compliant records: 45
+2026-04-25 14:31:45,890 - INFO -   id=0, rep_ratio=0.0780, pairs=62
+2026-04-25 14:31:45,897 - INFO -   id=6, rep_ratio=0.9295, pairs=239
+2026-04-25 14:31:45,898 - INFO -   id=11, rep_ratio=0.0316, pairs=69
+2026-04-25 14:31:45,901 - INFO -   id=12, rep_ratio=0.8257, pairs=197
+2026-04-25 14:31:45,903 - INFO -   id=16, rep_ratio=0.8557, pairs=146
+2026-04-25 14:31:45,904 - INFO -   id=23, rep_ratio=0.1631, pairs=107
+2026-04-25 14:31:45,904 - INFO -   id=27, rep_ratio=0.7840, pairs=71
+2026-04-25 14:31:45,908 - INFO -   id=29, rep_ratio=0.5407, pairs=166
+2026-04-25 14:31:45,909 - INFO -   id=30, rep_ratio=0.0841, pairs=97
+2026-04-25 14:31:45,910 - INFO -   id=35, rep_ratio=0.9753, pairs=69
+2026-04-25 14:31:45,912 - INFO -   id=42, rep_ratio=0.9361, pairs=105
+2026-04-25 14:31:45,912 - INFO -   id=48, rep_ratio=0.0000, pairs=9
+2026-04-25 14:31:45,914 - INFO -   id=50, rep_ratio=0.0172, pairs=117
+2026-04-25 14:31:45,917 - INFO -   id=52, rep_ratio=0.8080, pairs=217
+2026-04-25 14:31:45,920 - INFO -   id=53, rep_ratio=0.9154, pairs=107
+2026-04-25 14:31:45,921 - INFO -   id=57, rep_ratio=0.9132, pairs=91
+2026-04-25 14:31:45,922 - INFO -   id=65, rep_ratio=0.0909, pairs=22
+2026-04-25 14:31:45,923 - INFO -   id=70, rep_ratio=0.9175, pairs=106
+2026-04-25 14:31:45,926 - INFO -   id=79, rep_ratio=0.6916, pairs=162
+2026-04-25 14:31:45,927 - INFO -   id=82, rep_ratio=0.8705, pairs=83
+2026-04-25 14:31:45,928 - INFO -   id=83, rep_ratio=0.9386, pairs=138
+2026-04-25 14:31:45,931 - INFO -   id=86, rep_ratio=0.7507, pairs=197
+2026-04-25 14:31:45,934 - INFO -   id=88, rep_ratio=0.8352, pairs=149
+2026-04-25 14:31:45,935 - INFO -   id=91, rep_ratio=0.9304, pairs=117
+2026-04-25 14:31:45,942 - INFO -   id=94, rep_ratio=0.9524, pairs=433
+2026-04-25 14:31:45,942 - INFO -   id=100, rep_ratio=0.0000, pairs=15
+2026-04-25 14:31:45,943 - INFO -   id=103, rep_ratio=0.0000, pairs=19
+2026-04-25 14:31:45,944 - INFO -   id=104, rep_ratio=0.8322, pairs=79
+2026-04-25 14:31:45,949 - INFO -   id=111, rep_ratio=0.9240, pairs=296
+2026-04-25 14:31:45,949 - INFO -   id=122, rep_ratio=0.0335, pairs=48
+2026-04-25 14:31:45,951 - INFO -   id=123, rep_ratio=0.8692, pairs=55
+2026-04-25 14:31:45,952 - INFO -   id=125, rep_ratio=0.8508, pairs=84
+2026-04-25 14:31:45,955 - INFO -   id=127, rep_ratio=0.9899, pairs=324
+2026-04-25 14:31:45,957 - INFO -   id=128, rep_ratio=0.9179, pairs=122
+2026-04-25 14:31:45,959 - INFO -   id=150, rep_ratio=0.6452, pairs=157
+2026-04-25 14:31:45,960 - INFO -   id=152, rep_ratio=0.8766, pairs=79
+2026-04-25 14:31:45,965 - INFO -   id=159, rep_ratio=0.9133, pairs=263
+2026-04-25 14:31:45,966 - INFO -   id=160, rep_ratio=0.0806, pairs=25
+2026-04-25 14:31:45,968 - INFO -   id=161, rep_ratio=0.8644, pairs=193
+2026-04-25 14:31:45,973 - INFO -   id=166, rep_ratio=0.9314, pairs=522
+2026-04-25 14:31:45,973 - INFO -   id=168, rep_ratio=0.9819, pairs=58
+2026-04-25 14:31:45,974 - INFO -   id=169, rep_ratio=0.9422, pairs=72
+2026-04-25 14:31:45,974 - INFO -   id=180, rep_ratio=0.0533, pairs=14
+2026-04-25 14:31:45,978 - INFO -   id=188, rep_ratio=0.1786, pairs=292
+2026-04-25 14:31:45,980 - INFO -   id=198, rep_ratio=0.0970, pairs=119
+2026-04-25 14:31:45,981 - INFO - Loaded batch_id from metadata: batch_69ed077c10248190b69c0ccb1d8c1fd3
+2026-04-25 14:31:45,981 - INFO - Checking batch status for batch_69ed077c10248190b69c0ccb1d8c1fd3 ...
+2026-04-25 14:31:46,606 - INFO - HTTP Request: GET https://api.openai.com/v1/batches/batch_69ed077c10248190b69c0ccb1d8c1fd3 "HTTP/1.1 200 OK"
+2026-04-25 14:31:46,619 - INFO -   Status: failed
+2026-04-25 14:31:46,619 - INFO -   Request counts: BatchRequestCounts(completed=0, failed=0, total=0)
+2026-04-25 14:31:46,619 - ERROR -   Batch failed. Errors:
+2026-04-25 14:31:46,619 - ERROR -     token_limit_exceeded: Enqueued token limit reached for gpt-4.1-mini in organization org-x07ud5o34LRPUsbYidBy4wuj. Limit: 2,000,000 enqueued tokens. Please try again once some in_progress batches have been completed.
+2026-04-25 14:35:27,751 - INFO - Logging to logs/olmo2_13b/e1_auto_label_standard.log
+2026-04-25 14:35:27,794 - INFO - ======================================================================
+2026-04-25 14:35:27,794 - INFO - E1 LLM-Assisted Span-Level Safety Labeling
+2026-04-25 14:35:27,794 - INFO -   Model: olmo2-13b
+2026-04-25 14:35:27,794 - INFO -   Config: standard
+2026-04-25 14:35:27,794 - INFO -   Training phase: pretraining
+2026-04-25 14:35:27,794 - INFO -   E1 input root: results/olmo2_13b/pretraining
+2026-04-25 14:35:27,794 - INFO -   Label run root: results/olmo2_13b/pretraining/gpt-4.1-mini
+2026-04-25 14:35:27,795 - INFO -   Label LLM (--e1-llm): gpt-4.1-mini
+2026-04-25 14:35:27,795 - INFO -   dotenv path: /gpfs/home/tmuthukumar/pretraining-trace/.env
+2026-04-25 14:35:27,795 - INFO -   dotenv loaded: True
+2026-04-25 14:35:27,795 - INFO -   OPENAI_API_KEY: ****...zH4A
+2026-04-25 14:35:27,795 - INFO - ======================================================================
+2026-04-25 14:35:28,406 - INFO - Loaded 45 records from E1 results
+2026-04-25 14:35:28,418 - INFO - Compliant records: 45
+2026-04-25 14:35:28,419 - INFO -   id=0, rep_ratio=0.0780, pairs=46
+2026-04-25 14:35:28,424 - INFO -   id=6, rep_ratio=0.9295, pairs=223
+2026-04-25 14:35:28,425 - INFO -   id=11, rep_ratio=0.0316, pairs=64
+2026-04-25 14:35:28,427 - INFO -   id=12, rep_ratio=0.8257, pairs=66
+2026-04-25 14:35:28,430 - INFO -   id=16, rep_ratio=0.8557, pairs=157
+2026-04-25 14:35:28,431 - INFO -   id=23, rep_ratio=0.1631, pairs=89
+2026-04-25 14:35:28,433 - INFO -   id=27, rep_ratio=0.7840, pairs=104
+2026-04-25 14:35:28,436 - INFO -   id=29, rep_ratio=0.5407, pairs=161
+2026-04-25 14:35:28,437 - INFO -   id=30, rep_ratio=0.0841, pairs=58
+2026-04-25 14:35:28,443 - INFO -   id=35, rep_ratio=0.9753, pairs=321
+2026-04-25 14:35:28,445 - INFO -   id=42, rep_ratio=0.9361, pairs=96
+2026-04-25 14:35:28,445 - INFO -   id=48, rep_ratio=0.0000, pairs=12
+2026-04-25 14:35:28,447 - INFO -   id=50, rep_ratio=0.0172, pairs=102
+2026-04-25 14:35:28,450 - INFO -   id=52, rep_ratio=0.8080, pairs=133
+2026-04-25 14:35:28,452 - INFO -   id=53, rep_ratio=0.9154, pairs=111
+2026-04-25 14:35:28,453 - INFO -   id=57, rep_ratio=0.9132, pairs=76
+2026-04-25 14:35:28,454 - INFO -   id=65, rep_ratio=0.0909, pairs=15
+2026-04-25 14:35:28,455 - INFO -   id=70, rep_ratio=0.9175, pairs=61
+2026-04-25 14:35:28,456 - INFO -   id=79, rep_ratio=0.6916, pairs=84
+2026-04-25 14:35:28,461 - INFO -   id=82, rep_ratio=0.8705, pairs=280
+2026-04-25 14:35:28,462 - INFO -   id=83, rep_ratio=0.9386, pairs=75
+2026-04-25 14:35:28,465 - INFO -   id=86, rep_ratio=0.7507, pairs=172
+2026-04-25 14:35:28,467 - INFO -   id=88, rep_ratio=0.8352, pairs=138
+2026-04-25 14:35:28,470 - INFO -   id=91, rep_ratio=0.9304, pairs=195
+2026-04-25 14:35:28,472 - INFO -   id=94, rep_ratio=0.9524, pairs=93
+2026-04-25 14:35:28,473 - INFO -   id=100, rep_ratio=0.0000, pairs=12
+2026-04-25 14:35:28,473 - INFO -   id=103, rep_ratio=0.0000, pairs=29
+2026-04-25 14:35:28,475 - INFO -   id=104, rep_ratio=0.8322, pairs=86
+2026-04-25 14:35:28,477 - INFO -   id=111, rep_ratio=0.9240, pairs=95
+2026-04-25 14:35:28,477 - INFO -   id=122, rep_ratio=0.0335, pairs=31
+2026-04-25 14:35:28,479 - INFO -   id=123, rep_ratio=0.8692, pairs=93
+2026-04-25 14:35:28,481 - INFO -   id=125, rep_ratio=0.8508, pairs=91
+2026-04-25 14:35:28,489 - INFO -   id=127, rep_ratio=0.9899, pairs=541
+2026-04-25 14:35:28,491 - INFO -   id=128, rep_ratio=0.9179, pairs=73
+2026-04-25 14:35:28,493 - INFO -   id=150, rep_ratio=0.6452, pairs=133
+2026-04-25 14:35:28,496 - INFO -   id=152, rep_ratio=0.8766, pairs=133
+2026-04-25 14:35:28,502 - INFO -   id=159, rep_ratio=0.9133, pairs=436
+2026-04-25 14:35:28,503 - INFO -   id=160, rep_ratio=0.0806, pairs=14
+2026-04-25 14:35:28,505 - INFO -   id=161, rep_ratio=0.8644, pairs=103
+2026-04-25 14:35:28,507 - INFO -   id=166, rep_ratio=0.9314, pairs=126
+2026-04-25 14:35:28,507 - INFO -   id=168, rep_ratio=0.9819, pairs=58
+2026-04-25 14:35:28,511 - INFO -   id=169, rep_ratio=0.9422, pairs=181
+2026-04-25 14:35:28,511 - INFO -   id=180, rep_ratio=0.0533, pairs=13
+2026-04-25 14:35:28,512 - INFO -   id=188, rep_ratio=0.1786, pairs=54
+2026-04-25 14:35:28,514 - INFO -   id=198, rep_ratio=0.0970, pairs=101
+2026-04-25 14:35:28,514 - INFO - Loaded batch_id from metadata: batch_69ed077858908190bdb97ab8dbce292c
+2026-04-25 14:35:28,514 - INFO - Checking batch status for batch_69ed077858908190bdb97ab8dbce292c ...
+2026-04-25 14:35:29,095 - INFO - HTTP Request: GET https://api.openai.com/v1/batches/batch_69ed077858908190bdb97ab8dbce292c "HTTP/1.1 200 OK"
+2026-04-25 14:35:29,108 - INFO -   Status: failed
+2026-04-25 14:35:29,108 - INFO -   Request counts: BatchRequestCounts(completed=0, failed=0, total=0)
+2026-04-25 14:35:29,108 - ERROR -   Batch failed. Errors:
+2026-04-25 14:35:29,108 - ERROR -     token_limit_exceeded: Enqueued token limit reached for gpt-4.1-mini in organization org-x07ud5o34LRPUsbYidBy4wuj. Limit: 2,000,000 enqueued tokens. Please try again once some in_progress batches have been completed.
+2026-04-25 14:35:30,168 - INFO - Logging to logs/olmo2_13b/e1_auto_label_standard.log
+2026-04-25 14:35:30,212 - INFO - ======================================================================
+2026-04-25 14:35:30,213 - INFO - E1 LLM-Assisted Span-Level Safety Labeling
+2026-04-25 14:35:30,213 - INFO -   Model: olmo2-13b
+2026-04-25 14:35:30,213 - INFO -   Config: standard
+2026-04-25 14:35:30,213 - INFO -   Training phase: mid_training
+2026-04-25 14:35:30,213 - INFO -   E1 input root: results/olmo2_13b/mid_training
+2026-04-25 14:35:30,213 - INFO -   Label run root: results/olmo2_13b/mid_training/gpt-4.1-mini
+2026-04-25 14:35:30,213 - INFO -   Label LLM (--e1-llm): gpt-4.1-mini
+2026-04-25 14:35:30,213 - INFO -   dotenv path: /gpfs/home/tmuthukumar/pretraining-trace/.env
+2026-04-25 14:35:30,214 - INFO -   dotenv loaded: True
+2026-04-25 14:35:30,214 - INFO -   OPENAI_API_KEY: ****...zH4A
+2026-04-25 14:35:30,214 - INFO - ======================================================================
+2026-04-25 14:35:30,675 - INFO - Loaded 45 records from E1 results
+2026-04-25 14:35:30,687 - INFO - Compliant records: 45
+2026-04-25 14:35:30,689 - INFO -   id=0, rep_ratio=0.0780, pairs=62
+2026-04-25 14:35:30,696 - INFO -   id=6, rep_ratio=0.9295, pairs=239
+2026-04-25 14:35:30,696 - INFO -   id=11, rep_ratio=0.0316, pairs=69
+2026-04-25 14:35:30,699 - INFO -   id=12, rep_ratio=0.8257, pairs=197
+2026-04-25 14:35:30,701 - INFO -   id=16, rep_ratio=0.8557, pairs=146
+2026-04-25 14:35:30,702 - INFO -   id=23, rep_ratio=0.1631, pairs=107
+2026-04-25 14:35:30,703 - INFO -   id=27, rep_ratio=0.7840, pairs=71
+2026-04-25 14:35:30,707 - INFO -   id=29, rep_ratio=0.5407, pairs=166
+2026-04-25 14:35:30,708 - INFO -   id=30, rep_ratio=0.0841, pairs=97
+2026-04-25 14:35:30,709 - INFO -   id=35, rep_ratio=0.9753, pairs=69
+2026-04-25 14:35:30,711 - INFO -   id=42, rep_ratio=0.9361, pairs=105
+2026-04-25 14:35:30,711 - INFO -   id=48, rep_ratio=0.0000, pairs=9
+2026-04-25 14:35:30,713 - INFO -   id=50, rep_ratio=0.0172, pairs=117
+2026-04-25 14:35:30,716 - INFO -   id=52, rep_ratio=0.8080, pairs=217
+2026-04-25 14:35:30,719 - INFO -   id=53, rep_ratio=0.9154, pairs=107
+2026-04-25 14:35:30,720 - INFO -   id=57, rep_ratio=0.9132, pairs=91
+2026-04-25 14:35:30,720 - INFO -   id=65, rep_ratio=0.0909, pairs=22
+2026-04-25 14:35:30,722 - INFO -   id=70, rep_ratio=0.9175, pairs=106
+2026-04-25 14:35:30,725 - INFO -   id=79, rep_ratio=0.6916, pairs=162
+2026-04-25 14:35:30,726 - INFO -   id=82, rep_ratio=0.8705, pairs=83
+2026-04-25 14:35:30,728 - INFO -   id=83, rep_ratio=0.9386, pairs=138
+2026-04-25 14:35:30,730 - INFO -   id=86, rep_ratio=0.7507, pairs=197
+2026-04-25 14:35:30,733 - INFO -   id=88, rep_ratio=0.8352, pairs=149
+2026-04-25 14:35:30,734 - INFO -   id=91, rep_ratio=0.9304, pairs=117
+2026-04-25 14:35:30,741 - INFO -   id=94, rep_ratio=0.9524, pairs=433
+2026-04-25 14:35:30,742 - INFO -   id=100, rep_ratio=0.0000, pairs=15
+2026-04-25 14:35:30,742 - INFO -   id=103, rep_ratio=0.0000, pairs=19
+2026-04-25 14:35:30,743 - INFO -   id=104, rep_ratio=0.8322, pairs=79
+2026-04-25 14:35:30,748 - INFO -   id=111, rep_ratio=0.9240, pairs=296
+2026-04-25 14:35:30,749 - INFO -   id=122, rep_ratio=0.0335, pairs=48
+2026-04-25 14:35:30,751 - INFO -   id=123, rep_ratio=0.8692, pairs=55
+2026-04-25 14:35:30,752 - INFO -   id=125, rep_ratio=0.8508, pairs=84
+2026-04-25 14:35:30,754 - INFO -   id=127, rep_ratio=0.9899, pairs=324
+2026-04-25 14:35:30,757 - INFO -   id=128, rep_ratio=0.9179, pairs=122
+2026-04-25 14:35:30,759 - INFO -   id=150, rep_ratio=0.6452, pairs=157
+2026-04-25 14:35:30,760 - INFO -   id=152, rep_ratio=0.8766, pairs=79
+2026-04-25 14:35:30,765 - INFO -   id=159, rep_ratio=0.9133, pairs=263
+2026-04-25 14:35:30,765 - INFO -   id=160, rep_ratio=0.0806, pairs=25
+2026-04-25 14:35:30,768 - INFO -   id=161, rep_ratio=0.8644, pairs=193
+2026-04-25 14:35:30,773 - INFO -   id=166, rep_ratio=0.9314, pairs=522
+2026-04-25 14:35:30,773 - INFO -   id=168, rep_ratio=0.9819, pairs=58
+2026-04-25 14:35:30,774 - INFO -   id=169, rep_ratio=0.9422, pairs=72
+2026-04-25 14:35:30,774 - INFO -   id=180, rep_ratio=0.0533, pairs=14
+2026-04-25 14:35:30,779 - INFO -   id=188, rep_ratio=0.1786, pairs=292
+2026-04-25 14:35:30,780 - INFO -   id=198, rep_ratio=0.0970, pairs=119
+2026-04-25 14:35:30,781 - INFO - Loaded batch_id from metadata: batch_69ed077c10248190b69c0ccb1d8c1fd3
+2026-04-25 14:35:30,781 - INFO - Checking batch status for batch_69ed077c10248190b69c0ccb1d8c1fd3 ...
+2026-04-25 14:35:31,315 - INFO - HTTP Request: GET https://api.openai.com/v1/batches/batch_69ed077c10248190b69c0ccb1d8c1fd3 "HTTP/1.1 200 OK"
+2026-04-25 14:35:31,327 - INFO -   Status: failed
+2026-04-25 14:35:31,328 - INFO -   Request counts: BatchRequestCounts(completed=0, failed=0, total=0)
+2026-04-25 14:35:31,328 - ERROR -   Batch failed. Errors:
+2026-04-25 14:35:31,328 - ERROR -     token_limit_exceeded: Enqueued token limit reached for gpt-4.1-mini in organization org-x07ud5o34LRPUsbYidBy4wuj. Limit: 2,000,000 enqueued tokens. Please try again once some in_progress batches have been completed.
+2026-04-25 14:36:44,682 - INFO - Logging to logs/olmo2_13b/e1_auto_label_standard.log
+2026-04-25 14:36:44,724 - INFO - ======================================================================
+2026-04-25 14:36:44,724 - INFO - E1 LLM-Assisted Span-Level Safety Labeling
+2026-04-25 14:36:44,724 - INFO -   Model: olmo2-13b
+2026-04-25 14:36:44,724 - INFO -   Config: standard
+2026-04-25 14:36:44,724 - INFO -   Training phase: pretraining
+2026-04-25 14:36:44,724 - INFO -   E1 input root: results/olmo2_13b/pretraining
+2026-04-25 14:36:44,724 - INFO -   Label run root: results/olmo2_13b/pretraining/gpt-4.1-mini
+2026-04-25 14:36:44,725 - INFO -   Label LLM (--e1-llm): gpt-4.1-mini
+2026-04-25 14:36:44,725 - INFO -   dotenv path: /gpfs/home/tmuthukumar/pretraining-trace/.env
+2026-04-25 14:36:44,725 - INFO -   dotenv loaded: True
+2026-04-25 14:36:44,725 - INFO -   OPENAI_API_KEY: ****...zH4A
+2026-04-25 14:36:44,725 - INFO - ======================================================================
+2026-04-25 14:36:45,418 - INFO - Loaded 45 records from E1 results
+2026-04-25 14:36:45,429 - INFO - Compliant records: 45
+2026-04-25 14:36:45,430 - INFO -   id=0, rep_ratio=0.0780, pairs=46
+2026-04-25 14:36:45,434 - INFO -   id=6, rep_ratio=0.9295, pairs=223
+2026-04-25 14:36:45,435 - INFO -   id=11, rep_ratio=0.0316, pairs=64
+2026-04-25 14:36:45,437 - INFO -   id=12, rep_ratio=0.8257, pairs=66
+2026-04-25 14:36:45,439 - INFO -   id=16, rep_ratio=0.8557, pairs=157
+2026-04-25 14:36:45,441 - INFO -   id=23, rep_ratio=0.1631, pairs=89
+2026-04-25 14:36:45,443 - INFO -   id=27, rep_ratio=0.7840, pairs=104
+2026-04-25 14:36:45,445 - INFO -   id=29, rep_ratio=0.5407, pairs=161
+2026-04-25 14:36:45,446 - INFO -   id=30, rep_ratio=0.0841, pairs=58
+2026-04-25 14:36:45,451 - INFO -   id=35, rep_ratio=0.9753, pairs=321
+2026-04-25 14:36:45,453 - INFO -   id=42, rep_ratio=0.9361, pairs=96
+2026-04-25 14:36:45,453 - INFO -   id=48, rep_ratio=0.0000, pairs=12
+2026-04-25 14:36:45,454 - INFO -   id=50, rep_ratio=0.0172, pairs=102
+2026-04-25 14:36:45,456 - INFO -   id=52, rep_ratio=0.8080, pairs=133
+2026-04-25 14:36:45,458 - INFO -   id=53, rep_ratio=0.9154, pairs=111
+2026-04-25 14:36:45,460 - INFO -   id=57, rep_ratio=0.9132, pairs=76
+2026-04-25 14:36:45,460 - INFO -   id=65, rep_ratio=0.0909, pairs=15
+2026-04-25 14:36:45,461 - INFO -   id=70, rep_ratio=0.9175, pairs=61
+2026-04-25 14:36:45,462 - INFO -   id=79, rep_ratio=0.6916, pairs=84
+2026-04-25 14:36:45,466 - INFO -   id=82, rep_ratio=0.8705, pairs=280
+2026-04-25 14:36:45,467 - INFO -   id=83, rep_ratio=0.9386, pairs=75
+2026-04-25 14:36:45,470 - INFO -   id=86, rep_ratio=0.7507, pairs=172
+2026-04-25 14:36:45,472 - INFO -   id=88, rep_ratio=0.8352, pairs=138
+2026-04-25 14:36:45,475 - INFO -   id=91, rep_ratio=0.9304, pairs=195
+2026-04-25 14:36:45,476 - INFO -   id=94, rep_ratio=0.9524, pairs=93
+2026-04-25 14:36:45,477 - INFO -   id=100, rep_ratio=0.0000, pairs=12
+2026-04-25 14:36:45,477 - INFO -   id=103, rep_ratio=0.0000, pairs=29
+2026-04-25 14:36:45,479 - INFO -   id=104, rep_ratio=0.8322, pairs=86
+2026-04-25 14:36:45,480 - INFO -   id=111, rep_ratio=0.9240, pairs=95
+2026-04-25 14:36:45,481 - INFO -   id=122, rep_ratio=0.0335, pairs=31
+2026-04-25 14:36:45,483 - INFO -   id=123, rep_ratio=0.8692, pairs=93
+2026-04-25 14:36:45,484 - INFO -   id=125, rep_ratio=0.8508, pairs=91
+2026-04-25 14:36:45,492 - INFO -   id=127, rep_ratio=0.9899, pairs=541
+2026-04-25 14:36:45,493 - INFO -   id=128, rep_ratio=0.9179, pairs=73
+2026-04-25 14:36:45,495 - INFO -   id=150, rep_ratio=0.6452, pairs=133
+2026-04-25 14:36:45,497 - INFO -   id=152, rep_ratio=0.8766, pairs=133
+2026-04-25 14:36:45,503 - INFO -   id=159, rep_ratio=0.9133, pairs=436
+2026-04-25 14:36:45,504 - INFO -   id=160, rep_ratio=0.0806, pairs=14
+2026-04-25 14:36:45,505 - INFO -   id=161, rep_ratio=0.8644, pairs=103
+2026-04-25 14:36:45,507 - INFO -   id=166, rep_ratio=0.9314, pairs=126
+2026-04-25 14:36:45,508 - INFO -   id=168, rep_ratio=0.9819, pairs=58
+2026-04-25 14:36:45,511 - INFO -   id=169, rep_ratio=0.9422, pairs=181
+2026-04-25 14:36:45,511 - INFO -   id=180, rep_ratio=0.0533, pairs=13
+2026-04-25 14:36:45,512 - INFO -   id=188, rep_ratio=0.1786, pairs=54
+2026-04-25 14:36:45,514 - INFO -   id=198, rep_ratio=0.0970, pairs=101
+2026-04-25 14:36:45,617 - INFO - Batch JSONL written: results/olmo2_13b/pretraining/gpt-4.1-mini/batch_e1/batch_input.jsonl
+2026-04-25 14:36:45,617 - INFO -   Records: 45, Total (span, snippet) pairs: 5335
+2026-04-25 14:36:45,617 - INFO - Uploading batch file to OpenAI...
+2026-04-25 14:36:47,595 - INFO - HTTP Request: POST https://api.openai.com/v1/files "HTTP/1.1 200 OK"
+2026-04-25 14:36:47,598 - INFO -   File uploaded: id=file-XxSXwF2Ne5T8sP1wFgEC9N
+2026-04-25 14:36:47,598 - INFO - Creating batch...
+2026-04-25 14:36:48,187 - INFO - HTTP Request: POST https://api.openai.com/v1/batches "HTTP/1.1 200 OK"
+2026-04-25 14:36:48,197 - INFO -   Batch created: id=batch_69ed09bfd91081908231076d395c62f5, status=validating
+2026-04-25 14:36:48,198 - INFO - 
+2026-04-25 14:36:48,198 - INFO - ======================================================================
+2026-04-25 14:36:48,198 - INFO - BATCH SUBMITTED SUCCESSFULLY
+2026-04-25 14:36:48,198 - INFO -   Batch ID: batch_69ed09bfd91081908231076d395c62f5
+2026-04-25 14:36:48,198 - INFO -   To collect results, run:
+2026-04-25 14:36:48,199 - INFO -     python e1_auto_label.py --model olmo2-13b --training-phase pretraining --e1-llm gpt-4.1-mini --collect --batch_id batch_69ed09bfd91081908231076d395c62f5
+2026-04-25 14:36:48,199 - INFO - ======================================================================
+2026-04-25 14:36:48,200 - INFO -   Batch metadata saved to results/olmo2_13b/pretraining/gpt-4.1-mini/batch_e1/batch_metadata.json
+2026-04-25 14:36:49,287 - INFO - Logging to logs/olmo2_13b/e1_auto_label_standard.log
+2026-04-25 14:36:49,328 - INFO - ======================================================================
+2026-04-25 14:36:49,329 - INFO - E1 LLM-Assisted Span-Level Safety Labeling
+2026-04-25 14:36:49,329 - INFO -   Model: olmo2-13b
+2026-04-25 14:36:49,329 - INFO -   Config: standard
+2026-04-25 14:36:49,329 - INFO -   Training phase: mid_training
+2026-04-25 14:36:49,329 - INFO -   E1 input root: results/olmo2_13b/mid_training
+2026-04-25 14:36:49,329 - INFO -   Label run root: results/olmo2_13b/mid_training/gpt-4.1-mini
+2026-04-25 14:36:49,329 - INFO -   Label LLM (--e1-llm): gpt-4.1-mini
+2026-04-25 14:36:49,329 - INFO -   dotenv path: /gpfs/home/tmuthukumar/pretraining-trace/.env
+2026-04-25 14:36:49,330 - INFO -   dotenv loaded: True
+2026-04-25 14:36:49,330 - INFO -   OPENAI_API_KEY: ****...zH4A
+2026-04-25 14:36:49,330 - INFO - ======================================================================
+2026-04-25 14:36:49,804 - INFO - Loaded 45 records from E1 results
+2026-04-25 14:36:49,815 - INFO - Compliant records: 45
+2026-04-25 14:36:49,817 - INFO -   id=0, rep_ratio=0.0780, pairs=62
+2026-04-25 14:36:49,824 - INFO -   id=6, rep_ratio=0.9295, pairs=239
+2026-04-25 14:36:49,824 - INFO -   id=11, rep_ratio=0.0316, pairs=69
+2026-04-25 14:36:49,827 - INFO -   id=12, rep_ratio=0.8257, pairs=197
+2026-04-25 14:36:49,829 - INFO -   id=16, rep_ratio=0.8557, pairs=146
+2026-04-25 14:36:49,830 - INFO -   id=23, rep_ratio=0.1631, pairs=107
+2026-04-25 14:36:49,831 - INFO -   id=27, rep_ratio=0.7840, pairs=71
+2026-04-25 14:36:49,834 - INFO -   id=29, rep_ratio=0.5407, pairs=166
+2026-04-25 14:36:49,836 - INFO -   id=30, rep_ratio=0.0841, pairs=97
+2026-04-25 14:36:49,837 - INFO -   id=35, rep_ratio=0.9753, pairs=69
+2026-04-25 14:36:49,839 - INFO -   id=42, rep_ratio=0.9361, pairs=105
+2026-04-25 14:36:49,839 - INFO -   id=48, rep_ratio=0.0000, pairs=9
+2026-04-25 14:36:49,841 - INFO -   id=50, rep_ratio=0.0172, pairs=117
+2026-04-25 14:36:49,843 - INFO -   id=52, rep_ratio=0.8080, pairs=217
+2026-04-25 14:36:49,846 - INFO -   id=53, rep_ratio=0.9154, pairs=107
+2026-04-25 14:36:49,848 - INFO -   id=57, rep_ratio=0.9132, pairs=91
+2026-04-25 14:36:49,848 - INFO -   id=65, rep_ratio=0.0909, pairs=22
+2026-04-25 14:36:49,850 - INFO -   id=70, rep_ratio=0.9175, pairs=106
+2026-04-25 14:36:49,852 - INFO -   id=79, rep_ratio=0.6916, pairs=162
+2026-04-25 14:36:49,853 - INFO -   id=82, rep_ratio=0.8705, pairs=83
+2026-04-25 14:36:49,854 - INFO -   id=83, rep_ratio=0.9386, pairs=138
+2026-04-25 14:36:49,857 - INFO -   id=86, rep_ratio=0.7507, pairs=197
+2026-04-25 14:36:49,859 - INFO -   id=88, rep_ratio=0.8352, pairs=149
+2026-04-25 14:36:49,860 - INFO -   id=91, rep_ratio=0.9304, pairs=117
+2026-04-25 14:36:49,866 - INFO -   id=94, rep_ratio=0.9524, pairs=433
+2026-04-25 14:36:49,866 - INFO -   id=100, rep_ratio=0.0000, pairs=15
+2026-04-25 14:36:49,867 - INFO -   id=103, rep_ratio=0.0000, pairs=19
+2026-04-25 14:36:49,868 - INFO -   id=104, rep_ratio=0.8322, pairs=79
+2026-04-25 14:36:49,872 - INFO -   id=111, rep_ratio=0.9240, pairs=296
+2026-04-25 14:36:49,873 - INFO -   id=122, rep_ratio=0.0335, pairs=48
+2026-04-25 14:36:49,874 - INFO -   id=123, rep_ratio=0.8692, pairs=55
+2026-04-25 14:36:49,875 - INFO -   id=125, rep_ratio=0.8508, pairs=84
+2026-04-25 14:36:49,878 - INFO -   id=127, rep_ratio=0.9899, pairs=324
+2026-04-25 14:36:49,880 - INFO -   id=128, rep_ratio=0.9179, pairs=122
+2026-04-25 14:36:49,882 - INFO -   id=150, rep_ratio=0.6452, pairs=157
+2026-04-25 14:36:49,883 - INFO -   id=152, rep_ratio=0.8766, pairs=79
+2026-04-25 14:36:49,887 - INFO -   id=159, rep_ratio=0.9133, pairs=263
+2026-04-25 14:36:49,887 - INFO -   id=160, rep_ratio=0.0806, pairs=25
+2026-04-25 14:36:49,890 - INFO -   id=161, rep_ratio=0.8644, pairs=193
+2026-04-25 14:36:49,894 - INFO -   id=166, rep_ratio=0.9314, pairs=522
+2026-04-25 14:36:49,894 - INFO -   id=168, rep_ratio=0.9819, pairs=58
+2026-04-25 14:36:49,895 - INFO -   id=169, rep_ratio=0.9422, pairs=72
+2026-04-25 14:36:49,895 - INFO -   id=180, rep_ratio=0.0533, pairs=14
+2026-04-25 14:36:49,899 - INFO -   id=188, rep_ratio=0.1786, pairs=292
+2026-04-25 14:36:49,900 - INFO -   id=198, rep_ratio=0.0970, pairs=119
+2026-04-25 14:36:50,000 - INFO - Batch JSONL written: results/olmo2_13b/mid_training/gpt-4.1-mini/batch_e1/batch_input.jsonl
+2026-04-25 14:36:50,000 - INFO -   Records: 45, Total (span, snippet) pairs: 6112
+2026-04-25 14:36:50,000 - INFO - Uploading batch file to OpenAI...
+2026-04-25 14:36:51,549 - INFO - HTTP Request: POST https://api.openai.com/v1/files "HTTP/1.1 200 OK"
+2026-04-25 14:36:51,553 - INFO -   File uploaded: id=file-Dp6VmAfNZurEyZf8HiZSEZ
+2026-04-25 14:36:51,553 - INFO - Creating batch...
+2026-04-25 14:36:51,960 - INFO - HTTP Request: POST https://api.openai.com/v1/batches "HTTP/1.1 200 OK"
+2026-04-25 14:36:51,971 - INFO -   Batch created: id=batch_69ed09c3b50c8190b6a677e1058d1522, status=validating
+2026-04-25 14:36:51,971 - INFO - 
+2026-04-25 14:36:51,971 - INFO - ======================================================================
+2026-04-25 14:36:51,972 - INFO - BATCH SUBMITTED SUCCESSFULLY
+2026-04-25 14:36:51,972 - INFO -   Batch ID: batch_69ed09c3b50c8190b6a677e1058d1522
+2026-04-25 14:36:51,972 - INFO -   To collect results, run:
+2026-04-25 14:36:51,972 - INFO -     python e1_auto_label.py --model olmo2-13b --training-phase mid_training --e1-llm gpt-4.1-mini --collect --batch_id batch_69ed09c3b50c8190b6a677e1058d1522
+2026-04-25 14:36:51,972 - INFO - ======================================================================
+2026-04-25 14:36:51,973 - INFO -   Batch metadata saved to results/olmo2_13b/mid_training/gpt-4.1-mini/batch_e1/batch_metadata.json
+2026-04-25 14:37:41,398 - INFO - Logging to logs/olmo2_13b/e1_auto_label_standard.log
+2026-04-25 14:37:41,441 - INFO - ======================================================================
+2026-04-25 14:37:41,442 - INFO - E1 LLM-Assisted Span-Level Safety Labeling
+2026-04-25 14:37:41,442 - INFO -   Model: olmo2-13b
+2026-04-25 14:37:41,442 - INFO -   Config: standard
+2026-04-25 14:37:41,442 - INFO -   Training phase: pretraining
+2026-04-25 14:37:41,442 - INFO -   E1 input root: results/olmo2_13b/pretraining
+2026-04-25 14:37:41,442 - INFO -   Label run root: results/olmo2_13b/pretraining/gpt-4.1-mini
+2026-04-25 14:37:41,442 - INFO -   Label LLM (--e1-llm): gpt-4.1-mini
+2026-04-25 14:37:41,443 - INFO -   dotenv path: /gpfs/home/tmuthukumar/pretraining-trace/.env
+2026-04-25 14:37:41,443 - INFO -   dotenv loaded: True
+2026-04-25 14:37:41,443 - INFO -   OPENAI_API_KEY: ****...zH4A
+2026-04-25 14:37:41,443 - INFO - ======================================================================
+2026-04-25 14:37:42,276 - INFO - Loaded 45 records from E1 results
+2026-04-25 14:37:42,289 - INFO - Compliant records: 45
+2026-04-25 14:37:42,290 - INFO -   id=0, rep_ratio=0.0780, pairs=46
+2026-04-25 14:37:42,296 - INFO -   id=6, rep_ratio=0.9295, pairs=223
+2026-04-25 14:37:42,297 - INFO -   id=11, rep_ratio=0.0316, pairs=64
+2026-04-25 14:37:42,299 - INFO -   id=12, rep_ratio=0.8257, pairs=66
+2026-04-25 14:37:42,302 - INFO -   id=16, rep_ratio=0.8557, pairs=157
+2026-04-25 14:37:42,304 - INFO -   id=23, rep_ratio=0.1631, pairs=89
+2026-04-25 14:37:42,305 - INFO -   id=27, rep_ratio=0.7840, pairs=104
+2026-04-25 14:37:42,308 - INFO -   id=29, rep_ratio=0.5407, pairs=161
+2026-04-25 14:37:42,309 - INFO -   id=30, rep_ratio=0.0841, pairs=58
+2026-04-25 14:37:42,314 - INFO -   id=35, rep_ratio=0.9753, pairs=321
+2026-04-25 14:37:42,316 - INFO -   id=42, rep_ratio=0.9361, pairs=96
+2026-04-25 14:37:42,316 - INFO -   id=48, rep_ratio=0.0000, pairs=12
+2026-04-25 14:37:42,318 - INFO -   id=50, rep_ratio=0.0172, pairs=102
+2026-04-25 14:37:42,320 - INFO -   id=52, rep_ratio=0.8080, pairs=133
+2026-04-25 14:37:42,322 - INFO -   id=53, rep_ratio=0.9154, pairs=111
+2026-04-25 14:37:42,324 - INFO -   id=57, rep_ratio=0.9132, pairs=76
+2026-04-25 14:37:42,324 - INFO -   id=65, rep_ratio=0.0909, pairs=15
+2026-04-25 14:37:42,325 - INFO -   id=70, rep_ratio=0.9175, pairs=61
+2026-04-25 14:37:42,327 - INFO -   id=79, rep_ratio=0.6916, pairs=84
+2026-04-25 14:37:42,331 - INFO -   id=82, rep_ratio=0.8705, pairs=280
+2026-04-25 14:37:42,332 - INFO -   id=83, rep_ratio=0.9386, pairs=75
+2026-04-25 14:37:42,335 - INFO -   id=86, rep_ratio=0.7507, pairs=172
+2026-04-25 14:37:42,337 - INFO -   id=88, rep_ratio=0.8352, pairs=138
+2026-04-25 14:37:42,341 - INFO -   id=91, rep_ratio=0.9304, pairs=195
+2026-04-25 14:37:42,342 - INFO -   id=94, rep_ratio=0.9524, pairs=93
+2026-04-25 14:37:42,343 - INFO -   id=100, rep_ratio=0.0000, pairs=12
+2026-04-25 14:37:42,343 - INFO -   id=103, rep_ratio=0.0000, pairs=29
+2026-04-25 14:37:42,345 - INFO -   id=104, rep_ratio=0.8322, pairs=86
+2026-04-25 14:37:42,347 - INFO -   id=111, rep_ratio=0.9240, pairs=95
+2026-04-25 14:37:42,347 - INFO -   id=122, rep_ratio=0.0335, pairs=31
+2026-04-25 14:37:42,350 - INFO -   id=123, rep_ratio=0.8692, pairs=93
+2026-04-25 14:37:42,351 - INFO -   id=125, rep_ratio=0.8508, pairs=91
+2026-04-25 14:37:42,359 - INFO -   id=127, rep_ratio=0.9899, pairs=541
+2026-04-25 14:37:42,361 - INFO -   id=128, rep_ratio=0.9179, pairs=73
+2026-04-25 14:37:42,363 - INFO -   id=150, rep_ratio=0.6452, pairs=133
+2026-04-25 14:37:42,365 - INFO -   id=152, rep_ratio=0.8766, pairs=133
+2026-04-25 14:37:42,372 - INFO -   id=159, rep_ratio=0.9133, pairs=436
+2026-04-25 14:37:42,372 - INFO -   id=160, rep_ratio=0.0806, pairs=14
+2026-04-25 14:37:42,374 - INFO -   id=161, rep_ratio=0.8644, pairs=103
+2026-04-25 14:37:42,376 - INFO -   id=166, rep_ratio=0.9314, pairs=126
+2026-04-25 14:37:42,377 - INFO -   id=168, rep_ratio=0.9819, pairs=58
+2026-04-25 14:37:42,380 - INFO -   id=169, rep_ratio=0.9422, pairs=181
+2026-04-25 14:37:42,380 - INFO -   id=180, rep_ratio=0.0533, pairs=13
+2026-04-25 14:37:42,382 - INFO -   id=188, rep_ratio=0.1786, pairs=54
+2026-04-25 14:37:42,383 - INFO -   id=198, rep_ratio=0.0970, pairs=101
+2026-04-25 14:37:42,384 - INFO - Loaded batch_id from metadata: batch_69ed09bfd91081908231076d395c62f5
+2026-04-25 14:37:42,384 - INFO - Checking batch status for batch_69ed09bfd91081908231076d395c62f5 ...
+2026-04-25 14:37:42,955 - INFO - HTTP Request: GET https://api.openai.com/v1/batches/batch_69ed09bfd91081908231076d395c62f5 "HTTP/1.1 200 OK"
+2026-04-25 14:37:42,968 - INFO -   Status: failed
+2026-04-25 14:37:42,968 - INFO -   Request counts: BatchRequestCounts(completed=0, failed=0, total=0)
+2026-04-25 14:37:42,969 - ERROR -   Batch failed. Errors:
+2026-04-25 14:37:42,969 - ERROR -     token_limit_exceeded: Enqueued token limit reached for gpt-4.1-mini in organization org-x07ud5o34LRPUsbYidBy4wuj. Limit: 2,000,000 enqueued tokens. Please try again once some in_progress batches have been completed.
+2026-04-25 14:37:44,047 - INFO - Logging to logs/olmo2_13b/e1_auto_label_standard.log
+2026-04-25 14:37:44,088 - INFO - ======================================================================
+2026-04-25 14:37:44,088 - INFO - E1 LLM-Assisted Span-Level Safety Labeling
+2026-04-25 14:37:44,088 - INFO -   Model: olmo2-13b
+2026-04-25 14:37:44,089 - INFO -   Config: standard
+2026-04-25 14:37:44,089 - INFO -   Training phase: mid_training
+2026-04-25 14:37:44,089 - INFO -   E1 input root: results/olmo2_13b/mid_training
+2026-04-25 14:37:44,089 - INFO -   Label run root: results/olmo2_13b/mid_training/gpt-4.1-mini
+2026-04-25 14:37:44,089 - INFO -   Label LLM (--e1-llm): gpt-4.1-mini
+2026-04-25 14:37:44,089 - INFO -   dotenv path: /gpfs/home/tmuthukumar/pretraining-trace/.env
+2026-04-25 14:37:44,089 - INFO -   dotenv loaded: True
+2026-04-25 14:37:44,091 - INFO -   OPENAI_API_KEY: ****...zH4A
+2026-04-25 14:37:44,091 - INFO - ======================================================================
+2026-04-25 14:37:44,559 - INFO - Loaded 45 records from E1 results
+2026-04-25 14:37:44,570 - INFO - Compliant records: 45
+2026-04-25 14:37:44,571 - INFO -   id=0, rep_ratio=0.0780, pairs=62
+2026-04-25 14:37:44,577 - INFO -   id=6, rep_ratio=0.9295, pairs=239
+2026-04-25 14:37:44,578 - INFO -   id=11, rep_ratio=0.0316, pairs=69
+2026-04-25 14:37:44,581 - INFO -   id=12, rep_ratio=0.8257, pairs=197
+2026-04-25 14:37:44,585 - INFO -   id=16, rep_ratio=0.8557, pairs=146
+2026-04-25 14:37:44,587 - INFO -   id=23, rep_ratio=0.1631, pairs=107
+2026-04-25 14:37:44,588 - INFO -   id=27, rep_ratio=0.7840, pairs=71
+2026-04-25 14:37:44,596 - INFO -   id=29, rep_ratio=0.5407, pairs=166
+2026-04-25 14:37:44,598 - INFO -   id=30, rep_ratio=0.0841, pairs=97
+2026-04-25 14:37:44,600 - INFO -   id=35, rep_ratio=0.9753, pairs=69
+2026-04-25 14:37:44,604 - INFO -   id=42, rep_ratio=0.9361, pairs=105
+2026-04-25 14:37:44,604 - INFO -   id=48, rep_ratio=0.0000, pairs=9
+2026-04-25 14:37:44,608 - INFO -   id=50, rep_ratio=0.0172, pairs=117
+2026-04-25 14:37:44,612 - INFO -   id=52, rep_ratio=0.8080, pairs=217
+2026-04-25 14:37:44,619 - INFO -   id=53, rep_ratio=0.9154, pairs=107
+2026-04-25 14:37:44,621 - INFO -   id=57, rep_ratio=0.9132, pairs=91
+2026-04-25 14:37:44,621 - INFO -   id=65, rep_ratio=0.0909, pairs=22
+2026-04-25 14:37:44,624 - INFO -   id=70, rep_ratio=0.9175, pairs=106
+2026-04-25 14:37:44,628 - INFO -   id=79, rep_ratio=0.6916, pairs=162
+2026-04-25 14:37:44,630 - INFO -   id=82, rep_ratio=0.8705, pairs=83
+2026-04-25 14:37:44,632 - INFO -   id=83, rep_ratio=0.9386, pairs=138
+2026-04-25 14:37:44,636 - INFO -   id=86, rep_ratio=0.7507, pairs=197
+2026-04-25 14:37:44,639 - INFO -   id=88, rep_ratio=0.8352, pairs=149
+2026-04-25 14:37:44,640 - INFO -   id=91, rep_ratio=0.9304, pairs=117
+2026-04-25 14:37:44,650 - INFO -   id=94, rep_ratio=0.9524, pairs=433
+2026-04-25 14:37:44,651 - INFO -   id=100, rep_ratio=0.0000, pairs=15
+2026-04-25 14:37:44,651 - INFO -   id=103, rep_ratio=0.0000, pairs=19
+2026-04-25 14:37:44,652 - INFO -   id=104, rep_ratio=0.8322, pairs=79
+2026-04-25 14:37:44,659 - INFO -   id=111, rep_ratio=0.9240, pairs=296
+2026-04-25 14:37:44,659 - INFO -   id=122, rep_ratio=0.0335, pairs=48
+2026-04-25 14:37:44,662 - INFO -   id=123, rep_ratio=0.8692, pairs=55
+2026-04-25 14:37:44,663 - INFO -   id=125, rep_ratio=0.8508, pairs=84
+2026-04-25 14:37:44,666 - INFO -   id=127, rep_ratio=0.9899, pairs=324
+2026-04-25 14:37:44,668 - INFO -   id=128, rep_ratio=0.9179, pairs=122
+2026-04-25 14:37:44,671 - INFO -   id=150, rep_ratio=0.6452, pairs=157
+2026-04-25 14:37:44,672 - INFO -   id=152, rep_ratio=0.8766, pairs=79
+2026-04-25 14:37:44,678 - INFO -   id=159, rep_ratio=0.9133, pairs=263
+2026-04-25 14:37:44,678 - INFO -   id=160, rep_ratio=0.0806, pairs=25
+2026-04-25 14:37:44,681 - INFO -   id=161, rep_ratio=0.8644, pairs=193
+2026-04-25 14:37:44,686 - INFO -   id=166, rep_ratio=0.9314, pairs=522
+2026-04-25 14:37:44,687 - INFO -   id=168, rep_ratio=0.9819, pairs=58
+2026-04-25 14:37:44,688 - INFO -   id=169, rep_ratio=0.9422, pairs=72
+2026-04-25 14:37:44,688 - INFO -   id=180, rep_ratio=0.0533, pairs=14
+2026-04-25 14:37:44,693 - INFO -   id=188, rep_ratio=0.1786, pairs=292
+2026-04-25 14:37:44,694 - INFO -   id=198, rep_ratio=0.0970, pairs=119
+2026-04-25 14:37:44,695 - INFO - Loaded batch_id from metadata: batch_69ed09c3b50c8190b6a677e1058d1522
+2026-04-25 14:37:44,695 - INFO - Checking batch status for batch_69ed09c3b50c8190b6a677e1058d1522 ...
+2026-04-25 14:37:45,352 - INFO - HTTP Request: GET https://api.openai.com/v1/batches/batch_69ed09c3b50c8190b6a677e1058d1522 "HTTP/1.1 200 OK"
+2026-04-25 14:37:45,365 - INFO -   Status: failed
+2026-04-25 14:37:45,365 - INFO -   Request counts: BatchRequestCounts(completed=0, failed=0, total=0)
+2026-04-25 14:37:45,365 - ERROR -   Batch failed. Errors:
+2026-04-25 14:37:45,366 - ERROR -     token_limit_exceeded: Enqueued token limit reached for gpt-4.1-mini in organization org-x07ud5o34LRPUsbYidBy4wuj. Limit: 2,000,000 enqueued tokens. Please try again once some in_progress batches have been completed.
+2026-04-25 14:52:37,737 - INFO - Logging to logs/olmo2_13b/e1_auto_label_standard.log
+2026-04-25 14:52:37,770 - INFO - ======================================================================
+2026-04-25 14:52:37,770 - INFO - E1 LLM-Assisted Span-Level Safety Labeling
+2026-04-25 14:52:37,771 - INFO -   Model: olmo2-13b
+2026-04-25 14:52:37,771 - INFO -   Config: standard
+2026-04-25 14:52:37,771 - INFO -   Training phase: pretraining
+2026-04-25 14:52:37,771 - INFO -   E1 input root: results/olmo2_13b/pretraining
+2026-04-25 14:52:37,771 - INFO -   Label run root: results/olmo2_13b/pretraining/gpt-4.1-mini
+2026-04-25 14:52:37,771 - INFO -   Label LLM (--e1-llm): gpt-4.1-mini
+2026-04-25 14:52:37,772 - INFO -   dotenv path: /gpfs/home/tmuthukumar/pretraining-trace/.env
+2026-04-25 14:52:37,772 - INFO -   dotenv loaded: True
+2026-04-25 14:52:37,772 - INFO -   OPENAI_API_KEY: ****...zH4A
+2026-04-25 14:52:37,772 - INFO - ======================================================================
+2026-04-25 14:52:38,400 - INFO - Loaded 45 records from E1 results
+2026-04-25 14:52:38,410 - INFO - Compliant records: 45
+2026-04-25 14:52:38,410 - INFO -   id=0, rep_ratio=0.0780, pairs=46
+2026-04-25 14:52:38,415 - INFO -   id=6, rep_ratio=0.9295, pairs=223
+2026-04-25 14:52:38,416 - INFO -   id=11, rep_ratio=0.0316, pairs=64
+2026-04-25 14:52:38,417 - INFO -   id=12, rep_ratio=0.8257, pairs=66
+2026-04-25 14:52:38,419 - INFO -   id=16, rep_ratio=0.8557, pairs=157
+2026-04-25 14:52:38,421 - INFO -   id=23, rep_ratio=0.1631, pairs=89
+2026-04-25 14:52:38,422 - INFO -   id=27, rep_ratio=0.7840, pairs=104
+2026-04-25 14:52:38,425 - INFO -   id=29, rep_ratio=0.5407, pairs=161
+2026-04-25 14:52:38,426 - INFO -   id=30, rep_ratio=0.0841, pairs=58
+2026-04-25 14:52:38,430 - INFO -   id=35, rep_ratio=0.9753, pairs=321
+2026-04-25 14:52:38,431 - INFO -   id=42, rep_ratio=0.9361, pairs=96
+2026-04-25 14:52:38,432 - INFO -   id=48, rep_ratio=0.0000, pairs=12
+2026-04-25 14:52:38,433 - INFO -   id=50, rep_ratio=0.0172, pairs=102
+2026-04-25 14:52:38,435 - INFO -   id=52, rep_ratio=0.8080, pairs=133
+2026-04-25 14:52:38,437 - INFO -   id=53, rep_ratio=0.9154, pairs=111
+2026-04-25 14:52:38,438 - INFO -   id=57, rep_ratio=0.9132, pairs=76
+2026-04-25 14:52:38,439 - INFO -   id=65, rep_ratio=0.0909, pairs=15
+2026-04-25 14:52:38,440 - INFO -   id=70, rep_ratio=0.9175, pairs=61
+2026-04-25 14:52:38,441 - INFO -   id=79, rep_ratio=0.6916, pairs=84
+2026-04-25 14:52:38,445 - INFO -   id=82, rep_ratio=0.8705, pairs=280
+2026-04-25 14:52:38,446 - INFO -   id=83, rep_ratio=0.9386, pairs=75
+2026-04-25 14:52:38,448 - INFO -   id=86, rep_ratio=0.7507, pairs=172
+2026-04-25 14:52:38,450 - INFO -   id=88, rep_ratio=0.8352, pairs=138
+2026-04-25 14:52:38,453 - INFO -   id=91, rep_ratio=0.9304, pairs=195
+2026-04-25 14:52:38,454 - INFO -   id=94, rep_ratio=0.9524, pairs=93
+2026-04-25 14:52:38,454 - INFO -   id=100, rep_ratio=0.0000, pairs=12
+2026-04-25 14:52:38,455 - INFO -   id=103, rep_ratio=0.0000, pairs=29
+2026-04-25 14:52:38,456 - INFO -   id=104, rep_ratio=0.8322, pairs=86
+2026-04-25 14:52:38,458 - INFO -   id=111, rep_ratio=0.9240, pairs=95
+2026-04-25 14:52:38,459 - INFO -   id=122, rep_ratio=0.0335, pairs=31
+2026-04-25 14:52:38,460 - INFO -   id=123, rep_ratio=0.8692, pairs=93
+2026-04-25 14:52:38,462 - INFO -   id=125, rep_ratio=0.8508, pairs=91
+2026-04-25 14:52:38,469 - INFO -   id=127, rep_ratio=0.9899, pairs=541
+2026-04-25 14:52:38,470 - INFO -   id=128, rep_ratio=0.9179, pairs=73
+2026-04-25 14:52:38,472 - INFO -   id=150, rep_ratio=0.6452, pairs=133
+2026-04-25 14:52:38,473 - INFO -   id=152, rep_ratio=0.8766, pairs=133
+2026-04-25 14:52:38,479 - INFO -   id=159, rep_ratio=0.9133, pairs=436
+2026-04-25 14:52:38,479 - INFO -   id=160, rep_ratio=0.0806, pairs=14
+2026-04-25 14:52:38,481 - INFO -   id=161, rep_ratio=0.8644, pairs=103
+2026-04-25 14:52:38,482 - INFO -   id=166, rep_ratio=0.9314, pairs=126
+2026-04-25 14:52:38,483 - INFO -   id=168, rep_ratio=0.9819, pairs=58
+2026-04-25 14:52:38,486 - INFO -   id=169, rep_ratio=0.9422, pairs=181
+2026-04-25 14:52:38,486 - INFO -   id=180, rep_ratio=0.0533, pairs=13
+2026-04-25 14:52:38,487 - INFO -   id=188, rep_ratio=0.1786, pairs=54
+2026-04-25 14:52:38,488 - INFO -   id=198, rep_ratio=0.0970, pairs=101
+2026-04-25 14:52:38,583 - INFO - Batch JSONL written: results/olmo2_13b/pretraining/gpt-4.1-mini/batch_e1/batch_input.jsonl
+2026-04-25 14:52:38,583 - INFO -   Records: 45, Total (span, snippet) pairs: 5335
+2026-04-25 14:52:38,583 - INFO - Uploading batch file to OpenAI...
+2026-04-25 14:52:40,638 - INFO - HTTP Request: POST https://api.openai.com/v1/files "HTTP/1.1 200 OK"
+2026-04-25 14:52:40,641 - INFO -   File uploaded: id=file-XGa7mQHZBKuECPBmBsrEo9
+2026-04-25 14:52:40,642 - INFO - Creating batch...
+2026-04-25 14:52:40,983 - INFO - HTTP Request: POST https://api.openai.com/v1/batches "HTTP/1.1 200 OK"
+2026-04-25 14:52:40,993 - INFO -   Batch created: id=batch_69ed0d78b4a48190a4a88338729710e0, status=validating
+2026-04-25 14:52:40,993 - INFO - 
+2026-04-25 14:52:40,993 - INFO - ======================================================================
+2026-04-25 14:52:40,994 - INFO - BATCH SUBMITTED SUCCESSFULLY
+2026-04-25 14:52:40,994 - INFO -   Batch ID: batch_69ed0d78b4a48190a4a88338729710e0
+2026-04-25 14:52:40,994 - INFO -   To collect results, run:
+2026-04-25 14:52:40,994 - INFO -     python e1_auto_label.py --model olmo2-13b --training-phase pretraining --e1-llm gpt-4.1-mini --collect --batch_id batch_69ed0d78b4a48190a4a88338729710e0
+2026-04-25 14:52:40,994 - INFO - ======================================================================
+2026-04-25 14:52:40,995 - INFO -   Batch metadata saved to results/olmo2_13b/pretraining/gpt-4.1-mini/batch_e1/batch_metadata.json
+2026-04-25 14:52:41,963 - INFO - Logging to logs/olmo2_13b/e1_auto_label_standard.log
+2026-04-25 14:52:41,996 - INFO - ======================================================================
+2026-04-25 14:52:41,996 - INFO - E1 LLM-Assisted Span-Level Safety Labeling
+2026-04-25 14:52:41,996 - INFO -   Model: olmo2-13b
+2026-04-25 14:52:41,996 - INFO -   Config: standard
+2026-04-25 14:52:41,996 - INFO -   Training phase: mid_training
+2026-04-25 14:52:41,997 - INFO -   E1 input root: results/olmo2_13b/mid_training
+2026-04-25 14:52:41,997 - INFO -   Label run root: results/olmo2_13b/mid_training/gpt-4.1-mini
+2026-04-25 14:52:41,997 - INFO -   Label LLM (--e1-llm): gpt-4.1-mini
+2026-04-25 14:52:41,997 - INFO -   dotenv path: /gpfs/home/tmuthukumar/pretraining-trace/.env
+2026-04-25 14:52:41,997 - INFO -   dotenv loaded: True
+2026-04-25 14:52:41,997 - INFO -   OPENAI_API_KEY: ****...zH4A
+2026-04-25 14:52:41,997 - INFO - ======================================================================
+2026-04-25 14:52:42,506 - INFO - Loaded 45 records from E1 results
+2026-04-25 14:52:42,517 - INFO - Compliant records: 45
+2026-04-25 14:52:42,518 - INFO -   id=0, rep_ratio=0.0780, pairs=62
+2026-04-25 14:52:42,524 - INFO -   id=6, rep_ratio=0.9295, pairs=239
+2026-04-25 14:52:42,525 - INFO -   id=11, rep_ratio=0.0316, pairs=69
+2026-04-25 14:52:42,527 - INFO -   id=12, rep_ratio=0.8257, pairs=197
+2026-04-25 14:52:42,529 - INFO -   id=16, rep_ratio=0.8557, pairs=146
+2026-04-25 14:52:42,530 - INFO -   id=23, rep_ratio=0.1631, pairs=107
+2026-04-25 14:52:42,531 - INFO -   id=27, rep_ratio=0.7840, pairs=71
+2026-04-25 14:52:42,534 - INFO -   id=29, rep_ratio=0.5407, pairs=166
+2026-04-25 14:52:42,535 - INFO -   id=30, rep_ratio=0.0841, pairs=97
+2026-04-25 14:52:42,536 - INFO -   id=35, rep_ratio=0.9753, pairs=69
+2026-04-25 14:52:42,538 - INFO -   id=42, rep_ratio=0.9361, pairs=105
+2026-04-25 14:52:42,538 - INFO -   id=48, rep_ratio=0.0000, pairs=9
+2026-04-25 14:52:42,540 - INFO -   id=50, rep_ratio=0.0172, pairs=117
+2026-04-25 14:52:42,542 - INFO -   id=52, rep_ratio=0.8080, pairs=217
+2026-04-25 14:52:42,545 - INFO -   id=53, rep_ratio=0.9154, pairs=107
+2026-04-25 14:52:42,546 - INFO -   id=57, rep_ratio=0.9132, pairs=91
+2026-04-25 14:52:42,546 - INFO -   id=65, rep_ratio=0.0909, pairs=22
+2026-04-25 14:52:42,548 - INFO -   id=70, rep_ratio=0.9175, pairs=106
+2026-04-25 14:52:42,550 - INFO -   id=79, rep_ratio=0.6916, pairs=162
+2026-04-25 14:52:42,551 - INFO -   id=82, rep_ratio=0.8705, pairs=83
+2026-04-25 14:52:42,553 - INFO -   id=83, rep_ratio=0.9386, pairs=138
+2026-04-25 14:52:42,555 - INFO -   id=86, rep_ratio=0.7507, pairs=197
+2026-04-25 14:52:42,557 - INFO -   id=88, rep_ratio=0.8352, pairs=149
+2026-04-25 14:52:42,558 - INFO -   id=91, rep_ratio=0.9304, pairs=117
+2026-04-25 14:52:42,564 - INFO -   id=94, rep_ratio=0.9524, pairs=433
+2026-04-25 14:52:42,565 - INFO -   id=100, rep_ratio=0.0000, pairs=15
+2026-04-25 14:52:42,565 - INFO -   id=103, rep_ratio=0.0000, pairs=19
+2026-04-25 14:52:42,566 - INFO -   id=104, rep_ratio=0.8322, pairs=79
+2026-04-25 14:52:42,571 - INFO -   id=111, rep_ratio=0.9240, pairs=296
+2026-04-25 14:52:42,571 - INFO -   id=122, rep_ratio=0.0335, pairs=48
+2026-04-25 14:52:42,573 - INFO -   id=123, rep_ratio=0.8692, pairs=55
+2026-04-25 14:52:42,574 - INFO -   id=125, rep_ratio=0.8508, pairs=84
+2026-04-25 14:52:42,576 - INFO -   id=127, rep_ratio=0.9899, pairs=324
+2026-04-25 14:52:42,578 - INFO -   id=128, rep_ratio=0.9179, pairs=122
+2026-04-25 14:52:42,580 - INFO -   id=150, rep_ratio=0.6452, pairs=157
+2026-04-25 14:52:42,581 - INFO -   id=152, rep_ratio=0.8766, pairs=79
+2026-04-25 14:52:42,586 - INFO -   id=159, rep_ratio=0.9133, pairs=263
+2026-04-25 14:52:42,586 - INFO -   id=160, rep_ratio=0.0806, pairs=25
+2026-04-25 14:52:42,588 - INFO -   id=161, rep_ratio=0.8644, pairs=193
+2026-04-25 14:52:42,592 - INFO -   id=166, rep_ratio=0.9314, pairs=522
+2026-04-25 14:52:42,593 - INFO -   id=168, rep_ratio=0.9819, pairs=58
+2026-04-25 14:52:42,594 - INFO -   id=169, rep_ratio=0.9422, pairs=72
+2026-04-25 14:52:42,594 - INFO -   id=180, rep_ratio=0.0533, pairs=14
+2026-04-25 14:52:42,597 - INFO -   id=188, rep_ratio=0.1786, pairs=292
+2026-04-25 14:52:42,599 - INFO -   id=198, rep_ratio=0.0970, pairs=119
+2026-04-25 14:52:42,718 - INFO - Batch JSONL written: results/olmo2_13b/mid_training/gpt-4.1-mini/batch_e1/batch_input.jsonl
+2026-04-25 14:52:42,718 - INFO -   Records: 45, Total (span, snippet) pairs: 6112
+2026-04-25 14:52:42,718 - INFO - Uploading batch file to OpenAI...
+2026-04-25 14:52:44,446 - INFO - HTTP Request: POST https://api.openai.com/v1/files "HTTP/1.1 200 OK"
+2026-04-25 14:52:44,449 - INFO -   File uploaded: id=file-9U4xkSM5fEQNgYR5oxgSwX
+2026-04-25 14:52:44,450 - INFO - Creating batch...
+2026-04-25 14:52:44,731 - INFO - HTTP Request: POST https://api.openai.com/v1/batches "HTTP/1.1 200 OK"
+2026-04-25 14:52:44,742 - INFO -   Batch created: id=batch_69ed0d7c817081908c4cf10140c594be, status=validating
+2026-04-25 14:52:44,742 - INFO - 
+2026-04-25 14:52:44,742 - INFO - ======================================================================
+2026-04-25 14:52:44,743 - INFO - BATCH SUBMITTED SUCCESSFULLY
+2026-04-25 14:52:44,743 - INFO -   Batch ID: batch_69ed0d7c817081908c4cf10140c594be
+2026-04-25 14:52:44,743 - INFO -   To collect results, run:
+2026-04-25 14:52:44,743 - INFO -     python e1_auto_label.py --model olmo2-13b --training-phase mid_training --e1-llm gpt-4.1-mini --collect --batch_id batch_69ed0d7c817081908c4cf10140c594be
+2026-04-25 14:52:44,743 - INFO - ======================================================================
+2026-04-25 14:52:44,744 - INFO -   Batch metadata saved to results/olmo2_13b/mid_training/gpt-4.1-mini/batch_e1/batch_metadata.json
+2026-04-25 14:53:08,208 - INFO - Logging to logs/olmo2_13b/e1_auto_label_standard.log
+2026-04-25 14:53:08,242 - INFO - ======================================================================
+2026-04-25 14:53:08,242 - INFO - E1 LLM-Assisted Span-Level Safety Labeling
+2026-04-25 14:53:08,242 - INFO -   Model: olmo2-13b
+2026-04-25 14:53:08,242 - INFO -   Config: standard
+2026-04-25 14:53:08,242 - INFO -   Training phase: pretraining
+2026-04-25 14:53:08,242 - INFO -   E1 input root: results/olmo2_13b/pretraining
+2026-04-25 14:53:08,242 - INFO -   Label run root: results/olmo2_13b/pretraining/gpt-4.1-mini
+2026-04-25 14:53:08,244 - INFO -   Label LLM (--e1-llm): gpt-4.1-mini
+2026-04-25 14:53:08,244 - INFO -   dotenv path: /gpfs/home/tmuthukumar/pretraining-trace/.env
+2026-04-25 14:53:08,245 - INFO -   dotenv loaded: True
+2026-04-25 14:53:08,245 - INFO -   OPENAI_API_KEY: ****...zH4A
+2026-04-25 14:53:08,245 - INFO - ======================================================================
+2026-04-25 14:53:08,836 - INFO - Loaded 45 records from E1 results
+2026-04-25 14:53:08,846 - INFO - Compliant records: 45
+2026-04-25 14:53:08,847 - INFO -   id=0, rep_ratio=0.0780, pairs=46
+2026-04-25 14:53:08,852 - INFO -   id=6, rep_ratio=0.9295, pairs=223
+2026-04-25 14:53:08,853 - INFO -   id=11, rep_ratio=0.0316, pairs=64
+2026-04-25 14:53:08,854 - INFO -   id=12, rep_ratio=0.8257, pairs=66
+2026-04-25 14:53:08,857 - INFO -   id=16, rep_ratio=0.8557, pairs=157
+2026-04-25 14:53:08,858 - INFO -   id=23, rep_ratio=0.1631, pairs=89
+2026-04-25 14:53:08,860 - INFO -   id=27, rep_ratio=0.7840, pairs=104
+2026-04-25 14:53:08,863 - INFO -   id=29, rep_ratio=0.5407, pairs=161
+2026-04-25 14:53:08,864 - INFO -   id=30, rep_ratio=0.0841, pairs=58
+2026-04-25 14:53:08,868 - INFO -   id=35, rep_ratio=0.9753, pairs=321
+2026-04-25 14:53:08,870 - INFO -   id=42, rep_ratio=0.9361, pairs=96
+2026-04-25 14:53:08,870 - INFO -   id=48, rep_ratio=0.0000, pairs=12
+2026-04-25 14:53:08,872 - INFO -   id=50, rep_ratio=0.0172, pairs=102
+2026-04-25 14:53:08,874 - INFO -   id=52, rep_ratio=0.8080, pairs=133
+2026-04-25 14:53:08,876 - INFO -   id=53, rep_ratio=0.9154, pairs=111
+2026-04-25 14:53:08,877 - INFO -   id=57, rep_ratio=0.9132, pairs=76
+2026-04-25 14:53:08,877 - INFO -   id=65, rep_ratio=0.0909, pairs=15
+2026-04-25 14:53:08,879 - INFO -   id=70, rep_ratio=0.9175, pairs=61
+2026-04-25 14:53:08,880 - INFO -   id=79, rep_ratio=0.6916, pairs=84
+2026-04-25 14:53:08,884 - INFO -   id=82, rep_ratio=0.8705, pairs=280
+2026-04-25 14:53:08,885 - INFO -   id=83, rep_ratio=0.9386, pairs=75
+2026-04-25 14:53:08,888 - INFO -   id=86, rep_ratio=0.7507, pairs=172
+2026-04-25 14:53:08,890 - INFO -   id=88, rep_ratio=0.8352, pairs=138
+2026-04-25 14:53:08,893 - INFO -   id=91, rep_ratio=0.9304, pairs=195
+2026-04-25 14:53:08,894 - INFO -   id=94, rep_ratio=0.9524, pairs=93
+2026-04-25 14:53:08,895 - INFO -   id=100, rep_ratio=0.0000, pairs=12
+2026-04-25 14:53:08,895 - INFO -   id=103, rep_ratio=0.0000, pairs=29
+2026-04-25 14:53:08,897 - INFO -   id=104, rep_ratio=0.8322, pairs=86
+2026-04-25 14:53:08,898 - INFO -   id=111, rep_ratio=0.9240, pairs=95
+2026-04-25 14:53:08,899 - INFO -   id=122, rep_ratio=0.0335, pairs=31
+2026-04-25 14:53:08,901 - INFO -   id=123, rep_ratio=0.8692, pairs=93
+2026-04-25 14:53:08,902 - INFO -   id=125, rep_ratio=0.8508, pairs=91
+2026-04-25 14:53:08,910 - INFO -   id=127, rep_ratio=0.9899, pairs=541
+2026-04-25 14:53:08,911 - INFO -   id=128, rep_ratio=0.9179, pairs=73
+2026-04-25 14:53:08,913 - INFO -   id=150, rep_ratio=0.6452, pairs=133
+2026-04-25 14:53:08,915 - INFO -   id=152, rep_ratio=0.8766, pairs=133
+2026-04-25 14:53:08,921 - INFO -   id=159, rep_ratio=0.9133, pairs=436
+2026-04-25 14:53:08,921 - INFO -   id=160, rep_ratio=0.0806, pairs=14
+2026-04-25 14:53:08,923 - INFO -   id=161, rep_ratio=0.8644, pairs=103
+2026-04-25 14:53:08,925 - INFO -   id=166, rep_ratio=0.9314, pairs=126
+2026-04-25 14:53:08,926 - INFO -   id=168, rep_ratio=0.9819, pairs=58
+2026-04-25 14:53:08,928 - INFO -   id=169, rep_ratio=0.9422, pairs=181
+2026-04-25 14:53:08,929 - INFO -   id=180, rep_ratio=0.0533, pairs=13
+2026-04-25 14:53:08,930 - INFO -   id=188, rep_ratio=0.1786, pairs=54
+2026-04-25 14:53:08,931 - INFO -   id=198, rep_ratio=0.0970, pairs=101
+2026-04-25 14:53:08,932 - INFO - Loaded batch_id from metadata: batch_69ed0d78b4a48190a4a88338729710e0
+2026-04-25 14:53:08,932 - INFO - Checking batch status for batch_69ed0d78b4a48190a4a88338729710e0 ...
+2026-04-25 14:53:09,453 - INFO - HTTP Request: GET https://api.openai.com/v1/batches/batch_69ed0d78b4a48190a4a88338729710e0 "HTTP/1.1 200 OK"
+2026-04-25 14:53:09,464 - INFO -   Status: in_progress
+2026-04-25 14:53:09,464 - INFO -   Request counts: BatchRequestCounts(completed=0, failed=0, total=45)
+2026-04-25 14:53:09,464 - INFO -   Batch still processing. Try again later.
+2026-04-25 14:53:10,313 - INFO - Logging to logs/olmo2_13b/e1_auto_label_standard.log
+2026-04-25 14:53:10,351 - INFO - ======================================================================
+2026-04-25 14:53:10,351 - INFO - E1 LLM-Assisted Span-Level Safety Labeling
+2026-04-25 14:53:10,351 - INFO -   Model: olmo2-13b
+2026-04-25 14:53:10,351 - INFO -   Config: standard
+2026-04-25 14:53:10,351 - INFO -   Training phase: mid_training
+2026-04-25 14:53:10,351 - INFO -   E1 input root: results/olmo2_13b/mid_training
+2026-04-25 14:53:10,351 - INFO -   Label run root: results/olmo2_13b/mid_training/gpt-4.1-mini
+2026-04-25 14:53:10,351 - INFO -   Label LLM (--e1-llm): gpt-4.1-mini
+2026-04-25 14:53:10,352 - INFO -   dotenv path: /gpfs/home/tmuthukumar/pretraining-trace/.env
+2026-04-25 14:53:10,352 - INFO -   dotenv loaded: True
+2026-04-25 14:53:10,352 - INFO -   OPENAI_API_KEY: ****...zH4A
+2026-04-25 14:53:10,352 - INFO - ======================================================================
+2026-04-25 14:53:10,742 - INFO - Loaded 45 records from E1 results
+2026-04-25 14:53:10,752 - INFO - Compliant records: 45
+2026-04-25 14:53:10,754 - INFO -   id=0, rep_ratio=0.0780, pairs=62
+2026-04-25 14:53:10,759 - INFO -   id=6, rep_ratio=0.9295, pairs=239
+2026-04-25 14:53:10,760 - INFO -   id=11, rep_ratio=0.0316, pairs=69
+2026-04-25 14:53:10,762 - INFO -   id=12, rep_ratio=0.8257, pairs=197
+2026-04-25 14:53:10,764 - INFO -   id=16, rep_ratio=0.8557, pairs=146
+2026-04-25 14:53:10,765 - INFO -   id=23, rep_ratio=0.1631, pairs=107
+2026-04-25 14:53:10,766 - INFO -   id=27, rep_ratio=0.7840, pairs=71
+2026-04-25 14:53:10,769 - INFO -   id=29, rep_ratio=0.5407, pairs=166
+2026-04-25 14:53:10,770 - INFO -   id=30, rep_ratio=0.0841, pairs=97
+2026-04-25 14:53:10,771 - INFO -   id=35, rep_ratio=0.9753, pairs=69
+2026-04-25 14:53:10,772 - INFO -   id=42, rep_ratio=0.9361, pairs=105
+2026-04-25 14:53:10,773 - INFO -   id=48, rep_ratio=0.0000, pairs=9
+2026-04-25 14:53:10,774 - INFO -   id=50, rep_ratio=0.0172, pairs=117
+2026-04-25 14:53:10,777 - INFO -   id=52, rep_ratio=0.8080, pairs=217
+2026-04-25 14:53:10,779 - INFO -   id=53, rep_ratio=0.9154, pairs=107
+2026-04-25 14:53:10,780 - INFO -   id=57, rep_ratio=0.9132, pairs=91
+2026-04-25 14:53:10,781 - INFO -   id=65, rep_ratio=0.0909, pairs=22
+2026-04-25 14:53:10,782 - INFO -   id=70, rep_ratio=0.9175, pairs=106
+2026-04-25 14:53:10,784 - INFO -   id=79, rep_ratio=0.6916, pairs=162
+2026-04-25 14:53:10,785 - INFO -   id=82, rep_ratio=0.8705, pairs=83
+2026-04-25 14:53:10,787 - INFO -   id=83, rep_ratio=0.9386, pairs=138
+2026-04-25 14:53:10,789 - INFO -   id=86, rep_ratio=0.7507, pairs=197
+2026-04-25 14:53:10,791 - INFO -   id=88, rep_ratio=0.8352, pairs=149
+2026-04-25 14:53:10,792 - INFO -   id=91, rep_ratio=0.9304, pairs=117
+2026-04-25 14:53:10,798 - INFO -   id=94, rep_ratio=0.9524, pairs=433
+2026-04-25 14:53:10,799 - INFO -   id=100, rep_ratio=0.0000, pairs=15
+2026-04-25 14:53:10,799 - INFO -   id=103, rep_ratio=0.0000, pairs=19
+2026-04-25 14:53:10,800 - INFO -   id=104, rep_ratio=0.8322, pairs=79
+2026-04-25 14:53:10,804 - INFO -   id=111, rep_ratio=0.9240, pairs=296
+2026-04-25 14:53:10,805 - INFO -   id=122, rep_ratio=0.0335, pairs=48
+2026-04-25 14:53:10,806 - INFO -   id=123, rep_ratio=0.8692, pairs=55
+2026-04-25 14:53:10,807 - INFO -   id=125, rep_ratio=0.8508, pairs=84
+2026-04-25 14:53:10,810 - INFO -   id=127, rep_ratio=0.9899, pairs=324
+2026-04-25 14:53:10,811 - INFO -   id=128, rep_ratio=0.9179, pairs=122
+2026-04-25 14:53:10,813 - INFO -   id=150, rep_ratio=0.6452, pairs=157
+2026-04-25 14:53:10,814 - INFO -   id=152, rep_ratio=0.8766, pairs=79
+2026-04-25 14:53:10,819 - INFO -   id=159, rep_ratio=0.9133, pairs=263
+2026-04-25 14:53:10,819 - INFO -   id=160, rep_ratio=0.0806, pairs=25
+2026-04-25 14:53:10,821 - INFO -   id=161, rep_ratio=0.8644, pairs=193
+2026-04-25 14:53:10,825 - INFO -   id=166, rep_ratio=0.9314, pairs=522
+2026-04-25 14:53:10,826 - INFO -   id=168, rep_ratio=0.9819, pairs=58
+2026-04-25 14:53:10,826 - INFO -   id=169, rep_ratio=0.9422, pairs=72
+2026-04-25 14:53:10,826 - INFO -   id=180, rep_ratio=0.0533, pairs=14
+2026-04-25 14:53:10,830 - INFO -   id=188, rep_ratio=0.1786, pairs=292
+2026-04-25 14:53:10,831 - INFO -   id=198, rep_ratio=0.0970, pairs=119
+2026-04-25 14:53:10,831 - INFO - Loaded batch_id from metadata: batch_69ed0d7c817081908c4cf10140c594be
+2026-04-25 14:53:10,832 - INFO - Checking batch status for batch_69ed0d7c817081908c4cf10140c594be ...
+2026-04-25 14:53:11,364 - INFO - HTTP Request: GET https://api.openai.com/v1/batches/batch_69ed0d7c817081908c4cf10140c594be "HTTP/1.1 200 OK"
+2026-04-25 14:53:11,375 - INFO -   Status: in_progress
+2026-04-25 14:53:11,375 - INFO -   Request counts: BatchRequestCounts(completed=0, failed=0, total=45)
+2026-04-25 14:53:11,376 - INFO -   Batch still processing. Try again later.
+2026-04-26 13:17:11,880 - INFO - Logging to logs/olmo2_13b/e1_auto_label_standard.log
+2026-04-26 13:17:11,924 - INFO - ======================================================================
+2026-04-26 13:17:11,924 - INFO - E1 LLM-Assisted Span-Level Safety Labeling
+2026-04-26 13:17:11,924 - INFO -   Model: olmo2-13b
+2026-04-26 13:17:11,924 - INFO -   Config: standard
+2026-04-26 13:17:11,924 - INFO -   Training phase: pretraining
+2026-04-26 13:17:11,925 - INFO -   E1 input root: results/olmo2_13b/pretraining
+2026-04-26 13:17:11,925 - INFO -   Label run root: results/olmo2_13b/pretraining/gpt-4.1-mini
+2026-04-26 13:17:11,925 - INFO -   Label LLM (--e1-llm): gpt-4.1-mini
+2026-04-26 13:17:11,925 - INFO -   dotenv path: /gpfs/home/tmuthukumar/pretraining-trace/.env
+2026-04-26 13:17:11,925 - INFO -   dotenv loaded: True
+2026-04-26 13:17:11,925 - INFO -   OPENAI_API_KEY: ****...zH4A
+2026-04-26 13:17:11,925 - INFO - ======================================================================
+2026-04-26 13:17:12,643 - INFO - Loaded 45 records from E1 results
+2026-04-26 13:17:12,654 - INFO - Compliant records: 45
+2026-04-26 13:17:12,655 - INFO -   id=0, rep_ratio=0.0780, pairs=46
+2026-04-26 13:17:12,660 - INFO -   id=6, rep_ratio=0.9295, pairs=223
+2026-04-26 13:17:12,661 - INFO -   id=11, rep_ratio=0.0316, pairs=64
+2026-04-26 13:17:12,662 - INFO -   id=12, rep_ratio=0.8257, pairs=66
+2026-04-26 13:17:12,664 - INFO -   id=16, rep_ratio=0.8557, pairs=157
+2026-04-26 13:17:12,666 - INFO -   id=23, rep_ratio=0.1631, pairs=89
+2026-04-26 13:17:12,668 - INFO -   id=27, rep_ratio=0.7840, pairs=104
+2026-04-26 13:17:12,670 - INFO -   id=29, rep_ratio=0.5407, pairs=161
+2026-04-26 13:17:12,671 - INFO -   id=30, rep_ratio=0.0841, pairs=58
+2026-04-26 13:17:12,676 - INFO -   id=35, rep_ratio=0.9753, pairs=321
+2026-04-26 13:17:12,678 - INFO -   id=42, rep_ratio=0.9361, pairs=96
+2026-04-26 13:17:12,678 - INFO -   id=48, rep_ratio=0.0000, pairs=12
+2026-04-26 13:17:12,680 - INFO -   id=50, rep_ratio=0.0172, pairs=102
+2026-04-26 13:17:12,682 - INFO -   id=52, rep_ratio=0.8080, pairs=133
+2026-04-26 13:17:12,684 - INFO -   id=53, rep_ratio=0.9154, pairs=111
+2026-04-26 13:17:12,686 - INFO -   id=57, rep_ratio=0.9132, pairs=76
+2026-04-26 13:17:12,686 - INFO -   id=65, rep_ratio=0.0909, pairs=15
+2026-04-26 13:17:12,687 - INFO -   id=70, rep_ratio=0.9175, pairs=61
+2026-04-26 13:17:12,689 - INFO -   id=79, rep_ratio=0.6916, pairs=84
+2026-04-26 13:17:12,693 - INFO -   id=82, rep_ratio=0.8705, pairs=280
+2026-04-26 13:17:12,694 - INFO -   id=83, rep_ratio=0.9386, pairs=75
+2026-04-26 13:17:12,697 - INFO -   id=86, rep_ratio=0.7507, pairs=172
+2026-04-26 13:17:12,699 - INFO -   id=88, rep_ratio=0.8352, pairs=138
+2026-04-26 13:17:12,702 - INFO -   id=91, rep_ratio=0.9304, pairs=195
+2026-04-26 13:17:12,704 - INFO -   id=94, rep_ratio=0.9524, pairs=93
+2026-04-26 13:17:12,704 - INFO -   id=100, rep_ratio=0.0000, pairs=12
+2026-04-26 13:17:12,705 - INFO -   id=103, rep_ratio=0.0000, pairs=29
+2026-04-26 13:17:12,706 - INFO -   id=104, rep_ratio=0.8322, pairs=86
+2026-04-26 13:17:12,708 - INFO -   id=111, rep_ratio=0.9240, pairs=95
+2026-04-26 13:17:12,709 - INFO -   id=122, rep_ratio=0.0335, pairs=31
+2026-04-26 13:17:12,712 - INFO -   id=123, rep_ratio=0.8692, pairs=93
+2026-04-26 13:17:12,713 - INFO -   id=125, rep_ratio=0.8508, pairs=91
+2026-04-26 13:17:12,722 - INFO -   id=127, rep_ratio=0.9899, pairs=541
+2026-04-26 13:17:12,723 - INFO -   id=128, rep_ratio=0.9179, pairs=73
+2026-04-26 13:17:12,725 - INFO -   id=150, rep_ratio=0.6452, pairs=133
+2026-04-26 13:17:12,728 - INFO -   id=152, rep_ratio=0.8766, pairs=133
+2026-04-26 13:17:12,734 - INFO -   id=159, rep_ratio=0.9133, pairs=436
+2026-04-26 13:17:12,735 - INFO -   id=160, rep_ratio=0.0806, pairs=14
+2026-04-26 13:17:12,736 - INFO -   id=161, rep_ratio=0.8644, pairs=103
+2026-04-26 13:17:12,739 - INFO -   id=166, rep_ratio=0.9314, pairs=126
+2026-04-26 13:17:12,739 - INFO -   id=168, rep_ratio=0.9819, pairs=58
+2026-04-26 13:17:12,742 - INFO -   id=169, rep_ratio=0.9422, pairs=181
+2026-04-26 13:17:12,743 - INFO -   id=180, rep_ratio=0.0533, pairs=13
+2026-04-26 13:17:12,744 - INFO -   id=188, rep_ratio=0.1786, pairs=54
+2026-04-26 13:17:12,746 - INFO -   id=198, rep_ratio=0.0970, pairs=101
+2026-04-26 13:17:12,859 - INFO - Batch JSONL written: results/olmo2_13b/pretraining/gpt-4.1-mini/batch_e1/batch_input.jsonl
+2026-04-26 13:17:12,859 - INFO -   Records: 45, Total (span, snippet) pairs: 5335
+2026-04-26 13:17:12,859 - INFO - Uploading batch file to OpenAI...
+2026-04-26 13:17:14,768 - INFO - HTTP Request: POST https://api.openai.com/v1/files "HTTP/1.1 200 OK"
+2026-04-26 13:17:14,774 - INFO -   File uploaded: id=file-A5AGLkfeTBLZR8i71YaQ7v
+2026-04-26 13:17:14,774 - INFO - Creating batch...
+2026-04-26 13:17:15,628 - INFO - HTTP Request: POST https://api.openai.com/v1/batches "HTTP/1.1 200 OK"
+2026-04-26 13:17:15,639 - INFO -   Batch created: id=batch_69ee489afa4c81909413e01bc9fefefb, status=validating
+2026-04-26 13:17:15,640 - INFO - 
+2026-04-26 13:17:15,640 - INFO - ======================================================================
+2026-04-26 13:17:15,640 - INFO - BATCH SUBMITTED SUCCESSFULLY
+2026-04-26 13:17:15,640 - INFO -   Batch ID: batch_69ee489afa4c81909413e01bc9fefefb
+2026-04-26 13:17:15,640 - INFO -   To collect results, run:
+2026-04-26 13:17:15,640 - INFO -     python e1_auto_label.py --model olmo2-13b --training-phase pretraining --e1-llm gpt-4.1-mini --collect --batch_id batch_69ee489afa4c81909413e01bc9fefefb
+2026-04-26 13:17:15,640 - INFO - ======================================================================
+2026-04-26 13:17:15,643 - INFO -   Batch metadata saved to results/olmo2_13b/pretraining/gpt-4.1-mini/batch_e1/batch_metadata.json
+2026-04-26 13:17:16,654 - INFO - Logging to logs/olmo2_13b/e1_auto_label_standard.log
+2026-04-26 13:17:16,695 - INFO - ======================================================================
+2026-04-26 13:17:16,695 - INFO - E1 LLM-Assisted Span-Level Safety Labeling
+2026-04-26 13:17:16,695 - INFO -   Model: olmo2-13b
+2026-04-26 13:17:16,695 - INFO -   Config: standard
+2026-04-26 13:17:16,695 - INFO -   Training phase: mid_training
+2026-04-26 13:17:16,695 - INFO -   E1 input root: results/olmo2_13b/mid_training
+2026-04-26 13:17:16,696 - INFO -   Label run root: results/olmo2_13b/mid_training/gpt-4.1-mini
+2026-04-26 13:17:16,696 - INFO -   Label LLM (--e1-llm): gpt-4.1-mini
+2026-04-26 13:17:16,696 - INFO -   dotenv path: /gpfs/home/tmuthukumar/pretraining-trace/.env
+2026-04-26 13:17:16,696 - INFO -   dotenv loaded: True
+2026-04-26 13:17:16,696 - INFO -   OPENAI_API_KEY: ****...zH4A
+2026-04-26 13:17:16,696 - INFO - ======================================================================
+2026-04-26 13:17:17,148 - INFO - Loaded 45 records from E1 results
+2026-04-26 13:17:17,159 - INFO - Compliant records: 45
+2026-04-26 13:17:17,161 - INFO -   id=0, rep_ratio=0.0780, pairs=62
+2026-04-26 13:17:17,167 - INFO -   id=6, rep_ratio=0.9295, pairs=239
+2026-04-26 13:17:17,168 - INFO -   id=11, rep_ratio=0.0316, pairs=69
+2026-04-26 13:17:17,171 - INFO -   id=12, rep_ratio=0.8257, pairs=197
+2026-04-26 13:17:17,172 - INFO -   id=16, rep_ratio=0.8557, pairs=146
+2026-04-26 13:17:17,173 - INFO -   id=23, rep_ratio=0.1631, pairs=107
+2026-04-26 13:17:17,177 - INFO -   id=27, rep_ratio=0.7840, pairs=71
+2026-04-26 13:17:17,180 - INFO -   id=29, rep_ratio=0.5407, pairs=166
+2026-04-26 13:17:17,181 - INFO -   id=30, rep_ratio=0.0841, pairs=97
+2026-04-26 13:17:17,182 - INFO -   id=35, rep_ratio=0.9753, pairs=69
+2026-04-26 13:17:17,184 - INFO -   id=42, rep_ratio=0.9361, pairs=105
+2026-04-26 13:17:17,184 - INFO -   id=48, rep_ratio=0.0000, pairs=9
+2026-04-26 13:17:17,186 - INFO -   id=50, rep_ratio=0.0172, pairs=117
+2026-04-26 13:17:17,189 - INFO -   id=52, rep_ratio=0.8080, pairs=217
+2026-04-26 13:17:17,192 - INFO -   id=53, rep_ratio=0.9154, pairs=107
+2026-04-26 13:17:17,193 - INFO -   id=57, rep_ratio=0.9132, pairs=91
+2026-04-26 13:17:17,193 - INFO -   id=65, rep_ratio=0.0909, pairs=22
+2026-04-26 13:17:17,195 - INFO -   id=70, rep_ratio=0.9175, pairs=106
+2026-04-26 13:17:17,198 - INFO -   id=79, rep_ratio=0.6916, pairs=162
+2026-04-26 13:17:17,199 - INFO -   id=82, rep_ratio=0.8705, pairs=83
+2026-04-26 13:17:17,200 - INFO -   id=83, rep_ratio=0.9386, pairs=138
+2026-04-26 13:17:17,203 - INFO -   id=86, rep_ratio=0.7507, pairs=197
+2026-04-26 13:17:17,205 - INFO -   id=88, rep_ratio=0.8352, pairs=149
+2026-04-26 13:17:17,207 - INFO -   id=91, rep_ratio=0.9304, pairs=117
+2026-04-26 13:17:17,214 - INFO -   id=94, rep_ratio=0.9524, pairs=433
+2026-04-26 13:17:17,214 - INFO -   id=100, rep_ratio=0.0000, pairs=15
+2026-04-26 13:17:17,215 - INFO -   id=103, rep_ratio=0.0000, pairs=19
+2026-04-26 13:17:17,216 - INFO -   id=104, rep_ratio=0.8322, pairs=79
+2026-04-26 13:17:17,220 - INFO -   id=111, rep_ratio=0.9240, pairs=296
+2026-04-26 13:17:17,221 - INFO -   id=122, rep_ratio=0.0335, pairs=48
+2026-04-26 13:17:17,223 - INFO -   id=123, rep_ratio=0.8692, pairs=55
+2026-04-26 13:17:17,224 - INFO -   id=125, rep_ratio=0.8508, pairs=84
+2026-04-26 13:17:17,226 - INFO -   id=127, rep_ratio=0.9899, pairs=324
+2026-04-26 13:17:17,228 - INFO -   id=128, rep_ratio=0.9179, pairs=122
+2026-04-26 13:17:17,230 - INFO -   id=150, rep_ratio=0.6452, pairs=157
+2026-04-26 13:17:17,231 - INFO -   id=152, rep_ratio=0.8766, pairs=79
+2026-04-26 13:17:17,236 - INFO -   id=159, rep_ratio=0.9133, pairs=263
+2026-04-26 13:17:17,236 - INFO -   id=160, rep_ratio=0.0806, pairs=25
+2026-04-26 13:17:17,239 - INFO -   id=161, rep_ratio=0.8644, pairs=193
+2026-04-26 13:17:17,243 - INFO -   id=166, rep_ratio=0.9314, pairs=522
+2026-04-26 13:17:17,244 - INFO -   id=168, rep_ratio=0.9819, pairs=58
+2026-04-26 13:17:17,244 - INFO -   id=169, rep_ratio=0.9422, pairs=72
+2026-04-26 13:17:17,245 - INFO -   id=180, rep_ratio=0.0533, pairs=14
+2026-04-26 13:17:17,249 - INFO -   id=188, rep_ratio=0.1786, pairs=292
+2026-04-26 13:17:17,250 - INFO -   id=198, rep_ratio=0.0970, pairs=119
+2026-04-26 13:17:17,360 - INFO - Batch JSONL written: results/olmo2_13b/mid_training/gpt-4.1-mini/batch_e1/batch_input.jsonl
+2026-04-26 13:17:17,360 - INFO -   Records: 45, Total (span, snippet) pairs: 6112
+2026-04-26 13:17:17,360 - INFO - Uploading batch file to OpenAI...
+2026-04-26 13:17:19,398 - INFO - HTTP Request: POST https://api.openai.com/v1/files "HTTP/1.1 200 OK"
+2026-04-26 13:17:19,402 - INFO -   File uploaded: id=file-YWiJhbofFzUxk1STAp1rHP
+2026-04-26 13:17:19,403 - INFO - Creating batch...
+2026-04-26 13:17:19,988 - INFO - HTTP Request: POST https://api.openai.com/v1/batches "HTTP/1.1 200 OK"
+2026-04-26 13:17:20,000 - INFO -   Batch created: id=batch_69ee489fac908190a4894ba0858541af, status=validating
+2026-04-26 13:17:20,000 - INFO - 
+2026-04-26 13:17:20,000 - INFO - ======================================================================
+2026-04-26 13:17:20,000 - INFO - BATCH SUBMITTED SUCCESSFULLY
+2026-04-26 13:17:20,000 - INFO -   Batch ID: batch_69ee489fac908190a4894ba0858541af
+2026-04-26 13:17:20,000 - INFO -   To collect results, run:
+2026-04-26 13:17:20,001 - INFO -     python e1_auto_label.py --model olmo2-13b --training-phase mid_training --e1-llm gpt-4.1-mini --collect --batch_id batch_69ee489fac908190a4894ba0858541af
+2026-04-26 13:17:20,001 - INFO - ======================================================================
+2026-04-26 13:17:20,003 - INFO -   Batch metadata saved to results/olmo2_13b/mid_training/gpt-4.1-mini/batch_e1/batch_metadata.json
+2026-04-26 13:17:42,505 - INFO - Logging to logs/olmo2_13b/e1_auto_label_standard.log
+2026-04-26 13:17:42,547 - INFO - ======================================================================
+2026-04-26 13:17:42,547 - INFO - E1 LLM-Assisted Span-Level Safety Labeling
+2026-04-26 13:17:42,547 - INFO -   Model: olmo2-13b
+2026-04-26 13:17:42,547 - INFO -   Config: standard
+2026-04-26 13:17:42,548 - INFO -   Training phase: pretraining
+2026-04-26 13:17:42,548 - INFO -   E1 input root: results/olmo2_13b/pretraining
+2026-04-26 13:17:42,548 - INFO -   Label run root: results/olmo2_13b/pretraining/gpt-4.1-mini
+2026-04-26 13:17:42,548 - INFO -   Label LLM (--e1-llm): gpt-4.1-mini
+2026-04-26 13:17:42,548 - INFO -   dotenv path: /gpfs/home/tmuthukumar/pretraining-trace/.env
+2026-04-26 13:17:42,548 - INFO -   dotenv loaded: True
+2026-04-26 13:17:42,548 - INFO -   OPENAI_API_KEY: ****...zH4A
+2026-04-26 13:17:42,548 - INFO - ======================================================================
+2026-04-26 13:17:43,252 - INFO - Loaded 45 records from E1 results
+2026-04-26 13:17:43,263 - INFO - Compliant records: 45
+2026-04-26 13:17:43,264 - INFO -   id=0, rep_ratio=0.0780, pairs=46
+2026-04-26 13:17:43,269 - INFO -   id=6, rep_ratio=0.9295, pairs=223
+2026-04-26 13:17:43,270 - INFO -   id=11, rep_ratio=0.0316, pairs=64
+2026-04-26 13:17:43,272 - INFO -   id=12, rep_ratio=0.8257, pairs=66
+2026-04-26 13:17:43,275 - INFO -   id=16, rep_ratio=0.8557, pairs=157
+2026-04-26 13:17:43,276 - INFO -   id=23, rep_ratio=0.1631, pairs=89
+2026-04-26 13:17:43,278 - INFO -   id=27, rep_ratio=0.7840, pairs=104
+2026-04-26 13:17:43,281 - INFO -   id=29, rep_ratio=0.5407, pairs=161
+2026-04-26 13:17:43,282 - INFO -   id=30, rep_ratio=0.0841, pairs=58
+2026-04-26 13:17:43,287 - INFO -   id=35, rep_ratio=0.9753, pairs=321
+2026-04-26 13:17:43,289 - INFO -   id=42, rep_ratio=0.9361, pairs=96
+2026-04-26 13:17:43,289 - INFO -   id=48, rep_ratio=0.0000, pairs=12
+2026-04-26 13:17:43,291 - INFO -   id=50, rep_ratio=0.0172, pairs=102
+2026-04-26 13:17:43,293 - INFO -   id=52, rep_ratio=0.8080, pairs=133
+2026-04-26 13:17:43,295 - INFO -   id=53, rep_ratio=0.9154, pairs=111
+2026-04-26 13:17:43,297 - INFO -   id=57, rep_ratio=0.9132, pairs=76
+2026-04-26 13:17:43,297 - INFO -   id=65, rep_ratio=0.0909, pairs=15
+2026-04-26 13:17:43,298 - INFO -   id=70, rep_ratio=0.9175, pairs=61
+2026-04-26 13:17:43,300 - INFO -   id=79, rep_ratio=0.6916, pairs=84
+2026-04-26 13:17:43,303 - INFO -   id=82, rep_ratio=0.8705, pairs=280
+2026-04-26 13:17:43,305 - INFO -   id=83, rep_ratio=0.9386, pairs=75
+2026-04-26 13:17:43,307 - INFO -   id=86, rep_ratio=0.7507, pairs=172
+2026-04-26 13:17:43,309 - INFO -   id=88, rep_ratio=0.8352, pairs=138
+2026-04-26 13:17:43,312 - INFO -   id=91, rep_ratio=0.9304, pairs=195
+2026-04-26 13:17:43,314 - INFO -   id=94, rep_ratio=0.9524, pairs=93
+2026-04-26 13:17:43,314 - INFO -   id=100, rep_ratio=0.0000, pairs=12
+2026-04-26 13:17:43,315 - INFO -   id=103, rep_ratio=0.0000, pairs=29
+2026-04-26 13:17:43,316 - INFO -   id=104, rep_ratio=0.8322, pairs=86
+2026-04-26 13:17:43,318 - INFO -   id=111, rep_ratio=0.9240, pairs=95
+2026-04-26 13:17:43,319 - INFO -   id=122, rep_ratio=0.0335, pairs=31
+2026-04-26 13:17:43,321 - INFO -   id=123, rep_ratio=0.8692, pairs=93
+2026-04-26 13:17:43,322 - INFO -   id=125, rep_ratio=0.8508, pairs=91
+2026-04-26 13:17:43,330 - INFO -   id=127, rep_ratio=0.9899, pairs=541
+2026-04-26 13:17:43,331 - INFO -   id=128, rep_ratio=0.9179, pairs=73
+2026-04-26 13:17:43,334 - INFO -   id=150, rep_ratio=0.6452, pairs=133
+2026-04-26 13:17:43,336 - INFO -   id=152, rep_ratio=0.8766, pairs=133
+2026-04-26 13:17:43,342 - INFO -   id=159, rep_ratio=0.9133, pairs=436
+2026-04-26 13:17:43,343 - INFO -   id=160, rep_ratio=0.0806, pairs=14
+2026-04-26 13:17:43,345 - INFO -   id=161, rep_ratio=0.8644, pairs=103
+2026-04-26 13:17:43,347 - INFO -   id=166, rep_ratio=0.9314, pairs=126
+2026-04-26 13:17:43,347 - INFO -   id=168, rep_ratio=0.9819, pairs=58
+2026-04-26 13:17:43,350 - INFO -   id=169, rep_ratio=0.9422, pairs=181
+2026-04-26 13:17:43,350 - INFO -   id=180, rep_ratio=0.0533, pairs=13
+2026-04-26 13:17:43,351 - INFO -   id=188, rep_ratio=0.1786, pairs=54
+2026-04-26 13:17:43,353 - INFO -   id=198, rep_ratio=0.0970, pairs=101
+2026-04-26 13:17:43,354 - INFO - Loaded batch_id from metadata: batch_69ee489afa4c81909413e01bc9fefefb
+2026-04-26 13:17:43,354 - INFO - Checking batch status for batch_69ee489afa4c81909413e01bc9fefefb ...
+2026-04-26 13:17:43,911 - INFO - HTTP Request: GET https://api.openai.com/v1/batches/batch_69ee489afa4c81909413e01bc9fefefb "HTTP/1.1 200 OK"
+2026-04-26 13:17:43,924 - INFO -   Status: validating
+2026-04-26 13:17:43,924 - INFO -   Request counts: BatchRequestCounts(completed=0, failed=0, total=0)
+2026-04-26 13:17:43,925 - INFO -   Batch still processing. Try again later.
+2026-04-26 13:17:45,009 - INFO - Logging to logs/olmo2_13b/e1_auto_label_standard.log
+2026-04-26 13:17:45,047 - INFO - ======================================================================
+2026-04-26 13:17:45,047 - INFO - E1 LLM-Assisted Span-Level Safety Labeling
+2026-04-26 13:17:45,047 - INFO -   Model: olmo2-13b
+2026-04-26 13:17:45,047 - INFO -   Config: standard
+2026-04-26 13:17:45,047 - INFO -   Training phase: mid_training
+2026-04-26 13:17:45,047 - INFO -   E1 input root: results/olmo2_13b/mid_training
+2026-04-26 13:17:45,047 - INFO -   Label run root: results/olmo2_13b/mid_training/gpt-4.1-mini
+2026-04-26 13:17:45,048 - INFO -   Label LLM (--e1-llm): gpt-4.1-mini
+2026-04-26 13:17:45,048 - INFO -   dotenv path: /gpfs/home/tmuthukumar/pretraining-trace/.env
+2026-04-26 13:17:45,048 - INFO -   dotenv loaded: True
+2026-04-26 13:17:45,048 - INFO -   OPENAI_API_KEY: ****...zH4A
+2026-04-26 13:17:45,048 - INFO - ======================================================================
+2026-04-26 13:17:45,487 - INFO - Loaded 45 records from E1 results
+2026-04-26 13:17:45,498 - INFO - Compliant records: 45
+2026-04-26 13:17:45,499 - INFO -   id=0, rep_ratio=0.0780, pairs=62
+2026-04-26 13:17:45,505 - INFO -   id=6, rep_ratio=0.9295, pairs=239
+2026-04-26 13:17:45,506 - INFO -   id=11, rep_ratio=0.0316, pairs=69
+2026-04-26 13:17:45,508 - INFO -   id=12, rep_ratio=0.8257, pairs=197
+2026-04-26 13:17:45,510 - INFO -   id=16, rep_ratio=0.8557, pairs=146
+2026-04-26 13:17:45,511 - INFO -   id=23, rep_ratio=0.1631, pairs=107
+2026-04-26 13:17:45,512 - INFO -   id=27, rep_ratio=0.7840, pairs=71
+2026-04-26 13:17:45,515 - INFO -   id=29, rep_ratio=0.5407, pairs=166
+2026-04-26 13:17:45,516 - INFO -   id=30, rep_ratio=0.0841, pairs=97
+2026-04-26 13:17:45,516 - INFO -   id=35, rep_ratio=0.9753, pairs=69
+2026-04-26 13:17:45,518 - INFO -   id=42, rep_ratio=0.9361, pairs=105
+2026-04-26 13:17:45,519 - INFO -   id=48, rep_ratio=0.0000, pairs=9
+2026-04-26 13:17:45,520 - INFO -   id=50, rep_ratio=0.0172, pairs=117
+2026-04-26 13:17:45,523 - INFO -   id=52, rep_ratio=0.8080, pairs=217
+2026-04-26 13:17:45,526 - INFO -   id=53, rep_ratio=0.9154, pairs=107
+2026-04-26 13:17:45,527 - INFO -   id=57, rep_ratio=0.9132, pairs=91
+2026-04-26 13:17:45,527 - INFO -   id=65, rep_ratio=0.0909, pairs=22
+2026-04-26 13:17:45,529 - INFO -   id=70, rep_ratio=0.9175, pairs=106
+2026-04-26 13:17:45,531 - INFO -   id=79, rep_ratio=0.6916, pairs=162
+2026-04-26 13:17:45,532 - INFO -   id=82, rep_ratio=0.8705, pairs=83
+2026-04-26 13:17:45,533 - INFO -   id=83, rep_ratio=0.9386, pairs=138
+2026-04-26 13:17:45,536 - INFO -   id=86, rep_ratio=0.7507, pairs=197
+2026-04-26 13:17:45,538 - INFO -   id=88, rep_ratio=0.8352, pairs=149
+2026-04-26 13:17:45,540 - INFO -   id=91, rep_ratio=0.9304, pairs=117
+2026-04-26 13:17:45,546 - INFO -   id=94, rep_ratio=0.9524, pairs=433
+2026-04-26 13:17:45,547 - INFO -   id=100, rep_ratio=0.0000, pairs=15
+2026-04-26 13:17:45,547 - INFO -   id=103, rep_ratio=0.0000, pairs=19
+2026-04-26 13:17:45,548 - INFO -   id=104, rep_ratio=0.8322, pairs=79
+2026-04-26 13:17:45,552 - INFO -   id=111, rep_ratio=0.9240, pairs=296
+2026-04-26 13:17:45,553 - INFO -   id=122, rep_ratio=0.0335, pairs=48
+2026-04-26 13:17:45,554 - INFO -   id=123, rep_ratio=0.8692, pairs=55
+2026-04-26 13:17:45,555 - INFO -   id=125, rep_ratio=0.8508, pairs=84
+2026-04-26 13:17:45,558 - INFO -   id=127, rep_ratio=0.9899, pairs=324
+2026-04-26 13:17:45,560 - INFO -   id=128, rep_ratio=0.9179, pairs=122
+2026-04-26 13:17:45,562 - INFO -   id=150, rep_ratio=0.6452, pairs=157
+2026-04-26 13:17:45,563 - INFO -   id=152, rep_ratio=0.8766, pairs=79
+2026-04-26 13:17:45,567 - INFO -   id=159, rep_ratio=0.9133, pairs=263
+2026-04-26 13:17:45,567 - INFO -   id=160, rep_ratio=0.0806, pairs=25
+2026-04-26 13:17:45,570 - INFO -   id=161, rep_ratio=0.8644, pairs=193
+2026-04-26 13:17:45,574 - INFO -   id=166, rep_ratio=0.9314, pairs=522
+2026-04-26 13:17:45,575 - INFO -   id=168, rep_ratio=0.9819, pairs=58
+2026-04-26 13:17:45,575 - INFO -   id=169, rep_ratio=0.9422, pairs=72
+2026-04-26 13:17:45,576 - INFO -   id=180, rep_ratio=0.0533, pairs=14
+2026-04-26 13:17:45,579 - INFO -   id=188, rep_ratio=0.1786, pairs=292
+2026-04-26 13:17:45,581 - INFO -   id=198, rep_ratio=0.0970, pairs=119
+2026-04-26 13:17:45,582 - INFO - Loaded batch_id from metadata: batch_69ee489fac908190a4894ba0858541af
+2026-04-26 13:17:45,582 - INFO - Checking batch status for batch_69ee489fac908190a4894ba0858541af ...
+2026-04-26 13:17:46,146 - INFO - HTTP Request: GET https://api.openai.com/v1/batches/batch_69ee489fac908190a4894ba0858541af "HTTP/1.1 200 OK"
+2026-04-26 13:17:46,156 - INFO -   Status: in_progress
+2026-04-26 13:17:46,156 - INFO -   Request counts: BatchRequestCounts(completed=0, failed=0, total=45)
+2026-04-26 13:17:46,157 - INFO -   Batch still processing. Try again later.
+2026-04-26 13:19:53,702 - INFO - Logging to logs/olmo2_13b/e1_auto_label_standard.log
+2026-04-26 13:19:53,743 - INFO - ======================================================================
+2026-04-26 13:19:53,743 - INFO - E1 LLM-Assisted Span-Level Safety Labeling
+2026-04-26 13:19:53,743 - INFO -   Model: olmo2-13b
+2026-04-26 13:19:53,743 - INFO -   Config: standard
+2026-04-26 13:19:53,743 - INFO -   Training phase: pretraining
+2026-04-26 13:19:53,743 - INFO -   E1 input root: results/olmo2_13b/pretraining
+2026-04-26 13:19:53,743 - INFO -   Label run root: results/olmo2_13b/pretraining/gpt-4.1-mini
+2026-04-26 13:19:53,744 - INFO -   Label LLM (--e1-llm): gpt-4.1-mini
+2026-04-26 13:19:53,744 - INFO -   dotenv path: /gpfs/home/tmuthukumar/pretraining-trace/.env
+2026-04-26 13:19:53,744 - INFO -   dotenv loaded: True
+2026-04-26 13:19:53,744 - INFO -   OPENAI_API_KEY: ****...zH4A
+2026-04-26 13:19:53,744 - INFO - ======================================================================
+2026-04-26 13:19:54,453 - INFO - Loaded 45 records from E1 results
+2026-04-26 13:19:54,464 - INFO - Compliant records: 45
+2026-04-26 13:19:54,465 - INFO -   id=0, rep_ratio=0.0780, pairs=46
+2026-04-26 13:19:54,471 - INFO -   id=6, rep_ratio=0.9295, pairs=223
+2026-04-26 13:19:54,472 - INFO -   id=11, rep_ratio=0.0316, pairs=64
+2026-04-26 13:19:54,473 - INFO -   id=12, rep_ratio=0.8257, pairs=66
+2026-04-26 13:19:54,476 - INFO -   id=16, rep_ratio=0.8557, pairs=157
+2026-04-26 13:19:54,478 - INFO -   id=23, rep_ratio=0.1631, pairs=89
+2026-04-26 13:19:54,480 - INFO -   id=27, rep_ratio=0.7840, pairs=104
+2026-04-26 13:19:54,482 - INFO -   id=29, rep_ratio=0.5407, pairs=161
+2026-04-26 13:19:54,484 - INFO -   id=30, rep_ratio=0.0841, pairs=58
+2026-04-26 13:19:54,488 - INFO -   id=35, rep_ratio=0.9753, pairs=321
+2026-04-26 13:19:54,490 - INFO -   id=42, rep_ratio=0.9361, pairs=96
+2026-04-26 13:19:54,490 - INFO -   id=48, rep_ratio=0.0000, pairs=12
+2026-04-26 13:19:54,492 - INFO -   id=50, rep_ratio=0.0172, pairs=102
+2026-04-26 13:19:54,494 - INFO -   id=52, rep_ratio=0.8080, pairs=133
+2026-04-26 13:19:54,495 - INFO -   id=53, rep_ratio=0.9154, pairs=111
+2026-04-26 13:19:54,497 - INFO -   id=57, rep_ratio=0.9132, pairs=76
+2026-04-26 13:19:54,497 - INFO -   id=65, rep_ratio=0.0909, pairs=15
+2026-04-26 13:19:54,498 - INFO -   id=70, rep_ratio=0.9175, pairs=61
+2026-04-26 13:19:54,499 - INFO -   id=79, rep_ratio=0.6916, pairs=84
+2026-04-26 13:19:54,503 - INFO -   id=82, rep_ratio=0.8705, pairs=280
+2026-04-26 13:19:54,506 - INFO -   id=83, rep_ratio=0.9386, pairs=75
+2026-04-26 13:19:54,509 - INFO -   id=86, rep_ratio=0.7507, pairs=172
+2026-04-26 13:19:54,511 - INFO -   id=88, rep_ratio=0.8352, pairs=138
+2026-04-26 13:19:54,513 - INFO -   id=91, rep_ratio=0.9304, pairs=195
+2026-04-26 13:19:54,515 - INFO -   id=94, rep_ratio=0.9524, pairs=93
+2026-04-26 13:19:54,515 - INFO -   id=100, rep_ratio=0.0000, pairs=12
+2026-04-26 13:19:54,516 - INFO -   id=103, rep_ratio=0.0000, pairs=29
+2026-04-26 13:19:54,517 - INFO -   id=104, rep_ratio=0.8322, pairs=86
+2026-04-26 13:19:54,519 - INFO -   id=111, rep_ratio=0.9240, pairs=95
+2026-04-26 13:19:54,520 - INFO -   id=122, rep_ratio=0.0335, pairs=31
+2026-04-26 13:19:54,522 - INFO -   id=123, rep_ratio=0.8692, pairs=93
+2026-04-26 13:19:54,524 - INFO -   id=125, rep_ratio=0.8508, pairs=91
+2026-04-26 13:19:54,532 - INFO -   id=127, rep_ratio=0.9899, pairs=541
+2026-04-26 13:19:54,533 - INFO -   id=128, rep_ratio=0.9179, pairs=73
+2026-04-26 13:19:54,535 - INFO -   id=150, rep_ratio=0.6452, pairs=133
+2026-04-26 13:19:54,537 - INFO -   id=152, rep_ratio=0.8766, pairs=133
+2026-04-26 13:19:54,544 - INFO -   id=159, rep_ratio=0.9133, pairs=436
+2026-04-26 13:19:54,544 - INFO -   id=160, rep_ratio=0.0806, pairs=14
+2026-04-26 13:19:54,546 - INFO -   id=161, rep_ratio=0.8644, pairs=103
+2026-04-26 13:19:54,548 - INFO -   id=166, rep_ratio=0.9314, pairs=126
+2026-04-26 13:19:54,549 - INFO -   id=168, rep_ratio=0.9819, pairs=58
+2026-04-26 13:19:54,552 - INFO -   id=169, rep_ratio=0.9422, pairs=181
+2026-04-26 13:19:54,552 - INFO -   id=180, rep_ratio=0.0533, pairs=13
+2026-04-26 13:19:54,553 - INFO -   id=188, rep_ratio=0.1786, pairs=54
+2026-04-26 13:19:54,555 - INFO -   id=198, rep_ratio=0.0970, pairs=101
+2026-04-26 13:19:54,555 - INFO - Loaded batch_id from metadata: batch_69ee489afa4c81909413e01bc9fefefb
+2026-04-26 13:19:54,556 - INFO - Checking batch status for batch_69ee489afa4c81909413e01bc9fefefb ...
+2026-04-26 13:19:55,106 - INFO - HTTP Request: GET https://api.openai.com/v1/batches/batch_69ee489afa4c81909413e01bc9fefefb "HTTP/1.1 200 OK"
+2026-04-26 13:19:55,119 - INFO -   Status: failed
+2026-04-26 13:19:55,120 - INFO -   Request counts: BatchRequestCounts(completed=0, failed=0, total=0)
+2026-04-26 13:19:55,120 - ERROR -   Batch failed. Errors:
+2026-04-26 13:19:55,120 - ERROR -     token_limit_exceeded: Enqueued token limit reached for gpt-4.1-mini in organization org-x07ud5o34LRPUsbYidBy4wuj. Limit: 2,000,000 enqueued tokens. Please try again once some in_progress batches have been completed.
+2026-04-26 13:19:56,121 - INFO - Logging to logs/olmo2_13b/e1_auto_label_standard.log
+2026-04-26 13:19:56,162 - INFO - ======================================================================
+2026-04-26 13:19:56,162 - INFO - E1 LLM-Assisted Span-Level Safety Labeling
+2026-04-26 13:19:56,162 - INFO -   Model: olmo2-13b
+2026-04-26 13:19:56,162 - INFO -   Config: standard
+2026-04-26 13:19:56,162 - INFO -   Training phase: mid_training
+2026-04-26 13:19:56,162 - INFO -   E1 input root: results/olmo2_13b/mid_training
+2026-04-26 13:19:56,163 - INFO -   Label run root: results/olmo2_13b/mid_training/gpt-4.1-mini
+2026-04-26 13:19:56,163 - INFO -   Label LLM (--e1-llm): gpt-4.1-mini
+2026-04-26 13:19:56,163 - INFO -   dotenv path: /gpfs/home/tmuthukumar/pretraining-trace/.env
+2026-04-26 13:19:56,163 - INFO -   dotenv loaded: True
+2026-04-26 13:19:56,163 - INFO -   OPENAI_API_KEY: ****...zH4A
+2026-04-26 13:19:56,163 - INFO - ======================================================================
+2026-04-26 13:19:56,602 - INFO - Loaded 45 records from E1 results
+2026-04-26 13:19:56,613 - INFO - Compliant records: 45
+2026-04-26 13:19:56,614 - INFO -   id=0, rep_ratio=0.0780, pairs=62
+2026-04-26 13:19:56,621 - INFO -   id=6, rep_ratio=0.9295, pairs=239
+2026-04-26 13:19:56,622 - INFO -   id=11, rep_ratio=0.0316, pairs=69
+2026-04-26 13:19:56,624 - INFO -   id=12, rep_ratio=0.8257, pairs=197
+2026-04-26 13:19:56,626 - INFO -   id=16, rep_ratio=0.8557, pairs=146
+2026-04-26 13:19:56,627 - INFO -   id=23, rep_ratio=0.1631, pairs=107
+2026-04-26 13:19:56,628 - INFO -   id=27, rep_ratio=0.7840, pairs=71
+2026-04-26 13:19:56,632 - INFO -   id=29, rep_ratio=0.5407, pairs=166
+2026-04-26 13:19:56,633 - INFO -   id=30, rep_ratio=0.0841, pairs=97
+2026-04-26 13:19:56,634 - INFO -   id=35, rep_ratio=0.9753, pairs=69
+2026-04-26 13:19:56,636 - INFO -   id=42, rep_ratio=0.9361, pairs=105
+2026-04-26 13:19:56,636 - INFO -   id=48, rep_ratio=0.0000, pairs=9
+2026-04-26 13:19:56,638 - INFO -   id=50, rep_ratio=0.0172, pairs=117
+2026-04-26 13:19:56,640 - INFO -   id=52, rep_ratio=0.8080, pairs=217
+2026-04-26 13:19:56,643 - INFO -   id=53, rep_ratio=0.9154, pairs=107
+2026-04-26 13:19:56,644 - INFO -   id=57, rep_ratio=0.9132, pairs=91
+2026-04-26 13:19:56,645 - INFO -   id=65, rep_ratio=0.0909, pairs=22
+2026-04-26 13:19:56,646 - INFO -   id=70, rep_ratio=0.9175, pairs=106
+2026-04-26 13:19:56,649 - INFO -   id=79, rep_ratio=0.6916, pairs=162
+2026-04-26 13:19:56,650 - INFO -   id=82, rep_ratio=0.8705, pairs=83
+2026-04-26 13:19:56,651 - INFO -   id=83, rep_ratio=0.9386, pairs=138
+2026-04-26 13:19:56,654 - INFO -   id=86, rep_ratio=0.7507, pairs=197
+2026-04-26 13:19:56,656 - INFO -   id=88, rep_ratio=0.8352, pairs=149
+2026-04-26 13:19:56,657 - INFO -   id=91, rep_ratio=0.9304, pairs=117
+2026-04-26 13:19:56,666 - INFO -   id=94, rep_ratio=0.9524, pairs=433
+2026-04-26 13:19:56,666 - INFO -   id=100, rep_ratio=0.0000, pairs=15
+2026-04-26 13:19:56,667 - INFO -   id=103, rep_ratio=0.0000, pairs=19
+2026-04-26 13:19:56,668 - INFO -   id=104, rep_ratio=0.8322, pairs=79
+2026-04-26 13:19:56,673 - INFO -   id=111, rep_ratio=0.9240, pairs=296
+2026-04-26 13:19:56,673 - INFO -   id=122, rep_ratio=0.0335, pairs=48
+2026-04-26 13:19:56,675 - INFO -   id=123, rep_ratio=0.8692, pairs=55
+2026-04-26 13:19:56,676 - INFO -   id=125, rep_ratio=0.8508, pairs=84
+2026-04-26 13:19:56,678 - INFO -   id=127, rep_ratio=0.9899, pairs=324
+2026-04-26 13:19:56,680 - INFO -   id=128, rep_ratio=0.9179, pairs=122
+2026-04-26 13:19:56,683 - INFO -   id=150, rep_ratio=0.6452, pairs=157
+2026-04-26 13:19:56,684 - INFO -   id=152, rep_ratio=0.8766, pairs=79
+2026-04-26 13:19:56,688 - INFO -   id=159, rep_ratio=0.9133, pairs=263
+2026-04-26 13:19:56,689 - INFO -   id=160, rep_ratio=0.0806, pairs=25
+2026-04-26 13:19:56,691 - INFO -   id=161, rep_ratio=0.8644, pairs=193
+2026-04-26 13:19:56,695 - INFO -   id=166, rep_ratio=0.9314, pairs=522
+2026-04-26 13:19:56,696 - INFO -   id=168, rep_ratio=0.9819, pairs=58
+2026-04-26 13:19:56,697 - INFO -   id=169, rep_ratio=0.9422, pairs=72
+2026-04-26 13:19:56,697 - INFO -   id=180, rep_ratio=0.0533, pairs=14
+2026-04-26 13:19:56,701 - INFO -   id=188, rep_ratio=0.1786, pairs=292
+2026-04-26 13:19:56,702 - INFO -   id=198, rep_ratio=0.0970, pairs=119
+2026-04-26 13:19:56,703 - INFO - Loaded batch_id from metadata: batch_69ee489fac908190a4894ba0858541af
+2026-04-26 13:19:56,703 - INFO - Checking batch status for batch_69ee489fac908190a4894ba0858541af ...
+2026-04-26 13:19:57,272 - INFO - HTTP Request: GET https://api.openai.com/v1/batches/batch_69ee489fac908190a4894ba0858541af "HTTP/1.1 200 OK"
+2026-04-26 13:19:57,284 - INFO -   Status: in_progress
+2026-04-26 13:19:57,284 - INFO -   Request counts: BatchRequestCounts(completed=0, failed=0, total=45)
+2026-04-26 13:19:57,285 - INFO -   Batch still processing. Try again later.
+2026-04-26 13:52:51,124 - INFO - Logging to logs/olmo2_13b/e1_auto_label_standard.log
+2026-04-26 13:52:51,158 - INFO - ======================================================================
+2026-04-26 13:52:51,158 - INFO - E1 LLM-Assisted Span-Level Safety Labeling
+2026-04-26 13:52:51,158 - INFO -   Model: olmo2-13b
+2026-04-26 13:52:51,159 - INFO -   Config: standard
+2026-04-26 13:52:51,159 - INFO -   Training phase: pretraining
+2026-04-26 13:52:51,159 - INFO -   E1 input root: results/olmo2_13b/pretraining
+2026-04-26 13:52:51,159 - INFO -   Label run root: results/olmo2_13b/pretraining/gpt-4.1-mini
+2026-04-26 13:52:51,159 - INFO -   Label LLM (--e1-llm): gpt-4.1-mini
+2026-04-26 13:52:51,159 - INFO -   dotenv path: /gpfs/home/tmuthukumar/pretraining-trace/.env
+2026-04-26 13:52:51,159 - INFO -   dotenv loaded: True
+2026-04-26 13:52:51,159 - INFO -   OPENAI_API_KEY: ****...zH4A
+2026-04-26 13:52:51,159 - INFO - ======================================================================
+2026-04-26 13:52:51,771 - INFO - Loaded 45 records from E1 results
+2026-04-26 13:52:51,780 - INFO - Compliant records: 45
+2026-04-26 13:52:51,781 - INFO -   id=0, rep_ratio=0.0780, pairs=46
+2026-04-26 13:52:51,785 - INFO -   id=6, rep_ratio=0.9295, pairs=223
+2026-04-26 13:52:51,787 - INFO -   id=11, rep_ratio=0.0316, pairs=64
+2026-04-26 13:52:51,788 - INFO -   id=12, rep_ratio=0.8257, pairs=66
+2026-04-26 13:52:51,790 - INFO -   id=16, rep_ratio=0.8557, pairs=157
+2026-04-26 13:52:51,791 - INFO -   id=23, rep_ratio=0.1631, pairs=89
+2026-04-26 13:52:51,793 - INFO -   id=27, rep_ratio=0.7840, pairs=104
+2026-04-26 13:52:51,795 - INFO -   id=29, rep_ratio=0.5407, pairs=161
+2026-04-26 13:52:51,796 - INFO -   id=30, rep_ratio=0.0841, pairs=58
+2026-04-26 13:52:51,800 - INFO -   id=35, rep_ratio=0.9753, pairs=321
+2026-04-26 13:52:51,802 - INFO -   id=42, rep_ratio=0.9361, pairs=96
+2026-04-26 13:52:51,802 - INFO -   id=48, rep_ratio=0.0000, pairs=12
+2026-04-26 13:52:51,804 - INFO -   id=50, rep_ratio=0.0172, pairs=102
+2026-04-26 13:52:51,806 - INFO -   id=52, rep_ratio=0.8080, pairs=133
+2026-04-26 13:52:51,807 - INFO -   id=53, rep_ratio=0.9154, pairs=111
+2026-04-26 13:52:51,808 - INFO -   id=57, rep_ratio=0.9132, pairs=76
+2026-04-26 13:52:51,809 - INFO -   id=65, rep_ratio=0.0909, pairs=15
+2026-04-26 13:52:51,810 - INFO -   id=70, rep_ratio=0.9175, pairs=61
+2026-04-26 13:52:51,811 - INFO -   id=79, rep_ratio=0.6916, pairs=84
+2026-04-26 13:52:51,815 - INFO -   id=82, rep_ratio=0.8705, pairs=280
+2026-04-26 13:52:51,816 - INFO -   id=83, rep_ratio=0.9386, pairs=75
+2026-04-26 13:52:51,818 - INFO -   id=86, rep_ratio=0.7507, pairs=172
+2026-04-26 13:52:51,820 - INFO -   id=88, rep_ratio=0.8352, pairs=138
+2026-04-26 13:52:51,823 - INFO -   id=91, rep_ratio=0.9304, pairs=195
+2026-04-26 13:52:51,824 - INFO -   id=94, rep_ratio=0.9524, pairs=93
+2026-04-26 13:52:51,824 - INFO -   id=100, rep_ratio=0.0000, pairs=12
+2026-04-26 13:52:51,825 - INFO -   id=103, rep_ratio=0.0000, pairs=29
+2026-04-26 13:52:51,826 - INFO -   id=104, rep_ratio=0.8322, pairs=86
+2026-04-26 13:52:51,828 - INFO -   id=111, rep_ratio=0.9240, pairs=95
+2026-04-26 13:52:51,828 - INFO -   id=122, rep_ratio=0.0335, pairs=31
+2026-04-26 13:52:51,830 - INFO -   id=123, rep_ratio=0.8692, pairs=93
+2026-04-26 13:52:51,831 - INFO -   id=125, rep_ratio=0.8508, pairs=91
+2026-04-26 13:52:51,838 - INFO -   id=127, rep_ratio=0.9899, pairs=541
+2026-04-26 13:52:51,839 - INFO -   id=128, rep_ratio=0.9179, pairs=73
+2026-04-26 13:52:51,841 - INFO -   id=150, rep_ratio=0.6452, pairs=133
+2026-04-26 13:52:51,843 - INFO -   id=152, rep_ratio=0.8766, pairs=133
+2026-04-26 13:52:51,848 - INFO -   id=159, rep_ratio=0.9133, pairs=436
+2026-04-26 13:52:51,848 - INFO -   id=160, rep_ratio=0.0806, pairs=14
+2026-04-26 13:52:51,850 - INFO -   id=161, rep_ratio=0.8644, pairs=103
+2026-04-26 13:52:51,852 - INFO -   id=166, rep_ratio=0.9314, pairs=126
+2026-04-26 13:52:51,852 - INFO -   id=168, rep_ratio=0.9819, pairs=58
+2026-04-26 13:52:51,855 - INFO -   id=169, rep_ratio=0.9422, pairs=181
+2026-04-26 13:52:51,855 - INFO -   id=180, rep_ratio=0.0533, pairs=13
+2026-04-26 13:52:51,856 - INFO -   id=188, rep_ratio=0.1786, pairs=54
+2026-04-26 13:52:51,858 - INFO -   id=198, rep_ratio=0.0970, pairs=101
+2026-04-26 13:52:51,858 - INFO - Loaded batch_id from metadata: batch_69ee489afa4c81909413e01bc9fefefb
+2026-04-26 13:52:51,858 - INFO - Checking batch status for batch_69ee489afa4c81909413e01bc9fefefb ...
+2026-04-26 13:52:52,390 - INFO - HTTP Request: GET https://api.openai.com/v1/batches/batch_69ee489afa4c81909413e01bc9fefefb "HTTP/1.1 200 OK"
+2026-04-26 13:52:52,404 - INFO -   Status: failed
+2026-04-26 13:52:52,405 - INFO -   Request counts: BatchRequestCounts(completed=0, failed=0, total=0)
+2026-04-26 13:52:52,405 - ERROR -   Batch failed. Errors:
+2026-04-26 13:52:52,405 - ERROR -     token_limit_exceeded: Enqueued token limit reached for gpt-4.1-mini in organization org-x07ud5o34LRPUsbYidBy4wuj. Limit: 2,000,000 enqueued tokens. Please try again once some in_progress batches have been completed.
+2026-04-26 13:52:53,411 - INFO - Logging to logs/olmo2_13b/e1_auto_label_standard.log
+2026-04-26 13:52:53,446 - INFO - ======================================================================
+2026-04-26 13:52:53,446 - INFO - E1 LLM-Assisted Span-Level Safety Labeling
+2026-04-26 13:52:53,446 - INFO -   Model: olmo2-13b
+2026-04-26 13:52:53,446 - INFO -   Config: standard
+2026-04-26 13:52:53,446 - INFO -   Training phase: mid_training
+2026-04-26 13:52:53,447 - INFO -   E1 input root: results/olmo2_13b/mid_training
+2026-04-26 13:52:53,447 - INFO -   Label run root: results/olmo2_13b/mid_training/gpt-4.1-mini
+2026-04-26 13:52:53,447 - INFO -   Label LLM (--e1-llm): gpt-4.1-mini
+2026-04-26 13:52:53,447 - INFO -   dotenv path: /gpfs/home/tmuthukumar/pretraining-trace/.env
+2026-04-26 13:52:53,447 - INFO -   dotenv loaded: True
+2026-04-26 13:52:53,447 - INFO -   OPENAI_API_KEY: ****...zH4A
+2026-04-26 13:52:53,447 - INFO - ======================================================================
+2026-04-26 13:52:53,833 - INFO - Loaded 45 records from E1 results
+2026-04-26 13:52:53,842 - INFO - Compliant records: 45
+2026-04-26 13:52:53,843 - INFO -   id=0, rep_ratio=0.0780, pairs=62
+2026-04-26 13:52:53,849 - INFO -   id=6, rep_ratio=0.9295, pairs=239
+2026-04-26 13:52:53,849 - INFO -   id=11, rep_ratio=0.0316, pairs=69
+2026-04-26 13:52:53,851 - INFO -   id=12, rep_ratio=0.8257, pairs=197
+2026-04-26 13:52:53,853 - INFO -   id=16, rep_ratio=0.8557, pairs=146
+2026-04-26 13:52:53,854 - INFO -   id=23, rep_ratio=0.1631, pairs=107
+2026-04-26 13:52:53,855 - INFO -   id=27, rep_ratio=0.7840, pairs=71
+2026-04-26 13:52:53,858 - INFO -   id=29, rep_ratio=0.5407, pairs=166
+2026-04-26 13:52:53,859 - INFO -   id=30, rep_ratio=0.0841, pairs=97
+2026-04-26 13:52:53,859 - INFO -   id=35, rep_ratio=0.9753, pairs=69
+2026-04-26 13:52:53,861 - INFO -   id=42, rep_ratio=0.9361, pairs=105
+2026-04-26 13:52:53,861 - INFO -   id=48, rep_ratio=0.0000, pairs=9
+2026-04-26 13:52:53,863 - INFO -   id=50, rep_ratio=0.0172, pairs=117
+2026-04-26 13:52:53,865 - INFO -   id=52, rep_ratio=0.8080, pairs=217
+2026-04-26 13:52:53,868 - INFO -   id=53, rep_ratio=0.9154, pairs=107
+2026-04-26 13:52:53,869 - INFO -   id=57, rep_ratio=0.9132, pairs=91
+2026-04-26 13:52:53,869 - INFO -   id=65, rep_ratio=0.0909, pairs=22
+2026-04-26 13:52:53,870 - INFO -   id=70, rep_ratio=0.9175, pairs=106
+2026-04-26 13:52:53,872 - INFO -   id=79, rep_ratio=0.6916, pairs=162
+2026-04-26 13:52:53,873 - INFO -   id=82, rep_ratio=0.8705, pairs=83
+2026-04-26 13:52:53,875 - INFO -   id=83, rep_ratio=0.9386, pairs=138
+2026-04-26 13:52:53,877 - INFO -   id=86, rep_ratio=0.7507, pairs=197
+2026-04-26 13:52:53,879 - INFO -   id=88, rep_ratio=0.8352, pairs=149
+2026-04-26 13:52:53,880 - INFO -   id=91, rep_ratio=0.9304, pairs=117
+2026-04-26 13:52:53,886 - INFO -   id=94, rep_ratio=0.9524, pairs=433
+2026-04-26 13:52:53,886 - INFO -   id=100, rep_ratio=0.0000, pairs=15
+2026-04-26 13:52:53,886 - INFO -   id=103, rep_ratio=0.0000, pairs=19
+2026-04-26 13:52:53,887 - INFO -   id=104, rep_ratio=0.8322, pairs=79
+2026-04-26 13:52:53,891 - INFO -   id=111, rep_ratio=0.9240, pairs=296
+2026-04-26 13:52:53,892 - INFO -   id=122, rep_ratio=0.0335, pairs=48
+2026-04-26 13:52:53,893 - INFO -   id=123, rep_ratio=0.8692, pairs=55
+2026-04-26 13:52:53,894 - INFO -   id=125, rep_ratio=0.8508, pairs=84
+2026-04-26 13:52:53,896 - INFO -   id=127, rep_ratio=0.9899, pairs=324
+2026-04-26 13:52:53,898 - INFO -   id=128, rep_ratio=0.9179, pairs=122
+2026-04-26 13:52:53,900 - INFO -   id=150, rep_ratio=0.6452, pairs=157
+2026-04-26 13:52:53,901 - INFO -   id=152, rep_ratio=0.8766, pairs=79
+2026-04-26 13:52:53,905 - INFO -   id=159, rep_ratio=0.9133, pairs=263
+2026-04-26 13:52:53,905 - INFO -   id=160, rep_ratio=0.0806, pairs=25
+2026-04-26 13:52:53,907 - INFO -   id=161, rep_ratio=0.8644, pairs=193
+2026-04-26 13:52:53,911 - INFO -   id=166, rep_ratio=0.9314, pairs=522
+2026-04-26 13:52:53,913 - INFO -   id=168, rep_ratio=0.9819, pairs=58
+2026-04-26 13:52:53,914 - INFO -   id=169, rep_ratio=0.9422, pairs=72
+2026-04-26 13:52:53,914 - INFO -   id=180, rep_ratio=0.0533, pairs=14
+2026-04-26 13:52:53,918 - INFO -   id=188, rep_ratio=0.1786, pairs=292
+2026-04-26 13:52:53,920 - INFO -   id=198, rep_ratio=0.0970, pairs=119
+2026-04-26 13:52:53,920 - INFO - Loaded batch_id from metadata: batch_69ee489fac908190a4894ba0858541af
+2026-04-26 13:52:53,920 - INFO - Checking batch status for batch_69ee489fac908190a4894ba0858541af ...
+2026-04-26 13:52:54,477 - INFO - HTTP Request: GET https://api.openai.com/v1/batches/batch_69ee489fac908190a4894ba0858541af "HTTP/1.1 200 OK"
+2026-04-26 13:52:54,489 - INFO -   Status: completed
+2026-04-26 13:52:54,489 - INFO -   Request counts: BatchRequestCounts(completed=45, failed=0, total=45)
+2026-04-26 13:52:54,490 - INFO -   Downloading output file: file-SEXQTPdLzhZ5Sr7Ev6i18a
+2026-04-26 13:52:55,345 - INFO - HTTP Request: GET https://api.openai.com/v1/files/file-SEXQTPdLzhZ5Sr7Ev6i18a/content "HTTP/1.1 200 OK"
+2026-04-26 13:52:56,133 - INFO -   Raw output saved to results/olmo2_13b/mid_training/gpt-4.1-mini/batch_e1/batch_output.jsonl
+2026-04-26 13:52:56,251 - WARNING - Expected 197 labels, got 69
+2026-04-26 13:52:56,254 - WARNING - Expected 71 labels, got 63
+2026-04-26 13:52:56,255 - WARNING - Expected 166 labels, got 163
+2026-04-26 13:52:56,260 - WARNING - Expected 217 labels, got 83
+2026-04-26 13:52:56,261 - WARNING - Expected 91 labels, got 76
+2026-04-26 13:52:56,263 - WARNING - Expected 106 labels, got 107
+2026-04-26 13:52:56,264 - WARNING - Expected 162 labels, got 98
+2026-04-26 13:52:56,268 - WARNING - Expected 149 labels, got 132
+2026-04-26 13:52:56,270 - WARNING - Expected 433 labels, got 32
+2026-04-26 13:52:56,271 - WARNING - Expected 79 labels, got 68
+2026-04-26 13:52:56,272 - ERROR -   Record id=111: JSON parse error: Expecting ',' delimiter: line 1768 column 18 (char 56348)
+2026-04-26 13:52:56,274 - WARNING - Expected 324 labels, got 78
+2026-04-26 13:52:56,279 - ERROR -   Record id=159: JSON parse error: Unterminated string starting at: line 1756 column 23 (char 57720)
+2026-04-26 13:52:56,280 - WARNING - Expected 193 labels, got 188
+2026-04-26 13:52:56,282 - WARNING - Expected 522 labels, got 161
+2026-04-26 13:52:56,284 - ERROR -   Record id=188: JSON parse error: Unterminated string starting at: line 1769 column 26 (char 55820)
+2026-04-26 13:52:56,343 - INFO - ======================================================================
+2026-04-26 13:52:56,343 - INFO - COLLECTION COMPLETE
+2026-04-26 13:52:56,343 - INFO -   Total rows: 3868
+2026-04-26 13:52:56,343 - INFO -   Errors: 3
+2026-04-26 13:52:56,343 - INFO -   CSV saved to: results/olmo2_13b/mid_training/gpt-4.1-mini/span_safety_labels_standard.csv
+2026-04-26 13:52:56,343 - INFO - ======================================================================
+2026-04-26 13:52:56,344 - INFO -   Error details saved to results/olmo2_13b/mid_training/gpt-4.1-mini/batch_e1/batch_errors.json
+2026-04-26 13:55:42,035 - INFO - Logging to logs/olmo2_13b/e1_auto_label_standard.log
+2026-04-26 13:55:42,068 - INFO - ======================================================================
+2026-04-26 13:55:42,069 - INFO - E1 LLM-Assisted Span-Level Safety Labeling
+2026-04-26 13:55:42,069 - INFO -   Model: olmo2-13b
+2026-04-26 13:55:42,069 - INFO -   Config: standard
+2026-04-26 13:55:42,069 - INFO -   Training phase: pretraining
+2026-04-26 13:55:42,069 - INFO -   E1 input root: results/olmo2_13b/pretraining
+2026-04-26 13:55:42,069 - INFO -   Label run root: results/olmo2_13b/pretraining/gpt-4.1-mini
+2026-04-26 13:55:42,069 - INFO -   Label LLM (--e1-llm): gpt-4.1-mini
+2026-04-26 13:55:42,069 - INFO -   dotenv path: /gpfs/home/tmuthukumar/pretraining-trace/.env
+2026-04-26 13:55:42,069 - INFO -   dotenv loaded: True
+2026-04-26 13:55:42,069 - INFO -   OPENAI_API_KEY: ****...zH4A
+2026-04-26 13:55:42,069 - INFO - ======================================================================
+2026-04-26 13:55:42,549 - INFO - Loaded 45 records from E1 results
+2026-04-26 13:55:42,563 - INFO - Compliant records: 45
+2026-04-26 13:55:42,564 - INFO -   id=0, rep_ratio=0.0780, pairs=46
+2026-04-26 13:55:42,570 - INFO -   id=6, rep_ratio=0.9295, pairs=223
+2026-04-26 13:55:42,571 - INFO -   id=11, rep_ratio=0.0316, pairs=64
+2026-04-26 13:55:42,573 - INFO -   id=12, rep_ratio=0.8257, pairs=66
+2026-04-26 13:55:42,576 - INFO -   id=16, rep_ratio=0.8557, pairs=157
+2026-04-26 13:55:42,578 - INFO -   id=23, rep_ratio=0.1631, pairs=89
+2026-04-26 13:55:42,580 - INFO -   id=27, rep_ratio=0.7840, pairs=104
+2026-04-26 13:55:42,582 - INFO -   id=29, rep_ratio=0.5407, pairs=161
+2026-04-26 13:55:42,584 - INFO -   id=30, rep_ratio=0.0841, pairs=58
+2026-04-26 13:55:42,589 - INFO -   id=35, rep_ratio=0.9753, pairs=321
+2026-04-26 13:55:42,591 - INFO -   id=42, rep_ratio=0.9361, pairs=96
+2026-04-26 13:55:42,591 - INFO -   id=48, rep_ratio=0.0000, pairs=12
+2026-04-26 13:55:42,593 - INFO -   id=50, rep_ratio=0.0172, pairs=102
+2026-04-26 13:55:42,596 - INFO -   id=52, rep_ratio=0.8080, pairs=133
+2026-04-26 13:55:42,598 - INFO -   id=53, rep_ratio=0.9154, pairs=111
+2026-04-26 13:55:42,599 - INFO -   id=57, rep_ratio=0.9132, pairs=76
+2026-04-26 13:55:42,600 - INFO -   id=65, rep_ratio=0.0909, pairs=15
+2026-04-26 13:55:42,601 - INFO -   id=70, rep_ratio=0.9175, pairs=61
+2026-04-26 13:55:42,603 - INFO -   id=79, rep_ratio=0.6916, pairs=84
+2026-04-26 13:55:42,607 - INFO -   id=82, rep_ratio=0.8705, pairs=280
+2026-04-26 13:55:42,609 - INFO -   id=83, rep_ratio=0.9386, pairs=75
+2026-04-26 13:55:42,611 - INFO -   id=86, rep_ratio=0.7507, pairs=172
+2026-04-26 13:55:42,614 - INFO -   id=88, rep_ratio=0.8352, pairs=138
+2026-04-26 13:55:42,617 - INFO -   id=91, rep_ratio=0.9304, pairs=195
+2026-04-26 13:55:42,619 - INFO -   id=94, rep_ratio=0.9524, pairs=93
+2026-04-26 13:55:42,619 - INFO -   id=100, rep_ratio=0.0000, pairs=12
+2026-04-26 13:55:42,620 - INFO -   id=103, rep_ratio=0.0000, pairs=29
+2026-04-26 13:55:42,622 - INFO -   id=104, rep_ratio=0.8322, pairs=86
+2026-04-26 13:55:42,624 - INFO -   id=111, rep_ratio=0.9240, pairs=95
+2026-04-26 13:55:42,624 - INFO -   id=122, rep_ratio=0.0335, pairs=31
+2026-04-26 13:55:42,626 - INFO -   id=123, rep_ratio=0.8692, pairs=93
+2026-04-26 13:55:42,628 - INFO -   id=125, rep_ratio=0.8508, pairs=91
+2026-04-26 13:55:42,637 - INFO -   id=127, rep_ratio=0.9899, pairs=541
+2026-04-26 13:55:42,638 - INFO -   id=128, rep_ratio=0.9179, pairs=73
+2026-04-26 13:55:42,641 - INFO -   id=150, rep_ratio=0.6452, pairs=133
+2026-04-26 13:55:42,643 - INFO -   id=152, rep_ratio=0.8766, pairs=133
+2026-04-26 13:55:42,649 - INFO -   id=159, rep_ratio=0.9133, pairs=436
+2026-04-26 13:55:42,650 - INFO -   id=160, rep_ratio=0.0806, pairs=14
+2026-04-26 13:55:42,652 - INFO -   id=161, rep_ratio=0.8644, pairs=103
+2026-04-26 13:55:42,654 - INFO -   id=166, rep_ratio=0.9314, pairs=126
+2026-04-26 13:55:42,655 - INFO -   id=168, rep_ratio=0.9819, pairs=58
+2026-04-26 13:55:42,658 - INFO -   id=169, rep_ratio=0.9422, pairs=181
+2026-04-26 13:55:42,658 - INFO -   id=180, rep_ratio=0.0533, pairs=13
+2026-04-26 13:55:42,659 - INFO -   id=188, rep_ratio=0.1786, pairs=54
+2026-04-26 13:55:42,661 - INFO -   id=198, rep_ratio=0.0970, pairs=101
+2026-04-26 13:55:42,662 - INFO - Loaded batch_id from metadata: batch_69ee489afa4c81909413e01bc9fefefb
+2026-04-26 13:55:42,662 - INFO - Checking batch status for batch_69ee489afa4c81909413e01bc9fefefb ...
+2026-04-26 13:55:43,246 - INFO - HTTP Request: GET https://api.openai.com/v1/batches/batch_69ee489afa4c81909413e01bc9fefefb "HTTP/1.1 200 OK"
+2026-04-26 13:55:43,261 - INFO -   Status: failed
+2026-04-26 13:55:43,261 - INFO -   Request counts: BatchRequestCounts(completed=0, failed=0, total=0)
+2026-04-26 13:55:43,261 - ERROR -   Batch failed. Errors:
+2026-04-26 13:55:43,262 - ERROR -     token_limit_exceeded: Enqueued token limit reached for gpt-4.1-mini in organization org-x07ud5o34LRPUsbYidBy4wuj. Limit: 2,000,000 enqueued tokens. Please try again once some in_progress batches have been completed.
+2026-04-26 13:56:52,856 - INFO - Logging to logs/olmo2_13b/e1_auto_label_standard.log
+2026-04-26 13:56:52,891 - INFO - ======================================================================
+2026-04-26 13:56:52,891 - INFO - E1 LLM-Assisted Span-Level Safety Labeling
+2026-04-26 13:56:52,891 - INFO -   Model: olmo2-13b
+2026-04-26 13:56:52,891 - INFO -   Config: standard
+2026-04-26 13:56:52,891 - INFO -   Training phase: pretraining
+2026-04-26 13:56:52,891 - INFO -   E1 input root: results/olmo2_13b/pretraining
+2026-04-26 13:56:52,891 - INFO -   Label run root: results/olmo2_13b/pretraining/gpt-4.1-mini
+2026-04-26 13:56:52,891 - INFO -   Label LLM (--e1-llm): gpt-4.1-mini
+2026-04-26 13:56:52,892 - INFO -   dotenv path: /gpfs/home/tmuthukumar/pretraining-trace/.env
+2026-04-26 13:56:52,892 - INFO -   dotenv loaded: True
+2026-04-26 13:56:52,892 - INFO -   OPENAI_API_KEY: ****...zH4A
+2026-04-26 13:56:52,892 - INFO - ======================================================================
+2026-04-26 13:56:53,523 - INFO - Loaded 45 records from E1 results
+2026-04-26 13:56:53,532 - INFO - Compliant records: 45
+2026-04-26 13:56:53,533 - INFO -   id=0, rep_ratio=0.0780, pairs=46
+2026-04-26 13:56:53,537 - INFO -   id=6, rep_ratio=0.9295, pairs=223
+2026-04-26 13:56:53,538 - INFO -   id=11, rep_ratio=0.0316, pairs=64
+2026-04-26 13:56:53,539 - INFO -   id=12, rep_ratio=0.8257, pairs=66
+2026-04-26 13:56:53,542 - INFO -   id=16, rep_ratio=0.8557, pairs=157
+2026-04-26 13:56:53,543 - INFO -   id=23, rep_ratio=0.1631, pairs=89
+2026-04-26 13:56:53,545 - INFO -   id=27, rep_ratio=0.7840, pairs=104
+2026-04-26 13:56:53,547 - INFO -   id=29, rep_ratio=0.5407, pairs=161
+2026-04-26 13:56:53,548 - INFO -   id=30, rep_ratio=0.0841, pairs=58
+2026-04-26 13:56:53,552 - INFO -   id=35, rep_ratio=0.9753, pairs=321
+2026-04-26 13:56:53,554 - INFO -   id=42, rep_ratio=0.9361, pairs=96
+2026-04-26 13:56:53,554 - INFO -   id=48, rep_ratio=0.0000, pairs=12
+2026-04-26 13:56:53,556 - INFO -   id=50, rep_ratio=0.0172, pairs=102
+2026-04-26 13:56:53,558 - INFO -   id=52, rep_ratio=0.8080, pairs=133
+2026-04-26 13:56:53,560 - INFO -   id=53, rep_ratio=0.9154, pairs=111
+2026-04-26 13:56:53,561 - INFO -   id=57, rep_ratio=0.9132, pairs=76
+2026-04-26 13:56:53,561 - INFO -   id=65, rep_ratio=0.0909, pairs=15
+2026-04-26 13:56:53,563 - INFO -   id=70, rep_ratio=0.9175, pairs=61
+2026-04-26 13:56:53,564 - INFO -   id=79, rep_ratio=0.6916, pairs=84
+2026-04-26 13:56:53,567 - INFO -   id=82, rep_ratio=0.8705, pairs=280
+2026-04-26 13:56:53,568 - INFO -   id=83, rep_ratio=0.9386, pairs=75
+2026-04-26 13:56:53,571 - INFO -   id=86, rep_ratio=0.7507, pairs=172
+2026-04-26 13:56:53,573 - INFO -   id=88, rep_ratio=0.8352, pairs=138
+2026-04-26 13:56:53,575 - INFO -   id=91, rep_ratio=0.9304, pairs=195
+2026-04-26 13:56:53,577 - INFO -   id=94, rep_ratio=0.9524, pairs=93
+2026-04-26 13:56:53,577 - INFO -   id=100, rep_ratio=0.0000, pairs=12
+2026-04-26 13:56:53,578 - INFO -   id=103, rep_ratio=0.0000, pairs=29
+2026-04-26 13:56:53,579 - INFO -   id=104, rep_ratio=0.8322, pairs=86
+2026-04-26 13:56:53,580 - INFO -   id=111, rep_ratio=0.9240, pairs=95
+2026-04-26 13:56:53,581 - INFO -   id=122, rep_ratio=0.0335, pairs=31
+2026-04-26 13:56:53,583 - INFO -   id=123, rep_ratio=0.8692, pairs=93
+2026-04-26 13:56:53,584 - INFO -   id=125, rep_ratio=0.8508, pairs=91
+2026-04-26 13:56:53,591 - INFO -   id=127, rep_ratio=0.9899, pairs=541
+2026-04-26 13:56:53,592 - INFO -   id=128, rep_ratio=0.9179, pairs=73
+2026-04-26 13:56:53,594 - INFO -   id=150, rep_ratio=0.6452, pairs=133
+2026-04-26 13:56:53,596 - INFO -   id=152, rep_ratio=0.8766, pairs=133
+2026-04-26 13:56:53,601 - INFO -   id=159, rep_ratio=0.9133, pairs=436
+2026-04-26 13:56:53,601 - INFO -   id=160, rep_ratio=0.0806, pairs=14
+2026-04-26 13:56:53,603 - INFO -   id=161, rep_ratio=0.8644, pairs=103
+2026-04-26 13:56:53,605 - INFO -   id=166, rep_ratio=0.9314, pairs=126
+2026-04-26 13:56:53,605 - INFO -   id=168, rep_ratio=0.9819, pairs=58
+2026-04-26 13:56:53,608 - INFO -   id=169, rep_ratio=0.9422, pairs=181
+2026-04-26 13:56:53,608 - INFO -   id=180, rep_ratio=0.0533, pairs=13
+2026-04-26 13:56:53,609 - INFO -   id=188, rep_ratio=0.1786, pairs=54
+2026-04-26 13:56:53,611 - INFO -   id=198, rep_ratio=0.0970, pairs=101
+2026-04-26 13:56:53,701 - INFO - Batch JSONL written: results/olmo2_13b/pretraining/gpt-4.1-mini/batch_e1/batch_input.jsonl
+2026-04-26 13:56:53,701 - INFO -   Records: 45, Total (span, snippet) pairs: 5335
+2026-04-26 13:56:53,701 - INFO - Uploading batch file to OpenAI...
+2026-04-26 13:56:55,427 - INFO - HTTP Request: POST https://api.openai.com/v1/files "HTTP/1.1 200 OK"
+2026-04-26 13:56:55,431 - INFO -   File uploaded: id=file-HU2oJPLq3cVft3pKDKWYgR
+2026-04-26 13:56:55,431 - INFO - Creating batch...
+2026-04-26 13:56:56,157 - INFO - HTTP Request: POST https://api.openai.com/v1/batches "HTTP/1.1 200 OK"
+2026-04-26 13:56:56,168 - INFO -   Batch created: id=batch_69ee51e79c008190a54b7ce914e79efd, status=validating
+2026-04-26 13:56:56,168 - INFO - 
+2026-04-26 13:56:56,168 - INFO - ======================================================================
+2026-04-26 13:56:56,169 - INFO - BATCH SUBMITTED SUCCESSFULLY
+2026-04-26 13:56:56,169 - INFO -   Batch ID: batch_69ee51e79c008190a54b7ce914e79efd
+2026-04-26 13:56:56,169 - INFO -   To collect results, run:
+2026-04-26 13:56:56,169 - INFO -     python e1_auto_label.py --model olmo2-13b --training-phase pretraining --e1-llm gpt-4.1-mini --collect --batch_id batch_69ee51e79c008190a54b7ce914e79efd
+2026-04-26 13:56:56,169 - INFO - ======================================================================
+2026-04-26 13:56:56,170 - INFO -   Batch metadata saved to results/olmo2_13b/pretraining/gpt-4.1-mini/batch_e1/batch_metadata.json
+2026-04-26 13:57:20,426 - INFO - Logging to logs/olmo2_13b/e1_auto_label_standard.log
+2026-04-26 13:57:20,459 - INFO - ======================================================================
+2026-04-26 13:57:20,459 - INFO - E1 LLM-Assisted Span-Level Safety Labeling
+2026-04-26 13:57:20,459 - INFO -   Model: olmo2-13b
+2026-04-26 13:57:20,460 - INFO -   Config: standard
+2026-04-26 13:57:20,460 - INFO -   Training phase: pretraining
+2026-04-26 13:57:20,460 - INFO -   E1 input root: results/olmo2_13b/pretraining
+2026-04-26 13:57:20,460 - INFO -   Label run root: results/olmo2_13b/pretraining/gpt-4.1-mini
+2026-04-26 13:57:20,460 - INFO -   Label LLM (--e1-llm): gpt-4.1-mini
+2026-04-26 13:57:20,460 - INFO -   dotenv path: /gpfs/home/tmuthukumar/pretraining-trace/.env
+2026-04-26 13:57:20,460 - INFO -   dotenv loaded: True
+2026-04-26 13:57:20,460 - INFO -   OPENAI_API_KEY: ****...zH4A
+2026-04-26 13:57:20,460 - INFO - ======================================================================
+2026-04-26 13:57:20,901 - INFO - Loaded 45 records from E1 results
+2026-04-26 13:57:20,910 - INFO - Compliant records: 45
+2026-04-26 13:57:20,911 - INFO -   id=0, rep_ratio=0.0780, pairs=46
+2026-04-26 13:57:20,915 - INFO -   id=6, rep_ratio=0.9295, pairs=223
+2026-04-26 13:57:20,916 - INFO -   id=11, rep_ratio=0.0316, pairs=64
+2026-04-26 13:57:20,917 - INFO -   id=12, rep_ratio=0.8257, pairs=66
+2026-04-26 13:57:20,919 - INFO -   id=16, rep_ratio=0.8557, pairs=157
+2026-04-26 13:57:20,921 - INFO -   id=23, rep_ratio=0.1631, pairs=89
+2026-04-26 13:57:20,922 - INFO -   id=27, rep_ratio=0.7840, pairs=104
+2026-04-26 13:57:20,924 - INFO -   id=29, rep_ratio=0.5407, pairs=161
+2026-04-26 13:57:20,925 - INFO -   id=30, rep_ratio=0.0841, pairs=58
+2026-04-26 13:57:20,929 - INFO -   id=35, rep_ratio=0.9753, pairs=321
+2026-04-26 13:57:20,931 - INFO -   id=42, rep_ratio=0.9361, pairs=96
+2026-04-26 13:57:20,931 - INFO -   id=48, rep_ratio=0.0000, pairs=12
+2026-04-26 13:57:20,932 - INFO -   id=50, rep_ratio=0.0172, pairs=102
+2026-04-26 13:57:20,934 - INFO -   id=52, rep_ratio=0.8080, pairs=133
+2026-04-26 13:57:20,936 - INFO -   id=53, rep_ratio=0.9154, pairs=111
+2026-04-26 13:57:20,937 - INFO -   id=57, rep_ratio=0.9132, pairs=76
+2026-04-26 13:57:20,937 - INFO -   id=65, rep_ratio=0.0909, pairs=15
+2026-04-26 13:57:20,938 - INFO -   id=70, rep_ratio=0.9175, pairs=61
+2026-04-26 13:57:20,939 - INFO -   id=79, rep_ratio=0.6916, pairs=84
+2026-04-26 13:57:20,943 - INFO -   id=82, rep_ratio=0.8705, pairs=280
+2026-04-26 13:57:20,946 - INFO -   id=83, rep_ratio=0.9386, pairs=75
+2026-04-26 13:57:20,948 - INFO -   id=86, rep_ratio=0.7507, pairs=172
+2026-04-26 13:57:20,950 - INFO -   id=88, rep_ratio=0.8352, pairs=138
+2026-04-26 13:57:20,952 - INFO -   id=91, rep_ratio=0.9304, pairs=195
+2026-04-26 13:57:20,954 - INFO -   id=94, rep_ratio=0.9524, pairs=93
+2026-04-26 13:57:20,954 - INFO -   id=100, rep_ratio=0.0000, pairs=12
+2026-04-26 13:57:20,955 - INFO -   id=103, rep_ratio=0.0000, pairs=29
+2026-04-26 13:57:20,956 - INFO -   id=104, rep_ratio=0.8322, pairs=86
+2026-04-26 13:57:20,957 - INFO -   id=111, rep_ratio=0.9240, pairs=95
+2026-04-26 13:57:20,958 - INFO -   id=122, rep_ratio=0.0335, pairs=31
+2026-04-26 13:57:20,959 - INFO -   id=123, rep_ratio=0.8692, pairs=93
+2026-04-26 13:57:20,961 - INFO -   id=125, rep_ratio=0.8508, pairs=91
+2026-04-26 13:57:20,967 - INFO -   id=127, rep_ratio=0.9899, pairs=541
+2026-04-26 13:57:20,968 - INFO -   id=128, rep_ratio=0.9179, pairs=73
+2026-04-26 13:57:20,970 - INFO -   id=150, rep_ratio=0.6452, pairs=133
+2026-04-26 13:57:20,972 - INFO -   id=152, rep_ratio=0.8766, pairs=133
+2026-04-26 13:57:20,977 - INFO -   id=159, rep_ratio=0.9133, pairs=436
+2026-04-26 13:57:20,977 - INFO -   id=160, rep_ratio=0.0806, pairs=14
+2026-04-26 13:57:20,979 - INFO -   id=161, rep_ratio=0.8644, pairs=103
+2026-04-26 13:57:20,981 - INFO -   id=166, rep_ratio=0.9314, pairs=126
+2026-04-26 13:57:20,981 - INFO -   id=168, rep_ratio=0.9819, pairs=58
+2026-04-26 13:57:20,984 - INFO -   id=169, rep_ratio=0.9422, pairs=181
+2026-04-26 13:57:20,984 - INFO -   id=180, rep_ratio=0.0533, pairs=13
+2026-04-26 13:57:20,985 - INFO -   id=188, rep_ratio=0.1786, pairs=54
+2026-04-26 13:57:20,986 - INFO -   id=198, rep_ratio=0.0970, pairs=101
+2026-04-26 13:57:20,987 - INFO - Loaded batch_id from metadata: batch_69ee51e79c008190a54b7ce914e79efd
+2026-04-26 13:57:20,987 - INFO - Checking batch status for batch_69ee51e79c008190a54b7ce914e79efd ...
+2026-04-26 13:57:21,513 - INFO - HTTP Request: GET https://api.openai.com/v1/batches/batch_69ee51e79c008190a54b7ce914e79efd "HTTP/1.1 200 OK"
+2026-04-26 13:57:21,526 - INFO -   Status: validating
+2026-04-26 13:57:21,526 - INFO -   Request counts: BatchRequestCounts(completed=0, failed=0, total=0)
+2026-04-26 13:57:21,526 - INFO -   Batch still processing. Try again later.
+2026-04-26 14:05:11,105 - INFO - Logging to logs/olmo2_13b/e1_auto_label_standard.log
+2026-04-26 14:05:11,149 - INFO - ======================================================================
+2026-04-26 14:05:11,150 - INFO - E1 LLM-Assisted Span-Level Safety Labeling
+2026-04-26 14:05:11,150 - INFO -   Model: olmo2-13b
+2026-04-26 14:05:11,150 - INFO -   Config: standard
+2026-04-26 14:05:11,150 - INFO -   Training phase: pretraining
+2026-04-26 14:05:11,150 - INFO -   E1 input root: results/olmo2_13b/pretraining
+2026-04-26 14:05:11,150 - INFO -   Label run root: results/olmo2_13b/pretraining/gpt-4.1-mini
+2026-04-26 14:05:11,150 - INFO -   Label LLM (--e1-llm): gpt-4.1-mini
+2026-04-26 14:05:11,151 - INFO -   dotenv path: /gpfs/home/tmuthukumar/pretraining-trace/.env
+2026-04-26 14:05:11,151 - INFO -   dotenv loaded: True
+2026-04-26 14:05:11,151 - INFO -   OPENAI_API_KEY: ****...zH4A
+2026-04-26 14:05:11,151 - INFO - ======================================================================
+2026-04-26 14:05:11,843 - INFO - Loaded 45 records from E1 results
+2026-04-26 14:05:11,852 - INFO - Compliant records: 45
+2026-04-26 14:05:11,853 - INFO -   id=0, rep_ratio=0.0780, pairs=46
+2026-04-26 14:05:11,857 - INFO -   id=6, rep_ratio=0.9295, pairs=223
+2026-04-26 14:05:11,858 - INFO -   id=11, rep_ratio=0.0316, pairs=64
+2026-04-26 14:05:11,860 - INFO -   id=12, rep_ratio=0.8257, pairs=66
+2026-04-26 14:05:11,862 - INFO -   id=16, rep_ratio=0.8557, pairs=157
+2026-04-26 14:05:11,863 - INFO -   id=23, rep_ratio=0.1631, pairs=89
+2026-04-26 14:05:11,865 - INFO -   id=27, rep_ratio=0.7840, pairs=104
+2026-04-26 14:05:11,867 - INFO -   id=29, rep_ratio=0.5407, pairs=161
+2026-04-26 14:05:11,868 - INFO -   id=30, rep_ratio=0.0841, pairs=58
+2026-04-26 14:05:11,873 - INFO -   id=35, rep_ratio=0.9753, pairs=321
+2026-04-26 14:05:11,875 - INFO -   id=42, rep_ratio=0.9361, pairs=96
+2026-04-26 14:05:11,875 - INFO -   id=48, rep_ratio=0.0000, pairs=12
+2026-04-26 14:05:11,877 - INFO -   id=50, rep_ratio=0.0172, pairs=102
+2026-04-26 14:05:11,879 - INFO -   id=52, rep_ratio=0.8080, pairs=133
+2026-04-26 14:05:11,881 - INFO -   id=53, rep_ratio=0.9154, pairs=111
+2026-04-26 14:05:11,882 - INFO -   id=57, rep_ratio=0.9132, pairs=76
+2026-04-26 14:05:11,882 - INFO -   id=65, rep_ratio=0.0909, pairs=15
+2026-04-26 14:05:11,883 - INFO -   id=70, rep_ratio=0.9175, pairs=61
+2026-04-26 14:05:11,884 - INFO -   id=79, rep_ratio=0.6916, pairs=84
+2026-04-26 14:05:11,888 - INFO -   id=82, rep_ratio=0.8705, pairs=280
+2026-04-26 14:05:11,889 - INFO -   id=83, rep_ratio=0.9386, pairs=75
+2026-04-26 14:05:11,891 - INFO -   id=86, rep_ratio=0.7507, pairs=172
+2026-04-26 14:05:11,893 - INFO -   id=88, rep_ratio=0.8352, pairs=138
+2026-04-26 14:05:11,896 - INFO -   id=91, rep_ratio=0.9304, pairs=195
+2026-04-26 14:05:11,897 - INFO -   id=94, rep_ratio=0.9524, pairs=93
+2026-04-26 14:05:11,898 - INFO -   id=100, rep_ratio=0.0000, pairs=12
+2026-04-26 14:05:11,898 - INFO -   id=103, rep_ratio=0.0000, pairs=29
+2026-04-26 14:05:11,900 - INFO -   id=104, rep_ratio=0.8322, pairs=86
+2026-04-26 14:05:11,901 - INFO -   id=111, rep_ratio=0.9240, pairs=95
+2026-04-26 14:05:11,902 - INFO -   id=122, rep_ratio=0.0335, pairs=31
+2026-04-26 14:05:11,903 - INFO -   id=123, rep_ratio=0.8692, pairs=93
+2026-04-26 14:05:11,905 - INFO -   id=125, rep_ratio=0.8508, pairs=91
+2026-04-26 14:05:11,912 - INFO -   id=127, rep_ratio=0.9899, pairs=541
+2026-04-26 14:05:11,913 - INFO -   id=128, rep_ratio=0.9179, pairs=73
+2026-04-26 14:05:11,915 - INFO -   id=150, rep_ratio=0.6452, pairs=133
+2026-04-26 14:05:11,917 - INFO -   id=152, rep_ratio=0.8766, pairs=133
+2026-04-26 14:05:11,922 - INFO -   id=159, rep_ratio=0.9133, pairs=436
+2026-04-26 14:05:11,922 - INFO -   id=160, rep_ratio=0.0806, pairs=14
+2026-04-26 14:05:11,924 - INFO -   id=161, rep_ratio=0.8644, pairs=103
+2026-04-26 14:05:11,926 - INFO -   id=166, rep_ratio=0.9314, pairs=126
+2026-04-26 14:05:11,926 - INFO -   id=168, rep_ratio=0.9819, pairs=58
+2026-04-26 14:05:11,929 - INFO -   id=169, rep_ratio=0.9422, pairs=181
+2026-04-26 14:05:11,930 - INFO -   id=180, rep_ratio=0.0533, pairs=13
+2026-04-26 14:05:11,931 - INFO -   id=188, rep_ratio=0.1786, pairs=54
+2026-04-26 14:05:11,932 - INFO -   id=198, rep_ratio=0.0970, pairs=101
+2026-04-26 14:05:11,933 - INFO - Loaded batch_id from metadata: batch_69ee51e79c008190a54b7ce914e79efd
+2026-04-26 14:05:11,933 - INFO - Checking batch status for batch_69ee51e79c008190a54b7ce914e79efd ...
+2026-04-26 14:05:12,424 - INFO - HTTP Request: GET https://api.openai.com/v1/batches/batch_69ee51e79c008190a54b7ce914e79efd "HTTP/1.1 200 OK"
+2026-04-26 14:05:12,436 - INFO -   Status: completed
+2026-04-26 14:05:12,436 - INFO -   Request counts: BatchRequestCounts(completed=44, failed=1, total=45)
+2026-04-26 14:05:12,436 - INFO -   Downloading output file: file-4Rw6DfbL6NA3JXD6JPP2gS
+2026-04-26 14:05:13,688 - INFO - HTTP Request: GET https://api.openai.com/v1/files/file-4Rw6DfbL6NA3JXD6JPP2gS/content "HTTP/1.1 200 OK"
+2026-04-26 14:05:14,541 - INFO -   Raw output saved to results/olmo2_13b/pretraining/gpt-4.1-mini/batch_e1/batch_output.jsonl
+2026-04-26 14:05:14,668 - WARNING - Expected 223 labels, got 221
+2026-04-26 14:05:14,672 - WARNING - Expected 104 labels, got 62
+2026-04-26 14:05:14,672 - WARNING - Expected 161 labels, got 67
+2026-04-26 14:05:14,674 - ERROR -   Record id=35: JSON parse error: Unterminated string starting at: line 1785 column 22 (char 56295)
+2026-04-26 14:05:14,675 - WARNING - Expected 96 labels, got 60
+2026-04-26 14:05:14,678 - WARNING - Expected 111 labels, got 105
+2026-04-26 14:05:14,680 - WARNING - Expected 61 labels, got 51
+2026-04-26 14:05:14,680 - WARNING - Expected 84 labels, got 43
+2026-04-26 14:05:14,681 - WARNING - Expected 280 labels, got 122
+2026-04-26 14:05:14,683 - WARNING - Expected 172 labels, got 171
+2026-04-26 14:05:14,685 - WARNING - Expected 138 labels, got 140
+2026-04-26 14:05:14,686 - WARNING - Expected 195 labels, got 188
+2026-04-26 14:05:14,692 - WARNING - Expected 541 labels, got 44
+2026-04-26 14:05:14,693 - WARNING - Expected 133 labels, got 89
+2026-04-26 14:05:14,695 - WARNING - Expected 436 labels, got 12
+2026-04-26 14:05:14,696 - WARNING - Expected 126 labels, got 54
+2026-04-26 14:05:14,752 - INFO - ======================================================================
+2026-04-26 14:05:14,753 - INFO - COLLECTION COMPLETE
+2026-04-26 14:05:14,753 - INFO -   Total rows: 3491
+2026-04-26 14:05:14,753 - INFO -   Errors: 1
+2026-04-26 14:05:14,753 - INFO -   CSV saved to: results/olmo2_13b/pretraining/gpt-4.1-mini/span_safety_labels_standard.csv
+2026-04-26 14:05:14,753 - INFO - ======================================================================
+2026-04-26 14:05:14,754 - INFO -   Error details saved to results/olmo2_13b/pretraining/gpt-4.1-mini/batch_e1/batch_errors.json
