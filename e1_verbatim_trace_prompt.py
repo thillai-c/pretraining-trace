@@ -4,14 +4,18 @@ HarmBench prompt x and a reference corpus, parallel to ``e1_verbatim_trace.py``
 which operates on model responses y.
 
 HarmBench prompts are model-independent (identical across all OLMo 2 variants),
-so this script reads from a single reference model directory and produces
-results that are shared across the OLMo 2 family. ALL prompts are processed
-(no compliance/refusal filter, no degeneracy filter — degeneracy is a
-response-level concept).
+so this script reads from a single reference model directory. For pretraining
+and mid-training the corpus is shared across the OLMo 2 family, so one output
+is produced. For post-training the corpus is per-size (1b/7b/13b/32b); the
+size is auto-detected from ``--index_dir`` and encoded in the output path
+(e.g., ``./index/post-training/7b`` -> ``results/prompt/post_training/7b/``).
+ALL prompts are processed (no compliance/refusal filter, no degeneracy filter
+— degeneracy is a response-level concept).
 
 Backends mirror the response-level script:
   - ``--api_index v4_olmo-mix-1124_llama``  -> corpus label ``pretraining``
   - ``--index_dir ./index/dolmino-mix-1124`` -> corpus label ``mid_training``
+  - ``--index_dir ./index/post-training/{size}`` -> corpus label ``post_training/{size}``
 
 Output: ``results/prompt/{corpus}/e1_verbatim_{config}.json``
 Log:    ``logs/prompt/{corpus}/e1_verbatim_trace_prompt_{config}.log``
@@ -41,6 +45,13 @@ Usage:
     python e1_verbatim_trace_prompt.py \
         --config standard \
         --index_dir ./index/dolmino-mix-1124 \
+        --retrieve_snippets
+
+    # Post-training corpus (per-model-size local index; size auto-detected
+    # from the path, output goes to results/prompt/post_training/7b/)
+    python e1_verbatim_trace_prompt.py \
+        --config standard \
+        --index_dir ./index/post-training/7b \
         --retrieve_snippets
 """
 
@@ -318,6 +329,7 @@ def derive_corpus_label(args) -> str:
 
       - ``--api_index v4_olmo-mix-1124_llama`` -> ``pretraining``
       - ``--index_dir ./index/dolmino-mix-1124`` -> ``mid_training``
+      - ``--index_dir ./index/post-training/{size}`` -> ``post_training/{size}``
 
     Falls back to a generic label derived from the input if neither marker
     is present (so unusual indices still produce a deterministic path).
@@ -328,6 +340,14 @@ def derive_corpus_label(args) -> str:
         if "dolmino-mix-1124" in norm or base == "dolmino-mix-1124":
             return "mid_training"
         if "post-training" in norm or "post_training" in norm:
+            # Post-training corpora are per-size (./index/post-training/{1b,7b,13b,32b}/),
+            # so the segment after "post-training" is appended to keep results separated.
+            parts = norm.split("/")
+            for i, p in enumerate(parts):
+                if p in ("post-training", "post_training") and i + 1 < len(parts):
+                    size = parts[i + 1]
+                    if size:
+                        return f"post_training/{size}"
             return "post_training"
         return base or "local_index"
 
