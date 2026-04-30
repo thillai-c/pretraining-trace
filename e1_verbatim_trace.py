@@ -372,7 +372,23 @@ def retrieve_snippets_for_span(engine, span_ids, max_docs, max_disp_len, tokeniz
     Retrieve up to max_docs document snippets containing the given span.
       - Uses engine.find() → engine.get_doc_by_rank() for each occurrence.
       - If span occurs more than max_docs times, randomly samples max_docs.
+
+    Robustness (added 2026-04-30 after blocked-snippet diagnosis):
+      - Every snippet record carries a ``blocked`` field (default False).
+      - API responses with ``blocked=True`` are preserved as marker entries
+        (snippet_text="") instead of being silently dropped.
+      - The API ``spans`` field is ``[(text, label), ...]`` where
+        ``label is None`` marks context segments and ``label == '0'`` marks
+        the matched needle. Response-level keeps PRE-context only (the
+        downstream labeler uses ~50-150 tokens of pre-needle context);
+        post-context is intentionally dropped to keep schema stable across
+        the 8 OLMo 2 models already labeled. Iteration stops at the first
+        ``label is not None`` segment.
+      - Rare server-side text loss (``text is None`` inside a label=None
+        segment) is replaced with "" and a single warning is emitted so
+        silent loss is detectable.
     """
+    _log = logging.getLogger(__name__)
     find_result = engine.find(input_ids=span_ids)
     segments = find_result.get("segment_by_shard", [])
 
@@ -403,23 +419,53 @@ def retrieve_snippets_for_span(engine, span_ids, max_docs, max_disp_len, tokeniz
                     doc = engine.get_doc_by_rank(s=s, rank=rank, max_disp_len=max_disp_len, query_ids=span_ids)
                 else:
                     doc = engine.get_doc_by_rank(s=s, rank=rank, max_disp_len=max_disp_len)
-                    
+
                 if "error" in doc:
                     continue
+
+                is_blocked = bool(doc.get("blocked", False))
 
                 snippet_info = {
                     "doc_ix": doc.get("doc_ix"),
                     "doc_len": doc.get("doc_len"),
                     "metadata": doc.get("metadata", ""),
+                    "blocked": is_blocked,
                 }
 
+                if is_blocked:
+                    # Preserve as marker entry — never silently drop.
+                    snippet_info["snippet_text"] = ""
+                    snippet_info["snippet_token_ids"] = []
+                    snippets.append(snippet_info)
+                    docs_retrieved += 1
+                    continue
+
                 if isinstance(engine, InfiniGramAPIEngine) and "spans" in doc:
-                    # API mode: snippet text is in spans[0][0]
-                    spans_data = doc.get("spans", [])
-                    if spans_data and spans_data[0][0]:
-                        snippet_info["snippet_text"] = "".join(spans_data[0])
-                    else:
-                        snippet_info["snippet_text"] = ""
+                    # API mode: server returns spans = [(text, label), ...]
+                    # tuples — label=None marks context segments, label='0'
+                    # marks the matched needle. Response-level keeps
+                    # PRE-context only; iteration stops at the first
+                    # non-None label (i.e., when match begins).
+                    spans_data = doc.get("spans") or []
+                    pre_text = ""
+                    none_text_count = 0
+                    for seg in spans_data:
+                        if not seg or len(seg) < 2:
+                            continue
+                        text, label = seg[0], seg[1]
+                        if label is not None:
+                            break
+                        if text is None:
+                            none_text_count += 1
+                            text = ""
+                        pre_text += text
+                    if none_text_count > 0:
+                        _log.warning(
+                            "doc_ix=%s has %d context segments with None text "
+                            "(non-blocked); pre-context reconstruction is partial",
+                            doc.get("doc_ix"), none_text_count,
+                        )
+                    snippet_info["snippet_text"] = pre_text
                     snippet_info["snippet_token_ids"] = doc.get("token_ids", [])
                 elif "token_ids" in doc and tokenizer is not None:
                     # Local mode: decode token_ids
@@ -437,7 +483,11 @@ def retrieve_snippets_for_span(engine, span_ids, max_docs, max_disp_len, tokeniz
 
                 snippets.append(snippet_info)
                 docs_retrieved += 1
-            except Exception:
+            except Exception as exc:
+                _log.warning(
+                    "Unexpected error retrieving doc (s=%s, rank=%s): %s: %s",
+                    s, rank, type(exc).__name__, exc,
+                )
                 continue
 
     return snippets
@@ -446,7 +496,8 @@ def retrieve_snippets_for_span(engine, span_ids, max_docs, max_disp_len, tokeniz
 # ===========================================================================
 # E1 metrics computation
 # ===========================================================================
-def compute_e1_metrics(response_ids, maximal_spans, top_k_spans, tokenizer):
+def compute_e1_metrics(response_ids, maximal_spans, top_k_spans, tokenizer,
+                       *, token_len_field: str = "response_token_len"):
     """
     Compute E1 metrics from spans.
 
@@ -456,6 +507,10 @@ def compute_e1_metrics(response_ids, maximal_spans, top_k_spans, tokenizer):
       - span_length_distribution: min, max, mean, median of all maximal span lengths
       - all_maximal_spans: full list of maximal spans
       - top_k_spans: top-K span details with decoded text
+
+    ``token_len_field`` is the dict key used for the input length (default
+    ``"response_token_len"``; the prompt-level pipeline overrides to
+    ``"prompt_token_len"``).
     """
     L = len(response_ids)
     all_lengths = [e - b for (b, e) in maximal_spans]
@@ -488,7 +543,7 @@ def compute_e1_metrics(response_ids, maximal_spans, top_k_spans, tokenizer):
         })
 
     metrics = {
-        "response_token_len": L,
+        token_len_field: L,
         "LongestMatchLen": longest,
         "VerbatimCoverage": round(coverage, 4),
         "num_maximal_spans": len(maximal_spans),
