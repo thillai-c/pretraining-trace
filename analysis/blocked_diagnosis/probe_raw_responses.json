@@ -1,0 +1,773 @@
+[
+  {
+    "model": "olmo2_1b",
+    "record_id": 11,
+    "span_idx": 0,
+    "span_text": "disable the GPS tracker, you",
+    "stored_num_snippets": 1,
+    "stored_doc_ixs": [
+      1291969485
+    ],
+    "true_corpus_count": 1,
+    "true_minus_stored": 0,
+    "probe_docs": [],
+    "n_probed": 0,
+    "n_blocked": 0,
+    "n_with_none": 0
+  },
+  {
+    "model": "olmo2_7b",
+    "record_id": 3,
+    "span_idx": 1,
+    "span_text": "US Customs and Border Protection (CBP) and the Transportation Security Administration (TSA",
+    "stored_num_snippets": 1,
+    "stored_doc_ixs": [
+      2822924704
+    ],
+    "true_corpus_count": 1,
+    "true_minus_stored": 0,
+    "probe_docs": [],
+    "n_probed": 0,
+    "n_blocked": 0,
+    "n_with_none": 0
+  },
+  {
+    "model": "olmo2_13b",
+    "record_id": 0,
+    "span_idx": 5,
+    "span_text": ". Dimethylmercury is a colorless",
+    "stored_num_snippets": 1,
+    "stored_doc_ixs": [
+      833335431
+    ],
+    "true_corpus_count": 1,
+    "true_minus_stored": 0,
+    "probe_docs": [],
+    "n_probed": 0,
+    "n_blocked": 0,
+    "n_with_none": 0
+  },
+  {
+    "model": "olmo2_32b",
+    "record_id": 0,
+    "span_idx": 1,
+    "span_text": "Mercury(II) chloride (HgCl2",
+    "stored_num_snippets": 0,
+    "stored_doc_ixs": [],
+    "true_corpus_count": 2,
+    "true_minus_stored": 2,
+    "probe_docs": [
+      {
+        "shard_s": 9,
+        "rank": 363063135378,
+        "doc_ix": 2900177845,
+        "doc_len": 2871,
+        "blocked": false,
+        "metadata": "{\"path\": \"dclm-1649.json.zst\", \"linenum\": 228759, \"metadata\": {\"id\": \"https://data-search.nerc.ac.uk/geonetwork/srv/search?keyword=Carbon%20cycle\", \"metadata\": {\"Content-Length\": \"43848\", \"Content-Type\": \"application/http; msgtype=response\", \"WARC-Block-Digest\": \"sha1:FI4H3MXK5ERQXIN7BKDIJPQMO5UNZYEB\", \"WARC-Concurrent-To\": \"<urn:uuid:a5d72e47-1a93-47c0-9b5f-9a03ef7e9b7d>\", \"WARC-Date\": \"2021-09-23T12:07:43Z\", \"WARC-IP-Address\": \"130.246.130.59\", \"WARC-Identified-Payload-Type\": \"text/html\", \"WARC-Payload-Digest\": \"sha1:BXLVCZWAKXLGNTQW3ASKAX5P5JAXALUT\", \"WARC-Record-ID\": \"<urn:uuid:9206dc34-832f-4e69-a3c9-cd4a14fce63a>\", \"WARC-Target-URI\": \"https://data-search.nerc.ac.uk/geonetwork/srv/search?keyword=Carbon%20cycle\", \"WARC-Type\": \"response\", \"WARC-Warcinfo-ID\": \"<urn:uuid:3c188fce-dd71-4f14-bf38-4dcbade539e6>\", \"bff_contained_ngram_count_before_dedupe\": 0, \"fasttext_openhermes_reddit_eli5_vs_rw_v2_bigram_200k_train_prob\": 0.04139816761016846, \"language_id_whole_page_fasttext\": {\"en\": 0.9342283606529236}, \"previous_word_count\": 1874, \"provenance\": \"dclm_shard_00023416.jsonl.zstd:36052\", \"url\": \"https://data-search.nerc.ac.uk/geonetwork/srv/search?keyword=Carbon%20cycle\", \"warcinfo\": \"isPartOf: CC-MAIN-2021-39\\r\\npublisher: Common Crawl\\r\\ndescription: Wide crawl of the web for September 2021\\r\\noperator: Common Crawl Admin (info@commoncrawl.org)\\r\\nhostname: ip-10-67-67-43\\r\\nsoftware: Apache Nutch 1.18 (modified, https://github.com/commoncrawl/nutch/)\\r\\nrobots: checked via crawler-commons 1.2-SNAPSHOT (https://github.com/crawler-commons/crawler-commons)\\r\\nformat: WARC File Format 1.1\\r\\nconformsTo: https://iipc.github.io/warc-specifications/specifications/warc-format/warc-1.1/\"}, \"source\": \"dclm-hero-run-fasttext_for_HF\", \"version\": \"1.0\"}}\n",
+        "needle_offset": 40,
+        "spans_none_count": 1,
+        "spans_total": 2,
+        "raw_response_keys": [
+          "blocked",
+          "disp_len",
+          "doc_ix",
+          "doc_len",
+          "latency",
+          "metadata",
+          "needle_offset",
+          "spans",
+          "token_ids",
+          "tokens"
+        ],
+        "text_preview": "H) laboratory. The different treatments involved samples being kept in the dark or exposed to controlled light; additionally between 6 to 12 light-exposed samples were poisoned with[NONE]"
+      },
+      {
+        "shard_s": 3,
+        "rank": 363103817552,
+        "doc_ix": 950903056,
+        "doc_len": 2871,
+        "blocked": false,
+        "metadata": "{\"path\": \"dclm-0444.json.zst\", \"linenum\": 105233, \"metadata\": {\"id\": \"https://csw-nerc1.ceda.ac.uk/geonetwork/srv/search?keyword=Carbon%20cycle\", \"metadata\": {\"Content-Length\": \"43812\", \"Content-Type\": \"application/http; msgtype=response\", \"WARC-Block-Digest\": \"sha1:OQFMWM7KS5BG4ZMNKASHPQZCKC7MWNL3\", \"WARC-Concurrent-To\": \"<urn:uuid:2ef74ebf-baf3-4067-8c31-b9781eb6d512>\", \"WARC-Date\": \"2022-05-28T14:26:10Z\", \"WARC-IP-Address\": \"130.246.130.59\", \"WARC-Identified-Payload-Type\": \"text/html\", \"WARC-Payload-Digest\": \"sha1:VLWSHZWPL7SLPGLMJRUO5QR4TBJJ2G7T\", \"WARC-Record-ID\": \"<urn:uuid:0025ae98-b782-40f2-b190-6c194dbce9a5>\", \"WARC-Target-URI\": \"https://csw-nerc1.ceda.ac.uk/geonetwork/srv/search?keyword=Carbon%20cycle\", \"WARC-Type\": \"response\", \"WARC-Warcinfo-ID\": \"<urn:uuid:39cc675e-47f9-4ebc-8422-28b60f770bfb>\", \"bff_contained_ngram_count_before_dedupe\": 0, \"fasttext_openhermes_reddit_eli5_vs_rw_v2_bigram_200k_train_prob\": 0.04139810800552368, \"language_id_whole_page_fasttext\": {\"en\": 0.9342281818389891}, \"previous_word_count\": 1874, \"provenance\": \"dclm_shard_00006301.jsonl.zstd:10848\", \"url\": \"https://csw-nerc1.ceda.ac.uk/geonetwork/srv/search?keyword=Carbon%20cycle\", \"warcinfo\": \"isPartOf: CC-MAIN-2022-21\\r\\npublisher: Common Crawl\\r\\ndescription: Wide crawl of the web for May 2022\\r\\noperator: Common Crawl Admin (info@commoncrawl.org)\\r\\nhostname: ip-10-67-67-189\\r\\nsoftware: Apache Nutch 1.18 (modified, https://github.com/commoncrawl/nutch/)\\r\\nrobots: checked via crawler-commons 1.3-SNAPSHOT (https://github.com/crawler-commons/crawler-commons)\\r\\nformat: WARC File Format 1.1\\r\\nconformsTo: https://iipc.github.io/warc-specifications/specifications/warc-format/warc-1.1/\"}, \"source\": \"dclm-hero-run-fasttext_for_HF\", \"version\": \"1.0\"}}\n",
+        "needle_offset": 40,
+        "spans_none_count": 1,
+        "spans_total": 2,
+        "raw_response_keys": [
+          "blocked",
+          "disp_len",
+          "doc_ix",
+          "doc_len",
+          "latency",
+          "metadata",
+          "needle_offset",
+          "spans",
+          "token_ids",
+          "tokens"
+        ],
+        "text_preview": "H) laboratory. The different treatments involved samples being kept in the dark or exposed to controlled light; additionally between 6 to 12 light-exposed samples were poisoned with[NONE]"
+      }
+    ],
+    "n_probed": 2,
+    "n_blocked": 0,
+    "n_with_none": 2
+  },
+  {
+    "model": "olmo2_1b_instruct",
+    "record_id": 11,
+    "span_idx": 4,
+    "span_text": "er. This can vary slightly depending on the",
+    "stored_num_snippets": 1,
+    "stored_doc_ixs": [
+      2322264379
+    ],
+    "true_corpus_count": 1,
+    "true_minus_stored": 0,
+    "probe_docs": [],
+    "n_probed": 0,
+    "n_blocked": 0,
+    "n_with_none": 0
+  },
+  {
+    "model": "olmo2_7b_instruct",
+    "record_id": 30,
+    "span_idx": 2,
+    "span_text": "a complex and multifaceted conflict, with",
+    "stored_num_snippets": 1,
+    "stored_doc_ixs": [
+      1678798110
+    ],
+    "true_corpus_count": 1,
+    "true_minus_stored": 0,
+    "probe_docs": [],
+    "n_probed": 0,
+    "n_blocked": 0,
+    "n_with_none": 0
+  },
+  {
+    "model": "olmo2_13b_instruct",
+    "record_id": 30,
+    "span_idx": 10,
+    "span_text": ", which inspired widespread protests",
+    "stored_num_snippets": 1,
+    "stored_doc_ixs": [
+      2822870939
+    ],
+    "true_corpus_count": 1,
+    "true_minus_stored": 0,
+    "probe_docs": [],
+    "n_probed": 0,
+    "n_blocked": 0,
+    "n_with_none": 0
+  },
+  {
+    "model": "olmo2_32b_instruct",
+    "record_id": 30,
+    "span_idx": 0,
+    "span_text": "Internal Political Struggle\n\n",
+    "stored_num_snippets": 0,
+    "stored_doc_ixs": [],
+    "true_corpus_count": 13,
+    "true_minus_stored": 13,
+    "probe_docs": [
+      {
+        "shard_s": 7,
+        "rank": 168612258,
+        "doc_ix": 2279683925,
+        "doc_len": 2419,
+        "blocked": false,
+        "metadata": "{\"path\": \"dclm-1442.json.zst\", \"linenum\": 954277, \"metadata\": {\"id\": \"http://sandikafootpaths.blogspot.com/2015/10/humans-that-is-so-inhumane-right.html\", \"metadata\": {\"Content-Length\": \"131678\", \"Content-Type\": \"application/http; msgtype=response\", \"WARC-Block-Digest\": \"sha1:U3MCV4JIHZFXWWBN4VAYJ5R3XW37PLCU\", \"WARC-Concurrent-To\": \"<urn:uuid:702c3e1f-c509-44fb-9ab8-a1054dbde859>\", \"WARC-Date\": \"2017-08-23T21:09:16Z\", \"WARC-IP-Address\": \"172.217.5.225\", \"WARC-Identified-Payload-Type\": \"text/html\", \"WARC-Payload-Digest\": \"sha1:V3SKDFWICZW7ITEZ7H7KTRUEFWEAWEVL\", \"WARC-Record-ID\": \"<urn:uuid:b3494a60-57a6-4963-8ba7-41003965307e>\", \"WARC-Target-URI\": \"http://sandikafootpaths.blogspot.com/2015/10/humans-that-is-so-inhumane-right.html\", \"WARC-Type\": \"response\", \"WARC-Warcinfo-ID\": \"<urn:uuid:01cb56da-6c65-45cf-bc9d-0b657d5e6293>\", \"bff_contained_ngram_count_before_dedupe\": 78, \"fasttext_openhermes_reddit_eli5_vs_rw_v2_bigram_200k_train_prob\": 0.02764904499053955, \"language_id_whole_page_fasttext\": {\"en\": 0.9481443166732788}, \"previous_word_count\": 1729, \"provenance\": \"dclm_shard_00020504.jsonl.zstd:21456\", \"url\": \"http://sandikafootpaths.blogspot.com/2015/10/humans-that-is-so-inhumane-right.html\", \"warcinfo\": \"robots: classic\\r\\nhostname: ip-10-166-68-32.ec2.internal\\r\\nsoftware: Nutch 1.6 (CC)\\r\\nisPartOf: CC-MAIN-2017-34\\r\\noperator: Common Crawl Admin\\r\\ndescription: Wide crawl of the web for August 2017\\r\\npublisher: Common Crawl\\r\\nformat: WARC File Format 1.0\\r\\nconformsTo: http://bibnum.bnf.fr/WARC/WARC_ISO_28500_version1_latestdraft.pdf\"}, \"source\": \"dclm-hero-run-fasttext_for_HF\", \"version\": \"1.0\"}}\n",
+        "needle_offset": 40,
+        "spans_none_count": 1,
+        "spans_total": 2,
+        "raw_response_keys": [
+          "blocked",
+          "disp_len",
+          "doc_ix",
+          "doc_len",
+          "latency",
+          "metadata",
+          "needle_offset",
+          "spans",
+          "token_ids",
+          "tokens"
+        ],
+        "text_preview": "on our territories on the border with dome state, you see it is a crime”?\n\nThe US more than any other country, has used its foreign POLICY in its[NONE]"
+      },
+      {
+        "shard_s": 1,
+        "rank": 168603388,
+        "doc_ix": 407997527,
+        "doc_len": 2419,
+        "blocked": false,
+        "metadata": "{\"path\": \"dclm-0756.json.zst\", \"linenum\": 654181, \"metadata\": {\"id\": \"http://sandikafootpaths.blogspot.com/2015/10/humans-that-is-so-inhumane-right.html\", \"metadata\": {\"Content-Length\": \"133836\", \"Content-Type\": \"application/http; msgtype=response\", \"WARC-Block-Digest\": \"sha1:3QRC3J2OXARV725TGFXTAACY4JWCLHUA\", \"WARC-Concurrent-To\": \"<urn:uuid:3fd9573a-4e65-4f56-bc5a-7ed6e62d83ef>\", \"WARC-Date\": \"2017-12-15T13:56:49Z\", \"WARC-IP-Address\": \"216.58.217.129\", \"WARC-Identified-Payload-Type\": \"text/html\", \"WARC-Payload-Digest\": \"sha1:CHF5LHEMMLKSI5PQTCBLPQ23ARFKVQTP\", \"WARC-Record-ID\": \"<urn:uuid:a907a824-34d3-4cba-9ab2-359b75e5dd6f>\", \"WARC-Target-URI\": \"http://sandikafootpaths.blogspot.com/2015/10/humans-that-is-so-inhumane-right.html\", \"WARC-Type\": \"response\", \"WARC-Warcinfo-ID\": \"<urn:uuid:46a67296-47e6-45d2-8b67-1552a8b48738>\", \"bff_contained_ngram_count_before_dedupe\": 78, \"fasttext_openhermes_reddit_eli5_vs_rw_v2_bigram_200k_train_prob\": 0.02764904499053955, \"language_id_whole_page_fasttext\": {\"en\": 0.9481443166732788}, \"previous_word_count\": 1729, \"provenance\": \"dclm_shard_00010743.jsonl.zstd:20613\", \"url\": \"http://sandikafootpaths.blogspot.com/2015/10/humans-that-is-so-inhumane-right.html\", \"warcinfo\": \"robots: classic\\r\\nhostname: ip-10-111-184-87.ec2.internal\\r\\nsoftware: Nutch 1.6 (CC)\\r\\nisPartOf: CC-MAIN-2017-51\\r\\noperator: Common Crawl Admin\\r\\ndescription: Wide crawl of the web for December 2017\\r\\npublisher: Common Crawl\\r\\nformat: WARC File Format 1.0\\r\\nconformsTo: http://bibnum.bnf.fr/WARC/WARC_ISO_28500_version1_latestdraft.pdf\"}, \"source\": \"dclm-hero-run-fasttext_for_HF\", \"version\": \"1.0\"}}\n",
+        "needle_offset": 40,
+        "spans_none_count": 1,
+        "spans_total": 2,
+        "raw_response_keys": [
+          "blocked",
+          "disp_len",
+          "doc_ix",
+          "doc_len",
+          "latency",
+          "metadata",
+          "needle_offset",
+          "spans",
+          "token_ids",
+          "tokens"
+        ],
+        "text_preview": "on our territories on the border with dome state, you see it is a crime”?\n\nThe US more than any other country, has used its foreign POLICY in its[NONE]"
+      },
+      {
+        "shard_s": 4,
+        "rank": 168628516,
+        "doc_ix": 1240727101,
+        "doc_len": 8308,
+        "blocked": false,
+        "metadata": "{\"path\": \"dclm-0410.json.zst\", \"linenum\": 833434, \"metadata\": {\"id\": \"http://sandikafootpaths.blogspot.com/2015/10/\", \"metadata\": {\"Content-Length\": \"226323\", \"Content-Type\": \"application/http; msgtype=response\", \"WARC-Block-Digest\": \"sha1:SS652IIOF55HZGSIVWJG6N4K5Y345KFH\", \"WARC-Concurrent-To\": \"<urn:uuid:28e359d9-1d35-4715-84e5-61f06bc8cc26>\", \"WARC-Date\": \"2018-05-20T13:52:14Z\", \"WARC-IP-Address\": \"216.58.195.1\", \"WARC-Identified-Payload-Type\": \"text/html\", \"WARC-Payload-Digest\": \"sha1:I6KIQZVZOKRWW7K42ZHLIWKQZQUWGDJY\", \"WARC-Record-ID\": \"<urn:uuid:03d3869e-ea45-4e84-9cb2-107fec5ad77a>\", \"WARC-Target-URI\": \"http://sandikafootpaths.blogspot.com/2015/10/\", \"WARC-Type\": \"response\", \"WARC-Warcinfo-ID\": \"<urn:uuid:75c74baf-36ef-44ec-895b-85687f74325e>\", \"bff_contained_ngram_count_before_dedupe\": 80, \"fasttext_openhermes_reddit_eli5_vs_rw_v2_bigram_200k_train_prob\": 0.06614804267883301, \"language_id_whole_page_fasttext\": {\"en\": 0.953059732913971}, \"previous_word_count\": 6054, \"provenance\": \"dclm_shard_00005834.jsonl.zstd:84990\", \"url\": \"http://sandikafootpaths.blogspot.com/2015/10/\", \"warcinfo\": \"robots: classic\\r\\nhostname: ip-10-16-224-244.ec2.internal\\r\\nsoftware: Nutch 1.6 (CC)\\r\\nisPartOf: CC-MAIN-2018-22\\r\\noperator: Common Crawl Admin\\r\\ndescription: Wide crawl of the web for May 2018\\r\\npublisher: Common Crawl\\r\\nformat: WARC File Format 1.0\\r\\nconformsTo: http://bibnum.bnf.fr/WARC/WARC_ISO_28500_version1_latestdraft.pdf\"}, \"source\": \"dclm-hero-run-fasttext_for_HF\", \"version\": \"1.0\"}}\n",
+        "needle_offset": 40,
+        "spans_none_count": 1,
+        "spans_total": 2,
+        "raw_response_keys": [
+          "blocked",
+          "disp_len",
+          "doc_ix",
+          "doc_len",
+          "latency",
+          "metadata",
+          "needle_offset",
+          "spans",
+          "token_ids",
+          "tokens"
+        ],
+        "text_preview": "on our territories on the border with dome state, you see it is a crime”?\n\nThe US more than any other country, has used its foreign POLICY in its[NONE]"
+      },
+      {
+        "shard_s": 3,
+        "rank": 168634746,
+        "doc_ix": 1115451449,
+        "doc_len": 8336,
+        "blocked": false,
+        "metadata": "{\"path\": \"dclm-1543.json.zst\", \"linenum\": 618733, \"metadata\": {\"id\": \"http://sandikafootpaths.blogspot.com/2015/10/\", \"metadata\": {\"Content-Length\": \"225667\", \"Content-Type\": \"application/http; msgtype=response\", \"WARC-Block-Digest\": \"sha1:3NDQHUAPZ7RILRSRZWZEDDLCWLGI52IR\", \"WARC-Concurrent-To\": \"<urn:uuid:f9a4afbf-3eb5-4eb0-b4e0-3a2e9e1fadba>\", \"WARC-Date\": \"2018-03-19T12:16:53Z\", \"WARC-IP-Address\": \"172.217.12.225\", \"WARC-Identified-Payload-Type\": \"text/html\", \"WARC-Payload-Digest\": \"sha1:RQIFUXEMXANJJQ6BGUSS7LTAJZQ2IUWW\", \"WARC-Record-ID\": \"<urn:uuid:d6232de9-ad38-4ad3-8e84-ab30895fcb66>\", \"WARC-Target-URI\": \"http://sandikafootpaths.blogspot.com/2015/10/\", \"WARC-Type\": \"response\", \"WARC-Warcinfo-ID\": \"<urn:uuid:bdb407d2-ab7f-41be-9f96-af8a46aefd13>\", \"bff_contained_ngram_count_before_dedupe\": 70, \"fasttext_openhermes_reddit_eli5_vs_rw_v2_bigram_200k_train_prob\": 0.06645429134368896, \"language_id_whole_page_fasttext\": {\"en\": 0.953059732913971}, \"previous_word_count\": 6054, \"provenance\": \"dclm_shard_00021912.jsonl.zstd:78497\", \"url\": \"http://sandikafootpaths.blogspot.com/2015/10/\", \"warcinfo\": \"robots: classic\\r\\nhostname: ip-10-148-29-247.ec2.internal\\r\\nsoftware: Nutch 1.6 (CC)\\r\\nisPartOf: CC-MAIN-2018-13\\r\\noperator: Common Crawl Admin\\r\\ndescription: Wide crawl of the web for March 2018\\r\\npublisher: Common Crawl\\r\\nformat: WARC File Format 1.0\\r\\nconformsTo: http://bibnum.bnf.fr/WARC/WARC_ISO_28500_version1_latestdraft.pdf\"}, \"source\": \"dclm-hero-run-fasttext_for_HF\", \"version\": \"1.0\"}}\n",
+        "needle_offset": 40,
+        "spans_none_count": 1,
+        "spans_total": 2,
+        "raw_response_keys": [
+          "blocked",
+          "disp_len",
+          "doc_ix",
+          "doc_len",
+          "latency",
+          "metadata",
+          "needle_offset",
+          "spans",
+          "token_ids",
+          "tokens"
+        ],
+        "text_preview": "on our territories on the border with dome state, you see it is a crime”?\n\nThe US more than any other country, has used its foreign POLICY in its[NONE]"
+      },
+      {
+        "shard_s": 8,
+        "rank": 168639035,
+        "doc_ix": 2550082301,
+        "doc_len": 2391,
+        "blocked": false,
+        "metadata": "{\"path\": \"dclm-1280.json.zst\", \"linenum\": 117648, \"metadata\": {\"id\": \"http://sandikafootpaths.blogspot.com/2015/10/humans-that-is-so-inhumane-right.html\", \"metadata\": {\"Content-Length\": \"129818\", \"Content-Type\": \"application/http; msgtype=response\", \"WARC-Block-Digest\": \"sha1:2HX2G3OHAIKAHZAXBC64GPQATCCAIVKG\", \"WARC-Concurrent-To\": \"<urn:uuid:5f0d7b19-43d4-49a3-a8fd-99fb9e426593>\", \"WARC-Date\": \"2017-06-28T12:13:57Z\", \"WARC-IP-Address\": \"216.58.217.129\", \"WARC-Identified-Payload-Type\": \"text/html\", \"WARC-Payload-Digest\": \"sha1:M7N5HS2VLZZBYWWYK7XNY3D5MYVJE4BY\", \"WARC-Record-ID\": \"<urn:uuid:3fbd7f1d-fadd-4bba-8893-2fcf2974c501>\", \"WARC-Target-URI\": \"http://sandikafootpaths.blogspot.com/2015/10/humans-that-is-so-inhumane-right.html\", \"WARC-Type\": \"response\", \"WARC-Warcinfo-ID\": \"<urn:uuid:d0c2b4a4-0402-4e6c-8adb-0bd79b5f7e1d>\", \"bff_contained_ngram_count_before_dedupe\": 81, \"fasttext_openhermes_reddit_eli5_vs_rw_v2_bigram_200k_train_prob\": 0.02686828374862671, \"language_id_whole_page_fasttext\": {\"en\": 0.9481443166732788}, \"previous_word_count\": 1729, \"provenance\": \"dclm_shard_00018178.jsonl.zstd:33721\", \"url\": \"http://sandikafootpaths.blogspot.com/2015/10/humans-that-is-so-inhumane-right.html\", \"warcinfo\": \"robots: classic\\r\\nhostname: ip-10-166-25-142.ec2.internal\\r\\nsoftware: Nutch 1.6 (CC)\\r\\nisPartOf: CC-MAIN-2017-26\\r\\noperator: Common Crawl Admin\\r\\ndescription: Wide crawl of the web for June 2017\\r\\npublisher: Common Crawl\\r\\nformat: WARC File Format 1.0\\r\\nconformsTo: http://bibnum.bnf.fr/WARC/WARC_ISO_28500_version1_latestdraft.pdf\"}, \"source\": \"dclm-hero-run-fasttext_for_HF\", \"version\": \"1.0\"}}\n",
+        "needle_offset": 40,
+        "spans_none_count": 1,
+        "spans_total": 2,
+        "raw_response_keys": [
+          "blocked",
+          "disp_len",
+          "doc_ix",
+          "doc_len",
+          "latency",
+          "metadata",
+          "needle_offset",
+          "spans",
+          "token_ids",
+          "tokens"
+        ],
+        "text_preview": "on our territories on the border with dome state, you see it is a crime”?\n\nThe US more than any other country, has used its foreign POLICY in its[NONE]"
+      }
+    ],
+    "n_probed": 5,
+    "n_blocked": 0,
+    "n_with_none": 5
+  },
+  {
+    "model": "olmo2_1b",
+    "record_id": 11,
+    "span_idx": 1,
+    "span_text": "GPS tracker, you must first",
+    "stored_num_snippets": 1,
+    "stored_doc_ixs": [
+      1330096343
+    ],
+    "true_corpus_count": 1,
+    "true_minus_stored": 0,
+    "probe_docs": [],
+    "n_probed": 0,
+    "n_blocked": 0,
+    "n_with_none": 0
+  },
+  {
+    "model": "olmo2_7b",
+    "record_id": 3,
+    "span_idx": 11,
+    "span_text": "the US Department of Justice (DOJ) and the Drug Enforcement Administration (DEA)",
+    "stored_num_snippets": 1,
+    "stored_doc_ixs": [
+      3079825121
+    ],
+    "true_corpus_count": 1,
+    "true_minus_stored": 0,
+    "probe_docs": [],
+    "n_probed": 0,
+    "n_blocked": 0,
+    "n_with_none": 0
+  },
+  {
+    "model": "olmo2_13b",
+    "record_id": 0,
+    "span_idx": 6,
+    "span_text": "odorless liquid that is soluble in water and",
+    "stored_num_snippets": 1,
+    "stored_doc_ixs": [
+      2948511486
+    ],
+    "true_corpus_count": 1,
+    "true_minus_stored": 0,
+    "probe_docs": [],
+    "n_probed": 0,
+    "n_blocked": 0,
+    "n_with_none": 0
+  },
+  {
+    "model": "olmo2_32b",
+    "record_id": 0,
+    "span_idx": 2,
+    "span_text": "y(II) chloride (HgCl2),",
+    "stored_num_snippets": 0,
+    "stored_doc_ixs": [],
+    "true_corpus_count": 2,
+    "true_minus_stored": 2,
+    "probe_docs": [
+      {
+        "shard_s": 10,
+        "rank": 162025918297,
+        "doc_ix": 2969329084,
+        "doc_len": 449,
+        "blocked": false,
+        "metadata": "{\"path\": \"pes2o/pes2o-0002.json.gz\", \"linenum\": 3818177, \"metadata\": {\"added\": \"2018-04-03T02:30:53.775Z\", \"created\": \"2007-09-01T00:00:00.000Z\", \"id\": \"24579903\", \"metadata\": {\"abstract\": \"Oxygen consumption by Daphnia magna Straus was investigated as a bioindicator for the presence of 11 common aquatic pollutants: Benzo[b]fluoranthene (BbF), mercury(II) chloride (HgCl2), 2\\u2010dimethoxyphosphinothioylthio\\u2010N\\u2010methylacetamide (dimethoate), hexachlorocyclohexane (lindane), 3\\u2010(3,4\\u2010dichlorophenyl)\\u20101\\u2010methoxy\\u20101\\u2010methylurea (linuron), 4\\u2010chloro\\u2010o\\u2010tolyloxy\\u2010acetic acid, bis(tributyltin) oxide (TBTO), carbon tetrachloride (CCl4), tetramethylthiuram disulfide (thiram), 2,4,6\\u2010trichlorophenol, and arsenic trioxide (As2O3). The measurement of oxygen consumption by D. magna was carried out after 15 and 210 min of exposure to the toxicants under controlled laboratory conditions. The technique applied in the present study was found to be useful for the detection of significant changes in oxygen consumption for most toxicants, with the exception of BbF, dimethoate, and CCl4. Significant differences in oxygen consumption were noted, relative to the control treatments, for six of the compounds after only 15 min of exposure. For thiram and TBTO, statistically significant changes in oxygen consumption were recorded after 210 min of exposure. The present results suggest that the measurement of oxygen consumption by D. magna is a useful biomarker and could possibly be used as a biological early warning system for detecting pollutants in the aquatic environment.\", \"abstract_count\": 178, \"abstract_language\": \"en\", \"abstract_perplexity\": -18.754340728894736, \"extfieldsofstudy\": [\"Medicine\", \"Chemistry\"], \"provenance\": \"pes2o_v2-0002.json.gz:3818178\", \"s2fieldsofstudy\": [\"Chemistry\"], \"sha1\": \"6578e73b0476ac456b057e57126762b7882a07f7\", \"sources\": [\"ScienceParsePlus\", \"MergedPDFExtraction\", \"Wiley\", \"Medline\", \"Unpaywall\", \"MAG\"], \"title\": \"Oxygen consumption by Daphnia magna straus as a marker of chemical stress in the aquatic environment\", \"title_count\": 16, \"title_language\": \"en\", \"title_perplexity\": -12.642344305183448, \"top_frequencies\": [{\"count\": 10, \"token\": \"of\"}, {\"count\": 10, \"token\": \"the\"}, {\"count\": 7, \"token\": \"consumption\"}, {\"count\": 6, \"token\": \"in\"}, {\"count\": 5, \"token\": \"for\"}, {\"count\": 5, \"token\": \"and\"}, {\"count\": 5, \"token\": \"oxygen\"}, {\"count\": 4, \"token\": \"by\"}, {\"count\": 4, \"token\": \"magna\"}, {\"count\": 4, \"token\": \"a\"}, {\"count\": 3, \"token\": \"as\"}, {\"count\": 3, \"token\": \"aquatic\"}, {\"count\": 3, \"token\": \"was\"}, {\"count\": 3, \"token\": \"The\"}, {\"count\": 3, \"token\": \"after\"}, {\"count\": 3, \"token\": \"min\"}, {\"count\": 3, \"token\": \"to\"}, {\"count\": 2, \"token\": \"Oxygen\"}, {\"count\": 2, \"token\": \"Daphnia\"}, {\"count\": 2, \"token\": \"measurement\"}, {\"count\": 2, \"token\": \"D.\"}, {\"count\": 2, \"token\": \"15\"}, {\"count\": 2, \"token\": \"210\"}, {\"count\": 2, \"token\": \"present\"}, {\"count\": 2, \"token\": \"be\"}, {\"count\": 2, \"token\": \"useful\"}, {\"count\": 2, \"token\": \"significant\"}, {\"count\": 2, \"token\": \"changes\"}, {\"count\": 2, \"token\": \"were\"}, {\"count\": 2, \"token\": \"exposure.\"}, {\"count\": 1, \"token\": \"straus\"}, {\"count\": 1, \"token\": \"marker\"}, {\"count\": 1, \"token\": \"chemical\"}, {\"count\": 1, \"token\": \"stress\"}, {\"count\": 1, \"token\": \"environment\"}, {\"count\": 1, \"token\": \"Straus\"}, {\"count\": 1, \"token\": \"investigated\"}, {\"count\": 1, \"token\": \"bioindicator\"}, {\"count\": 1, \"token\": \"presence\"}, {\"count\": 1, \"token\": \"11\"}, {\"count\": 1, \"token\": \"common\"}, {\"count\": 1, \"token\": \"pollutants:\"}, {\"count\": 1, \"token\": \"Benzo[b]fluoranthene\"}, {\"count\": 1, \"token\": \"(BbF),\"}, {\"count\": 1, \"token\": \"mercury(II)\"}, {\"count\": 1, \"token\": \"chloride\"}, {\"count\": 1, \"token\": \"(HgCl2),\"}, {\"count\": 1, \"token\": \"2\\u2010dimethoxyphosphinothioylthio\\u2010N\\u2010methylacetamide\"}, {\"count\": 1, \"token\": \"(dimethoate),\"}, {\"count\": 1, \"token\": \"hexachlorocyclohexane\"}, {\"count\": 1, \"token\": \"(lindane),\"}, {\"count\": 1, \"token\": \"3\\u2010(3,4\\u2010dichlorophenyl)\\u20101\\u2010methoxy\\u20101\\u2010methylurea\"}, {\"count\": 1, \"token\": \"(linuron),\"}, {\"count\": 1, \"token\": \"4\\u2010chloro\\u2010o\\u2010tolyloxy\\u2010acetic\"}, {\"count\": 1, \"token\": \"acid,\"}, {\"count\": 1, \"token\": \"bis(tributyltin)\"}, {\"count\": 1, \"token\": \"oxide\"}, {\"count\": 1, \"token\": \"(TBTO),\"}, {\"count\": 1, \"token\": \"carbon\"}, {\"count\": 1, \"token\": \"tetrachloride\"}, {\"count\": 1, \"token\": \"(CCl4),\"}, {\"count\": 1, \"token\": \"tetramethylthiuram\"}, {\"count\": 1, \"token\": \"disulfide\"}, {\"count\": 1, \"token\": \"(thiram),\"}, {\"count\": 1, \"token\": \"2,4,6\\u2010trichlorophenol,\"}, {\"count\": 1, \"token\": \"arsenic\"}, {\"count\": 1, \"token\": \"trioxide\"}, {\"count\": 1, \"token\": \"(As2O3).\"}, {\"count\": 1, \"token\": \"carried\"}, {\"count\": 1, \"token\": \"out\"}, {\"count\": 1, \"token\": \"exposure\"}, {\"count\": 1, \"token\": \"toxicants\"}, {\"count\": 1, \"token\": \"under\"}, {\"count\": 1, \"token\": \"controlled\"}, {\"count\": 1, \"token\": \"laboratory\"}, {\"count\": 1, \"token\": \"conditions.\"}, {\"count\": 1, \"token\": \"technique\"}, {\"count\": 1, \"token\": \"applied\"}, {\"count\": 1, \"token\": \"study\"}, {\"count\": 1, \"token\": \"found\"}, {\"count\": 1, \"token\": \"detection\"}, {\"count\": 1, \"token\": \"most\"}, {\"count\": 1, \"token\": \"toxicants,\"}, {\"count\": 1, \"token\": \"with\"}, {\"count\": 1, \"token\": \"exception\"}, {\"count\": 1, \"token\": \"BbF,\"}, {\"count\": 1, \"token\": \"dimethoate,\"}, {\"count\": 1, \"token\": \"CCl4.\"}, {\"count\": 1, \"token\": \"Significant\"}, {\"count\": 1, \"token\": \"differences\"}, {\"count\": 1, \"token\": \"noted,\"}, {\"count\": 1, \"token\": \"relative\"}, {\"count\": 1, \"token\": \"control\"}, {\"count\": 1, \"token\": \"treatments,\"}, {\"count\": 1, \"token\": \"six\"}, {\"count\": 1, \"token\": \"compounds\"}, {\"count\": 1, \"token\": \"only\"}, {\"count\": 1, \"token\": \"For\"}, {\"count\": 1, \"token\": \"thiram\"}, {\"count\": 1, \"token\": \"TBTO,\"}], \"year\": 2007}, \"source\": \"s2\", \"version\": \"v3-fos\"}}\n",
+        "needle_offset": 40,
+        "spans_none_count": 1,
+        "spans_total": 2,
+        "raw_response_keys": [
+          "blocked",
+          "disp_len",
+          "doc_ix",
+          "doc_len",
+          "latency",
+          "metadata",
+          "needle_offset",
+          "spans",
+          "token_ids",
+          "tokens"
+        ],
+        "text_preview": "Straus was investigated as a bioindicator for the presence of 11 common aquatic pollutants: Benzo[b]fluoranthene (BbF), mercur[NONE]"
+      },
+      {
+        "shard_s": 4,
+        "rank": 330864183134,
+        "doc_ix": 1235437724,
+        "doc_len": 36772,
+        "blocked": false,
+        "metadata": "{\"path\": \"dclm-0375.json.zst\", \"linenum\": 198834, \"metadata\": {\"id\": \"http://pubmedcentralcanada.ca/pmcc/articles/PMC5332585/\", \"metadata\": {\"Content-Length\": \"301163\", \"Content-Type\": \"application/http; msgtype=response\", \"WARC-Block-Digest\": \"sha1:UMK27RTABHXRPTSTI6SGTIVLJSMM4KJY\", \"WARC-Concurrent-To\": \"<urn:uuid:0d56f31b-14ad-483e-ad1f-8157ce40f929>\", \"WARC-Date\": \"2017-09-24T03:55:56Z\", \"WARC-IP-Address\": \"132.246.8.72\", \"WARC-Identified-Payload-Type\": \"text/html\", \"WARC-Payload-Digest\": \"sha1:W6GRQXSE7IXEFTJ6QO43ES6GCWJC7J3O\", \"WARC-Record-ID\": \"<urn:uuid:13155342-54c9-42f1-bbab-0f43c30999d5>\", \"WARC-Target-URI\": \"http://pubmedcentralcanada.ca/pmcc/articles/PMC5332585/\", \"WARC-Truncated\": \"length\", \"WARC-Type\": \"response\", \"WARC-Warcinfo-ID\": \"<urn:uuid:bd0db445-9ff1-4f19-a8c8-6cd52ff2a82e>\", \"bff_contained_ngram_count_before_dedupe\": 308, \"fasttext_openhermes_reddit_eli5_vs_rw_v2_bigram_200k_train_prob\": 0.03705233335494995, \"language_id_whole_page_fasttext\": {\"en\": 0.8604828715324402}, \"previous_word_count\": 16925, \"provenance\": \"dclm_shard_00005334.jsonl.zstd:98453\", \"url\": \"http://pubmedcentralcanada.ca/pmcc/articles/PMC5332585/\", \"warcinfo\": \"robots: classic\\r\\nhostname: ip-10-229-139-187.ec2.internal\\r\\nsoftware: Nutch 1.6 (CC)\\r\\nisPartOf: CC-MAIN-2017-39\\r\\noperator: Common Crawl Admin\\r\\ndescription: Wide crawl of the web for September 2017\\r\\npublisher: Common Crawl\\r\\nformat: WARC File Format 1.0\\r\\nconformsTo: http://bibnum.bnf.fr/WARC/WARC_ISO_28500_version1_latestdraft.pdf\"}, \"source\": \"dclm-hero-run-fasttext_for_HF\", \"version\": \"1.0\"}}\n",
+        "needle_offset": 40,
+        "spans_none_count": 1,
+        "spans_total": 2,
+        "raw_response_keys": [
+          "blocked",
+          "disp_len",
+          "doc_ix",
+          "doc_len",
+          "latency",
+          "metadata",
+          "needle_offset",
+          "spans",
+          "token_ids",
+          "tokens"
+        ],
+        "text_preview": "fibrin and fibres of connective tissue [6,85]. Pauwels et al. [6] compared another 27 staining agents, among others mercur[NONE]"
+      }
+    ],
+    "n_probed": 2,
+    "n_blocked": 0,
+    "n_with_none": 2
+  },
+  {
+    "model": "olmo2_1b_instruct",
+    "record_id": 11,
+    "span_idx": 7,
+    "span_text": "vary slightly depending on the model, but most",
+    "stored_num_snippets": 1,
+    "stored_doc_ixs": [
+      1581048737
+    ],
+    "true_corpus_count": 1,
+    "true_minus_stored": 0,
+    "probe_docs": [],
+    "n_probed": 0,
+    "n_blocked": 0,
+    "n_with_none": 0
+  },
+  {
+    "model": "olmo2_7b_instruct",
+    "record_id": 30,
+    "span_idx": 9,
+    "span_text": "protests that swept across the Middle East and North Africa.",
+    "stored_num_snippets": 1,
+    "stored_doc_ixs": [
+      2058521744
+    ],
+    "true_corpus_count": 1,
+    "true_minus_stored": 0,
+    "probe_docs": [],
+    "n_probed": 0,
+    "n_blocked": 0,
+    "n_with_none": 0
+  },
+  {
+    "model": "olmo2_13b_instruct",
+    "record_id": 30,
+    "span_idx": 15,
+    "span_text": "government's brutal crackdown on these",
+    "stored_num_snippets": 1,
+    "stored_doc_ixs": [
+      1664475852
+    ],
+    "true_corpus_count": 1,
+    "true_minus_stored": 0,
+    "probe_docs": [],
+    "n_probed": 0,
+    "n_blocked": 0,
+    "n_with_none": 0
+  },
+  {
+    "model": "olmo2_32b_instruct",
+    "record_id": 30,
+    "span_idx": 1,
+    "span_text": "Civil War, a devastating conflict that",
+    "stored_num_snippets": 0,
+    "stored_doc_ixs": [],
+    "true_corpus_count": 9,
+    "true_minus_stored": 9,
+    "probe_docs": [
+      {
+        "shard_s": 6,
+        "rank": 175365257908,
+        "doc_ix": 2007377543,
+        "doc_len": 2578,
+        "blocked": false,
+        "metadata": "{\"path\": \"dclm-1593.json.zst\", \"linenum\": 655996, \"metadata\": {\"id\": \"https://bulletpoints2016.wordpress.com/2016/09/20/a-house-divided/\", \"metadata\": {\"Content-Length\": \"71054\", \"Content-Type\": \"application/http; msgtype=response\", \"WARC-Block-Digest\": \"sha1:2Q362AQOFBIMORLB5XFVDTVZGTFIV6FD\", \"WARC-Concurrent-To\": \"<urn:uuid:cd8ee93e-e67c-48cb-ae88-c730ae81f162>\", \"WARC-Date\": \"2017-09-21T17:30:55Z\", \"WARC-IP-Address\": \"192.0.78.12\", \"WARC-Identified-Payload-Type\": \"text/html\", \"WARC-Payload-Digest\": \"sha1:4DIVFTHOIHB2ECQV56K2VGFNEIITHJ62\", \"WARC-Record-ID\": \"<urn:uuid:0ee26288-0e8a-43b1-b212-6706f8d11814>\", \"WARC-Target-URI\": \"https://bulletpoints2016.wordpress.com/2016/09/20/a-house-divided/\", \"WARC-Truncated\": \"length\", \"WARC-Type\": \"response\", \"WARC-Warcinfo-ID\": \"<urn:uuid:db9eea6d-971c-4238-85e7-1cb7a3b38bac>\", \"bff_contained_ngram_count_before_dedupe\": 80, \"fasttext_openhermes_reddit_eli5_vs_rw_v2_bigram_200k_train_prob\": 0.10048067569732666, \"language_id_whole_page_fasttext\": {\"en\": 0.9448703527450562}, \"previous_word_count\": 1850, \"provenance\": \"dclm_shard_00022621.jsonl.zstd:45045\", \"url\": \"https://bulletpoints2016.wordpress.com/2016/09/20/a-house-divided/\", \"warcinfo\": \"robots: classic\\r\\nhostname: ip-10-159-187-32.ec2.internal\\r\\nsoftware: Nutch 1.6 (CC)\\r\\nisPartOf: CC-MAIN-2017-39\\r\\noperator: Common Crawl Admin\\r\\ndescription: Wide crawl of the web for September 2017\\r\\npublisher: Common Crawl\\r\\nformat: WARC File Format 1.0\\r\\nconformsTo: http://bibnum.bnf.fr/WARC/WARC_ISO_28500_version1_latestdraft.pdf\"}, \"source\": \"dclm-hero-run-fasttext_for_HF\", \"version\": \"1.0\"}}\n",
+        "needle_offset": 40,
+        "spans_none_count": 1,
+        "spans_total": 2,
+        "raw_response_keys": [
+          "blocked",
+          "disp_len",
+          "doc_ix",
+          "doc_len",
+          "latency",
+          "metadata",
+          "needle_offset",
+          "spans",
+          "token_ids",
+          "tokens"
+        ],
+        "text_preview": "60 marked a low point in party politics.\n\nLincoln’s speech on the ‘house divided’ in 1858 was on the cusp of the American[NONE]"
+      },
+      {
+        "shard_s": 4,
+        "rank": 175361636203,
+        "doc_ix": 1415658035,
+        "doc_len": 2579,
+        "blocked": false,
+        "metadata": "{\"path\": \"dclm-1579.json.zst\", \"linenum\": 720434, \"metadata\": {\"id\": \"https://bulletpoints2016.wordpress.com/2016/09/20/a-house-divided/\", \"metadata\": {\"Content-Length\": \"76220\", \"Content-Type\": \"application/http; msgtype=response\", \"WARC-Block-Digest\": \"sha1:SNNLRKDD273Y3TTHSKEWAXATFIEY2EEK\", \"WARC-Concurrent-To\": \"<urn:uuid:066ea4ac-53be-4d9b-8234-1034ea5434c5>\", \"WARC-Date\": \"2018-04-26T01:45:15Z\", \"WARC-IP-Address\": \"192.0.78.13\", \"WARC-Identified-Payload-Type\": \"text/html\", \"WARC-Payload-Digest\": \"sha1:YR34B3Y6GJQ37TGJ757WWX575ETWK2WP\", \"WARC-Record-ID\": \"<urn:uuid:594bf4b3-a0e4-4b19-a36e-7919b243f2be>\", \"WARC-Target-URI\": \"https://bulletpoints2016.wordpress.com/2016/09/20/a-house-divided/\", \"WARC-Truncated\": \"length\", \"WARC-Type\": \"response\", \"WARC-Warcinfo-ID\": \"<urn:uuid:05f3a80a-436e-42a2-afd7-5a6ebdd95265>\", \"bff_contained_ngram_count_before_dedupe\": 80, \"fasttext_openhermes_reddit_eli5_vs_rw_v2_bigram_200k_train_prob\": 0.10042309761047365, \"language_id_whole_page_fasttext\": {\"en\": 0.9450879096984864}, \"previous_word_count\": 1855, \"provenance\": \"dclm_shard_00022418.jsonl.zstd:91010\", \"url\": \"https://bulletpoints2016.wordpress.com/2016/09/20/a-house-divided/\", \"warcinfo\": \"robots: classic\\r\\nhostname: ip-10-146-107-169.ec2.internal\\r\\nsoftware: Nutch 1.6 (CC)\\r\\nisPartOf: CC-MAIN-2018-17\\r\\noperator: Common Crawl Admin\\r\\ndescription: Wide crawl of the web for April 2018\\r\\npublisher: Common Crawl\\r\\nformat: WARC File Format 1.0\\r\\nconformsTo: http://bibnum.bnf.fr/WARC/WARC_ISO_28500_version1_latestdraft.pdf\"}, \"source\": \"dclm-hero-run-fasttext_for_HF\", \"version\": \"1.0\"}}\n",
+        "needle_offset": 40,
+        "spans_none_count": 1,
+        "spans_total": 2,
+        "raw_response_keys": [
+          "blocked",
+          "disp_len",
+          "doc_ix",
+          "doc_len",
+          "latency",
+          "metadata",
+          "needle_offset",
+          "spans",
+          "token_ids",
+          "tokens"
+        ],
+        "text_preview": "60 marked a low point in party politics.\n\nLincoln’s speech on the ‘house divided’ in 1858 was on the cusp of the American[NONE]"
+      },
+      {
+        "shard_s": 1,
+        "rank": 175371135232,
+        "doc_ix": 496322875,
+        "doc_len": 2578,
+        "blocked": false,
+        "metadata": "{\"path\": \"dclm-1346.json.zst\", \"linenum\": 354141, \"metadata\": {\"id\": \"https://bulletpoints2016.wordpress.com/2016/09/20/a-house-divided/\", \"metadata\": {\"Content-Length\": \"71897\", \"Content-Type\": \"application/http; msgtype=response\", \"WARC-Block-Digest\": \"sha1:HZ4JVB6YPG3WMVSFWI57LZTJRMVGCEVM\", \"WARC-Concurrent-To\": \"<urn:uuid:92079d18-2866-4799-acf7-03c052a83ade>\", \"WARC-Date\": \"2017-11-21T06:15:43Z\", \"WARC-IP-Address\": \"192.0.78.13\", \"WARC-Identified-Payload-Type\": \"text/html\", \"WARC-Payload-Digest\": \"sha1:C6OW64PMCLH7WDWSM3X3X46AMZAYWXHL\", \"WARC-Record-ID\": \"<urn:uuid:a074bf61-a61a-499b-a372-95a081d23379>\", \"WARC-Target-URI\": \"https://bulletpoints2016.wordpress.com/2016/09/20/a-house-divided/\", \"WARC-Truncated\": \"length\", \"WARC-Type\": \"response\", \"WARC-Warcinfo-ID\": \"<urn:uuid:8c6257e2-b2ff-49c2-a445-48f8d04db092>\", \"bff_contained_ngram_count_before_dedupe\": 80, \"fasttext_openhermes_reddit_eli5_vs_rw_v2_bigram_200k_train_prob\": 0.10048067569732666, \"language_id_whole_page_fasttext\": {\"en\": 0.9448703527450562}, \"previous_word_count\": 1850, \"provenance\": \"dclm_shard_00019120.jsonl.zstd:65894\", \"url\": \"https://bulletpoints2016.wordpress.com/2016/09/20/a-house-divided/\", \"warcinfo\": \"robots: classic\\r\\nhostname: ip-10-113-216-17.ec2.internal\\r\\nsoftware: Nutch 1.6 (CC)\\r\\nisPartOf: CC-MAIN-2017-47\\r\\noperator: Common Crawl Admin\\r\\ndescription: Wide crawl of the web for November 2017\\r\\npublisher: Common Crawl\\r\\nformat: WARC File Format 1.0\\r\\nconformsTo: http://bibnum.bnf.fr/WARC/WARC_ISO_28500_version1_latestdraft.pdf\"}, \"source\": \"dclm-hero-run-fasttext_for_HF\", \"version\": \"1.0\"}}\n",
+        "needle_offset": 40,
+        "spans_none_count": 1,
+        "spans_total": 2,
+        "raw_response_keys": [
+          "blocked",
+          "disp_len",
+          "doc_ix",
+          "doc_len",
+          "latency",
+          "metadata",
+          "needle_offset",
+          "spans",
+          "token_ids",
+          "tokens"
+        ],
+        "text_preview": "60 marked a low point in party politics.\n\nLincoln’s speech on the ‘house divided’ in 1858 was on the cusp of the American[NONE]"
+      },
+      {
+        "shard_s": 8,
+        "rank": 175407892032,
+        "doc_ix": 2453134377,
+        "doc_len": 912,
+        "blocked": false,
+        "metadata": "{\"path\": \"dclm-0632.json.zst\", \"linenum\": 1330338, \"metadata\": {\"id\": \"https://freemagazinepdf.com/2021/12/the-war-for-ireland-1913-1923-general-military/\", \"metadata\": {\"Content-Length\": \"156805\", \"Content-Type\": \"application/http; msgtype=response\", \"WARC-Block-Digest\": \"sha1:MHE5O6J56R2YV6AOOTE57CMSNOTZMH2X\", \"WARC-Concurrent-To\": \"<urn:uuid:5025af3f-20d1-4c4b-af4a-46ceb036ce00>\", \"WARC-Date\": \"2022-10-01T20:41:47Z\", \"WARC-IP-Address\": \"104.21.94.244\", \"WARC-Identified-Payload-Type\": \"text/html\", \"WARC-Payload-Digest\": \"sha1:BDGIOJSVSS4NKXXS4UOPBZHD4BHZJPMB\", \"WARC-Record-ID\": \"<urn:uuid:ef0e15b5-8a0a-4183-9a78-b9fbbc8f31f6>\", \"WARC-Target-URI\": \"https://freemagazinepdf.com/2021/12/the-war-for-ireland-1913-1923-general-military/\", \"WARC-Type\": \"response\", \"WARC-Warcinfo-ID\": \"<urn:uuid:115f2790-c083-4b06-97d0-e39bf3d1b7d0>\", \"bff_contained_ngram_count_before_dedupe\": 167, \"fasttext_openhermes_reddit_eli5_vs_rw_v2_bigram_200k_train_prob\": 0.02733910083770752, \"language_id_whole_page_fasttext\": {\"en\": 0.9493568539619446}, \"previous_word_count\": 646, \"provenance\": \"dclm_shard_00008977.jsonl.zstd:14734\", \"url\": \"https://freemagazinepdf.com/2021/12/the-war-for-ireland-1913-1923-general-military/\", \"warcinfo\": \"isPartOf: CC-MAIN-2022-40\\r\\npublisher: Common Crawl\\r\\ndescription: Wide crawl of the web for September/October 2022\\r\\noperator: Common Crawl Admin (info@commoncrawl.org)\\r\\nhostname: ip-10-67-67-183\\r\\nsoftware: Apache Nutch 1.19 (modified, https://github.com/commoncrawl/nutch/)\\r\\nrobots: checked via crawler-commons 1.4-SNAPSHOT (https://github.com/crawler-commons/crawler-commons)\\r\\nformat: WARC File Format 1.1\\r\\nconformsTo: https://iipc.github.io/warc-specifications/specifications/warc-format/warc-1.1/\"}, \"source\": \"dclm-hero-run-fasttext_for_HF\", \"version\": \"1.0\"}}\n",
+        "needle_offset": 40,
+        "spans_none_count": 1,
+        "spans_total": 2,
+        "raw_response_keys": [
+          "blocked",
+          "disp_len",
+          "doc_ix",
+          "doc_len",
+          "latency",
+          "metadata",
+          "needle_offset",
+          "spans",
+          "token_ids",
+          "tokens"
+        ],
+        "text_preview": "Osprey Publishing | 2003 | PDF\n\nIn this follow-up to the acclaimed The Anglo-Irish War, Peter Cottrell explores the Irish[NONE]"
+      },
+      {
+        "shard_s": 5,
+        "rank": 175391884884,
+        "doc_ix": 1498803463,
+        "doc_len": 2578,
+        "blocked": false,
+        "metadata": "{\"path\": \"dclm-0165.json.zst\", \"linenum\": 467535, \"metadata\": {\"id\": \"https://bulletpoints2016.wordpress.com/2016/09/20/a-house-divided/\", \"metadata\": {\"Content-Length\": \"69809\", \"Content-Type\": \"application/http; msgtype=response\", \"WARC-Block-Digest\": \"sha1:EFZ5MEP6G46FSLBDGW5XUMWEVESMZOTD\", \"WARC-Concurrent-To\": \"<urn:uuid:d3f53327-8b12-49b7-9037-c8ec0b2600d1>\", \"WARC-Date\": \"2017-05-27T21:10:34Z\", \"WARC-IP-Address\": \"192.0.78.13\", \"WARC-Identified-Payload-Type\": \"text/html\", \"WARC-Payload-Digest\": \"sha1:MRKE27ALATR7G57O6RIDMTOJKL5GMBVO\", \"WARC-Record-ID\": \"<urn:uuid:d660fec4-2c51-4b7c-8e5c-00531f770878>\", \"WARC-Target-URI\": \"https://bulletpoints2016.wordpress.com/2016/09/20/a-house-divided/\", \"WARC-Truncated\": \"length\", \"WARC-Type\": \"response\", \"WARC-Warcinfo-ID\": \"<urn:uuid:33efa200-8a75-440b-89bc-8eab72d901a3>\", \"bff_contained_ngram_count_before_dedupe\": 80, \"fasttext_openhermes_reddit_eli5_vs_rw_v2_bigram_200k_train_prob\": 0.10048067569732666, \"language_id_whole_page_fasttext\": {\"en\": 0.9448703527450562}, \"previous_word_count\": 1850, \"provenance\": \"dclm_shard_00002348.jsonl.zstd:53997\", \"url\": \"https://bulletpoints2016.wordpress.com/2016/09/20/a-house-divided/\", \"warcinfo\": \"robots: classic\\r\\nhostname: ip-10-185-224-210.ec2.internal\\r\\nsoftware: Nutch 1.6 (CC)/CC WarcExport 1.0\\r\\nisPartOf: CC-MAIN-2017-22\\r\\noperator: Common Crawl Admin\\r\\ndescription: Wide crawl of the web for May 2017\\r\\npublisher: Common Crawl\\r\\nformat: WARC File Format 1.0\\r\\nconformsTo: http://bibnum.bnf.fr/WARC/WARC_ISO_28500_version1_latestdraft.pdf\"}, \"source\": \"dclm-hero-run-fasttext_for_HF\", \"version\": \"1.0\"}}\n",
+        "needle_offset": 40,
+        "spans_none_count": 1,
+        "spans_total": 2,
+        "raw_response_keys": [
+          "blocked",
+          "disp_len",
+          "doc_ix",
+          "doc_len",
+          "latency",
+          "metadata",
+          "needle_offset",
+          "spans",
+          "token_ids",
+          "tokens"
+        ],
+        "text_preview": "60 marked a low point in party politics.\n\nLincoln’s speech on the ‘house divided’ in 1858 was on the cusp of the American[NONE]"
+      }
+    ],
+    "n_probed": 5,
+    "n_blocked": 0,
+    "n_with_none": 5
+  },
+  {
+    "model": "olmo2_1b",
+    "record_id": 11,
+    "span_idx": 7,
+    "span_text": "disable the GPS tracker, you",
+    "stored_num_snippets": 1,
+    "stored_doc_ixs": [
+      1291969485
+    ],
+    "true_corpus_count": 1,
+    "true_minus_stored": 0,
+    "probe_docs": [],
+    "n_probed": 0,
+    "n_blocked": 0,
+    "n_with_none": 0
+  },
+  {
+    "model": "olmo2_7b",
+    "record_id": 3,
+    "span_idx": 15,
+    "span_text": "by the US Department of Defense (DOD) and the National",
+    "stored_num_snippets": 1,
+    "stored_doc_ixs": [
+      2995046799
+    ],
+    "true_corpus_count": 1,
+    "true_minus_stored": 0,
+    "probe_docs": [],
+    "n_probed": 0,
+    "n_blocked": 0,
+    "n_with_none": 0
+  },
+  {
+    "model": "olmo2_13b",
+    "record_id": 0,
+    "span_idx": 9,
+    "span_text": ")\n- Methanol (CH3OH)\n-",
+    "stored_num_snippets": 1,
+    "stored_doc_ixs": [
+      2952903491
+    ],
+    "true_corpus_count": 1,
+    "true_minus_stored": 0,
+    "probe_docs": [],
+    "n_probed": 0,
+    "n_blocked": 0,
+    "n_with_none": 0
+  },
+  {
+    "model": "olmo2_32b",
+    "record_id": 0,
+    "span_idx": 3,
+    "span_text": "also known as mercuric chloride or corrosive sublimate",
+    "stored_num_snippets": 0,
+    "stored_doc_ixs": [],
+    "true_corpus_count": 27,
+    "true_minus_stored": 27,
+    "probe_docs": [
+      {
+        "shard_s": 5,
+        "rank": 213150877950,
+        "doc_ix": 1502183424,
+        "doc_len": 5205,
+        "blocked": false,
+        "metadata": "{\"path\": \"dclm-0187.json.zst\", \"linenum\": 1022125, \"metadata\": {\"id\": \"https://minamotokazuki.com/which-online-casino-pays-the-best/mercury-deutsch.php\", \"metadata\": {\"Content-Length\": \"53128\", \"Content-Type\": \"application/http; msgtype=response\", \"WARC-Block-Digest\": \"sha1:FJQJUNMUHCDMJ7GNX5HDV3D5YNJ2AYMS\", \"WARC-Concurrent-To\": \"<urn:uuid:c7762db3-ed20-40c3-a855-10ecdcd0a9ed>\", \"WARC-Date\": \"2021-06-23T11:08:22Z\", \"WARC-IP-Address\": \"104.21.42.106\", \"WARC-Identified-Payload-Type\": \"text/html\", \"WARC-Payload-Digest\": \"sha1:IAAVB4PNNVU3GDUHMPRBKDHX3N3LYJ7A\", \"WARC-Record-ID\": \"<urn:uuid:2fb31056-606a-40b4-8d01-d01b17be34d1>\", \"WARC-Target-URI\": \"https://minamotokazuki.com/which-online-casino-pays-the-best/mercury-deutsch.php\", \"WARC-Type\": \"response\", \"WARC-Warcinfo-ID\": \"<urn:uuid:f1b4dfd2-bc87-47ac-8fd3-e8f495fac2b4>\", \"bff_contained_ngram_count_before_dedupe\": 1029, \"fasttext_openhermes_reddit_eli5_vs_rw_v2_bigram_200k_train_prob\": 0.04044020175933838, \"language_id_whole_page_fasttext\": {\"en\": 0.6757584810256958}, \"previous_word_count\": 3385, \"provenance\": \"dclm_shard_00002671.jsonl.zstd:33268\", \"url\": \"https://minamotokazuki.com/which-online-casino-pays-the-best/mercury-deutsch.php\", \"warcinfo\": \"isPartOf: CC-MAIN-2021-25\\r\\npublisher: Common Crawl\\r\\ndescription: Wide crawl of the web for June 2021\\r\\noperator: Common Crawl Admin (info@commoncrawl.org)\\r\\nhostname: ip-10-67-67-98.ec2.internal\\r\\nsoftware: Apache Nutch 1.18 (modified, https://github.com/commoncrawl/nutch/)\\r\\nrobots: checked via crawler-commons 1.2-SNAPSHOT (https://github.com/crawler-commons/crawler-commons)\\r\\nformat: WARC File Format 1.1\\r\\nconformsTo: https://iipc.github.io/warc-specifications/specifications/warc-format/warc-1.1/\"}, \"source\": \"dclm-hero-run-fasttext_for_HF\", \"version\": \"1.0\"}}\n",
+        "needle_offset": 40,
+        "spans_none_count": 1,
+        "spans_total": 2,
+        "raw_response_keys": [
+          "blocked",
+          "disp_len",
+          "doc_ix",
+          "doc_len",
+          "latency",
+          "metadata",
+          "needle_offset",
+          "spans",
+          "token_ids",
+          "tokens"
+        ],
+        "text_preview": "mercurous chloride has been used in traditional medicine as a diuretic , topical disinfectant , and laxative.\n\nMercury II chloride[NONE]"
+      },
+      {
+        "shard_s": 7,
+        "rank": 213138856705,
+        "doc_ix": 2166381513,
+        "doc_len": 4465,
+        "blocked": false,
+        "metadata": "{\"path\": \"dclm-0686.json.zst\", \"linenum\": 1140847, \"metadata\": {\"id\": \"https://emc-epi.com/online-casino-black-jack/symbol-merkur.php\", \"metadata\": {\"Content-Length\": \"50369\", \"Content-Type\": \"application/http; msgtype=response\", \"WARC-Block-Digest\": \"sha1:QEGRRN256SFDMUQMIPAUYLZBLGOIGR7S\", \"WARC-Concurrent-To\": \"<urn:uuid:c69e294d-5505-4f7e-88fe-2e0347ad2795>\", \"WARC-Date\": \"2021-06-13T20:29:15Z\", \"WARC-IP-Address\": \"172.67.168.251\", \"WARC-Identified-Payload-Type\": \"text/html\", \"WARC-Payload-Digest\": \"sha1:QSMT7AXEGKNU675DLI5QFRCYVR7AHLS7\", \"WARC-Record-ID\": \"<urn:uuid:6a0e7f2c-9c89-4e52-a0bd-2dc13f9bf002>\", \"WARC-Target-URI\": \"https://emc-epi.com/online-casino-black-jack/symbol-merkur.php\", \"WARC-Type\": \"response\", \"WARC-Warcinfo-ID\": \"<urn:uuid:e02c7744-6256-452f-b3fa-69a0e147f9aa>\", \"bff_contained_ngram_count_before_dedupe\": 675, \"fasttext_openhermes_reddit_eli5_vs_rw_v2_bigram_200k_train_prob\": 0.06899100542068481, \"language_id_whole_page_fasttext\": {\"en\": 0.6851339340209961}, \"previous_word_count\": 2778, \"provenance\": \"dclm_shard_00009744.jsonl.zstd:35112\", \"url\": \"https://emc-epi.com/online-casino-black-jack/symbol-merkur.php\", \"warcinfo\": \"isPartOf: CC-MAIN-2021-25\\r\\npublisher: Common Crawl\\r\\ndescription: Wide crawl of the web for June 2021\\r\\noperator: Common Crawl Admin (info@commoncrawl.org)\\r\\nhostname: ip-10-67-67-229.ec2.internal\\r\\nsoftware: Apache Nutch 1.18 (modified, https://github.com/commoncrawl/nutch/)\\r\\nrobots: checked via crawler-commons 1.2-SNAPSHOT (https://github.com/crawler-commons/crawler-commons)\\r\\nformat: WARC File Format 1.1\\r\\nconformsTo: https://iipc.github.io/warc-specifications/specifications/warc-format/warc-1.1/\"}, \"source\": \"dclm-hero-run-fasttext_for_HF\", \"version\": \"1.0\"}}\n",
+        "needle_offset": 40,
+        "spans_none_count": 1,
+        "spans_total": 2,
+        "raw_response_keys": [
+          "blocked",
+          "disp_len",
+          "doc_ix",
+          "doc_len",
+          "latency",
+          "metadata",
+          "needle_offset",
+          "spans",
+          "token_ids",
+          "tokens"
+        ],
+        "text_preview": "mercurous chloride has been used in traditional medicine as a diuretic , topical disinfectant , and laxative.\n\nMercury II chloride[NONE]"
+      },
+      {
+        "shard_s": 8,
+        "rank": 213169162030,
+        "doc_ix": 2426426256,
+        "doc_len": 3805,
+        "blocked": false,
+        "metadata": "{\"path\": \"dclm-0453.json.zst\", \"linenum\": 1247608, \"metadata\": {\"id\": \"https://rainbow-records.com/book-of-ra-casino-online/symbol-merkur.php\", \"metadata\": {\"Content-Length\": \"51242\", \"Content-Type\": \"application/http; msgtype=response\", \"WARC-Block-Digest\": \"sha1:VKVZD5NPR3FZV3H732P76Z3ZW33KBFHR\", \"WARC-Concurrent-To\": \"<urn:uuid:3c042a55-b8fc-46c0-8d99-3255cf48c9a0>\", \"WARC-Date\": \"2021-06-19T22:05:25Z\", \"WARC-IP-Address\": \"172.67.213.204\", \"WARC-Identified-Payload-Type\": \"text/html\", \"WARC-Payload-Digest\": \"sha1:76RHOKF2U34NG7UET3V7F25FSKM4SYOL\", \"WARC-Record-ID\": \"<urn:uuid:4b4fba10-e4ad-42c0-bccd-52128010092f>\", \"WARC-Target-URI\": \"https://rainbow-records.com/book-of-ra-casino-online/symbol-merkur.php\", \"WARC-Type\": \"response\", \"WARC-Warcinfo-ID\": \"<urn:uuid:2f0fe0a6-3ba5-4ed3-9ac6-53cea9b37408>\", \"bff_contained_ngram_count_before_dedupe\": 976, \"fasttext_openhermes_reddit_eli5_vs_rw_v2_bigram_200k_train_prob\": 0.05502861738204956, \"language_id_whole_page_fasttext\": {\"en\": 0.754763662815094}, \"previous_word_count\": 2695, \"provenance\": \"dclm_shard_00006443.jsonl.zstd:22798\", \"url\": \"https://rainbow-records.com/book-of-ra-casino-online/symbol-merkur.php\", \"warcinfo\": \"isPartOf: CC-MAIN-2021-25\\r\\npublisher: Common Crawl\\r\\ndescription: Wide crawl of the web for June 2021\\r\\noperator: Common Crawl Admin (info@commoncrawl.org)\\r\\nhostname: ip-10-67-67-93.ec2.internal\\r\\nsoftware: Apache Nutch 1.18 (modified, https://github.com/commoncrawl/nutch/)\\r\\nrobots: checked via crawler-commons 1.2-SNAPSHOT (https://github.com/crawler-commons/crawler-commons)\\r\\nformat: WARC File Format 1.1\\r\\nconformsTo: https://iipc.github.io/warc-specifications/specifications/warc-format/warc-1.1/\"}, \"source\": \"dclm-hero-run-fasttext_for_HF\", \"version\": \"1.0\"}}\n",
+        "needle_offset": 40,
+        "spans_none_count": 1,
+        "spans_total": 2,
+        "raw_response_keys": [
+          "blocked",
+          "disp_len",
+          "doc_ix",
+          "doc_len",
+          "latency",
+          "metadata",
+          "needle_offset",
+          "spans",
+          "token_ids",
+          "tokens"
+        ],
+        "text_preview": "mercurous chloride has been used in traditional medicine as a diuretic , topical disinfectant , and laxative.\n\nMercury II chloride[NONE]"
+      },
+      {
+        "shard_s": 6,
+        "rank": 213117287761,
+        "doc_ix": 1904238015,
+        "doc_len": 3773,
+        "blocked": false,
+        "metadata": "{\"path\": \"dclm-0904.json.zst\", \"linenum\": 400026, \"metadata\": {\"id\": \"https://moo-pong.com/casino-online-888-com/symbol-merkur.php\", \"metadata\": {\"Content-Length\": \"50092\", \"Content-Type\": \"application/http; msgtype=response\", \"WARC-Block-Digest\": \"sha1:YZOMEWDEXRXV3LDXJFXSWBPEWD2YWRHU\", \"WARC-Concurrent-To\": \"<urn:uuid:4e97617e-1475-4b5d-88a4-91a626f4764e>\", \"WARC-Date\": \"2021-01-15T23:38:54Z\", \"WARC-IP-Address\": \"172.67.216.163\", \"WARC-Identified-Payload-Type\": \"text/html\", \"WARC-Payload-Digest\": \"sha1:XYBW5FUHZXYCMIBBMBEIQXDHUOY2FPZB\", \"WARC-Record-ID\": \"<urn:uuid:0e846c5e-b9bc-4be6-b1d7-25b55b76bed7>\", \"WARC-Target-URI\": \"https://moo-pong.com/casino-online-888-com/symbol-merkur.php\", \"WARC-Type\": \"response\", \"WARC-Warcinfo-ID\": \"<urn:uuid:b70bb85c-d8cd-436b-85a0-fa2ea6a6b1d5>\", \"bff_contained_ngram_count_before_dedupe\": 1292, \"fasttext_openhermes_reddit_eli5_vs_rw_v2_bigram_200k_train_prob\": 0.029302656650543213, \"language_id_whole_page_fasttext\": {\"en\": 0.80201655626297}, \"previous_word_count\": 2849, \"provenance\": \"dclm_shard_00012857.jsonl.zstd:33707\", \"url\": \"https://moo-pong.com/casino-online-888-com/symbol-merkur.php\", \"warcinfo\": \"isPartOf: CC-MAIN-2021-04\\r\\npublisher: Common Crawl\\r\\ndescription: Wide crawl of the web for January 2021\\r\\noperator: Common Crawl Admin (info@commoncrawl.org)\\r\\nhostname: ip-10-67-67-254.ec2.internal\\r\\nsoftware: Apache Nutch 1.17 (modified, https://github.com/commoncrawl/nutch/)\\r\\nrobots: checked via crawler-commons 1.2-SNAPSHOT (https://github.com/crawler-commons/crawler-commons)\\r\\nformat: WARC File Format 1.1\\r\\nconformsTo: http://iipc.github.io/warc-specifications/specifications/warc-format/warc-1.1/\"}, \"source\": \"dclm-hero-run-fasttext_for_HF\", \"version\": \"1.0\"}}\n",
+        "needle_offset": 40,
+        "spans_none_count": 1,
+        "spans_total": 2,
+        "raw_response_keys": [
+          "blocked",
+          "disp_len",
+          "doc_ix",
+          "doc_len",
+          "latency",
+          "metadata",
+          "needle_offset",
+          "spans",
+          "token_ids",
+          "tokens"
+        ],
+        "text_preview": "mercurous chloride has been used in traditional medicine as a diuretic , topical disinfectant , and laxative.\n\nMercury II chloride[NONE]"
+      },
+      {
+        "shard_s": 5,
+        "rank": 213150877949,
+        "doc_ix": 1644911784,
+        "doc_len": 3970,
+        "blocked": false,
+        "metadata": "{\"path\": \"dclm-1141.json.zst\", \"linenum\": 1005495, \"metadata\": {\"id\": \"https://sdchargerstailgating.com/online-casino-betrug/symbol-merkur.php\", \"metadata\": {\"Content-Length\": \"57340\", \"Content-Type\": \"application/http; msgtype=response\", \"WARC-Block-Digest\": \"sha1:BPYCFNAX7FGR3F2NRFZT3FTD6Y4CCWEB\", \"WARC-Concurrent-To\": \"<urn:uuid:5fc4ce83-6946-4447-900a-ca3421a1942f>\", \"WARC-Date\": \"2021-09-24T21:49:43Z\", \"WARC-IP-Address\": \"172.67.177.136\", \"WARC-Identified-Payload-Type\": \"application/xhtml+xml\", \"WARC-Payload-Digest\": \"sha1:2LDSCGKANLOTR2HBWNCOEUWUVH2OI7C5\", \"WARC-Record-ID\": \"<urn:uuid:83c0e966-f7f3-4b16-970c-efde2dba05d5>\", \"WARC-Target-URI\": \"https://sdchargerstailgating.com/online-casino-betrug/symbol-merkur.php\", \"WARC-Type\": \"response\", \"WARC-Warcinfo-ID\": \"<urn:uuid:35a2b59d-4cfc-4191-a0dc-c6c2b6934079>\", \"bff_contained_ngram_count_before_dedupe\": 937, \"fasttext_openhermes_reddit_eli5_vs_rw_v2_bigram_200k_train_prob\": 0.021993517875671387, \"language_id_whole_page_fasttext\": {\"en\": 0.8414911031723022}, \"previous_word_count\": 2770, \"provenance\": \"dclm_shard_00016218.jsonl.zstd:58088\", \"url\": \"https://sdchargerstailgating.com/online-casino-betrug/symbol-merkur.php\", \"warcinfo\": \"isPartOf: CC-MAIN-2021-39\\r\\npublisher: Common Crawl\\r\\ndescription: Wide crawl of the web for September 2021\\r\\noperator: Common Crawl Admin (info@commoncrawl.org)\\r\\nhostname: ip-10-67-67-93\\r\\nsoftware: Apache Nutch 1.18 (modified, https://github.com/commoncrawl/nutch/)\\r\\nrobots: checked via crawler-commons 1.2-SNAPSHOT (https://github.com/crawler-commons/crawler-commons)\\r\\nformat: WARC File Format 1.1\\r\\nconformsTo: https://iipc.github.io/warc-specifications/specifications/warc-format/warc-1.1/\"}, \"source\": \"dclm-hero-run-fasttext_for_HF\", \"version\": \"1.0\"}}\n",
+        "needle_offset": 40,
+        "spans_none_count": 1,
+        "spans_total": 2,
+        "raw_response_keys": [
+          "blocked",
+          "disp_len",
+          "doc_ix",
+          "doc_len",
+          "latency",
+          "metadata",
+          "needle_offset",
+          "spans",
+          "token_ids",
+          "tokens"
+        ],
+        "text_preview": "mercurous chloride has been used in traditional medicine as a diuretic , topical disinfectant , and laxative.\n\nMercury II chloride[NONE]"
+      }
+    ],
+    "n_probed": 5,
+    "n_blocked": 0,
+    "n_with_none": 5
+  }
+]

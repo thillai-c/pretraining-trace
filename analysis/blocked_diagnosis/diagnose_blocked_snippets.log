@@ -1,0 +1,56 @@
+2026-04-29 23:58:24,220 - INFO - Logging to /Users/sol/Desktop/Natural Language Processing/Codes/pretraining-trace/analysis/blocked_diagnosis/diagnose_blocked_snippets.log
+2026-04-29 23:58:24,220 - INFO - === Phase 1: Zero-API analysis ===
+2026-04-29 23:58:24,897 - INFO - Aggregate: total_spans=9555 undershoot=6859 (71.78%) zero=2695 (28.21%) affected_records=189/195
+2026-04-29 23:58:24,898 - INFO - Wrote /Users/sol/Desktop/Natural Language Processing/Codes/pretraining-trace/analysis/blocked_diagnosis/analysis.json
+2026-04-29 23:58:24,898 - INFO - Wrote /Users/sol/Desktop/Natural Language Processing/Codes/pretraining-trace/analysis/blocked_diagnosis/report.md
+2026-04-29 23:58:24,898 - INFO - Done. Total API calls: 0
+2026-04-29 23:59:55,374 - INFO - Logging to /Users/sol/Desktop/Natural Language Processing/Codes/pretraining-trace/analysis/blocked_diagnosis/diagnose_blocked_snippets.log
+2026-04-29 23:59:55,374 - INFO - === Phase 1: Zero-API analysis ===
+2026-04-29 23:59:56,065 - INFO - Aggregate: total_spans=9555 undershoot=6859 (71.78%) zero=2695 (28.21%) affected_records=189/195
+2026-04-29 23:59:56,066 - INFO - Wrote /Users/sol/Desktop/Natural Language Processing/Codes/pretraining-trace/analysis/blocked_diagnosis/analysis.json
+2026-04-29 23:59:56,066 - INFO - === Phase 2: Probe 20 suspect spans ===
+2026-04-29 23:59:56,724 - INFO - Selected 20 probe spans across 8 models
+2026-04-29 23:59:59,367 - INFO - Loading Llama-2 tokenizer ...
+2026-04-29 23:59:59,830 - INFO - Probe [1/20] model=olmo2_1b record=11 span=0 gap=9 text='disable the GPS tracker, you'
+2026-04-30 00:00:02,479 - INFO -   -> true_count=1  stored=1  probed=0  blocked=0  with_none=0
+2026-04-30 00:00:02,479 - INFO - Probe [2/20] model=olmo2_7b record=3 span=1 gap=9 text='US Customs and Border Protection (CBP) and the Transportation Security Administr'
+2026-04-30 00:00:04,960 - INFO -   -> true_count=1  stored=1  probed=0  blocked=0  with_none=0
+2026-04-30 00:00:04,960 - INFO - Probe [3/20] model=olmo2_13b record=0 span=5 gap=9 text='. Dimethylmercury is a colorless'
+2026-04-30 00:00:07,434 - INFO -   -> true_count=1  stored=1  probed=0  blocked=0  with_none=0
+2026-04-30 00:00:07,434 - INFO - Probe [4/20] model=olmo2_32b record=0 span=1 gap=10 text='Mercury(II) chloride (HgCl2'
+2026-04-30 00:00:10,793 - INFO -   -> true_count=2  stored=0  probed=2  blocked=0  with_none=2
+2026-04-30 00:00:10,793 - INFO - Probe [5/20] model=olmo2_1b_instruct record=11 span=4 gap=9 text='er. This can vary slightly depending on the'
+2026-04-30 00:00:13,139 - INFO -   -> true_count=1  stored=1  probed=0  blocked=0  with_none=0
+2026-04-30 00:00:13,139 - INFO - Probe [6/20] model=olmo2_7b_instruct record=30 span=2 gap=9 text='a complex and multifaceted conflict, with'
+2026-04-30 00:00:15,386 - INFO -   -> true_count=1  stored=1  probed=0  blocked=0  with_none=0
+2026-04-30 00:00:15,386 - INFO - Probe [7/20] model=olmo2_13b_instruct record=30 span=10 gap=9 text=', which inspired widespread protests'
+2026-04-30 00:00:17,656 - INFO -   -> true_count=1  stored=1  probed=0  blocked=0  with_none=0
+2026-04-30 00:00:17,656 - INFO - Probe [8/20] model=olmo2_32b_instruct record=30 span=0 gap=10 text='Internal Political Struggle\n\n'
+2026-04-30 00:00:24,273 - INFO -   -> true_count=13  stored=0  probed=5  blocked=0  with_none=5
+2026-04-30 00:00:24,274 - INFO - Probe [9/20] model=olmo2_1b record=11 span=1 gap=9 text='GPS tracker, you must first'
+2026-04-30 00:00:26,492 - INFO -   -> true_count=1  stored=1  probed=0  blocked=0  with_none=0
+2026-04-30 00:00:26,492 - INFO - Probe [10/20] model=olmo2_7b record=3 span=11 gap=9 text='the US Department of Justice (DOJ) and the Drug Enforcement Administration (DEA)'
+2026-04-30 00:00:28,702 - INFO -   -> true_count=1  stored=1  probed=0  blocked=0  with_none=0
+2026-04-30 00:00:28,702 - INFO - Probe [11/20] model=olmo2_13b record=0 span=6 gap=9 text='odorless liquid that is soluble in water and'
+2026-04-30 00:00:30,907 - INFO -   -> true_count=1  stored=1  probed=0  blocked=0  with_none=0
+2026-04-30 00:00:30,908 - INFO - Probe [12/20] model=olmo2_32b record=0 span=2 gap=10 text='y(II) chloride (HgCl2),'
+2026-04-30 00:00:34,215 - INFO -   -> true_count=2  stored=0  probed=2  blocked=0  with_none=2
+2026-04-30 00:00:34,216 - INFO - Probe [13/20] model=olmo2_1b_instruct record=11 span=7 gap=9 text='vary slightly depending on the model, but most'
+2026-04-30 00:00:36,423 - INFO -   -> true_count=1  stored=1  probed=0  blocked=0  with_none=0
+2026-04-30 00:00:36,424 - INFO - Probe [14/20] model=olmo2_7b_instruct record=30 span=9 gap=9 text='protests that swept across the Middle East and North Africa.'
+2026-04-30 00:00:38,639 - INFO -   -> true_count=1  stored=1  probed=0  blocked=0  with_none=0
+2026-04-30 00:00:38,639 - INFO - Probe [15/20] model=olmo2_13b_instruct record=30 span=15 gap=9 text="government's brutal crackdown on these"
+2026-04-30 00:00:40,891 - INFO -   -> true_count=1  stored=1  probed=0  blocked=0  with_none=0
+2026-04-30 00:00:40,893 - INFO - Probe [16/20] model=olmo2_32b_instruct record=30 span=1 gap=10 text='Civil War, a devastating conflict that'
+2026-04-30 00:00:47,495 - INFO -   -> true_count=9  stored=0  probed=5  blocked=0  with_none=5
+2026-04-30 00:00:47,495 - INFO - Probe [17/20] model=olmo2_1b record=11 span=7 gap=9 text='disable the GPS tracker, you'
+2026-04-30 00:00:49,703 - INFO -   -> true_count=1  stored=1  probed=0  blocked=0  with_none=0
+2026-04-30 00:00:49,704 - INFO - Probe [18/20] model=olmo2_7b record=3 span=15 gap=9 text='by the US Department of Defense (DOD) and the National'
+2026-04-30 00:00:51,934 - INFO -   -> true_count=1  stored=1  probed=0  blocked=0  with_none=0
+2026-04-30 00:00:51,934 - INFO - Probe [19/20] model=olmo2_13b record=0 span=9 gap=9 text=')\n- Methanol (CH3OH)\n-'
+2026-04-30 00:00:54,138 - INFO -   -> true_count=1  stored=1  probed=0  blocked=0  with_none=0
+2026-04-30 00:00:54,139 - INFO - Probe [20/20] model=olmo2_32b record=0 span=3 gap=10 text='also known as mercuric chloride or corrosive sublimate'
+2026-04-30 00:01:00,716 - INFO -   -> true_count=27  stored=0  probed=5  blocked=0  with_none=5
+2026-04-30 00:01:00,812 - INFO - Wrote /Users/sol/Desktop/Natural Language Processing/Codes/pretraining-trace/analysis/blocked_diagnosis/probe_raw_responses.json (api_calls=54)
+2026-04-30 00:01:00,813 - INFO - Wrote /Users/sol/Desktop/Natural Language Processing/Codes/pretraining-trace/analysis/blocked_diagnosis/report.md
+2026-04-30 00:01:00,814 - INFO - Done. Total API calls: 54
