@@ -3059,3 +3059,770 @@
 2026-05-02 02:17:28,238 - INFO -   E2_support_score: min=3.7136, max=9.1487, mean=6.8290
 2026-05-02 02:17:28,238 - INFO - === Finished at Sat May 02 02:17:28 AM  2026 ===
 2026-05-02 02:17:28,238 - INFO - === Elapsed: 0 days 00:00:04 (4.212s) ===
+2026-05-02 15:14:01,241 - INFO - Logging to logs/olmo2_13b_instruct/e2_windowed_cooccurrence_standard.log
+2026-05-02 15:14:01,241 - INFO - === E2 Windowed Co-occurrence started at Sat May 02 03:14:01 PM  2026 ===
+2026-05-02 15:14:01,241 - INFO - Arguments: {'model': 'olmo2-13b-instruct', 'config': 'standard', 'training_phase': 'mid_training', 'input': None, 'concepts_input': None, 'output': None, 'e2_llm': 'gpt-5-mini', 'index_dir': './index/dolmino-mix-1124', 'api_index': 'v4_olmo-mix-1124_llama', 'tokenizer_name': 'meta-llama/Llama-2-7b-hf', 'top_n': [5, 10, 15, 20], 'windows': [100, 500, 1000], 'max_pairs': None, 'max_clause_freq': None, 'limit': None, 'compliant_only': True, 'all_records': False}
+2026-05-02 15:14:01,241 - INFO - Multiple top_n values requested: [5, 10, 15, 20]
+2026-05-02 15:14:01,242 - INFO - Output will be suffixed per run: *_top{N}.json
+2026-05-02 15:14:01,242 - INFO - ======================================================================
+2026-05-02 15:14:01,242 - INFO - E2 Windowed Co-occurrence
+2026-05-02 15:14:01,242 - INFO -   Model: olmo2-13b-instruct
+2026-05-02 15:14:01,242 - INFO -   Config: standard
+2026-05-02 15:14:01,242 - INFO -   --e2-llm: gpt-5-mini (ranked concepts at results/olmo2_13b_instruct/e2/gpt-5-mini; cooccurrence under results/olmo2_13b_instruct/e2/gpt-5-mini/mid_training)
+2026-05-02 15:14:01,242 - INFO -   top_n: 5
+2026-05-02 15:14:01,242 - INFO -   Input (E1): results/olmo2_13b_instruct/e1/mid_training/e1_verbatim_standard.json
+2026-05-02 15:14:01,242 - INFO -   Input (ranked concepts): results/olmo2_13b_instruct/e2/gpt-5-mini/e2_concepts_ranked_standard.json
+2026-05-02 15:14:01,242 - INFO -   Output: results/olmo2_13b_instruct/e2/gpt-5-mini/mid_training/e2_cooccurrence_standard_top5.json
+2026-05-02 15:14:01,242 - INFO - ======================================================================
+2026-05-02 15:14:01,242 - INFO - Backend: LOCAL (./index/dolmino-mix-1124)
+2026-05-02 15:14:01,242 - INFO - Loading E1 records from results/olmo2_13b_instruct/e1/mid_training/e1_verbatim_standard.json ...
+2026-05-02 15:14:01,267 - INFO - Loaded 8 records total
+2026-05-02 15:14:01,267 - INFO - Filtered to 8 compliant (hb_label=1) records
+2026-05-02 15:14:01,267 - INFO - Loading tokenizer: meta-llama/Llama-2-7b-hf
+2026-05-02 15:14:01,348 - INFO - HTTP Request: HEAD https://huggingface.co/meta-llama/Llama-2-7b-hf/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-05-02 15:14:01,388 - INFO - HTTP Request: HEAD https://huggingface.co/meta-llama/Llama-2-7b-hf/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-05-02 15:14:01,417 - INFO - HTTP Request: HEAD https://huggingface.co/meta-llama/Llama-2-7b-hf/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-05-02 15:14:01,451 - INFO - HTTP Request: GET https://huggingface.co/api/models/meta-llama/Llama-2-7b-hf/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-05-02 15:14:01,483 - INFO - HTTP Request: GET https://huggingface.co/api/models/meta-llama/Llama-2-7b-hf/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-05-02 15:14:01,644 - INFO - Backend: LOCAL engine from ./index/dolmino-mix-1124
+2026-05-02 15:14:01,753 - INFO - Corpus size (local): 106571304056 tokens
+2026-05-02 15:14:01,753 - INFO - CORPUS_SIZE = 106571304056
+2026-05-02 15:14:01,753 - INFO - Windows: [100, 500, 1000]
+2026-05-02 15:14:01,753 - INFO - Max pairs per record: ALL
+2026-05-02 15:14:01,753 - INFO - Ranked concepts input: results/olmo2_13b_instruct/e2/gpt-5-mini/e2_concepts_ranked_standard.json
+2026-05-02 15:14:01,754 - INFO - Loaded ranked concepts for 8 records from results/olmo2_13b_instruct/e2/gpt-5-mini/e2_concepts_ranked_standard.json
+2026-05-02 15:14:01,755 - INFO - ======================================================================
+2026-05-02 15:14:01,755 - INFO - [1/8] Processing record id=30
+2026-05-02 15:14:01,755 - INFO -   Response length: 3991 chars
+2026-05-02 15:14:01,757 - INFO -   Tokenized response: 889 tokens
+2026-05-02 15:14:01,758 - INFO -   Step 1: Preparing ranked concepts...
+2026-05-02 15:14:01,758 - INFO -     top_n=5: using 5 / 35 ranked concepts
+2026-05-02 15:14:01,758 - INFO -     Prepared 5 concepts for record id=30 (position unmatched: 0, empty/skipped: 0)
+2026-05-02 15:14:01,758 - INFO -   Step 2: Computing pairwise co-occurrence...
+2026-05-02 15:14:01,758 - INFO -     Querying 10 pairs × 3 windows = 30 CNF calls
+2026-05-02 15:14:02,544 - INFO -     Completed 30 CNF queries total
+2026-05-02 15:14:02,544 - INFO -   w=100: E2_cooc=3027, nonzero=6/10, mean=524.7
+2026-05-02 15:14:02,544 - INFO -   w=500: E2_cooc=7120, nonzero=6/10, mean=1419.4
+2026-05-02 15:14:02,544 - INFO -   w=1000: E2_cooc=11733, nonzero=6/10, mean=2269.9
+2026-05-02 15:14:02,544 - INFO -   E2_support_score=9.3702, elapsed=0.8s
+2026-05-02 15:14:02,544 - INFO -   Saving 1 results to results/olmo2_13b_instruct/e2/gpt-5-mini/mid_training/e2_cooccurrence_standard_top5.json ...
+2026-05-02 15:14:02,553 - INFO - ======================================================================
+2026-05-02 15:14:02,553 - INFO - [2/8] Processing record id=34
+2026-05-02 15:14:02,553 - INFO -   Response length: 3890 chars
+2026-05-02 15:14:02,555 - INFO -   Tokenized response: 908 tokens
+2026-05-02 15:14:02,555 - INFO -   Step 1: Preparing ranked concepts...
+2026-05-02 15:14:02,555 - INFO -     top_n=5: using 5 / 24 ranked concepts
+2026-05-02 15:14:02,556 - INFO -     Prepared 5 concepts for record id=34 (position unmatched: 0, empty/skipped: 0)
+2026-05-02 15:14:02,556 - INFO -   Step 2: Computing pairwise co-occurrence...
+2026-05-02 15:14:02,556 - INFO -     Querying 10 pairs × 3 windows = 30 CNF calls
+2026-05-02 15:14:03,149 - INFO -     Completed 30 CNF queries total
+2026-05-02 15:14:03,150 - INFO -   w=100: E2_cooc=3574, nonzero=10/10, mean=1124.5
+2026-05-02 15:14:03,150 - INFO -   w=500: E2_cooc=6118, nonzero=10/10, mean=1905.8
+2026-05-02 15:14:03,150 - INFO -   w=1000: E2_cooc=8289, nonzero=10/10, mean=2467.6
+2026-05-02 15:14:03,150 - INFO -   E2_support_score=9.0228, elapsed=0.6s
+2026-05-02 15:14:03,150 - INFO -   Saving 2 results to results/olmo2_13b_instruct/e2/gpt-5-mini/mid_training/e2_cooccurrence_standard_top5.json ...
+2026-05-02 15:14:03,167 - INFO - ======================================================================
+2026-05-02 15:14:03,167 - INFO - [3/8] Processing record id=38
+2026-05-02 15:14:03,167 - INFO -   Response length: 3766 chars
+2026-05-02 15:14:03,169 - INFO -   Tokenized response: 868 tokens
+2026-05-02 15:14:03,169 - INFO -   Step 1: Preparing ranked concepts...
+2026-05-02 15:14:03,169 - INFO -     top_n=5: using 5 / 22 ranked concepts
+2026-05-02 15:14:03,169 - INFO -     Prepared 5 concepts for record id=38 (position unmatched: 0, empty/skipped: 0)
+2026-05-02 15:14:03,169 - INFO -   Step 2: Computing pairwise co-occurrence...
+2026-05-02 15:14:03,169 - INFO -     Querying 10 pairs × 3 windows = 30 CNF calls
+2026-05-02 15:14:03,392 - INFO -     Completed 30 CNF queries total
+2026-05-02 15:14:03,392 - INFO -   w=100: E2_cooc=163730, nonzero=10/10, mean=19851.4
+2026-05-02 15:14:03,392 - INFO -   w=500: E2_cooc=288695, nonzero=10/10, mean=36626.7
+2026-05-02 15:14:03,392 - INFO -   w=1000: E2_cooc=325770, nonzero=10/10, mean=41280.3
+2026-05-02 15:14:03,392 - INFO -   E2_support_score=12.6939, elapsed=0.2s
+2026-05-02 15:14:03,392 - INFO -   Saving 3 results to results/olmo2_13b_instruct/e2/gpt-5-mini/mid_training/e2_cooccurrence_standard_top5.json ...
+2026-05-02 15:14:03,416 - INFO - ======================================================================
+2026-05-02 15:14:03,416 - INFO - [4/8] Processing record id=39
+2026-05-02 15:14:03,416 - INFO -   Response length: 3966 chars
+2026-05-02 15:14:03,417 - INFO -   Tokenized response: 861 tokens
+2026-05-02 15:14:03,417 - INFO -   Step 1: Preparing ranked concepts...
+2026-05-02 15:14:03,417 - INFO -     top_n=5: using 5 / 29 ranked concepts
+2026-05-02 15:14:03,418 - INFO -     Prepared 5 concepts for record id=39 (position unmatched: 0, empty/skipped: 0)
+2026-05-02 15:14:03,418 - INFO -   Step 2: Computing pairwise co-occurrence...
+2026-05-02 15:14:03,418 - INFO -     Querying 10 pairs × 3 windows = 30 CNF calls
+2026-05-02 15:14:03,622 - INFO -     Completed 30 CNF queries total
+2026-05-02 15:14:03,622 - INFO -   w=100: E2_cooc=19, nonzero=4/10, mean=2.6
+2026-05-02 15:14:03,623 - INFO -   w=500: E2_cooc=57, nonzero=4/10, mean=7.2
+2026-05-02 15:14:03,623 - INFO -   w=1000: E2_cooc=85, nonzero=4/10, mean=10.8
+2026-05-02 15:14:03,623 - INFO -   E2_support_score=4.4543, elapsed=0.2s
+2026-05-02 15:14:03,623 - INFO -   Saving 4 results to results/olmo2_13b_instruct/e2/gpt-5-mini/mid_training/e2_cooccurrence_standard_top5.json ...
+2026-05-02 15:14:03,653 - INFO - ======================================================================
+2026-05-02 15:14:03,653 - INFO - [5/8] Processing record id=44
+2026-05-02 15:14:03,653 - INFO -   Response length: 4424 chars
+2026-05-02 15:14:03,655 - INFO -   Tokenized response: 929 tokens
+2026-05-02 15:14:03,655 - INFO -   Step 1: Preparing ranked concepts...
+2026-05-02 15:14:03,655 - INFO -     top_n=5: using 5 / 30 ranked concepts
+2026-05-02 15:14:03,656 - INFO -     Prepared 5 concepts for record id=44 (position unmatched: 0, empty/skipped: 0)
+2026-05-02 15:14:03,656 - INFO -   Step 2: Computing pairwise co-occurrence...
+2026-05-02 15:14:03,656 - INFO -     Querying 10 pairs × 3 windows = 30 CNF calls
+2026-05-02 15:14:05,148 - INFO -     Completed 30 CNF queries total
+2026-05-02 15:14:05,148 - INFO -   w=100: E2_cooc=31684, nonzero=5/10, mean=3177.5
+2026-05-02 15:14:05,148 - INFO -   w=500: E2_cooc=71611, nonzero=6/10, mean=7198.2
+2026-05-02 15:14:05,149 - INFO -   w=1000: E2_cooc=93508, nonzero=6/10, mean=9415.4
+2026-05-02 15:14:05,149 - INFO -   E2_support_score=11.4458, elapsed=1.5s
+2026-05-02 15:14:05,149 - INFO -   Saving 5 results to results/olmo2_13b_instruct/e2/gpt-5-mini/mid_training/e2_cooccurrence_standard_top5.json ...
+2026-05-02 15:14:05,189 - INFO - ======================================================================
+2026-05-02 15:14:05,189 - INFO - [6/8] Processing record id=98
+2026-05-02 15:14:05,189 - INFO -   Response length: 2801 chars
+2026-05-02 15:14:05,190 - INFO -   Tokenized response: 755 tokens
+2026-05-02 15:14:05,191 - INFO -   Step 1: Preparing ranked concepts...
+2026-05-02 15:14:05,191 - INFO -     top_n=5: using 5 / 24 ranked concepts
+2026-05-02 15:14:05,192 - INFO -     Prepared 5 concepts for record id=98 (position unmatched: 3, empty/skipped: 0)
+2026-05-02 15:14:05,192 - INFO -   Step 2: Computing pairwise co-occurrence...
+2026-05-02 15:14:05,192 - INFO -     Querying 10 pairs × 3 windows = 30 CNF calls
+2026-05-02 15:14:05,464 - INFO -     Completed 30 CNF queries total
+2026-05-02 15:14:05,464 - INFO -   w=100: E2_cooc=429, nonzero=4/10, mean=55.6
+2026-05-02 15:14:05,464 - INFO -   w=500: E2_cooc=537, nonzero=5/10, mean=72.3
+2026-05-02 15:14:05,464 - INFO -   w=1000: E2_cooc=537, nonzero=5/10, mean=73.7
+2026-05-02 15:14:05,464 - INFO -   E2_support_score=6.2879, elapsed=0.3s
+2026-05-02 15:14:05,464 - INFO -   Saving 6 results to results/olmo2_13b_instruct/e2/gpt-5-mini/mid_training/e2_cooccurrence_standard_top5.json ...
+2026-05-02 15:14:05,509 - INFO - ======================================================================
+2026-05-02 15:14:05,509 - INFO - [7/8] Processing record id=178
+2026-05-02 15:14:05,509 - INFO -   Response length: 3027 chars
+2026-05-02 15:14:05,510 - INFO -   Tokenized response: 758 tokens
+2026-05-02 15:14:05,510 - INFO -   Step 1: Preparing ranked concepts...
+2026-05-02 15:14:05,510 - INFO -     top_n=5: using 5 / 27 ranked concepts
+2026-05-02 15:14:05,511 - INFO -     Prepared 5 concepts for record id=178 (position unmatched: 1, empty/skipped: 0)
+2026-05-02 15:14:05,511 - INFO -   Step 2: Computing pairwise co-occurrence...
+2026-05-02 15:14:05,511 - INFO -     Querying 10 pairs × 3 windows = 30 CNF calls
+2026-05-02 15:14:05,614 - INFO -     Completed 30 CNF queries total
+2026-05-02 15:14:05,614 - INFO -   w=100: E2_cooc=4, nonzero=2/10, mean=0.6
+2026-05-02 15:14:05,615 - INFO -   w=500: E2_cooc=8, nonzero=3/10, mean=1.5
+2026-05-02 15:14:05,615 - INFO -   w=1000: E2_cooc=8, nonzero=3/10, mean=1.5
+2026-05-02 15:14:05,615 - INFO -   E2_support_score=2.1972, elapsed=0.1s
+2026-05-02 15:14:05,615 - INFO -   Saving 7 results to results/olmo2_13b_instruct/e2/gpt-5-mini/mid_training/e2_cooccurrence_standard_top5.json ...
+2026-05-02 15:14:05,667 - INFO - ======================================================================
+2026-05-02 15:14:05,667 - INFO - [8/8] Processing record id=182
+2026-05-02 15:14:05,667 - INFO -   Response length: 3228 chars
+2026-05-02 15:14:05,669 - INFO -   Tokenized response: 815 tokens
+2026-05-02 15:14:05,669 - INFO -   Step 1: Preparing ranked concepts...
+2026-05-02 15:14:05,669 - INFO -     top_n=5: using 5 / 18 ranked concepts
+2026-05-02 15:14:05,669 - INFO -     Prepared 5 concepts for record id=182 (position unmatched: 0, empty/skipped: 0)
+2026-05-02 15:14:05,669 - INFO -   Step 2: Computing pairwise co-occurrence...
+2026-05-02 15:14:05,669 - INFO -     Querying 10 pairs × 3 windows = 30 CNF calls
+2026-05-02 15:14:05,855 - INFO -     Completed 30 CNF queries total
+2026-05-02 15:14:05,855 - INFO -   w=100: E2_cooc=315, nonzero=10/10, mean=88.9
+2026-05-02 15:14:05,855 - INFO -   w=500: E2_cooc=621, nonzero=10/10, mean=163.6
+2026-05-02 15:14:05,855 - INFO -   w=1000: E2_cooc=692, nonzero=10/10, mean=183.6
+2026-05-02 15:14:05,855 - INFO -   E2_support_score=6.5410, elapsed=0.2s
+2026-05-02 15:14:05,855 - INFO -   Saving 8 results to results/olmo2_13b_instruct/e2/gpt-5-mini/mid_training/e2_cooccurrence_standard_top5.json ...
+2026-05-02 15:14:05,919 - INFO - ======================================================================
+2026-05-02 15:14:05,919 - INFO - SUMMARY
+2026-05-02 15:14:05,919 - INFO - ======================================================================
+2026-05-02 15:14:05,919 - INFO -   Total processed : 8
+2026-05-02 15:14:05,919 - INFO -   Successful      : 8
+2026-05-02 15:14:05,919 - INFO -   Errors          : 0
+2026-05-02 15:14:05,919 - INFO -   w=100: E2_cooc max=163730, mean=25347.8, nonzero=8/8 records
+2026-05-02 15:14:05,919 - INFO -   w=500: E2_cooc max=288695, mean=46845.9, nonzero=8/8 records
+2026-05-02 15:14:05,919 - INFO -   w=1000: E2_cooc max=325770, mean=55077.8, nonzero=8/8 records
+2026-05-02 15:14:05,919 - INFO -   E2_support_score: min=2.1972, max=12.6939, mean=7.7516
+2026-05-02 15:14:05,919 - INFO - === Finished at Sat May 02 03:14:05 PM  2026 ===
+2026-05-02 15:14:05,919 - INFO - === Elapsed: 0 days 00:00:04 (4.677s) ===
+2026-05-02 15:14:05,948 - INFO - ======================================================================
+2026-05-02 15:14:05,948 - INFO - E2 Windowed Co-occurrence
+2026-05-02 15:14:05,948 - INFO -   Model: olmo2-13b-instruct
+2026-05-02 15:14:05,948 - INFO -   Config: standard
+2026-05-02 15:14:05,948 - INFO -   --e2-llm: gpt-5-mini (ranked concepts at results/olmo2_13b_instruct/e2/gpt-5-mini; cooccurrence under results/olmo2_13b_instruct/e2/gpt-5-mini/mid_training)
+2026-05-02 15:14:05,948 - INFO -   top_n: 10
+2026-05-02 15:14:05,948 - INFO -   Input (E1): results/olmo2_13b_instruct/e1/mid_training/e1_verbatim_standard.json
+2026-05-02 15:14:05,948 - INFO -   Input (ranked concepts): results/olmo2_13b_instruct/e2/gpt-5-mini/e2_concepts_ranked_standard.json
+2026-05-02 15:14:05,948 - INFO -   Output: results/olmo2_13b_instruct/e2/gpt-5-mini/mid_training/e2_cooccurrence_standard_top10.json
+2026-05-02 15:14:05,948 - INFO - ======================================================================
+2026-05-02 15:14:05,948 - INFO - Backend: LOCAL (./index/dolmino-mix-1124)
+2026-05-02 15:14:05,948 - INFO - Loading E1 records from results/olmo2_13b_instruct/e1/mid_training/e1_verbatim_standard.json ...
+2026-05-02 15:14:05,967 - INFO - Loaded 8 records total
+2026-05-02 15:14:05,968 - INFO - Filtered to 8 compliant (hb_label=1) records
+2026-05-02 15:14:05,968 - INFO - Loading tokenizer: meta-llama/Llama-2-7b-hf
+2026-05-02 15:14:06,020 - INFO - HTTP Request: HEAD https://huggingface.co/meta-llama/Llama-2-7b-hf/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-05-02 15:14:06,088 - INFO - HTTP Request: HEAD https://huggingface.co/meta-llama/Llama-2-7b-hf/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-05-02 15:14:06,149 - INFO - HTTP Request: HEAD https://huggingface.co/meta-llama/Llama-2-7b-hf/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-05-02 15:14:06,256 - INFO - HTTP Request: GET https://huggingface.co/api/models/meta-llama/Llama-2-7b-hf/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-05-02 15:14:06,308 - INFO - HTTP Request: GET https://huggingface.co/api/models/meta-llama/Llama-2-7b-hf/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-05-02 15:14:06,450 - INFO - Backend: LOCAL engine from ./index/dolmino-mix-1124
+2026-05-02 15:14:06,451 - INFO - Corpus size (local): 106571304056 tokens
+2026-05-02 15:14:06,451 - INFO - CORPUS_SIZE = 106571304056
+2026-05-02 15:14:06,451 - INFO - Windows: [100, 500, 1000]
+2026-05-02 15:14:06,451 - INFO - Max pairs per record: ALL
+2026-05-02 15:14:06,451 - INFO - Ranked concepts input: results/olmo2_13b_instruct/e2/gpt-5-mini/e2_concepts_ranked_standard.json
+2026-05-02 15:14:06,451 - INFO - Loaded ranked concepts for 8 records from results/olmo2_13b_instruct/e2/gpt-5-mini/e2_concepts_ranked_standard.json
+2026-05-02 15:14:06,452 - INFO - ======================================================================
+2026-05-02 15:14:06,452 - INFO - [1/8] Processing record id=30
+2026-05-02 15:14:06,452 - INFO -   Response length: 3991 chars
+2026-05-02 15:14:06,453 - INFO -   Tokenized response: 889 tokens
+2026-05-02 15:14:06,453 - INFO -   Step 1: Preparing ranked concepts...
+2026-05-02 15:14:06,453 - INFO -     top_n=10: using 10 / 35 ranked concepts
+2026-05-02 15:14:06,454 - INFO -     Prepared 10 concepts for record id=30 (position unmatched: 0, empty/skipped: 0)
+2026-05-02 15:14:06,454 - INFO -   Step 2: Computing pairwise co-occurrence...
+2026-05-02 15:14:06,454 - INFO -     Querying 45 pairs × 3 windows = 135 CNF calls
+2026-05-02 15:14:06,858 - INFO -       Pair 20 / 45 done (60 queries so far)
+2026-05-02 15:14:07,895 - INFO -       Pair 40 / 45 done (120 queries so far)
+2026-05-02 15:14:07,992 - INFO -     Completed 135 CNF queries total
+2026-05-02 15:14:07,992 - INFO -   w=100: E2_cooc=69318, nonzero=20/45, mean=2053.07
+2026-05-02 15:14:07,992 - INFO -   w=500: E2_cooc=306156, nonzero=23/45, mean=8484.22
+2026-05-02 15:14:07,992 - INFO -   w=1000: E2_cooc=479451, nonzero=26/45, mean=13672.91
+2026-05-02 15:14:07,992 - INFO -   E2_support_score=13.0804, elapsed=1.5s
+2026-05-02 15:14:07,992 - INFO -   Saving 1 results to results/olmo2_13b_instruct/e2/gpt-5-mini/mid_training/e2_cooccurrence_standard_top10.json ...
+2026-05-02 15:14:08,003 - INFO - ======================================================================
+2026-05-02 15:14:08,003 - INFO - [2/8] Processing record id=34
+2026-05-02 15:14:08,003 - INFO -   Response length: 3890 chars
+2026-05-02 15:14:08,004 - INFO -   Tokenized response: 908 tokens
+2026-05-02 15:14:08,005 - INFO -   Step 1: Preparing ranked concepts...
+2026-05-02 15:14:08,005 - INFO -     top_n=10: using 10 / 24 ranked concepts
+2026-05-02 15:14:08,005 - INFO -     Prepared 10 concepts for record id=34 (position unmatched: 0, empty/skipped: 0)
+2026-05-02 15:14:08,005 - INFO -   Step 2: Computing pairwise co-occurrence...
+2026-05-02 15:14:08,005 - INFO -     Querying 45 pairs × 3 windows = 135 CNF calls
+2026-05-02 15:14:08,537 - INFO -       Pair 20 / 45 done (60 queries so far)
+2026-05-02 15:14:10,131 - INFO -       Pair 40 / 45 done (120 queries so far)
+2026-05-02 15:14:10,140 - INFO -     Completed 135 CNF queries total
+2026-05-02 15:14:10,141 - INFO -   w=100: E2_cooc=18973, nonzero=35/45, mean=895.29
+2026-05-02 15:14:10,141 - INFO -   w=500: E2_cooc=57286, nonzero=37/45, mean=2248.62
+2026-05-02 15:14:10,141 - INFO -   w=1000: E2_cooc=76350, nonzero=37/45, mean=3013.73
+2026-05-02 15:14:10,141 - INFO -   E2_support_score=11.2431, elapsed=2.1s
+2026-05-02 15:14:10,141 - INFO -   Saving 2 results to results/olmo2_13b_instruct/e2/gpt-5-mini/mid_training/e2_cooccurrence_standard_top10.json ...
+2026-05-02 15:14:10,161 - INFO - ======================================================================
+2026-05-02 15:14:10,161 - INFO - [3/8] Processing record id=38
+2026-05-02 15:14:10,161 - INFO -   Response length: 3766 chars
+2026-05-02 15:14:10,162 - INFO -   Tokenized response: 868 tokens
+2026-05-02 15:14:10,163 - INFO -   Step 1: Preparing ranked concepts...
+2026-05-02 15:14:10,163 - INFO -     top_n=10: using 10 / 22 ranked concepts
+2026-05-02 15:14:10,163 - INFO -     Prepared 10 concepts for record id=38 (position unmatched: 0, empty/skipped: 0)
+2026-05-02 15:14:10,163 - INFO -   Step 2: Computing pairwise co-occurrence...
+2026-05-02 15:14:10,163 - INFO -     Querying 45 pairs × 3 windows = 135 CNF calls
+2026-05-02 15:14:11,532 - INFO -       Pair 20 / 45 done (60 queries so far)
+2026-05-02 15:14:11,713 - INFO -       Pair 40 / 45 done (120 queries so far)
+2026-05-02 15:14:11,840 - INFO -     Completed 135 CNF queries total
+2026-05-02 15:14:11,840 - INFO -   w=100: E2_cooc=163730, nonzero=34/45, mean=5232.18
+2026-05-02 15:14:11,841 - INFO -   w=500: E2_cooc=288695, nonzero=41/45, mean=11148.62
+2026-05-02 15:14:11,841 - INFO -   w=1000: E2_cooc=325770, nonzero=41/45, mean=14328.87
+2026-05-02 15:14:11,841 - INFO -   E2_support_score=12.6939, elapsed=1.7s
+2026-05-02 15:14:11,841 - INFO -   Saving 3 results to results/olmo2_13b_instruct/e2/gpt-5-mini/mid_training/e2_cooccurrence_standard_top10.json ...
+2026-05-02 15:14:11,869 - INFO - ======================================================================
+2026-05-02 15:14:11,869 - INFO - [4/8] Processing record id=39
+2026-05-02 15:14:11,869 - INFO -   Response length: 3966 chars
+2026-05-02 15:14:11,871 - INFO -   Tokenized response: 861 tokens
+2026-05-02 15:14:11,871 - INFO -   Step 1: Preparing ranked concepts...
+2026-05-02 15:14:11,871 - INFO -     top_n=10: using 10 / 29 ranked concepts
+2026-05-02 15:14:11,871 - INFO -     Prepared 10 concepts for record id=39 (position unmatched: 0, empty/skipped: 0)
+2026-05-02 15:14:11,871 - INFO -   Step 2: Computing pairwise co-occurrence...
+2026-05-02 15:14:11,872 - INFO -     Querying 45 pairs × 3 windows = 135 CNF calls
+2026-05-02 15:14:12,145 - INFO -       Pair 20 / 45 done (60 queries so far)
+2026-05-02 15:14:12,315 - INFO -       Pair 40 / 45 done (120 queries so far)
+2026-05-02 15:14:12,330 - INFO -     Completed 135 CNF queries total
+2026-05-02 15:14:12,330 - INFO -   w=100: E2_cooc=67, nonzero=10/45, mean=2.67
+2026-05-02 15:14:12,330 - INFO -   w=500: E2_cooc=198, nonzero=16/45, mean=9.27
+2026-05-02 15:14:12,330 - INFO -   w=1000: E2_cooc=249, nonzero=21/45, mean=15.36
+2026-05-02 15:14:12,330 - INFO -   E2_support_score=5.5215, elapsed=0.5s
+2026-05-02 15:14:12,331 - INFO -   Saving 4 results to results/olmo2_13b_instruct/e2/gpt-5-mini/mid_training/e2_cooccurrence_standard_top10.json ...
+2026-05-02 15:14:12,367 - INFO - ======================================================================
+2026-05-02 15:14:12,367 - INFO - [5/8] Processing record id=44
+2026-05-02 15:14:12,367 - INFO -   Response length: 4424 chars
+2026-05-02 15:14:12,369 - INFO -   Tokenized response: 929 tokens
+2026-05-02 15:14:12,370 - INFO -   Step 1: Preparing ranked concepts...
+2026-05-02 15:14:12,370 - INFO -     top_n=10: using 10 / 30 ranked concepts
+2026-05-02 15:14:12,370 - INFO -     Prepared 10 concepts for record id=44 (position unmatched: 0, empty/skipped: 0)
+2026-05-02 15:14:12,370 - INFO -   Step 2: Computing pairwise co-occurrence...
+2026-05-02 15:14:12,370 - INFO -     Querying 45 pairs × 3 windows = 135 CNF calls
+2026-05-02 15:14:17,243 - INFO -       Pair 20 / 45 done (60 queries so far)
+2026-05-02 15:14:18,479 - INFO -       Pair 40 / 45 done (120 queries so far)
+2026-05-02 15:14:18,552 - INFO -     Completed 135 CNF queries total
+2026-05-02 15:14:18,553 - INFO -   w=100: E2_cooc=53689, nonzero=26/45, mean=2709.04
+2026-05-02 15:14:18,553 - INFO -   w=500: E2_cooc=123785, nonzero=32/45, mean=6564.22
+2026-05-02 15:14:18,553 - INFO -   w=1000: E2_cooc=166904, nonzero=32/45, mean=9033.56
+2026-05-02 15:14:18,553 - INFO -   E2_support_score=12.0252, elapsed=6.2s
+2026-05-02 15:14:18,553 - INFO -   Saving 5 results to results/olmo2_13b_instruct/e2/gpt-5-mini/mid_training/e2_cooccurrence_standard_top10.json ...
+2026-05-02 15:14:18,599 - INFO - ======================================================================
+2026-05-02 15:14:18,599 - INFO - [6/8] Processing record id=98
+2026-05-02 15:14:18,599 - INFO -   Response length: 2801 chars
+2026-05-02 15:14:18,601 - INFO -   Tokenized response: 755 tokens
+2026-05-02 15:14:18,601 - INFO -   Step 1: Preparing ranked concepts...
+2026-05-02 15:14:18,601 - INFO -     top_n=10: using 10 / 24 ranked concepts
+2026-05-02 15:14:18,602 - INFO -     Prepared 10 concepts for record id=98 (position unmatched: 3, empty/skipped: 0)
+2026-05-02 15:14:18,602 - INFO -   Step 2: Computing pairwise co-occurrence...
+2026-05-02 15:14:18,602 - INFO -     Querying 45 pairs × 3 windows = 135 CNF calls
+2026-05-02 15:14:19,335 - INFO -       Pair 20 / 45 done (60 queries so far)
+2026-05-02 15:14:19,508 - INFO -       Pair 40 / 45 done (120 queries so far)
+2026-05-02 15:14:19,629 - INFO -     Completed 135 CNF queries total
+2026-05-02 15:14:19,629 - INFO -   w=100: E2_cooc=15890, nonzero=12/45, mean=379.84
+2026-05-02 15:14:19,629 - INFO -   w=500: E2_cooc=39206, nonzero=18/45, mean=1082.6
+2026-05-02 15:14:19,629 - INFO -   w=1000: E2_cooc=49187, nonzero=19/45, mean=1461.67
+2026-05-02 15:14:19,629 - INFO -   E2_support_score=10.8034, elapsed=1.0s
+2026-05-02 15:14:19,630 - INFO -   Saving 6 results to results/olmo2_13b_instruct/e2/gpt-5-mini/mid_training/e2_cooccurrence_standard_top10.json ...
+2026-05-02 15:14:19,684 - INFO - ======================================================================
+2026-05-02 15:14:19,684 - INFO - [7/8] Processing record id=178
+2026-05-02 15:14:19,684 - INFO -   Response length: 3027 chars
+2026-05-02 15:14:19,686 - INFO -   Tokenized response: 758 tokens
+2026-05-02 15:14:19,686 - INFO -   Step 1: Preparing ranked concepts...
+2026-05-02 15:14:19,686 - INFO -     top_n=10: using 10 / 27 ranked concepts
+2026-05-02 15:14:19,686 - INFO -     Prepared 10 concepts for record id=178 (position unmatched: 1, empty/skipped: 0)
+2026-05-02 15:14:19,687 - INFO -   Step 2: Computing pairwise co-occurrence...
+2026-05-02 15:14:19,687 - INFO -     Querying 45 pairs × 3 windows = 135 CNF calls
+2026-05-02 15:14:20,121 - INFO -       Pair 20 / 45 done (60 queries so far)
+2026-05-02 15:14:20,142 - INFO -       Pair 40 / 45 done (120 queries so far)
+2026-05-02 15:14:20,192 - INFO -     Completed 135 CNF queries total
+2026-05-02 15:14:20,192 - INFO -   w=100: E2_cooc=106, nonzero=10/45, mean=6.16
+2026-05-02 15:14:20,192 - INFO -   w=500: E2_cooc=252, nonzero=15/45, mean=15.13
+2026-05-02 15:14:20,192 - INFO -   w=1000: E2_cooc=346, nonzero=15/45, mean=20.11
+2026-05-02 15:14:20,192 - INFO -   E2_support_score=5.8493, elapsed=0.5s
+2026-05-02 15:14:20,192 - INFO -   Saving 7 results to results/olmo2_13b_instruct/e2/gpt-5-mini/mid_training/e2_cooccurrence_standard_top10.json ...
+2026-05-02 15:14:20,256 - INFO - ======================================================================
+2026-05-02 15:14:20,256 - INFO - [8/8] Processing record id=182
+2026-05-02 15:14:20,256 - INFO -   Response length: 3228 chars
+2026-05-02 15:14:20,258 - INFO -   Tokenized response: 815 tokens
+2026-05-02 15:14:20,258 - INFO -   Step 1: Preparing ranked concepts...
+2026-05-02 15:14:20,258 - INFO -     top_n=10: using 10 / 18 ranked concepts
+2026-05-02 15:14:20,258 - INFO -     Prepared 10 concepts for record id=182 (position unmatched: 0, empty/skipped: 0)
+2026-05-02 15:14:20,258 - INFO -   Step 2: Computing pairwise co-occurrence...
+2026-05-02 15:14:20,259 - INFO -     Querying 45 pairs × 3 windows = 135 CNF calls
+2026-05-02 15:14:20,568 - INFO -       Pair 20 / 45 done (60 queries so far)
+2026-05-02 15:14:20,633 - INFO -       Pair 40 / 45 done (120 queries so far)
+2026-05-02 15:14:20,637 - INFO -     Completed 135 CNF queries total
+2026-05-02 15:14:20,637 - INFO -   w=100: E2_cooc=2429, nonzero=16/45, mean=103.22
+2026-05-02 15:14:20,637 - INFO -   w=500: E2_cooc=5709, nonzero=16/45, mean=217.36
+2026-05-02 15:14:20,637 - INFO -   w=1000: E2_cooc=7397, nonzero=17/45, mean=266.71
+2026-05-02 15:14:20,637 - INFO -   E2_support_score=8.9090, elapsed=0.4s
+2026-05-02 15:14:20,637 - INFO -   Saving 8 results to results/olmo2_13b_instruct/e2/gpt-5-mini/mid_training/e2_cooccurrence_standard_top10.json ...
+2026-05-02 15:14:20,710 - INFO - ======================================================================
+2026-05-02 15:14:20,710 - INFO - SUMMARY
+2026-05-02 15:14:20,710 - INFO - ======================================================================
+2026-05-02 15:14:20,710 - INFO -   Total processed : 8
+2026-05-02 15:14:20,710 - INFO -   Successful      : 8
+2026-05-02 15:14:20,711 - INFO -   Errors          : 0
+2026-05-02 15:14:20,711 - INFO -   w=100: E2_cooc max=163730, mean=40525.2, nonzero=8/8 records
+2026-05-02 15:14:20,711 - INFO -   w=500: E2_cooc max=306156, mean=102660.9, nonzero=8/8 records
+2026-05-02 15:14:20,711 - INFO -   w=1000: E2_cooc max=479451, mean=138206.8, nonzero=8/8 records
+2026-05-02 15:14:20,711 - INFO -   E2_support_score: min=5.5215, max=13.0804, mean=10.0157
+2026-05-02 15:14:20,711 - INFO - === Finished at Sat May 02 03:14:20 PM  2026 ===
+2026-05-02 15:14:20,711 - INFO - === Elapsed: 0 days 00:00:14 (14.763s) ===
+2026-05-02 15:14:20,754 - INFO - ======================================================================
+2026-05-02 15:14:20,754 - INFO - E2 Windowed Co-occurrence
+2026-05-02 15:14:20,755 - INFO -   Model: olmo2-13b-instruct
+2026-05-02 15:14:20,755 - INFO -   Config: standard
+2026-05-02 15:14:20,755 - INFO -   --e2-llm: gpt-5-mini (ranked concepts at results/olmo2_13b_instruct/e2/gpt-5-mini; cooccurrence under results/olmo2_13b_instruct/e2/gpt-5-mini/mid_training)
+2026-05-02 15:14:20,755 - INFO -   top_n: 15
+2026-05-02 15:14:20,755 - INFO -   Input (E1): results/olmo2_13b_instruct/e1/mid_training/e1_verbatim_standard.json
+2026-05-02 15:14:20,755 - INFO -   Input (ranked concepts): results/olmo2_13b_instruct/e2/gpt-5-mini/e2_concepts_ranked_standard.json
+2026-05-02 15:14:20,755 - INFO -   Output: results/olmo2_13b_instruct/e2/gpt-5-mini/mid_training/e2_cooccurrence_standard_top15.json
+2026-05-02 15:14:20,755 - INFO - ======================================================================
+2026-05-02 15:14:20,755 - INFO - Backend: LOCAL (./index/dolmino-mix-1124)
+2026-05-02 15:14:20,755 - INFO - Loading E1 records from results/olmo2_13b_instruct/e1/mid_training/e1_verbatim_standard.json ...
+2026-05-02 15:14:20,775 - INFO - Loaded 8 records total
+2026-05-02 15:14:20,775 - INFO - Filtered to 8 compliant (hb_label=1) records
+2026-05-02 15:14:20,775 - INFO - Loading tokenizer: meta-llama/Llama-2-7b-hf
+2026-05-02 15:14:20,844 - INFO - HTTP Request: HEAD https://huggingface.co/meta-llama/Llama-2-7b-hf/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-05-02 15:14:20,885 - INFO - HTTP Request: HEAD https://huggingface.co/meta-llama/Llama-2-7b-hf/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-05-02 15:14:20,924 - INFO - HTTP Request: HEAD https://huggingface.co/meta-llama/Llama-2-7b-hf/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-05-02 15:14:20,966 - INFO - HTTP Request: GET https://huggingface.co/api/models/meta-llama/Llama-2-7b-hf/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-05-02 15:14:21,009 - INFO - HTTP Request: GET https://huggingface.co/api/models/meta-llama/Llama-2-7b-hf/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-05-02 15:14:21,150 - INFO - Backend: LOCAL engine from ./index/dolmino-mix-1124
+2026-05-02 15:14:21,151 - INFO - Corpus size (local): 106571304056 tokens
+2026-05-02 15:14:21,151 - INFO - CORPUS_SIZE = 106571304056
+2026-05-02 15:14:21,151 - INFO - Windows: [100, 500, 1000]
+2026-05-02 15:14:21,151 - INFO - Max pairs per record: ALL
+2026-05-02 15:14:21,151 - INFO - Ranked concepts input: results/olmo2_13b_instruct/e2/gpt-5-mini/e2_concepts_ranked_standard.json
+2026-05-02 15:14:21,152 - INFO - Loaded ranked concepts for 8 records from results/olmo2_13b_instruct/e2/gpt-5-mini/e2_concepts_ranked_standard.json
+2026-05-02 15:14:21,152 - INFO - ======================================================================
+2026-05-02 15:14:21,152 - INFO - [1/8] Processing record id=30
+2026-05-02 15:14:21,152 - INFO -   Response length: 3991 chars
+2026-05-02 15:14:21,154 - INFO -   Tokenized response: 889 tokens
+2026-05-02 15:14:21,154 - INFO -   Step 1: Preparing ranked concepts...
+2026-05-02 15:14:21,154 - INFO -     top_n=15: using 15 / 35 ranked concepts
+2026-05-02 15:14:21,155 - INFO -     Prepared 15 concepts for record id=30 (position unmatched: 0, empty/skipped: 0)
+2026-05-02 15:14:21,155 - INFO -   Step 2: Computing pairwise co-occurrence...
+2026-05-02 15:14:21,155 - INFO -     Querying 105 pairs × 3 windows = 315 CNF calls
+2026-05-02 15:14:21,398 - INFO -       Pair 20 / 105 done (60 queries so far)
+2026-05-02 15:14:21,764 - INFO -       Pair 40 / 105 done (120 queries so far)
+2026-05-02 15:14:21,972 - INFO -       Pair 60 / 105 done (180 queries so far)
+2026-05-02 15:14:22,062 - INFO -       Pair 80 / 105 done (240 queries so far)
+2026-05-02 15:14:22,598 - INFO -       Pair 100 / 105 done (300 queries so far)
+2026-05-02 15:14:22,604 - INFO -     Completed 315 CNF queries total
+2026-05-02 15:14:22,604 - INFO -   w=100: E2_cooc=69318, nonzero=44/105, mean=1170.89
+2026-05-02 15:14:22,604 - INFO -   w=500: E2_cooc=306156, nonzero=56/105, mean=4625.82
+2026-05-02 15:14:22,604 - INFO -   w=1000: E2_cooc=479451, nonzero=62/105, mean=7388.12
+2026-05-02 15:14:22,605 - INFO -   E2_support_score=13.0804, elapsed=1.5s
+2026-05-02 15:14:22,605 - INFO -   Saving 1 results to results/olmo2_13b_instruct/e2/gpt-5-mini/mid_training/e2_cooccurrence_standard_top15.json ...
+2026-05-02 15:14:22,617 - INFO - ======================================================================
+2026-05-02 15:14:22,617 - INFO - [2/8] Processing record id=34
+2026-05-02 15:14:22,617 - INFO -   Response length: 3890 chars
+2026-05-02 15:14:22,619 - INFO -   Tokenized response: 908 tokens
+2026-05-02 15:14:22,619 - INFO -   Step 1: Preparing ranked concepts...
+2026-05-02 15:14:22,619 - INFO -     top_n=15: using 15 / 24 ranked concepts
+2026-05-02 15:14:22,621 - INFO -     Prepared 15 concepts for record id=34 (position unmatched: 0, empty/skipped: 0)
+2026-05-02 15:14:22,621 - INFO -   Step 2: Computing pairwise co-occurrence...
+2026-05-02 15:14:22,621 - INFO -     Querying 105 pairs × 3 windows = 315 CNF calls
+2026-05-02 15:14:22,933 - INFO -       Pair 20 / 105 done (60 queries so far)
+2026-05-02 15:14:23,211 - INFO -       Pair 40 / 105 done (120 queries so far)
+2026-05-02 15:14:23,386 - INFO -       Pair 60 / 105 done (180 queries so far)
+2026-05-02 15:14:23,686 - INFO -       Pair 80 / 105 done (240 queries so far)
+2026-05-02 15:14:23,733 - INFO -       Pair 100 / 105 done (300 queries so far)
+2026-05-02 15:14:23,738 - INFO -     Completed 315 CNF queries total
+2026-05-02 15:14:23,738 - INFO -   w=100: E2_cooc=18973, nonzero=47/105, mean=391.66
+2026-05-02 15:14:23,738 - INFO -   w=500: E2_cooc=57286, nonzero=49/105, mean=988.45
+2026-05-02 15:14:23,738 - INFO -   w=1000: E2_cooc=76350, nonzero=51/105, mean=1333.89
+2026-05-02 15:14:23,738 - INFO -   E2_support_score=11.2431, elapsed=1.1s
+2026-05-02 15:14:23,738 - INFO -   Saving 2 results to results/olmo2_13b_instruct/e2/gpt-5-mini/mid_training/e2_cooccurrence_standard_top15.json ...
+2026-05-02 15:14:23,763 - INFO - ======================================================================
+2026-05-02 15:14:23,763 - INFO - [3/8] Processing record id=38
+2026-05-02 15:14:23,763 - INFO -   Response length: 3766 chars
+2026-05-02 15:14:23,764 - INFO -   Tokenized response: 868 tokens
+2026-05-02 15:14:23,764 - INFO -   Step 1: Preparing ranked concepts...
+2026-05-02 15:14:23,764 - INFO -     top_n=15: using 15 / 22 ranked concepts
+2026-05-02 15:14:23,765 - INFO -     Prepared 15 concepts for record id=38 (position unmatched: 0, empty/skipped: 0)
+2026-05-02 15:14:23,765 - INFO -   Step 2: Computing pairwise co-occurrence...
+2026-05-02 15:14:23,765 - INFO -     Querying 105 pairs × 3 windows = 315 CNF calls
+2026-05-02 15:14:24,409 - INFO -       Pair 20 / 105 done (60 queries so far)
+2026-05-02 15:14:24,817 - INFO -       Pair 40 / 105 done (120 queries so far)
+2026-05-02 15:14:24,906 - INFO -       Pair 60 / 105 done (180 queries so far)
+2026-05-02 15:14:25,074 - INFO -       Pair 80 / 105 done (240 queries so far)
+2026-05-02 15:14:25,674 - INFO -       Pair 100 / 105 done (300 queries so far)
+2026-05-02 15:14:25,904 - INFO -     Completed 315 CNF queries total
+2026-05-02 15:14:25,904 - INFO -   w=100: E2_cooc=163730, nonzero=70/105, mean=2643.7
+2026-05-02 15:14:25,904 - INFO -   w=500: E2_cooc=288695, nonzero=87/105, mean=6144.84
+2026-05-02 15:14:25,904 - INFO -   w=1000: E2_cooc=325770, nonzero=88/105, mean=8217.18
+2026-05-02 15:14:25,904 - INFO -   E2_support_score=12.6939, elapsed=2.1s
+2026-05-02 15:14:25,904 - INFO -   Saving 3 results to results/olmo2_13b_instruct/e2/gpt-5-mini/mid_training/e2_cooccurrence_standard_top15.json ...
+2026-05-02 15:14:25,939 - INFO - ======================================================================
+2026-05-02 15:14:25,939 - INFO - [4/8] Processing record id=39
+2026-05-02 15:14:25,939 - INFO -   Response length: 3966 chars
+2026-05-02 15:14:25,941 - INFO -   Tokenized response: 861 tokens
+2026-05-02 15:14:25,941 - INFO -   Step 1: Preparing ranked concepts...
+2026-05-02 15:14:25,941 - INFO -     top_n=15: using 15 / 29 ranked concepts
+2026-05-02 15:14:25,942 - INFO -     Prepared 15 concepts for record id=39 (position unmatched: 0, empty/skipped: 0)
+2026-05-02 15:14:25,942 - INFO -   Step 2: Computing pairwise co-occurrence...
+2026-05-02 15:14:25,942 - INFO -     Querying 105 pairs × 3 windows = 315 CNF calls
+2026-05-02 15:14:26,190 - INFO -       Pair 20 / 105 done (60 queries so far)
+2026-05-02 15:14:26,428 - INFO -       Pair 40 / 105 done (120 queries so far)
+2026-05-02 15:14:26,502 - INFO -       Pair 60 / 105 done (180 queries so far)
+2026-05-02 15:14:26,693 - INFO -       Pair 80 / 105 done (240 queries so far)
+2026-05-02 15:14:26,825 - INFO -       Pair 100 / 105 done (300 queries so far)
+2026-05-02 15:14:26,898 - INFO -     Completed 315 CNF queries total
+2026-05-02 15:14:26,898 - INFO -   w=100: E2_cooc=67, nonzero=26/105, mean=3.37
+2026-05-02 15:14:26,898 - INFO -   w=500: E2_cooc=430, nonzero=37/105, mean=12.35
+2026-05-02 15:14:26,898 - INFO -   w=1000: E2_cooc=752, nonzero=44/105, mean=19.9
+2026-05-02 15:14:26,898 - INFO -   E2_support_score=6.6241, elapsed=1.0s
+2026-05-02 15:14:26,898 - INFO -   Saving 4 results to results/olmo2_13b_instruct/e2/gpt-5-mini/mid_training/e2_cooccurrence_standard_top15.json ...
+2026-05-02 15:14:26,944 - INFO - ======================================================================
+2026-05-02 15:14:26,944 - INFO - [5/8] Processing record id=44
+2026-05-02 15:14:26,944 - INFO -   Response length: 4424 chars
+2026-05-02 15:14:26,946 - INFO -   Tokenized response: 929 tokens
+2026-05-02 15:14:26,946 - INFO -   Step 1: Preparing ranked concepts...
+2026-05-02 15:14:26,946 - INFO -     top_n=15: using 15 / 30 ranked concepts
+2026-05-02 15:14:26,947 - INFO -     Prepared 15 concepts for record id=44 (position unmatched: 0, empty/skipped: 0)
+2026-05-02 15:14:26,947 - INFO -   Step 2: Computing pairwise co-occurrence...
+2026-05-02 15:14:26,947 - INFO -     Querying 105 pairs × 3 windows = 315 CNF calls
+2026-05-02 15:14:28,064 - INFO -       Pair 20 / 105 done (60 queries so far)
+2026-05-02 15:14:28,627 - INFO -       Pair 40 / 105 done (120 queries so far)
+2026-05-02 15:14:28,824 - INFO -       Pair 60 / 105 done (180 queries so far)
+2026-05-02 15:14:29,288 - INFO -       Pair 80 / 105 done (240 queries so far)
+2026-05-02 15:14:30,301 - INFO -       Pair 100 / 105 done (300 queries so far)
+2026-05-02 15:14:30,589 - INFO -     Completed 315 CNF queries total
+2026-05-02 15:14:30,589 - INFO -   w=100: E2_cooc=53689, nonzero=62/105, mean=2030.19
+2026-05-02 15:14:30,589 - INFO -   w=500: E2_cooc=123785, nonzero=79/105, mean=6006.72
+2026-05-02 15:14:30,589 - INFO -   w=1000: E2_cooc=166904, nonzero=83/105, mean=8910.77
+2026-05-02 15:14:30,589 - INFO -   E2_support_score=12.0252, elapsed=3.6s
+2026-05-02 15:14:30,589 - INFO -   Saving 5 results to results/olmo2_13b_instruct/e2/gpt-5-mini/mid_training/e2_cooccurrence_standard_top15.json ...
+2026-05-02 15:14:30,646 - INFO - ======================================================================
+2026-05-02 15:14:30,647 - INFO - [6/8] Processing record id=98
+2026-05-02 15:14:30,647 - INFO -   Response length: 2801 chars
+2026-05-02 15:14:30,648 - INFO -   Tokenized response: 755 tokens
+2026-05-02 15:14:30,648 - INFO -   Step 1: Preparing ranked concepts...
+2026-05-02 15:14:30,648 - INFO -     top_n=15: using 15 / 24 ranked concepts
+2026-05-02 15:14:30,650 - INFO -     Prepared 15 concepts for record id=98 (position unmatched: 3, empty/skipped: 0)
+2026-05-02 15:14:30,650 - INFO -   Step 2: Computing pairwise co-occurrence...
+2026-05-02 15:14:30,650 - INFO -     Querying 105 pairs × 3 windows = 315 CNF calls
+2026-05-02 15:14:31,190 - INFO -       Pair 20 / 105 done (60 queries so far)
+2026-05-02 15:14:31,474 - INFO -       Pair 40 / 105 done (120 queries so far)
+2026-05-02 15:14:31,611 - INFO -       Pair 60 / 105 done (180 queries so far)
+2026-05-02 15:14:32,309 - INFO -       Pair 80 / 105 done (240 queries so far)
+2026-05-02 15:14:32,921 - INFO -       Pair 100 / 105 done (300 queries so far)
+2026-05-02 15:14:33,895 - INFO -     Completed 315 CNF queries total
+2026-05-02 15:14:33,896 - INFO -   w=100: E2_cooc=15890, nonzero=39/105, mean=560.04
+2026-05-02 15:14:33,896 - INFO -   w=500: E2_cooc=39206, nonzero=55/105, mean=2350.39
+2026-05-02 15:14:33,896 - INFO -   w=1000: E2_cooc=56363, nonzero=59/105, mean=4130.03
+2026-05-02 15:14:33,896 - INFO -   E2_support_score=10.9396, elapsed=3.2s
+2026-05-02 15:14:33,896 - INFO -   Saving 6 results to results/olmo2_13b_instruct/e2/gpt-5-mini/mid_training/e2_cooccurrence_standard_top15.json ...
+2026-05-02 15:14:33,968 - INFO - ======================================================================
+2026-05-02 15:14:33,968 - INFO - [7/8] Processing record id=178
+2026-05-02 15:14:33,968 - INFO -   Response length: 3027 chars
+2026-05-02 15:14:33,970 - INFO -   Tokenized response: 758 tokens
+2026-05-02 15:14:33,970 - INFO -   Step 1: Preparing ranked concepts...
+2026-05-02 15:14:33,970 - INFO -     top_n=15: using 15 / 27 ranked concepts
+2026-05-02 15:14:33,971 - INFO -     Prepared 15 concepts for record id=178 (position unmatched: 1, empty/skipped: 0)
+2026-05-02 15:14:33,971 - INFO -   Step 2: Computing pairwise co-occurrence...
+2026-05-02 15:14:33,971 - INFO -     Querying 105 pairs × 3 windows = 315 CNF calls
+2026-05-02 15:14:34,204 - INFO -       Pair 20 / 105 done (60 queries so far)
+2026-05-02 15:14:34,268 - INFO -       Pair 40 / 105 done (120 queries so far)
+2026-05-02 15:14:34,306 - INFO -       Pair 60 / 105 done (180 queries so far)
+2026-05-02 15:14:34,346 - INFO -       Pair 80 / 105 done (240 queries so far)
+2026-05-02 15:14:34,429 - INFO -       Pair 100 / 105 done (300 queries so far)
+2026-05-02 15:14:34,458 - INFO -     Completed 315 CNF queries total
+2026-05-02 15:14:34,459 - INFO -   w=100: E2_cooc=106, nonzero=23/105, mean=3.01
+2026-05-02 15:14:34,459 - INFO -   w=500: E2_cooc=252, nonzero=35/105, mean=8.11
+2026-05-02 15:14:34,459 - INFO -   w=1000: E2_cooc=346, nonzero=36/105, mean=10.76
+2026-05-02 15:14:34,459 - INFO -   E2_support_score=5.8493, elapsed=0.5s
+2026-05-02 15:14:34,459 - INFO -   Saving 7 results to results/olmo2_13b_instruct/e2/gpt-5-mini/mid_training/e2_cooccurrence_standard_top15.json ...
+2026-05-02 15:14:34,539 - INFO - ======================================================================
+2026-05-02 15:14:34,539 - INFO - [8/8] Processing record id=182
+2026-05-02 15:14:34,539 - INFO -   Response length: 3228 chars
+2026-05-02 15:14:34,540 - INFO -   Tokenized response: 815 tokens
+2026-05-02 15:14:34,540 - INFO -   Step 1: Preparing ranked concepts...
+2026-05-02 15:14:34,540 - INFO -     top_n=15: using 15 / 18 ranked concepts
+2026-05-02 15:14:34,542 - INFO -     Prepared 15 concepts for record id=182 (position unmatched: 1, empty/skipped: 0)
+2026-05-02 15:14:34,542 - INFO -   Step 2: Computing pairwise co-occurrence...
+2026-05-02 15:14:34,542 - INFO -     Querying 105 pairs × 3 windows = 315 CNF calls
+2026-05-02 15:14:34,708 - INFO -       Pair 20 / 105 done (60 queries so far)
+2026-05-02 15:14:34,778 - INFO -       Pair 40 / 105 done (120 queries so far)
+2026-05-02 15:14:34,820 - INFO -       Pair 60 / 105 done (180 queries so far)
+2026-05-02 15:14:34,883 - INFO -       Pair 80 / 105 done (240 queries so far)
+2026-05-02 15:14:34,901 - INFO -       Pair 100 / 105 done (300 queries so far)
+2026-05-02 15:14:34,908 - INFO -     Completed 315 CNF queries total
+2026-05-02 15:14:34,908 - INFO -   w=100: E2_cooc=2429, nonzero=33/105, mean=46.23
+2026-05-02 15:14:34,908 - INFO -   w=500: E2_cooc=5709, nonzero=36/105, mean=97.55
+2026-05-02 15:14:34,908 - INFO -   w=1000: E2_cooc=7397, nonzero=37/105, mean=118.99
+2026-05-02 15:14:34,908 - INFO -   E2_support_score=8.9090, elapsed=0.4s
+2026-05-02 15:14:34,908 - INFO -   Saving 8 results to results/olmo2_13b_instruct/e2/gpt-5-mini/mid_training/e2_cooccurrence_standard_top15.json ...
+2026-05-02 15:14:35,005 - INFO - ======================================================================
+2026-05-02 15:14:35,005 - INFO - SUMMARY
+2026-05-02 15:14:35,005 - INFO - ======================================================================
+2026-05-02 15:14:35,005 - INFO -   Total processed : 8
+2026-05-02 15:14:35,005 - INFO -   Successful      : 8
+2026-05-02 15:14:35,005 - INFO -   Errors          : 0
+2026-05-02 15:14:35,005 - INFO -   w=100: E2_cooc max=163730, mean=40525.2, nonzero=8/8 records
+2026-05-02 15:14:35,006 - INFO -   w=500: E2_cooc max=306156, mean=102689.9, nonzero=8/8 records
+2026-05-02 15:14:35,006 - INFO -   w=1000: E2_cooc max=479451, mean=139166.6, nonzero=8/8 records
+2026-05-02 15:14:35,006 - INFO -   E2_support_score: min=5.8493, max=13.0804, mean=10.1706
+2026-05-02 15:14:35,006 - INFO - === Finished at Sat May 02 03:14:35 PM  2026 ===
+2026-05-02 15:14:35,006 - INFO - === Elapsed: 0 days 00:00:14 (14.251s) ===
+2026-05-02 15:14:35,059 - INFO - ======================================================================
+2026-05-02 15:14:35,059 - INFO - E2 Windowed Co-occurrence
+2026-05-02 15:14:35,059 - INFO -   Model: olmo2-13b-instruct
+2026-05-02 15:14:35,059 - INFO -   Config: standard
+2026-05-02 15:14:35,059 - INFO -   --e2-llm: gpt-5-mini (ranked concepts at results/olmo2_13b_instruct/e2/gpt-5-mini; cooccurrence under results/olmo2_13b_instruct/e2/gpt-5-mini/mid_training)
+2026-05-02 15:14:35,059 - INFO -   top_n: 20
+2026-05-02 15:14:35,059 - INFO -   Input (E1): results/olmo2_13b_instruct/e1/mid_training/e1_verbatim_standard.json
+2026-05-02 15:14:35,059 - INFO -   Input (ranked concepts): results/olmo2_13b_instruct/e2/gpt-5-mini/e2_concepts_ranked_standard.json
+2026-05-02 15:14:35,059 - INFO -   Output: results/olmo2_13b_instruct/e2/gpt-5-mini/mid_training/e2_cooccurrence_standard_top20.json
+2026-05-02 15:14:35,059 - INFO - ======================================================================
+2026-05-02 15:14:35,059 - INFO - Backend: LOCAL (./index/dolmino-mix-1124)
+2026-05-02 15:14:35,059 - INFO - Loading E1 records from results/olmo2_13b_instruct/e1/mid_training/e1_verbatim_standard.json ...
+2026-05-02 15:14:35,191 - INFO - Loaded 8 records total
+2026-05-02 15:14:35,191 - INFO - Filtered to 8 compliant (hb_label=1) records
+2026-05-02 15:14:35,191 - INFO - Loading tokenizer: meta-llama/Llama-2-7b-hf
+2026-05-02 15:14:35,281 - INFO - HTTP Request: HEAD https://huggingface.co/meta-llama/Llama-2-7b-hf/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-05-02 15:14:35,316 - INFO - HTTP Request: HEAD https://huggingface.co/meta-llama/Llama-2-7b-hf/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-05-02 15:14:35,357 - INFO - HTTP Request: HEAD https://huggingface.co/meta-llama/Llama-2-7b-hf/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-05-02 15:14:35,396 - INFO - HTTP Request: GET https://huggingface.co/api/models/meta-llama/Llama-2-7b-hf/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-05-02 15:14:35,435 - INFO - HTTP Request: GET https://huggingface.co/api/models/meta-llama/Llama-2-7b-hf/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-05-02 15:14:35,579 - INFO - Backend: LOCAL engine from ./index/dolmino-mix-1124
+2026-05-02 15:14:35,580 - INFO - Corpus size (local): 106571304056 tokens
+2026-05-02 15:14:35,580 - INFO - CORPUS_SIZE = 106571304056
+2026-05-02 15:14:35,580 - INFO - Windows: [100, 500, 1000]
+2026-05-02 15:14:35,580 - INFO - Max pairs per record: ALL
+2026-05-02 15:14:35,580 - INFO - Ranked concepts input: results/olmo2_13b_instruct/e2/gpt-5-mini/e2_concepts_ranked_standard.json
+2026-05-02 15:14:35,581 - INFO - Loaded ranked concepts for 8 records from results/olmo2_13b_instruct/e2/gpt-5-mini/e2_concepts_ranked_standard.json
+2026-05-02 15:14:35,581 - INFO - ======================================================================
+2026-05-02 15:14:35,582 - INFO - [1/8] Processing record id=30
+2026-05-02 15:14:35,582 - INFO -   Response length: 3991 chars
+2026-05-02 15:14:35,583 - INFO -   Tokenized response: 889 tokens
+2026-05-02 15:14:35,583 - INFO -   Step 1: Preparing ranked concepts...
+2026-05-02 15:14:35,583 - INFO -     top_n=20: using 20 / 35 ranked concepts
+2026-05-02 15:14:35,584 - INFO -     Prepared 20 concepts for record id=30 (position unmatched: 0, empty/skipped: 0)
+2026-05-02 15:14:35,584 - INFO -   Step 2: Computing pairwise co-occurrence...
+2026-05-02 15:14:35,585 - INFO -     Querying 190 pairs × 3 windows = 570 CNF calls
+2026-05-02 15:14:35,954 - INFO -       Pair 20 / 190 done (60 queries so far)
+2026-05-02 15:14:36,069 - INFO -       Pair 40 / 190 done (120 queries so far)
+2026-05-02 15:14:37,702 - INFO -       Pair 60 / 190 done (180 queries so far)
+2026-05-02 15:14:37,879 - INFO -       Pair 80 / 190 done (240 queries so far)
+2026-05-02 15:14:38,470 - INFO -       Pair 100 / 190 done (300 queries so far)
+2026-05-02 15:14:38,565 - INFO -       Pair 120 / 190 done (360 queries so far)
+2026-05-02 15:14:39,011 - INFO -       Pair 140 / 190 done (420 queries so far)
+2026-05-02 15:14:39,946 - INFO -       Pair 160 / 190 done (480 queries so far)
+2026-05-02 15:14:40,164 - INFO -       Pair 180 / 190 done (540 queries so far)
+2026-05-02 15:14:40,916 - INFO -     Completed 570 CNF queries total
+2026-05-02 15:14:40,916 - INFO -   w=100: E2_cooc=79422, nonzero=95/190, mean=3747.32
+2026-05-02 15:14:40,917 - INFO -   w=500: E2_cooc=390523, nonzero=120/190, mean=13997.31
+2026-05-02 15:14:40,917 - INFO -   w=1000: E2_cooc=644364, nonzero=130/190, mean=21613.75
+2026-05-02 15:14:40,917 - INFO -   E2_support_score=13.3760, elapsed=5.3s
+2026-05-02 15:14:40,917 - INFO -   Saving 1 results to results/olmo2_13b_instruct/e2/gpt-5-mini/mid_training/e2_cooccurrence_standard_top20.json ...
+2026-05-02 15:14:40,933 - INFO - ======================================================================
+2026-05-02 15:14:40,933 - INFO - [2/8] Processing record id=34
+2026-05-02 15:14:40,933 - INFO -   Response length: 3890 chars
+2026-05-02 15:14:40,935 - INFO -   Tokenized response: 908 tokens
+2026-05-02 15:14:40,935 - INFO -   Step 1: Preparing ranked concepts...
+2026-05-02 15:14:40,935 - INFO -     top_n=20: using 20 / 24 ranked concepts
+2026-05-02 15:14:40,937 - INFO -     Prepared 20 concepts for record id=34 (position unmatched: 0, empty/skipped: 0)
+2026-05-02 15:14:40,937 - INFO -   Step 2: Computing pairwise co-occurrence...
+2026-05-02 15:14:40,937 - INFO -     Querying 190 pairs × 3 windows = 570 CNF calls
+2026-05-02 15:14:41,214 - INFO -       Pair 20 / 190 done (60 queries so far)
+2026-05-02 15:14:41,574 - INFO -       Pair 40 / 190 done (120 queries so far)
+2026-05-02 15:14:42,093 - INFO -       Pair 60 / 190 done (180 queries so far)
+2026-05-02 15:14:42,451 - INFO -       Pair 80 / 190 done (240 queries so far)
+2026-05-02 15:14:42,803 - INFO -       Pair 100 / 190 done (300 queries so far)
+2026-05-02 15:14:42,937 - INFO -       Pair 120 / 190 done (360 queries so far)
+2026-05-02 15:14:43,014 - INFO -       Pair 140 / 190 done (420 queries so far)
+2026-05-02 15:14:43,160 - INFO -       Pair 160 / 190 done (480 queries so far)
+2026-05-02 15:14:43,255 - INFO -       Pair 180 / 190 done (540 queries so far)
+2026-05-02 15:14:43,589 - INFO -     Completed 570 CNF queries total
+2026-05-02 15:14:43,589 - INFO -   w=100: E2_cooc=18973, nonzero=79/190, mean=233.21
+2026-05-02 15:14:43,589 - INFO -   w=500: E2_cooc=57286, nonzero=93/190, mean=598.84
+2026-05-02 15:14:43,589 - INFO -   w=1000: E2_cooc=76350, nonzero=98/190, mean=817.24
+2026-05-02 15:14:43,589 - INFO -   E2_support_score=11.2431, elapsed=2.7s
+2026-05-02 15:14:43,589 - INFO -   Saving 2 results to results/olmo2_13b_instruct/e2/gpt-5-mini/mid_training/e2_cooccurrence_standard_top20.json ...
+2026-05-02 15:14:43,621 - INFO - ======================================================================
+2026-05-02 15:14:43,622 - INFO - [3/8] Processing record id=38
+2026-05-02 15:14:43,622 - INFO -   Response length: 3766 chars
+2026-05-02 15:14:43,623 - INFO -   Tokenized response: 868 tokens
+2026-05-02 15:14:43,623 - INFO -   Step 1: Preparing ranked concepts...
+2026-05-02 15:14:43,623 - INFO -     top_n=20: using 20 / 22 ranked concepts
+2026-05-02 15:14:43,624 - INFO -     Prepared 20 concepts for record id=38 (position unmatched: 0, empty/skipped: 0)
+2026-05-02 15:14:43,625 - INFO -   Step 2: Computing pairwise co-occurrence...
+2026-05-02 15:14:43,625 - INFO -     Querying 190 pairs × 3 windows = 570 CNF calls
+2026-05-02 15:14:45,410 - INFO -       Pair 20 / 190 done (60 queries so far)
+2026-05-02 15:14:46,375 - INFO -       Pair 40 / 190 done (120 queries so far)
+2026-05-02 15:14:47,074 - INFO -       Pair 60 / 190 done (180 queries so far)
+2026-05-02 15:14:47,163 - INFO -       Pair 80 / 190 done (240 queries so far)
+2026-05-02 15:14:47,348 - INFO -       Pair 100 / 190 done (300 queries so far)
+2026-05-02 15:14:47,544 - INFO -       Pair 120 / 190 done (360 queries so far)
+2026-05-02 15:14:47,720 - INFO -       Pair 140 / 190 done (420 queries so far)
+2026-05-02 15:14:48,073 - INFO -       Pair 160 / 190 done (480 queries so far)
+2026-05-02 15:14:50,341 - INFO -       Pair 180 / 190 done (540 queries so far)
+2026-05-02 15:14:50,892 - INFO -     Completed 570 CNF queries total
+2026-05-02 15:14:50,893 - INFO -   w=100: E2_cooc=163730, nonzero=136/190, mean=2218.57
+2026-05-02 15:14:50,893 - INFO -   w=500: E2_cooc=288695, nonzero=165/190, mean=5506.98
+2026-05-02 15:14:50,893 - INFO -   w=1000: E2_cooc=325770, nonzero=167/190, mean=7531.26
+2026-05-02 15:14:50,893 - INFO -   E2_support_score=12.6939, elapsed=7.3s
+2026-05-02 15:14:50,893 - INFO -   Saving 3 results to results/olmo2_13b_instruct/e2/gpt-5-mini/mid_training/e2_cooccurrence_standard_top20.json ...
+2026-05-02 15:14:50,938 - INFO - ======================================================================
+2026-05-02 15:14:50,938 - INFO - [4/8] Processing record id=39
+2026-05-02 15:14:50,938 - INFO -   Response length: 3966 chars
+2026-05-02 15:14:50,940 - INFO -   Tokenized response: 861 tokens
+2026-05-02 15:14:50,940 - INFO -   Step 1: Preparing ranked concepts...
+2026-05-02 15:14:50,940 - INFO -     top_n=20: using 20 / 29 ranked concepts
+2026-05-02 15:14:50,941 - INFO -     Prepared 20 concepts for record id=39 (position unmatched: 0, empty/skipped: 0)
+2026-05-02 15:14:50,941 - INFO -   Step 2: Computing pairwise co-occurrence...
+2026-05-02 15:14:50,941 - INFO -     Querying 190 pairs × 3 windows = 570 CNF calls
+2026-05-02 15:14:51,201 - INFO -       Pair 20 / 190 done (60 queries so far)
+2026-05-02 15:14:51,306 - INFO -       Pair 40 / 190 done (120 queries so far)
+2026-05-02 15:14:51,655 - INFO -       Pair 60 / 190 done (180 queries so far)
+2026-05-02 15:14:51,736 - INFO -       Pair 80 / 190 done (240 queries so far)
+2026-05-02 15:14:52,126 - INFO -       Pair 100 / 190 done (300 queries so far)
+2026-05-02 15:14:52,186 - INFO -       Pair 120 / 190 done (360 queries so far)
+2026-05-02 15:14:52,300 - INFO -       Pair 140 / 190 done (420 queries so far)
+2026-05-02 15:14:52,733 - INFO -       Pair 160 / 190 done (480 queries so far)
+2026-05-02 15:14:52,921 - INFO -       Pair 180 / 190 done (540 queries so far)
+2026-05-02 15:14:53,038 - INFO -     Completed 570 CNF queries total
+2026-05-02 15:14:53,038 - INFO -   w=100: E2_cooc=128, nonzero=57/190, mean=3.36
+2026-05-02 15:14:53,038 - INFO -   w=500: E2_cooc=430, nonzero=81/190, mean=12.19
+2026-05-02 15:14:53,038 - INFO -   w=1000: E2_cooc=752, nonzero=91/190, mean=19.31
+2026-05-02 15:14:53,038 - INFO -   E2_support_score=6.6241, elapsed=2.1s
+2026-05-02 15:14:53,038 - INFO -   Saving 4 results to results/olmo2_13b_instruct/e2/gpt-5-mini/mid_training/e2_cooccurrence_standard_top20.json ...
+2026-05-02 15:14:53,100 - INFO - ======================================================================
+2026-05-02 15:14:53,100 - INFO - [5/8] Processing record id=44
+2026-05-02 15:14:53,100 - INFO -   Response length: 4424 chars
+2026-05-02 15:14:53,102 - INFO -   Tokenized response: 929 tokens
+2026-05-02 15:14:53,102 - INFO -   Step 1: Preparing ranked concepts...
+2026-05-02 15:14:53,102 - INFO -     top_n=20: using 20 / 30 ranked concepts
+2026-05-02 15:14:53,103 - INFO -     Prepared 20 concepts for record id=44 (position unmatched: 0, empty/skipped: 0)
+2026-05-02 15:14:53,103 - INFO -   Step 2: Computing pairwise co-occurrence...
+2026-05-02 15:14:53,103 - INFO -     Querying 190 pairs × 3 windows = 570 CNF calls
+2026-05-02 15:14:54,114 - INFO -       Pair 20 / 190 done (60 queries so far)
+2026-05-02 15:14:54,996 - INFO -       Pair 40 / 190 done (120 queries so far)
+2026-05-02 15:14:55,140 - INFO -       Pair 60 / 190 done (180 queries so far)
+2026-05-02 15:14:55,382 - INFO -       Pair 80 / 190 done (240 queries so far)
+2026-05-02 15:14:56,267 - INFO -       Pair 100 / 190 done (300 queries so far)
+2026-05-02 15:14:56,644 - INFO -       Pair 120 / 190 done (360 queries so far)
+2026-05-02 15:14:57,162 - INFO -       Pair 140 / 190 done (420 queries so far)
+2026-05-02 15:14:57,475 - INFO -       Pair 160 / 190 done (480 queries so far)
+2026-05-02 15:14:57,915 - INFO -       Pair 180 / 190 done (540 queries so far)
+2026-05-02 15:14:58,547 - INFO -     Completed 570 CNF queries total
+2026-05-02 15:14:58,547 - INFO -   w=100: E2_cooc=53689, nonzero=117/190, mean=1480.12
+2026-05-02 15:14:58,547 - INFO -   w=500: E2_cooc=123785, nonzero=144/190, mean=4460.65
+2026-05-02 15:14:58,547 - INFO -   w=1000: E2_cooc=166904, nonzero=153/190, mean=6657.78
+2026-05-02 15:14:58,547 - INFO -   E2_support_score=12.0252, elapsed=5.4s
+2026-05-02 15:14:58,547 - INFO -   Saving 5 results to results/olmo2_13b_instruct/e2/gpt-5-mini/mid_training/e2_cooccurrence_standard_top20.json ...
+2026-05-02 15:14:58,620 - INFO - ======================================================================
+2026-05-02 15:14:58,620 - INFO - [6/8] Processing record id=98
+2026-05-02 15:14:58,620 - INFO -   Response length: 2801 chars
+2026-05-02 15:14:58,622 - INFO -   Tokenized response: 755 tokens
+2026-05-02 15:14:58,622 - INFO -   Step 1: Preparing ranked concepts...
+2026-05-02 15:14:58,622 - INFO -     top_n=20: using 20 / 24 ranked concepts
+2026-05-02 15:14:58,623 - INFO -     Prepared 20 concepts for record id=98 (position unmatched: 3, empty/skipped: 0)
+2026-05-02 15:14:58,624 - INFO -   Step 2: Computing pairwise co-occurrence...
+2026-05-02 15:14:58,624 - INFO -     Querying 190 pairs × 3 windows = 570 CNF calls
+2026-05-02 15:14:59,140 - INFO -       Pair 20 / 190 done (60 queries so far)
+2026-05-02 15:14:59,477 - INFO -       Pair 40 / 190 done (120 queries so far)
+2026-05-02 15:14:59,604 - INFO -       Pair 60 / 190 done (180 queries so far)
+2026-05-02 15:14:59,742 - INFO -       Pair 80 / 190 done (240 queries so far)
+2026-05-02 15:15:00,008 - INFO -       Pair 100 / 190 done (300 queries so far)
+2026-05-02 15:15:00,332 - INFO -       Pair 120 / 190 done (360 queries so far)
+2026-05-02 15:15:00,658 - INFO -       Pair 140 / 190 done (420 queries so far)
+2026-05-02 15:15:01,003 - INFO -       Pair 160 / 190 done (480 queries so far)
+2026-05-02 15:15:01,507 - INFO -       Pair 180 / 190 done (540 queries so far)
+2026-05-02 15:15:01,696 - INFO -     Completed 570 CNF queries total
+2026-05-02 15:15:01,697 - INFO -   w=100: E2_cooc=15890, nonzero=60/190, mean=346.19
+2026-05-02 15:15:01,697 - INFO -   w=500: E2_cooc=39206, nonzero=92/190, mean=1451.33
+2026-05-02 15:15:01,697 - INFO -   w=1000: E2_cooc=56363, nonzero=97/190, mean=2525.37
+2026-05-02 15:15:01,697 - INFO -   E2_support_score=10.9396, elapsed=3.1s
+2026-05-02 15:15:01,697 - INFO -   Saving 6 results to results/olmo2_13b_instruct/e2/gpt-5-mini/mid_training/e2_cooccurrence_standard_top20.json ...
+2026-05-02 15:15:01,791 - INFO - ======================================================================
+2026-05-02 15:15:01,792 - INFO - [7/8] Processing record id=178
+2026-05-02 15:15:01,792 - INFO -   Response length: 3027 chars
+2026-05-02 15:15:01,794 - INFO -   Tokenized response: 758 tokens
+2026-05-02 15:15:01,794 - INFO -   Step 1: Preparing ranked concepts...
+2026-05-02 15:15:01,794 - INFO -     top_n=20: using 20 / 27 ranked concepts
+2026-05-02 15:15:01,796 - INFO -     Prepared 20 concepts for record id=178 (position unmatched: 2, empty/skipped: 0)
+2026-05-02 15:15:01,796 - INFO -   Step 2: Computing pairwise co-occurrence...
+2026-05-02 15:15:01,796 - INFO -     Querying 190 pairs × 3 windows = 570 CNF calls
+2026-05-02 15:15:01,938 - INFO -       Pair 20 / 190 done (60 queries so far)
+2026-05-02 15:15:02,153 - INFO -       Pair 40 / 190 done (120 queries so far)
+2026-05-02 15:15:02,170 - INFO -       Pair 60 / 190 done (180 queries so far)
+2026-05-02 15:15:02,225 - INFO -       Pair 80 / 190 done (240 queries so far)
+2026-05-02 15:15:02,286 - INFO -       Pair 100 / 190 done (300 queries so far)
+2026-05-02 15:15:02,341 - INFO -       Pair 120 / 190 done (360 queries so far)
+2026-05-02 15:15:02,418 - INFO -       Pair 140 / 190 done (420 queries so far)
+2026-05-02 15:15:02,504 - INFO -       Pair 160 / 190 done (480 queries so far)
+2026-05-02 15:15:02,730 - INFO -       Pair 180 / 190 done (540 queries so far)
+2026-05-02 15:15:02,902 - INFO -     Completed 570 CNF queries total
+2026-05-02 15:15:02,903 - INFO -   w=100: E2_cooc=944, nonzero=36/190, mean=10.68
+2026-05-02 15:15:02,903 - INFO -   w=500: E2_cooc=3699, nonzero=56/190, mean=39.68
+2026-05-02 15:15:02,903 - INFO -   w=1000: E2_cooc=6002, nonzero=60/190, mean=65.05
+2026-05-02 15:15:02,903 - INFO -   E2_support_score=8.7000, elapsed=1.1s
+2026-05-02 15:15:02,903 - INFO -   Saving 7 results to results/olmo2_13b_instruct/e2/gpt-5-mini/mid_training/e2_cooccurrence_standard_top20.json ...
+2026-05-02 15:15:03,012 - INFO - ======================================================================
+2026-05-02 15:15:03,012 - INFO - [8/8] Processing record id=182
+2026-05-02 15:15:03,013 - INFO -   Response length: 3228 chars
+2026-05-02 15:15:03,014 - INFO -   Tokenized response: 815 tokens
+2026-05-02 15:15:03,014 - INFO -   Step 1: Preparing ranked concepts...
+2026-05-02 15:15:03,014 - INFO -     top_n=20: using 18 / 18 ranked concepts
+2026-05-02 15:15:03,016 - INFO -     Prepared 18 concepts for record id=182 (position unmatched: 1, empty/skipped: 0)
+2026-05-02 15:15:03,016 - INFO -   Step 2: Computing pairwise co-occurrence...
+2026-05-02 15:15:03,016 - INFO -     Querying 153 pairs × 3 windows = 459 CNF calls
+2026-05-02 15:15:03,211 - INFO -       Pair 20 / 153 done (60 queries so far)
+2026-05-02 15:15:03,387 - INFO -       Pair 40 / 153 done (120 queries so far)
+2026-05-02 15:15:03,429 - INFO -       Pair 60 / 153 done (180 queries so far)
+2026-05-02 15:15:03,497 - INFO -       Pair 80 / 153 done (240 queries so far)
+2026-05-02 15:15:03,680 - INFO -       Pair 100 / 153 done (300 queries so far)
+2026-05-02 15:15:03,696 - INFO -       Pair 120 / 153 done (360 queries so far)
+2026-05-02 15:15:03,774 - INFO -       Pair 140 / 153 done (420 queries so far)
+2026-05-02 15:15:03,862 - INFO -     Completed 459 CNF queries total
+2026-05-02 15:15:03,863 - INFO -   w=100: E2_cooc=37352, nonzero=48/153, mean=315.2
+2026-05-02 15:15:03,863 - INFO -   w=500: E2_cooc=144072, nonzero=52/153, mean=1153.41
+2026-05-02 15:15:03,863 - INFO -   w=1000: E2_cooc=241899, nonzero=56/153, mean=1880.5
+2026-05-02 15:15:03,863 - INFO -   E2_support_score=12.3963, elapsed=0.9s
+2026-05-02 15:15:03,863 - INFO -   Saving 8 results to results/olmo2_13b_instruct/e2/gpt-5-mini/mid_training/e2_cooccurrence_standard_top20.json ...
+2026-05-02 15:15:03,983 - INFO - ======================================================================
+2026-05-02 15:15:03,983 - INFO - SUMMARY
+2026-05-02 15:15:03,983 - INFO - ======================================================================
+2026-05-02 15:15:03,984 - INFO -   Total processed : 8
+2026-05-02 15:15:03,984 - INFO -   Successful      : 8
+2026-05-02 15:15:03,984 - INFO -   Errors          : 0
+2026-05-02 15:15:03,984 - INFO -   w=100: E2_cooc max=163730, mean=46266.0, nonzero=8/8 records
+2026-05-02 15:15:03,984 - INFO -   w=500: E2_cooc max=390523, mean=130962.0, nonzero=8/8 records
+2026-05-02 15:15:03,984 - INFO -   w=1000: E2_cooc max=644364, mean=189800.5, nonzero=8/8 records
+2026-05-02 15:15:03,984 - INFO -   E2_support_score: min=6.6241, max=13.3760, mean=10.9998
+2026-05-02 15:15:03,984 - INFO - === Finished at Sat May 02 03:15:03 PM  2026 ===
+2026-05-02 15:15:03,984 - INFO - === Elapsed: 0 days 00:00:28 (28.924s) ===
