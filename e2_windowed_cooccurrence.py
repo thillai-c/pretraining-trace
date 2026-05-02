@@ -88,6 +88,8 @@ from transformers import AutoTokenizer
 
 from infini_gram_api import InfiniGramAPIEngine
 
+from e2_augment_metrics import augment_record
+
 from utils import (
     MODELS,
     e1_phase_root,
@@ -895,6 +897,7 @@ def run_one_phase(args, training_phase: str, logger, *, phase_index: int, total_
                 "e2": {"error": f"{type(exc).__name__}: {exc}"},
             }
 
+        augment_record(result)
         results.append(result)
 
         # Incremental save

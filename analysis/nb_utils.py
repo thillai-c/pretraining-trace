@@ -956,3 +956,179 @@ def longest_run(positions, L):
         else:
             cur = 0
     return best
+
+
+# ============================================================
+# Phase 6: E2 Stage Union (parallel to union_spans for E1)
+# ============================================================
+
+import copy as _copy
+import math as _math
+
+
+def union_e2_record(records, *, ref_record=None):
+    """Union an arbitrary number of E2 records for the same response.
+
+    Sums pairwise_cooccurrence counts pair-by-pair, window-by-window across
+    stages, then recomputes summary_by_window, metrics_by_window, all_pairs_zero
+    on each ranked concept, and the two augment metrics.
+
+    Mirrors the count-summation semantics implied by the additivity of
+    infini-gram count_cnf over disjoint corpus union: combining stage results
+    is equivalent to running the same query against the unioned corpus.
+
+    Args:
+        records: iterable of record dicts (one per stage; same record_id).
+                 None entries are skipped (e.g. base models have no posttrain).
+                 Each e2 must have pairwise_cooccurrence.pairs with
+                 counts_by_window[w].count and a ranked_concepts list.
+        ref_record: optional; used as the deep-copy template. Defaults to the
+                    first non-None record. Top-level fields (id, prompt,
+                    response, hb_label, metadata, e1, ...) come from this.
+
+    Returns:
+        Synthetic record dict. e2.synthetic_stage = True is set as a marker.
+        With a single input record, returns deepcopy(ref_record) with no
+        synthetic marker (it is not synthetic — it is the same record).
+    """
+    records = [r for r in records if r is not None]
+    if not records:
+        raise ValueError("union_e2_record: no non-None records")
+
+    ref = ref_record if ref_record is not None else records[0]
+
+    if len(records) == 1:
+        return _copy.deepcopy(ref)
+
+    # ── Precondition asserts ───────────────────────────────────────────
+    rid = ref['id']
+    for r in records:
+        assert r['id'] == rid, f"id mismatch in union_e2_record: {r['id']} vs {rid}"
+
+    def _concept_sig(c):
+        return (c.get('concept', c.get('text', '')),
+                c.get('rank'),
+                c.get('centrality', c.get('centrality_tier', '')))
+
+    sig_ref = [_concept_sig(c) for c in ref['e2'].get('ranked_concepts', [])]
+    for r in records[1:]:
+        sig = [_concept_sig(c) for c in r['e2'].get('ranked_concepts', [])]
+        assert sig == sig_ref, (
+            f"ranked_concepts mismatch for id={rid}: "
+            f"stage 0 vs other stage differs in (concept, rank, centrality)."
+        )
+
+    pairs_ref = ref['e2']['pairwise_cooccurrence']['pairs']
+    sig_pairs_ref = [(p.get('concept_a_idx'), p.get('concept_b_idx'))
+                     for p in pairs_ref]
+    for r in records[1:]:
+        sig = [(p.get('concept_a_idx'), p.get('concept_b_idx'))
+               for p in r['e2']['pairwise_cooccurrence']['pairs']]
+        assert sig == sig_pairs_ref, f"pairs order mismatch for id={rid}"
+
+    if pairs_ref:
+        win_ref = list(pairs_ref[0]['counts_by_window'].keys())
+    else:
+        win_ref = []
+    for r in records[1:]:
+        rp = r['e2']['pairwise_cooccurrence']['pairs']
+        win = list(rp[0]['counts_by_window'].keys()) if rp else []
+        assert win == win_ref, f"window key set mismatch for id={rid}"
+
+    # ── Build synthetic record from deep copy of reference ─────────────
+    new_rec = _copy.deepcopy(ref)
+    new_pairs = new_rec['e2']['pairwise_cooccurrence']['pairs']
+
+    # Sum counts per (pair, window). approx = OR across stages.
+    for i, new_p in enumerate(new_pairs):
+        for w in win_ref:
+            total = 0
+            approx = False
+            for r in records:
+                cell = r['e2']['pairwise_cooccurrence']['pairs'][i]['counts_by_window'][w]
+                total += cell.get('count', 0)
+                if cell.get('approx'):
+                    approx = True
+            new_p['counts_by_window'][w] = {'count': total, 'approx': approx}
+
+    # ── Recompute summary_by_window (parallel to compute_pairwise_cooccurrence) ─
+    summary_by_window = {}
+    for w in win_ref:
+        counts = [p['counts_by_window'][w]['count']
+                  for p in new_pairs
+                  if p['counts_by_window'][w].get('count', -1) >= 0]
+        if counts:
+            summary_by_window[w] = {
+                'total_pairs': len(counts),
+                'nonzero_pairs': sum(1 for c in counts if c > 0),
+                'max_count': max(counts),
+                'mean_count': round(sum(counts) / len(counts), 2),
+                'median_count': sorted(counts)[len(counts) // 2],
+            }
+        else:
+            summary_by_window[w] = {
+                'total_pairs': 0, 'nonzero_pairs': 0,
+                'max_count': 0, 'mean_count': 0, 'median_count': 0,
+            }
+    new_rec['e2']['pairwise_cooccurrence']['summary_by_window'] = summary_by_window
+
+    # ── Recompute metrics_by_window (parallel to compute_e2_metrics) ───
+    metrics_by_window = {}
+    for w in win_ref:
+        s = summary_by_window[w]
+        total = s['total_pairs']
+        metrics_by_window[w] = {
+            'E2_cooc': s['max_count'],
+            'E2_nonzero_frac': (round(s['nonzero_pairs'] / total, 4)
+                                if total > 0 else 0.0),
+            'E2_mean': s['mean_count'],
+            'E2_median': s['median_count'],
+            'total_pairs': total,
+            'nonzero_pairs': s['nonzero_pairs'],
+        }
+    new_rec['e2']['metrics_by_window'] = metrics_by_window
+
+    new_rec['e2']['E2_support_score'] = round(
+        max((_math.log(1 + metrics_by_window[w]['E2_cooc']) for w in win_ref),
+            default=0.0),
+        4,
+    )
+
+    # ── Reset all_pairs_zero on each ranked_concept (parallel to mark_all_pairs_zero) ─
+    concepts = new_rec['e2'].get('ranked_concepts', [])
+    n_concepts = new_rec['e2'].get('num_concepts', len(concepts))
+    has_any_nonzero = [False] * n_concepts
+    for pair in new_pairs:
+        i = pair.get('concept_a_idx')
+        j = pair.get('concept_b_idx')
+        if i is None or j is None:
+            continue
+        for w in win_ref:
+            if pair['counts_by_window'][w].get('count', 0) > 0:
+                if 0 <= i < n_concepts:
+                    has_any_nonzero[i] = True
+                if 0 <= j < n_concepts:
+                    has_any_nonzero[j] = True
+                break
+    for idx, c in enumerate(concepts):
+        c['all_pairs_zero'] = not has_any_nonzero[idx]
+
+    # ── Recompute augment metrics (parallel to e2_augment_metrics.py) ──
+    new_rec['e2']['all0_concept_count'] = sum(
+        1 for c in concepts if c.get('all_pairs_zero') is True
+    )
+
+    def _get_nz(w_int):
+        # Window keys are str when loaded from JSON; tolerate both.
+        return (metrics_by_window.get(w_int) or metrics_by_window.get(str(w_int))
+                or {}).get('E2_nonzero_frac')
+
+    num = _get_nz(1000)
+    den = _get_nz(100)
+    if num is None or den is None or den == 0:
+        new_rec['e2']['nonzero_frac_window_ratio'] = None
+    else:
+        new_rec['e2']['nonzero_frac_window_ratio'] = round(num / den, 6)
+
+    new_rec['e2']['synthetic_stage'] = True
+    return new_rec
