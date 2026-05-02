@@ -4,29 +4,17 @@ HarmBench prompt x and a reference corpus, parallel to ``e1_verbatim_trace.py``
 which operates on model responses y.
 
 HarmBench prompts are model-independent (identical across all OLMo 2 variants),
-so this script reads from a single reference model directory. For pretraining
-and mid-training the corpus is shared across the OLMo 2 family, so one output
-is produced. For post-training the corpus is per-size (1b/7b/13b/32b); the
-size is auto-detected from ``--index_dir`` and encoded in the output path
-(e.g., ``./index/post-training/7b`` -> ``results/prompt/post_training/7b/``).
-ALL prompts are processed (no compliance/refusal filter, no degeneracy filter
-— degeneracy is a response-level concept).
+so this script reads from a single reference model directory and produces
+results that are shared across the OLMo 2 family. ALL prompts are processed
+(no compliance/refusal filter, no degeneracy filter — degeneracy is a
+response-level concept).
 
 Backends mirror the response-level script:
   - ``--api_index v4_olmo-mix-1124_llama``  -> corpus label ``pretraining``
   - ``--index_dir ./index/dolmino-mix-1124`` -> corpus label ``mid_training``
-  - ``--index_dir ./index/post-training/{size}`` -> corpus label ``post_training/{size}``
 
 Output: ``results/prompt/{corpus}/e1_verbatim_{config}.json``
 Log:    ``logs/prompt/{corpus}/e1_verbatim_trace_prompt_{config}.log``
-
-Snippet schema (Phase 2, prompt-level):
-    Unlike ``e1_verbatim_trace.retrieve_snippets_for_span`` (response-level,
-    pre-only by design choice), this script splits each retrieved doc into
-    pre/match/post segments using the API's ``spans = [(text, label_or_None)]``
-    structure (``label='0'`` for matched needle, ``None`` for context). Per
-    snippet: ``pre_context_text``, ``match_text``, ``post_context_text``,
-    ``snippet_text`` (= pre + match + post), plus ``blocked`` flag.
 
 Usage:
     # Pretraining corpus, standard config, single-record sanity check
@@ -45,13 +33,6 @@ Usage:
     python e1_verbatim_trace_prompt.py \
         --config standard \
         --index_dir ./index/dolmino-mix-1124 \
-        --retrieve_snippets
-
-    # Post-training corpus (per-model-size local index; size auto-detected
-    # from the path, output goes to results/prompt/post_training/7b/)
-    python e1_verbatim_trace_prompt.py \
-        --config standard \
-        --index_dir ./index/post-training/7b \
         --retrieve_snippets
 """
 
@@ -76,249 +57,18 @@ if PKG_DIR not in sys.path:
 
 from transformers import AutoTokenizer
 
-from infini_gram_api import InfiniGramAPIEngine
-
 from e1_verbatim_trace import (
     compute_e1_metrics,
     compute_maximal_matching_spans,
     filter_top_k_spans,
     init_engine,
+    retrieve_snippets_for_span,
 )
 
 
 # Reference model directory for prompt input (prompts are identical across
 # OLMo 2 variants; pick one canonical source).
 REFERENCE_MODEL_DIR = "olmo2_7b"
-
-
-# ===========================================================================
-# Snippet retrieval — prompt-level variant (full pre/match/post context).
-#
-# The infini-gram HTTP API returns ``spans`` as a list of ``(text, label)``
-# tuples where ``label`` is ``None`` for context segments and ``"0"`` for the
-# matched needle. Typical shape (when needle is mid-doc):
-#
-#     spans = [(pre_text, None), (match_text, "0"), (post_text, None)]
-#
-# Edge cases: needle at doc start -> ``[(match, "0"), (post, None)]``;
-# needle at doc end -> ``[(pre, None), (match, "0")]``. Multi-occurrences in
-# one doc produce additional ``(text, None)`` segments interleaved with
-# ``(text, "0")``; we keep the FIRST match and treat all label=None segments
-# before/after it as pre/post respectively.
-#
-# Differs from ``e1_verbatim_trace.retrieve_snippets_for_span`` (response-level,
-# pre-only by design choice) — prompt-level keeps everything since this is
-# new code with no downstream backward-compat constraint.
-# ===========================================================================
-def _join_with_boundary_space(pre: str, match: str, post: str) -> str:
-    """Join ``pre + match + post`` with a single space at any non-empty
-    boundary, defensively avoiding double spaces.
-
-    The infini-gram API tokenizer can split mid-word (e.g. "the199Os"),
-    so naive concatenation produces unreadable boundaries. This helper:
-      - skips empty parts entirely (no leading/trailing space artifact)
-      - uses ``rstrip()`` on ``pre`` and ``lstrip()`` on ``post`` so that
-        already-whitespace-padded boundaries don't double up
-      - leaves ``match`` untouched (it's the decoded query span, kept raw)
-
-    Raw segments remain available in ``pre_context_text`` / ``match_text``
-    / ``post_context_text`` for analyses that need exact boundaries.
-    """
-    parts = []
-    if pre:
-        parts.append(pre.rstrip())
-    if match:
-        parts.append(match)
-    if post:
-        parts.append(post.lstrip())
-    return " ".join(parts)
-
-
-def retrieve_snippets_for_span_full_context(engine, span_ids, max_docs,
-                                             max_disp_len, tokenizer):
-    """Retrieve up to ``max_docs`` snippets, splitting each into
-    pre/match/post segments based on the API's spans labels.
-
-    Per-snippet schema:
-        - doc_ix, doc_len, metadata          (unchanged from response-level)
-        - blocked: bool                      (defensive marker; default False)
-        - pre_context_text:  str             (label=None segment(s) before match)
-        - match_text:        str             (label='0' segment, == decoded span_ids)
-        - post_context_text: str             (label=None segment(s) after match,
-                                              "" if needle is at doc end)
-        - snippet_text:      str             (pre/match/post joined with a
-                                              defensive single space at each
-                                              non-empty boundary; see
-                                              ``_join_with_boundary_space``)
-        - snippet_token_ids: list[int]       (raw token_ids returned by API)
-
-    None-safety:
-        - Per-segment ``text`` of ``None`` (rare; should not occur with the
-          server spec) is replaced with ``""`` and a warning is logged.
-        - ``blocked=True`` docs become marker entries (all *_text fields ""),
-          never silently dropped.
-    """
-    _log = logging.getLogger(__name__)
-    find_result = engine.find(input_ids=span_ids)
-    segments = find_result.get("segment_by_shard", [])
-
-    snippets = []
-    docs_retrieved = 0
-
-    for s, (start_rank, end_rank) in enumerate(segments):
-        if docs_retrieved >= max_docs:
-            break
-
-        count_in_shard = end_rank - start_rank
-        if count_in_shard <= 0:
-            continue
-
-        remaining = max_docs - docs_retrieved
-        if count_in_shard <= remaining:
-            ranks = range(start_rank, end_rank)
-        else:
-            import random
-            ranks = sorted(random.sample(range(start_rank, end_rank), remaining))
-
-        for rank in ranks:
-            if docs_retrieved >= max_docs:
-                break
-            try:
-                if isinstance(engine, InfiniGramAPIEngine):
-                    doc = engine.get_doc_by_rank(
-                        s=s, rank=rank, max_disp_len=max_disp_len,
-                        query_ids=span_ids,
-                    )
-                else:
-                    doc = engine.get_doc_by_rank(
-                        s=s, rank=rank, max_disp_len=max_disp_len,
-                    )
-
-                if "error" in doc:
-                    continue
-
-                is_blocked = bool(doc.get("blocked", False))
-
-                snippet_info = {
-                    "doc_ix": doc.get("doc_ix"),
-                    "doc_len": doc.get("doc_len"),
-                    "metadata": doc.get("metadata", ""),
-                    "blocked": is_blocked,
-                }
-
-                if is_blocked:
-                    snippet_info.update({
-                        "pre_context_text": "",
-                        "match_text": "",
-                        "post_context_text": "",
-                        "snippet_text": "",
-                        "snippet_token_ids": [],
-                    })
-                    snippets.append(snippet_info)
-                    docs_retrieved += 1
-                    continue
-
-                if isinstance(engine, InfiniGramAPIEngine) and "spans" in doc:
-                    # API mode: parse the (text, label) segment list.
-                    spans_data = doc.get("spans") or []
-                    pre_text = ""
-                    match_text = ""
-                    post_text = ""
-                    none_text_count = 0
-                    seen_match = False
-                    for seg in spans_data:
-                        if not seg or len(seg) < 2:
-                            continue
-                        text, label = seg[0], seg[1]
-                        if text is None:
-                            none_text_count += 1
-                            text = ""
-                        if label == "0" and not seen_match:
-                            match_text = text
-                            seen_match = True
-                        elif seen_match:
-                            post_text += text
-                        else:
-                            pre_text += text
-                    if none_text_count > 0:
-                        _log.warning(
-                            "doc_ix=%s has %d segments with None text "
-                            "(non-blocked); reconstruction is partial",
-                            doc.get("doc_ix"), none_text_count,
-                        )
-                    snippet_info["pre_context_text"] = pre_text
-                    snippet_info["match_text"] = match_text
-                    snippet_info["post_context_text"] = post_text
-                    snippet_info["snippet_text"] = _join_with_boundary_space(
-                        pre_text, match_text, post_text)
-                    snippet_info["snippet_token_ids"] = doc.get("token_ids", [])
-
-                elif "token_ids" in doc and tokenizer is not None:
-                    # Local engine: no spans field; split via needle_offset.
-                    tids = doc.get("token_ids", []) or []
-                    needle_offset = doc.get("needle_offset")
-                    needle_len = len(span_ids)
-                    pre_text = match_text = post_text = ""
-                    if (needle_offset is not None
-                            and isinstance(needle_offset, int)
-                            and needle_offset >= 0
-                            and needle_offset + needle_len <= len(tids)):
-                        try:
-                            pre_ids = tids[:needle_offset]
-                            match_ids = tids[needle_offset:needle_offset + needle_len]
-                            post_ids = tids[needle_offset + needle_len:]
-                            if pre_ids:
-                                pre_text = tokenizer.decode(
-                                    pre_ids, skip_special_tokens=False)
-                            if match_ids:
-                                match_text = tokenizer.decode(
-                                    match_ids, skip_special_tokens=False)
-                            if post_ids:
-                                post_text = tokenizer.decode(
-                                    post_ids, skip_special_tokens=False)
-                        except Exception as exc:
-                            _log.warning(
-                                "Local-mode decode failed for doc_ix=%s: %s",
-                                doc.get("doc_ix"), exc,
-                            )
-                            try:
-                                match_text = tokenizer.decode(
-                                    tids, skip_special_tokens=False)
-                            except Exception:
-                                match_text = ""
-                    else:
-                        # No needle offset info — best effort: decode full window.
-                        try:
-                            match_text = tokenizer.decode(
-                                tids, skip_special_tokens=False)
-                        except Exception:
-                            match_text = ""
-                    snippet_info["pre_context_text"] = pre_text
-                    snippet_info["match_text"] = match_text
-                    snippet_info["post_context_text"] = post_text
-                    snippet_info["snippet_text"] = _join_with_boundary_space(
-                        pre_text, match_text, post_text)
-                    snippet_info["snippet_token_ids"] = tids
-
-                else:
-                    snippet_info.update({
-                        "pre_context_text": "",
-                        "match_text": "",
-                        "post_context_text": "",
-                        "snippet_text": "",
-                        "snippet_token_ids": doc.get("token_ids", []),
-                    })
-
-                snippets.append(snippet_info)
-                docs_retrieved += 1
-            except Exception as exc:
-                _log.warning(
-                    "Unexpected error retrieving doc (s=%s, rank=%s): %s: %s",
-                    s, rank, type(exc).__name__, exc,
-                )
-                continue
-
-    return snippets
 
 
 # ===========================================================================
@@ -329,7 +79,6 @@ def derive_corpus_label(args) -> str:
 
       - ``--api_index v4_olmo-mix-1124_llama`` -> ``pretraining``
       - ``--index_dir ./index/dolmino-mix-1124`` -> ``mid_training``
-      - ``--index_dir ./index/post-training/{size}`` -> ``post_training/{size}``
 
     Falls back to a generic label derived from the input if neither marker
     is present (so unusual indices still produce a deterministic path).
@@ -340,14 +89,6 @@ def derive_corpus_label(args) -> str:
         if "dolmino-mix-1124" in norm or base == "dolmino-mix-1124":
             return "mid_training"
         if "post-training" in norm or "post_training" in norm:
-            # Post-training corpora are per-size (./index/post-training/{1b,7b,13b,32b}/),
-            # so the segment after "post-training" is appended to keep results separated.
-            parts = norm.split("/")
-            for i, p in enumerate(parts):
-                if p in ("post-training", "post_training") and i + 1 < len(parts):
-                    size = parts[i + 1]
-                    if size:
-                        return f"post_training/{size}"
             return "post_training"
         return base or "local_index"
 
@@ -577,7 +318,7 @@ def main():
                             len(top_k_spans))
                 snippets_by_span = []
                 for span_idx, (b, e) in enumerate(top_k_spans):
-                    snippets = retrieve_snippets_for_span_full_context(
+                    snippets = retrieve_snippets_for_span(
                         engine, prompt_ids[b:e],
                         max_docs=args.max_docs_per_span,
                         max_disp_len=args.max_disp_len,
@@ -678,20 +419,13 @@ def main():
                 if first_with_snip:
                     s0 = first_with_snip["snippets"][0]
                     print("\nTop snippet (from first top-K span with results):")
-                    print(f"  span_text:         {first_with_snip['span_text']!r}")
-                    print(f"  doc_ix:            {s0.get('doc_ix')}")
-                    print(f"  doc_len:           {s0.get('doc_len')}")
-                    print(f"  blocked:           {s0.get('blocked')}")
-
-                    def _preview(text: str, n: int = 200) -> str:
-                        text = text or ""
-                        return text[:n] + ("..." if len(text) > n else "")
-
-                    print(f"  pre_context_text:  {_preview(s0.get('pre_context_text', ''))!r}")
-                    print(f"  match_text:        {s0.get('match_text', '')!r}")
-                    print(f"  post_context_text: {_preview(s0.get('post_context_text', ''))!r}")
-                    print(f"  snippet_text:      {_preview(s0.get('snippet_text', ''), 400)!r}")
-                    print(f"  metadata:          {_preview(str(s0.get('metadata', '')), 200)!r}")
+                    print(f"  span_text:    {first_with_snip['span_text']!r}")
+                    print(f"  doc_ix:       {s0.get('doc_ix')}")
+                    print(f"  doc_len:      {s0.get('doc_len')}")
+                    print(f"  metadata:     {s0.get('metadata')!r}")
+                    snippet_text = s0.get("snippet_text", "")
+                    print(f"  snippet_text: {snippet_text[:400]}"
+                          + ("..." if len(snippet_text) > 400 else ""))
                 else:
                     print("\nNo snippets returned for any top-K span.")
 

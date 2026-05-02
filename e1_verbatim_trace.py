@@ -24,7 +24,7 @@ Usage:
     
     python e1_verbatim_trace.py --model olmo2-13b --api_index v4_olmo-mix-1124_llama --config contextual
 
-    # OLMo 2 with local dolmino index (mid-training; default output: results/{model}/mid_training/...)
+    # OLMo 2 with local dolmino index (mid-training; default output: results/{model}/e1/mid_training/...)
     python e1_verbatim_trace.py \
         --model olmo2-7b \
         --index_dir ./index/dolmino-mix-1124 \
@@ -160,10 +160,10 @@ def parse_args():
                              "Default: data/{model_dir}/harmbench_{config}_labeled.json")
     parser.add_argument("--output", type=str, default=None,
                         help="Output JSON with E1 results. If omitted, path is chosen from "
-                             "the index: API olmo-mix-1124_llama -> results/{model_dir}/pretraining/; "
-                             "local dolmino-mix-1124 -> .../mid_training/; "
-                             "local post-training (or matching API name) -> .../post_training/; "
-                             "else results/{model_dir}/e1_verbatim_{config}.json (flat).")
+                             "the index: API olmo-mix-1124_llama -> results/{model_dir}/e1/pretraining/; "
+                             "local dolmino-mix-1124 -> .../e1/mid_training/; "
+                             "local post-training (or matching API name) -> .../e1/post_training/; "
+                             "else results/{model_dir}/e1/e1_verbatim_{config}.json (flat).")
 
     # Index config — local vs API
     parser.add_argument("--index_dir", type=str, default=None,
@@ -671,9 +671,9 @@ def main():
         if args.output is None:
             sub = e1_results_subdir(args)
             if sub:
-                output_path = os.path.join("results", model_dir, sub, f"e1_verbatim_{config}.json")
+                output_path = os.path.join("results", model_dir, "e1", sub, f"e1_verbatim_{config}.json")
             else:
-                output_path = os.path.join("results", model_dir, f"e1_verbatim_{config}.json")
+                output_path = os.path.join("results", model_dir, "e1", f"e1_verbatim_{config}.json")
         else:
             if ("{config}" in args.output) or ("{model_dir}" in args.output):
                 output_path = _format_path(args.output, config)

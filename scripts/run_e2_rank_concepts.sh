@@ -12,7 +12,8 @@
 #
 # Note:
 # - This script assumes Stage 1 output already exists at:
-#   results/{out_dir}/{training_phase}/{e2_llm}/e2_concepts_{config}.json
+#   results/{out_dir}/e2/{e2_llm}/e2_concepts_{config}.json
+#   (stage-independent under the new layout; --training-phase is cosmetic for Stage 2)
 
 set -euo pipefail
 

@@ -4,7 +4,7 @@ results, then probe a small sample of suspect spans to characterize what
 triggers blocking.
 
 Tier 1 plan (zero-API analysis + ≤300 API calls). Reads existing results in
-``results/olmo2_*/pretraining/e1_verbatim_standard.json`` for all 8 OLMo 2
+``results/olmo2_*/e1/pretraining/e1_verbatim_standard.json`` for all 8 OLMo 2
 variants, computes a lower-bound "blocked rate" from saved ``num_snippets``,
 then for the 20 worst-undershoot spans:
 

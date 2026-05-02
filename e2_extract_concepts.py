@@ -32,8 +32,12 @@ Reference:
     - utils.py: shared helpers (model params, logger, IO, JSON parsing)
     - e2_rank_concepts.py: Stage 2 (ranking) — reads this script's output
     - e2_windowed_cooccurrence.py: downstream consumer of Stage 2's output
-    - Output root: ``results/{out_dir}/{training_phase}/{e2_llm}/`` (see ``--e2-llm``)
+    - Output root: ``results/{out_dir}/e2/{e2_llm}/`` (stage-independent;
+      Stage 1 outputs are corpus-independent by design)
     - Files: ``e2_concepts_{config}.json``, ``batch_e2/`` (batch input/metadata/output)
+    - ``--training-phase`` selects which ``e1_verbatim_{config}.json`` to read
+      the response from. Defaults to ``pretraining`` because pretraining E1 trace
+      always exists for every model. The output location does NOT vary by phase.
 """
 
 import argparse
@@ -48,10 +52,9 @@ from openai import OpenAI
 
 from utils import (
     MODELS,
-    training_phases_when_all,
     get_model_params,
-    model_results_root,
-    label_run_root,
+    e1_phase_root,
+    e2_llm_root,
     setup_logger,
     load_e1_results,
     filter_compliant,
@@ -362,7 +365,7 @@ def run_test(client, model_key, records, extraction_model, logger, training_phas
     parsed = parse_llm_response(raw, logger)
     if parsed is None:
         logger.error("  Failed to parse LLM response. Raw output saved.")
-        results_root = label_run_root(model_key, training_phase, e2_llm)
+        results_root = e2_llm_root(model_key, e2_llm)
         debug_path = os.path.join(results_root, "e2_test_raw_output.json")
         os.makedirs(os.path.dirname(debug_path) or ".", exist_ok=True)
         with open(debug_path, "w", encoding="utf-8") as f:
@@ -387,7 +390,7 @@ def run_test(client, model_key, records, extraction_model, logger, training_phas
 
     s1_name = f"e2_concepts_{config}.json"
     test_path = os.path.join(
-        label_run_root(model_key, training_phase, e2_llm),
+        e2_llm_root(model_key, e2_llm),
         s1_name.replace(".json", "_test.json"),
     )
     output_row = build_record_output(rec, parsed, extraction_model)
@@ -407,7 +410,7 @@ def run_batch(client, model_key, records, extraction_model, logger, training_pha
         return
 
     batch_dir = os.path.join(
-        label_run_root(model_key, training_phase, e2_llm), "batch_e2"
+        e2_llm_root(model_key, e2_llm), "batch_e2"
     )
     os.makedirs(batch_dir, exist_ok=True)
 
@@ -463,10 +466,8 @@ def run_batch(client, model_key, records, extraction_model, logger, training_pha
     logger.info("  Batch ID: %s", batch.id)
     logger.info("  To collect results, run:")
     logger.info(
-        "    python e2_extract_concepts.py --model %s --training-phase %s "
-        "--config %s --collect",
+        "    python e2_extract_concepts.py --model %s --config %s --collect",
         model_key,
-        training_phase,
         config,
     )
     logger.info("=" * 70)
@@ -478,7 +479,7 @@ def run_batch(client, model_key, records, extraction_model, logger, training_pha
             "batch_id": batch.id,
             "input_file_id": upload.id,
             "model_key": model_key,
-            "training_phase": training_phase,
+            "training_phase_input": training_phase,
             "harmbench_config": config,
             "extraction_model": extraction_model,
             "e2_llm": e2_llm,
@@ -496,7 +497,7 @@ def run_collect(client, model_key, records, extraction_model, batch_id, logger,
                 training_phase, e2_llm: str, config: str = "standard"):
     """Retrieve batch results and convert to Stage 1 JSON."""
     batch_dir = os.path.join(
-        label_run_root(model_key, training_phase, e2_llm), "batch_e2"
+        e2_llm_root(model_key, e2_llm), "batch_e2"
     )
 
     # Check batch status
@@ -598,7 +599,7 @@ def run_collect(client, model_key, records, extraction_model, batch_id, logger,
 
     s1_name = f"e2_concepts_{config}.json"
     output_path = os.path.join(
-        label_run_root(model_key, training_phase, e2_llm), s1_name
+        e2_llm_root(model_key, e2_llm), s1_name
     )
     save_output_json(all_rows, output_path)
 
@@ -626,12 +627,12 @@ def run_retry(client, model_key, records, extraction_model, logger, training_pha
     """Re-run failed records from batch_errors.json synchronously,
     and merge results into the existing Stage 1 JSON."""
     batch_dir = os.path.join(
-        label_run_root(model_key, training_phase, e2_llm), "batch_e2"
+        e2_llm_root(model_key, e2_llm), "batch_e2"
     )
     err_path = os.path.join(batch_dir, "batch_errors.json")
     s1_name = f"e2_concepts_{config}.json"
     output_path = os.path.join(
-        label_run_root(model_key, training_phase, e2_llm), s1_name
+        e2_llm_root(model_key, e2_llm), s1_name
     )
 
     if not os.path.isfile(err_path):
@@ -739,30 +740,28 @@ def parse_args():
     parser.add_argument(
         "--training-phase",
         type=str,
-        required=True,
-        choices=("pretraining", "mid_training", "post_training", "all"),
+        default="pretraining",
+        choices=("pretraining", "mid_training", "post_training"),
         dest="training_phase",
-        help="Training stage folder under results/{out_dir}/: pretraining, "
-             "mid_training, or post_training. E1 input defaults to "
-             "results/{out_dir}/{training_phase}/e1_verbatim_{config}.json; "
-             "Stage 1 outputs default to results/{out_dir}/{training_phase}/{e2_llm}/. "
-             "Use 'all' to run the selected mode once per phase: "
-             "base models use pretraining, mid_training; *-instruct models use "
-             "pretraining, mid_training, post_training.",
+        help="Phase folder used to locate the E1 verbatim input "
+             "(results/{out_dir}/e1/{training_phase}/e1_verbatim_{config}.json). "
+             "Default 'pretraining' because the E1 raw trace is always available there. "
+             "Stage 1 outputs are corpus-independent and always go to "
+             "results/{out_dir}/e2/{e2_llm}/, regardless of this flag.",
     )
     parser.add_argument("--config", type=str, default="standard",
                         help="HarmBench config name for default E1 input "
                              "(e1_verbatim_{config}.json; default: standard)")
     parser.add_argument("--input", type=str, default=None,
                         help="Override input path (default: "
-                             "results/{out_dir}/{training_phase}/e1_verbatim_{config}.json)")
+                             "results/{out_dir}/e1/{training_phase}/e1_verbatim_{config}.json)")
     parser.add_argument(
         "--e2-llm",
         type=str,
         default="gpt-5-mini",
         dest="e2_llm",
         help="OpenAI model used for E2 Stage 1 extraction AND the run subfolder name. "
-             "Outputs go to results/{out_dir}/{training_phase}/{e2_llm}/ "
+             "Outputs go to results/{out_dir}/e2/{e2_llm}/ "
              "(sanitized; default: %(default)s). Includes e2_concepts_{config}.json and batch_e2/. "
              "Use the same --e2-llm in e2_rank_concepts.py and e2_windowed_cooccurrence.py.",
     )
@@ -803,14 +802,12 @@ def run_one_phase(
 ) -> None:
     logger.info("=" * 70)
     logger.info("E2 Stage 1 — LLM-Based Essential Concept Extraction")
-    if total_phases > 1:
-        logger.info("  Phase %d / %d: %s", phase_index + 1, total_phases, training_phase)
     logger.info("  Model: %s", args.model)
-    logger.info("  Training phase: %s", training_phase)
+    logger.info("  E1 input phase: %s", training_phase)
     logger.info("  E1 config (default path): %s", args.config)
-    logger.info("  Phase results root: %s", model_results_root(args.model, training_phase))
-    logger.info("  E2 output root (--e2-llm): %s",
-                label_run_root(args.model, training_phase, args.e2_llm))
+    logger.info("  E1 input root: %s", e1_phase_root(args.model, training_phase))
+    logger.info("  E2 output root (--e2-llm, stage-independent): %s",
+                e2_llm_root(args.model, args.e2_llm))
     logger.info("  Extraction LLM (--e2-llm): %s", args.e2_llm)
     logger.info("=" * 70)
 
@@ -839,7 +836,7 @@ def run_one_phase(
         batch_id = args.batch_id
         if not batch_id:
             meta_path = os.path.join(
-                label_run_root(args.model, training_phase, args.e2_llm),
+                e2_llm_root(args.model, args.e2_llm),
                 "batch_e2",
                 "batch_metadata.json",
             )
@@ -868,17 +865,10 @@ def main():
     args = parse_args()
     logger = setup_logger(args.model, "e2_extract_concepts", config=args.config)
 
-    phases = (
-        list(training_phases_when_all(args.model))
-        if args.training_phase == "all"
-        else [args.training_phase]
-    )
-    effective_input = None if (args.training_phase == "all" and args.input) else args.input
-
-    if args.training_phase == "all" and args.input:
-        logger.warning(
-            "--input is ignored when --training-phase all (using default JSON path per phase).",
-        )
+    # Stage 1 outputs are stage-independent; --training-phase only locates the
+    # E1 verbatim input file. We always run exactly one phase.
+    phases = [args.training_phase]
+    effective_input = args.input
 
     # Init OpenAI client
     api_key = os.environ.get("OPENAI_API_KEY")
@@ -888,11 +878,6 @@ def main():
     client = OpenAI(api_key=api_key)
 
     n = len(phases)
-    if n > 1 and args.collect and args.batch_id:
-        logger.warning(
-            "--batch_id is set: the same ID will be used for every phase. "
-            "Usually omit --batch_id so each phase loads its own batch_metadata.json."
-        )
     for i, tp in enumerate(phases):
         run_one_phase(
             args,

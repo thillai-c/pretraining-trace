@@ -11,10 +11,11 @@ the corresponding stage file, not here.
 
 Contents:
     - MODELS / REASONING_MODELS: model registry
-    - training_phases_when_all / model_results_root / label_llm_dirname / label_run_root:
-      phase folders under results/{out_dir}/ and ``--training-phase all`` expansion;
-      ``label_run_root`` is also the experiment directory for E1 (``--e1-llm`` in
-      ``e1_auto_label.py``) and E2 (``--e2-llm`` in e2_* scripts).
+    - training_phases_when_all: ``--training-phase all`` expansion
+    - label_llm_dirname: filesystem-safe LLM directory name
+    - e1_phase_root / e1_label_root: E1 result roots (phase-first layout)
+    - e2_llm_root / e2_cooc_root: E2 result roots (llm-first layout; Stage 1+2 are
+      stage-independent under e2/{llm}/, Stage 3 lives under e2/{llm}/{phase}/)
     - _is_reasoning_model / get_model_params: OpenAI param selection
     - setup_logger: per-stage logger factory
     - compute_rep_ratio: word-level 4-gram repetition ratio
@@ -115,12 +116,6 @@ def training_phases_when_all(model_key: str) -> tuple[str, ...]:
     return ("pretraining", "mid_training")
 
 
-def model_results_root(model_key: str, training_phase: str) -> str:
-    """Return ``results/{out_dir}/{training_phase}/``."""
-    out_dir = MODELS[model_key]["out_dir"]
-    return os.path.join("results", out_dir, training_phase)
-
-
 def label_llm_dirname(llm_model: str) -> str:
     """Filesystem-safe directory name for a labeling model id."""
     s = llm_model.strip().lower().replace(os.sep, "_").replace("/", "_")
@@ -129,15 +124,49 @@ def label_llm_dirname(llm_model: str) -> str:
     return s or "unknown"
 
 
-def label_run_root(model_key: str, training_phase: str, llm_model: str) -> str:
-    """Root directory for one (training_phase, label LLM) experiment.
+def e1_phase_root(model_key: str, training_phase: str) -> str:
+    """Return ``results/{out_dir}/e1/{training_phase}/``.
 
-    Resolves to ``results/{out_dir}/{training_phase}/{label_llm_dirname(llm_model)}/``.
-    Used by ``e1_auto_label`` (``--e1-llm``) and E2 stages (``--e2-llm``).
+    Holds raw E1 trace (``e1_verbatim_{config}.json``), phase-level human/collation
+    CSVs (``span_safety_labels_*.csv``), and LLM auto-label subdirs.
+    """
+    out_dir = MODELS[model_key]["out_dir"]
+    return os.path.join("results", out_dir, "e1", training_phase)
+
+
+def e1_label_root(model_key: str, training_phase: str, llm_model: str) -> str:
+    """Return ``results/{out_dir}/e1/{training_phase}/{label_llm_dirname(llm_model)}/``.
+
+    Used by ``e1_auto_label`` (``--e1-llm``): holds ``batch_e1/`` and the
+    auto-labeled ``span_safety_labels_*.csv`` for one (phase, LLM) pair.
     """
     return os.path.join(
-        model_results_root(model_key, training_phase),
+        e1_phase_root(model_key, training_phase),
         label_llm_dirname(llm_model),
+    )
+
+
+def e2_llm_root(model_key: str, llm_model: str) -> str:
+    """Return ``results/{out_dir}/e2/{label_llm_dirname(llm_model)}/``.
+
+    Stage 1 (``e2_concepts_{config}.json``) and Stage 2
+    (``e2_concepts_ranked_{config}.json``) outputs are corpus-independent and
+    live here. Stage 1+2 batch dirs (``batch_e2/``, ``batch_e2_rank/``) also.
+    """
+    out_dir = MODELS[model_key]["out_dir"]
+    return os.path.join("results", out_dir, "e2", label_llm_dirname(llm_model))
+
+
+def e2_cooc_root(model_key: str, llm_model: str, training_phase: str) -> str:
+    """Return ``results/{out_dir}/e2/{label_llm_dirname(llm_model)}/{training_phase}/``.
+
+    Stage 3 (``e2_cooccurrence_{config}_top{n}.json``) is corpus-dependent and
+    lives here, one subdir per phase. Stage 1+2 outputs at ``e2_llm_root`` are
+    shared across all phase-specific Stage 3 runs.
+    """
+    return os.path.join(
+        e2_llm_root(model_key, llm_model),
+        training_phase,
     )
 
 
@@ -253,19 +282,18 @@ def load_e1_results(model_key: str, input_path: str = None,
                     training_phase: str = None, config: str = "standard"):
     """Load E1 verbatim trace JSON for ``model_key``.
 
-    Default path: ``results/{out_dir}/[{training_phase}/]e1_verbatim_{config}.json``.
+    Default path: ``results/{out_dir}/e1/{training_phase}/e1_verbatim_{config}.json``.
+    ``training_phase`` is required when ``input_path`` is not given.
     """
     if input_path is None:
-        out_dir = MODELS[model_key]["out_dir"]
-        name = f"e1_verbatim_{config}.json"
-        if training_phase:
-            input_path = os.path.join(
-                "results", out_dir, training_phase, name
+        if training_phase is None:
+            raise ValueError(
+                "load_e1_results requires either input_path or training_phase"
             )
-        else:
-            input_path = os.path.join(
-                "results", out_dir, name
-            )
+        input_path = os.path.join(
+            e1_phase_root(model_key, training_phase),
+            f"e1_verbatim_{config}.json",
+        )
     with open(input_path, "r", encoding="utf-8") as f:
         return json.load(f)
 

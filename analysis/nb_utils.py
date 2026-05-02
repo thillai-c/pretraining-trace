@@ -544,19 +544,24 @@ MODELS = {
 
 
 def view_span(record_id: int, all_records, full_docs=None,
-              label_csv_path=None, model=None, span_idx: int = None):
+              label_csv_path=None, model=None, span_idx: int = None,
+              phase: str = "pretraining"):
     """Display spans with labels.
 
     Args:
         model: If given (e.g. "olmo2-7b-instruct"), auto-resolves label_csv_path
-               to results/{out_dir}/span_safety_labels_test.csv.
+               to results/{out_dir}/e1/{phase}/span_safety_labels_test.csv.
+        phase: Training phase folder under e1/ (default: pretraining).
         full_docs: Optional dict of full document texts. Skipped when None.
         label_csv_path: Explicit CSV path. Overrides model-based resolution.
     """
     project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     if label_csv_path is None and model is not None:
         out_dir = MODELS[model]["out_dir"]
-        label_csv_path = os.path.join(project_root, "results", out_dir, "span_safety_labels_test.csv")
+        label_csv_path = os.path.join(
+            project_root, "results", out_dir, "e1", phase,
+            "span_safety_labels_test.csv",
+        )
     elif label_csv_path is None:
         label_csv_path = "span_safety_labels.csv"
 
@@ -667,7 +672,7 @@ def view_span(record_id: int, all_records, full_docs=None,
 
 def compare_labels(record_id: int, all_records, model: str,
                    llm_models: list[str], span_idx: int = None,
-                   human: bool = False):
+                   human: bool = False, phase: str = "pretraining"):
     """Compare labels from multiple LLM labelers (and optionally human) for the same record.
 
     Args:
@@ -677,9 +682,11 @@ def compare_labels(record_id: int, all_records, model: str,
         llm_models: list of LLM model names (e.g. ["gpt-4.1-mini", "gpt-5.4-mini"])
         span_idx: if given, show only this span
         human: if True, also load and display human annotations
+        phase: training phase folder under e1/ (default: pretraining)
     """
     project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     out_dir = MODELS[model]["out_dir"]
+    e1_phase_dir = os.path.join(project_root, "results", out_dir, "e1", phase)
 
     rec = next((r for r in all_records if r["id"] == record_id), None)
     assert rec is not None, f"record_id={record_id} not found."
@@ -697,8 +704,7 @@ def compare_labels(record_id: int, all_records, model: str,
     label_dfs = {}
 
     if human:
-        human_csv = os.path.join(project_root, "results", out_dir,
-                                 "span_safety_labels_test_human.csv")
+        human_csv = os.path.join(e1_phase_dir, "span_safety_labels_test_human.csv")
         if os.path.isfile(human_csv):
             df_h = pd.read_csv(human_csv)
             label_dfs["human"] = df_h[df_h["record_id"] == record_id].reset_index(drop=True)
@@ -706,7 +712,7 @@ def compare_labels(record_id: int, all_records, model: str,
             print(f"  [WARNING] Human CSV not found: {human_csv}")
 
     for llm in llm_models:
-        csv_path = os.path.join(project_root, "results", out_dir, llm,
+        csv_path = os.path.join(e1_phase_dir, llm,
                                 "span_safety_labels_test.csv")
         if os.path.isfile(csv_path):
             df = pd.read_csv(csv_path)
@@ -803,21 +809,22 @@ def compare_labels(record_id: int, all_records, model: str,
     print("=" * 80)
 
 
-def inspect_record(model_dir, record_id, span_idx=None):
+def inspect_record(model_dir, record_id, span_idx=None, phase="pretraining"):
     """Quick wrapper to view a specific record's span details."""
     from nb_utils import view_span
     RESULTS_DIR = '../results'
-    with open(f"{RESULTS_DIR}/{model_dir}/e1_verbatim_standard.json") as f:
+    with open(f"{RESULTS_DIR}/{model_dir}/e1/{phase}/e1_verbatim_standard.json") as f:
         records = json.load(f)
-    
-    label_csv = f"{RESULTS_DIR}/{model_dir}/span_safety_labels.csv"
-    
+
+    label_csv = f"{RESULTS_DIR}/{model_dir}/e1/{phase}/span_safety_labels.csv"
+
     view_span(
         record_id=record_id,
         all_records=records,
         label_csv_path=label_csv,
         model=model_dir,
         span_idx=span_idx,
+        phase=phase,
     )
 
 

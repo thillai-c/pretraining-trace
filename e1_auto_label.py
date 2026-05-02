@@ -42,9 +42,9 @@ from utils import (
     training_phases_when_all,
     filter_compliant,
     get_model_params,
-    label_run_root,
+    e1_label_root,
+    e1_phase_root,
     load_e1_results,
-    model_results_root,
     setup_logger,
 )
 
@@ -69,7 +69,7 @@ DEFAULT_LABEL_LLM = "gpt-4.1-mini"
 
 def e1_batch_dir(model_key: str, training_phase: str, e1_llm: str) -> str:
     """Directory for batch_input.jsonl, batch_metadata.json, batch_output.jsonl, etc."""
-    return os.path.join(label_run_root(model_key, training_phase, e1_llm), E1_BATCH_SUBDIR)
+    return os.path.join(e1_label_root(model_key, training_phase, e1_llm), E1_BATCH_SUBDIR)
 
 
 def span_safety_labels_csv_path(
@@ -77,7 +77,7 @@ def span_safety_labels_csv_path(
 ) -> str:
     """Path to the span-level labels CSV for this HarmBench config (batch/collect/retry)."""
     return os.path.join(
-        label_run_root(model_key, training_phase, e1_llm),
+        e1_label_root(model_key, training_phase, e1_llm),
         f"span_safety_labels_{config}.csv",
     )
 
@@ -499,7 +499,7 @@ def run_test(client, model_key, records, logger, training_phase, e1_llm,
                      row["context_topic"][:60])
 
     # Save test output
-    root = label_run_root(model_key, training_phase, e1_llm)
+    root = e1_label_root(model_key, training_phase, e1_llm)
     test_csv = os.path.join(root, "span_safety_labels_test.csv")
     save_csv(result_rows, test_csv, model_key)
     logger.info("  Test results saved to %s (%d rows)", test_csv, len(result_rows))
@@ -911,9 +911,9 @@ def parse_args():
         required=True,
         choices=("pretraining", "mid_training", "post_training", "all"),
         dest="training_phase",
-        help="Same phase folder as e1_verbatim_trace default output: "
-             "results/{out_dir}/pretraining|mid_training|post_training/ "
-             "for E1 JSON input; labeling outputs live under <llm_dirname>/ per --e1-llm. "
+        help="Phase folder for E1 input and label outputs: "
+             "results/{out_dir}/e1/{phase}/e1_verbatim_{config}.json for input; "
+             "results/{out_dir}/e1/{phase}/{e1_llm}/ for labeling outputs. "
              "Use 'all' to run the selected mode once per phase: base models use "
              "pretraining, mid_training; *-instruct models use "
              "pretraining, mid_training, post_training.",
@@ -923,18 +923,18 @@ def parse_args():
         type=str,
         default="standard",
         help="HarmBench config name; default E1 input is "
-             "results/{out_dir}/{training_phase}/e1_verbatim_{config}.json (default: standard)",
+             "results/{out_dir}/e1/{training_phase}/e1_verbatim_{config}.json (default: standard)",
     )
     parser.add_argument("--input", type=str, default=None,
                         help="Override E1 JSON path (default: "
-                             "results/{out_dir}/{training_phase}/e1_verbatim_{config}.json)")
+                             "results/{out_dir}/e1/{training_phase}/e1_verbatim_{config}.json)")
     parser.add_argument(
         "--e1-llm",
         type=str,
         default=DEFAULT_LABEL_LLM,
         dest="e1_llm",
         help="OpenAI model id for span labeling; outputs under "
-             "results/{out_dir}/{training_phase}/{e1_llm}/ (sanitized). "
+             "results/{out_dir}/e1/{training_phase}/{e1_llm}/ (sanitized). "
              "Batch/collect/retry write span_safety_labels_{config}.csv there. "
              "Use the same value for --batch, --collect, and --retry.",
     )
@@ -986,8 +986,8 @@ def run_one_phase(
     logger.info("  Model: %s", args.model)
     logger.info("  Config: %s", args.config)
     logger.info("  Training phase: %s", training_phase)
-    logger.info("  E1 input root: %s", model_results_root(args.model, training_phase))
-    logger.info("  Label run root: %s", label_run_root(
+    logger.info("  E1 input root: %s", e1_phase_root(args.model, training_phase))
+    logger.info("  Label run root: %s", e1_label_root(
         args.model, training_phase, args.e1_llm))
     logger.info("  Label LLM (--e1-llm): %s", args.e1_llm)
     if phase_index == 0:

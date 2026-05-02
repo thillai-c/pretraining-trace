@@ -3,25 +3,19 @@
 ranked concepts (e2_concepts_ranked_{config}.json).
 
 Pipeline position:
-    {phase}/{{e2_llm}}/e2_concepts_ranked_{config}.json   (Stage 2 output from e2_rank_concepts.py)
+    e2/{{e2_llm}}/e2_concepts_ranked_{config}.json   (Stage 2 output, stage-independent)
           |
           v
-    [This script] e2_windowed_cooccurrence.py
+    [This script] e2_windowed_cooccurrence.py   (queries the {phase}-specific corpus index)
           |
           v
-    {phase}/{{e2_llm}}/e2_cooccurrence_{config}.json
+    e2/{{e2_llm}}/{phase}/e2_cooccurrence_{config}.json   (Stage 3 output, per-phase)
 
 Method:
   - Load top-N ranked concepts from e2_concepts_ranked_{config}.json (sorted by rank).
   - For each pair (concept_a, concept_b), query infini-gram with a CNF AND query:
       count_cnf([[ids_A], [ids_B]], max_diff_tokens=w)
   - Repeat for multiple window sizes (e.g., 100, 500, 1000 tokens).
-
-Backends:
-  - Local InfiniGramEngine (on-disk index; mid/post training)
-  - HTTP API (OLMo 2 / olmo-mix-1124)
-
-Model keys and result paths: utils.MODELS (same as e2_extract_concepts / e2_rank_concepts).
 
 E1 vs. E2 independence:
   Concept extraction operates on the full response and is NOT constrained
@@ -32,39 +26,39 @@ Usage:
     # OLMo 2 (API engine, multiple top_n values)
     python e2_windowed_cooccurrence.py \
         --model olmo2-7b-instruct \
-        --training-phase pretraining \
         --config standard \
+        --training-phase pretraining \
         --api_index v4_olmo-mix-1124_llama \
         --top_n 5 10 15 20 \
         --compliant_only \
         --windows 100 500 1000
 
-    python e2_windowed_cooccurrence.py --model olmo2-1b --training-phase mid_training --config standard --e2-llm gpt-5-mini --index_dir ./index/dolmino-mix-1124 --top_n 5 10 15 20 --compliant_only --windows 100 500 1000
+    python e2_windowed_cooccurrence.py --model olmo2-1b --config standard --training-phase mid_training --index_dir ./index/dolmino-mix-1124 --top_n 5 10 15 20 --windows 100 500 1000 --compliant_only --e2-llm gpt-5-mini
 
-    python e2_windowed_cooccurrence.py --model olmo2-1b-instruct --training-phase post_training --config standard --e2-llm gpt-5-mini --index_dir ./index/post-training/1b --top_n 5 10 15 20 --compliant_only --windows 100 500 1000
+    python e2_windowed_cooccurrence.py --model olmo2-7b-instruct --config standard --training-phase post_training --index_dir ./index/post_training/7b --top_n 5 10 15 20 --windows 100 500 1000 --compliant_only --e2-llm gpt-5-mini 
 
     # Override paths explicitly (must match your --config filenames)
     python e2_windowed_cooccurrence.py \
         --model olmo2-7b-instruct \
-        --training-phase pretraining \
         --config standard \
-        --concepts_input results/olmo2_7b_instruct/pretraining/gpt-5.4-mini/e2_concepts_ranked_standard.json \
+        --training-phase pretraining \
+        --concepts_input results/olmo2_7b_instruct/e2/gpt-5.4-mini/e2_concepts_ranked_standard.json \
         --top_n 15 \
         --windows 100 500 1000
 
     # Run all phases (base: pre+mid, instruct: pre+mid+post)
     python e2_windowed_cooccurrence.py \
         --model olmo2-7b-instruct \
-        --training-phase all \
         --config standard \
+        --training-phase all \
         --top_n 10 \
         --compliant_only
 
     # Multiple top_n in one command (output suffixed: *_top{N}.json)
     python e2_windowed_cooccurrence.py \
         --model olmo2-7b-instruct \
-        --training-phase pretraining \
         --config standard \
+        --training-phase pretraining \
         --top_n 5 10 20 \
         --compliant_only
 """
@@ -96,8 +90,9 @@ from infini_gram_api import InfiniGramAPIEngine
 
 from utils import (
     MODELS,
-    model_results_root,
-    label_run_root,
+    e1_phase_root,
+    e2_llm_root,
+    e2_cooc_root,
     training_phases_when_all,
     setup_logger,
 )
@@ -166,30 +161,31 @@ def parse_args():
         required=True,
         choices=("pretraining", "mid_training", "post_training", "all"),
         dest="training_phase",
-        help="Training stage folder under results/{model_dir}/: pretraining, "
-             "mid_training, or post_training. "
+        help="Phase that determines which infini-gram index Stage 3 queries against, "
+             "and the per-phase Stage 3 output subdir. "
              "Use 'all' to run once per phase: base models run "
              "pretraining+mid_training; *-instruct models run pretraining+mid_training+post_training.",
     )
 
     # I/O
     parser.add_argument("--input", type=str, default=None,
-                        help="E1 results JSON (always under training phase root unless overridden). "
-                             "Default: results/{model_dir}/{training_phase}/e1_verbatim_{config}.json")
+                        help="E1 verbatim trace JSON (per-phase). "
+                             "Default: results/{model_dir}/e1/{training_phase}/e1_verbatim_{config}.json")
     parser.add_argument("--concepts_input", type=str, default=None,
-                        help="Ranked concepts JSON from e2_rank_concepts.py. "
-                             "Default: results/{model_dir}/{training_phase}/{e2_llm}/e2_concepts_ranked_{config}.json")
+                        help="Ranked concepts JSON from e2_rank_concepts.py (stage-independent). "
+                             "Default: results/{model_dir}/e2/{e2_llm}/e2_concepts_ranked_{config}.json")
     parser.add_argument("--output", type=str, default=None,
-                        help="Output JSON. "
-                             "Default: results/{model_dir}/{training_phase}/{e2_llm}/e2_cooccurrence_{config}.json")
+                        help="Output JSON (per-phase). "
+                             "Default: results/{model_dir}/e2/{e2_llm}/{training_phase}/e2_cooccurrence_{config}.json")
     parser.add_argument(
         "--e2-llm",
         type=str,
-        default="gpt-5.4-mini",
+        default="gpt-5-mini",
         dest="e2_llm",
         metavar="MODEL",
-        help="Subdirectory name for Stage 1/2 outputs (must match e2_extract_concepts / e2_rank_concepts). "
-             "E1 verbatim (--input default) stays under results/{model_dir}/{training_phase}/. "
+        help="E2 LLM subfolder name (must match e2_extract_concepts / e2_rank_concepts). "
+             "Stage 1+2 outputs live at results/{model_dir}/e2/{e2_llm}/ (stage-independent); "
+             "Stage 3 outputs live at results/{model_dir}/e2/{e2_llm}/{training_phase}/. "
              "Default: %(default)s.",
     )
 
@@ -245,15 +241,18 @@ def _with_topn_suffix(output_path: str, top_n: int) -> str:
 def resolve_phase_paths(args, training_phase: str, logger=None) -> tuple[str, str, str]:
     """Resolve (input, concepts_input, output) for a specific training phase.
 
-    E1 verbatim defaults to ``results/{out_dir}/{training_phase}/``.
-    Ranked concepts and cooccurrence default under
-    ``.../{training_phase}/{e2_llm}/`` (see ``--e2-llm``).
+    E1 verbatim defaults to ``results/{out_dir}/e1/{training_phase}/`` (per-phase).
+    Ranked concepts default to ``results/{out_dir}/e2/{e2_llm}/`` (stage-independent
+    — Stage 1+2 outputs are corpus-independent and shared across all phases).
+    Cooccurrence output defaults to ``results/{out_dir}/e2/{e2_llm}/{training_phase}/``
+    (per-phase).
 
     When args.training_phase == 'all', any explicit overrides for --input/--concepts_input/--output
     are ignored to avoid accidentally mixing phases.
     """
-    phase_root = model_results_root(args.model, training_phase)
-    e2_root = label_run_root(args.model, training_phase, args.e2_llm)
+    e1_root = e1_phase_root(args.model, training_phase)
+    concepts_root = e2_llm_root(args.model, args.e2_llm)
+    cooc_root = e2_cooc_root(args.model, args.e2_llm, training_phase)
 
     ignore_overrides = (args.training_phase == "all")
     if ignore_overrides and logger is not None:
@@ -264,21 +263,21 @@ def resolve_phase_paths(args, training_phase: str, logger=None) -> tuple[str, st
             )
 
     if ignore_overrides:
-        input_path = os.path.join(phase_root, f"e1_verbatim_{args.config}.json")
+        input_path = os.path.join(e1_root, f"e1_verbatim_{args.config}.json")
         concepts_path = os.path.join(
-            e2_root, f"e2_concepts_ranked_{args.config}.json"
+            concepts_root, f"e2_concepts_ranked_{args.config}.json"
         )
-        output_path = os.path.join(e2_root, f"e2_cooccurrence_{args.config}.json")
+        output_path = os.path.join(cooc_root, f"e2_cooccurrence_{args.config}.json")
         return input_path, concepts_path, output_path
 
     input_path = args.input or os.path.join(
-        phase_root, f"e1_verbatim_{args.config}.json"
+        e1_root, f"e1_verbatim_{args.config}.json"
     )
     concepts_path = args.concepts_input or os.path.join(
-        e2_root, f"e2_concepts_ranked_{args.config}.json"
+        concepts_root, f"e2_concepts_ranked_{args.config}.json"
     )
     output_path = args.output or os.path.join(
-        e2_root, f"e2_cooccurrence_{args.config}.json"
+        cooc_root, f"e2_cooccurrence_{args.config}.json"
     )
     return input_path, concepts_path, output_path
 
@@ -700,9 +699,10 @@ def run_one_phase(args, training_phase: str, logger, *, phase_index: int, total_
     logger.info("  Model: %s", args.model)
     logger.info("  Config: %s", args.config)
     logger.info(
-        "  --e2-llm: %s (ranked concepts + cooccurrence under %s)",
+        "  --e2-llm: %s (ranked concepts at %s; cooccurrence under %s)",
         phase_args.e2_llm,
-        label_run_root(args.model, training_phase, phase_args.e2_llm),
+        e2_llm_root(args.model, phase_args.e2_llm),
+        e2_cooc_root(args.model, phase_args.e2_llm, training_phase),
     )
     logger.info("  top_n: %s", top_n if top_n is not None else "ALL")
     logger.info("  Input (E1): %s", input_path)

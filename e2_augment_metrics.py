@@ -23,11 +23,11 @@ Idempotence: running the script twice on the same file yields the same result.
 
 Usage:
     # In-place update for a single file
-    python e2_augment_metrics.py --files results/olmo2_7b_instruct/pretraining/gpt-5-mini/e2_cooccurrence_standard_top10.json
+    python e2_augment_metrics.py --files results/olmo2_7b_instruct/e2/gpt-5-mini/pretraining/e2_cooccurrence_standard_top10.json
 
     # Batch update via glob (dry-run first to see what will change)
-    python e2_augment_metrics.py --glob 'results/olmo2_7b_instrct/pretraining/gpt-5-mini/e2_cooccurrence_standard_top*.json' --dry-run
-    python e2_augment_metrics.py --glob 'results/olmo2_*/pretraining/gpt-5-mini/e2_cooccurrence_standard_top*.json'
+    python e2_augment_metrics.py --glob 'results/olmo2_7b_instruct/e2/gpt-5-mini/*/e2_cooccurrence_standard_top*.json' --dry-run
+    python e2_augment_metrics.py --glob 'results/olmo2_*/e2/gpt-5-mini/*/e2_cooccurrence_standard_top*.json'
 
     # Write to a separate output directory (non-destructive)
     python e2_augment_metrics.py --glob 'results/**/e2_cooccurrence_*.json' --out-suffix .augmented

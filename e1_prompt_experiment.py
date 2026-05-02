@@ -10,9 +10,9 @@ Across configurable LLM models, then evaluate each against human ground truth.
 
 Usage:
     python e1_prompt_experiment.py \
-        --data   results/olmo2_7b_instruct/pretraining/e1_verbatim_standard.json \
-        --human  results/olmo2_7b_instruct/pretraining/span_safety_labels_test_human.csv \
-        --outdir results/olmo2_7b_instruct/pretraining/experiment \
+        --data   results/olmo2_7b_instruct/e1/pretraining/e1_verbatim_standard.json \
+        --human  results/olmo2_7b_instruct/e1/pretraining/span_safety_labels_test_human.csv \
+        --outdir results/olmo2_7b_instruct/e1/pretraining/experiment \
         --record_id 30
 
 Results are saved per condition/model and a summary table is printed.

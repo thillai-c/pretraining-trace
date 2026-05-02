@@ -6,16 +6,16 @@ infini-gram API/local engine, and adds ExampleSnippets field.
 Skips records that already have ExampleSnippets.
 
 Usage:
-    # OLMo 2 (API backend; default index -> results/{model_dir}/pretraining/...)
+    # OLMo 2 (API backend; default index -> results/{model_dir}/e1/pretraining/...)
     python e1_retrieve_snippets.py --model olmo2-1b
 
     # Multiple HarmBench configs in one run (same rules as e1_verbatim_trace.py for paths)
     python e1_retrieve_snippets.py --model olmo2-7b --configs contextual
 
-    # GPT-J (local Pile index -> flat results/{model_dir}/..., same as Phase 1)
+    # GPT-J (local Pile index -> flat results/{model_dir}/e1/, same as Phase 1)
     python e1_retrieve_snippets.py --model gpt-j --index_dir ./index
 
-    # Local dolmino -> results/{model_dir}/mid_training/...
+    # Local dolmino -> results/{model_dir}/e1/mid_training/...
     python e1_retrieve_snippets.py --model olmo2-7b --index_dir ./index/dolmino-mix-1124
 
     # Custom parameters
@@ -90,9 +90,9 @@ def _resolve_input_path(args, model_dir: str, config: str, multi: bool) -> str:
         sub = e1_results_subdir(args)
         if sub:
             return os.path.join(
-                "results", model_dir, sub, f"e1_verbatim_{config}.json"
+                "results", model_dir, "e1", sub, f"e1_verbatim_{config}.json"
             )
-        return os.path.join("results", model_dir, f"e1_verbatim_{config}.json")
+        return os.path.join("results", model_dir, "e1", f"e1_verbatim_{config}.json")
     if "{config}" in args.input or "{model_dir}" in args.input:
         return args.input.format(model_dir=model_dir, config=config)
     if multi:

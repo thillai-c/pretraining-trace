@@ -33,8 +33,10 @@ Usage:
 Reference:
     - utils.py: shared helpers (model params, logger, IO, JSON parsing)
     - e2_extract_concepts.py: Stage 1 (extraction) — produces this script's input
-    - Input:  results/{out_dir}/{training_phase}/{e2_llm}/e2_concepts_{config}.json
-    - Output: results/{out_dir}/{training_phase}/{e2_llm}/e2_concepts_ranked_{config}.json
+    - Input:  results/{out_dir}/e2/{e2_llm}/e2_concepts_{config}.json
+    - Output: results/{out_dir}/e2/{e2_llm}/e2_concepts_ranked_{config}.json
+    - Both Stage 1 input and Stage 2 output are corpus-independent and live at the
+      stage-independent location. ``--training-phase`` only labels the run.
 """
 
 import argparse
@@ -49,10 +51,8 @@ from openai import OpenAI
 
 from utils import (
     MODELS,
-    training_phases_when_all,
     get_model_params,
-    model_results_root,
-    label_run_root,
+    e2_llm_root,
     setup_logger,
     parse_llm_json,
     save_output_json,
@@ -166,20 +166,18 @@ Return ONLY the JSON object. No markdown fences, no commentary, no extra text.""
 # ============================================================
 
 def load_stage1_results(model_key: str, input_path: str = None,
-                        training_phase: str = None, config: str = "standard",
+                        config: str = "standard",
                         e2_llm: str = None):
     """Load Stage 1 extraction JSON for ``model_key``.
 
     Default: ``e2_concepts_{config}.json`` under
-    ``results/{out_dir}/{training_phase}/{e2_llm}/``. Pass ``input_path`` to override.
+    ``results/{out_dir}/e2/{e2_llm}/`` (stage-independent). Pass ``input_path`` to override.
     """
     if input_path is None:
-        if not training_phase:
-            raise ValueError("training_phase is required when input_path is None")
         if e2_llm is None:
             raise ValueError("e2_llm is required when input_path is None")
         input_path = os.path.join(
-            label_run_root(model_key, training_phase, e2_llm),
+            e2_llm_root(model_key, e2_llm),
             f"e2_concepts_{config}.json",
         )
     if not os.path.isfile(input_path):
@@ -481,7 +479,7 @@ def run_test(client, model_key, records, logger, training_phase,
     parsed = parse_llm_response(raw, logger)
     if parsed is None:
         logger.error("  Failed to parse LLM response. Raw output saved.")
-        results_root = label_run_root(model_key, training_phase, e2_llm)
+        results_root = e2_llm_root(model_key, e2_llm)
         debug_path = os.path.join(results_root, "e2_rank_test_raw_output.json")
         os.makedirs(os.path.dirname(debug_path) or ".", exist_ok=True)
         with open(debug_path, "w", encoding="utf-8") as f:
@@ -507,7 +505,7 @@ def run_test(client, model_key, records, logger, training_phase,
 
     s2_name = f"e2_concepts_ranked_{config}.json"
     test_path = os.path.join(
-        label_run_root(model_key, training_phase, e2_llm),
+        e2_llm_root(model_key, e2_llm),
         s2_name.replace(".json", "_test.json"),
     )
     output_row = build_record_output(rec, parsed, e2_llm)
@@ -527,7 +525,7 @@ def run_batch(client, model_key, records, logger, training_phase,
         return
 
     batch_dir = os.path.join(
-        label_run_root(model_key, training_phase, e2_llm),
+        e2_llm_root(model_key, e2_llm),
         "batch_e2_rank",
     )
     os.makedirs(batch_dir, exist_ok=True)
@@ -586,7 +584,6 @@ def run_batch(client, model_key, records, logger, training_phase,
         completion_window="24h",
         metadata={
             "model_key": model_key,
-            "training_phase": training_phase,
             "rank_model": e2_llm,
             "rank_prompt_version": RANK_PROMPT_VERSION,
             "description": "E2 Stage 2 concept ranking",
@@ -599,10 +596,8 @@ def run_batch(client, model_key, records, logger, training_phase,
     logger.info("  Batch ID: %s", batch.id)
     logger.info("  To collect results, run:")
     logger.info(
-        "    python e2_rank_concepts.py --model %s --training-phase %s "
-        "--config %s --collect",
+        "    python e2_rank_concepts.py --model %s --config %s --collect",
         model_key,
-        training_phase,
         config,
     )
     logger.info("=" * 70)
@@ -614,7 +609,6 @@ def run_batch(client, model_key, records, logger, training_phase,
             "batch_id": batch.id,
             "input_file_id": upload.id,
             "model_key": model_key,
-            "training_phase": training_phase,
             "harmbench_config": config,
             "rank_model": e2_llm,
             "e2_llm": e2_llm,
@@ -633,7 +627,7 @@ def run_batch(client, model_key, records, logger, training_phase,
 def run_collect(client, model_key, records, batch_id, logger,
                 training_phase, e2_llm: str, config: str = "standard"):
     """Retrieve batch results and convert to ranked JSON."""
-    results_root = label_run_root(model_key, training_phase, e2_llm)
+    results_root = e2_llm_root(model_key, e2_llm)
     batch_dir = os.path.join(results_root, "batch_e2_rank")
 
     # Check batch status
@@ -763,7 +757,7 @@ def run_retry(client, model_key, records, logger, training_phase,
               e2_llm: str, config: str = "standard"):
     """Re-run failed records from batch_errors.json synchronously,
     and merge results into the existing ranked output JSON."""
-    results_root = label_run_root(model_key, training_phase, e2_llm)
+    results_root = e2_llm_root(model_key, e2_llm)
     batch_dir = os.path.join(results_root, "batch_e2_rank")
     err_path = os.path.join(batch_dir, "batch_errors.json")
     output_path = os.path.join(
@@ -882,14 +876,12 @@ def parse_args():
     parser.add_argument(
         "--training-phase",
         type=str,
-        required=True,
-        choices=("pretraining", "mid_training", "post_training", "all"),
+        default="pretraining",
+        choices=("pretraining", "mid_training", "post_training"),
         dest="training_phase",
-        help="Training stage folder under results/{out_dir}/: pretraining, "
-             "mid_training, or post_training (Stage 1 input for this stage). "
-             "Use 'all' to run the selected mode once per phase: "
-             "base models use pretraining, mid_training; *-instruct models use "
-             "pretraining, mid_training, post_training.",
+        help="Cosmetic only: labels which phase this run is associated with. "
+             "Stage 1 input and Stage 2 output are corpus-independent and live "
+             "at results/{out_dir}/e2/{e2_llm}/ regardless of this flag.",
     )
     parser.add_argument("--config", type=str, default="standard",
                         help="HarmBench config: default Stage 1 input "
@@ -897,14 +889,14 @@ def parse_args():
                              "e2_concepts_ranked_{config}.json")
     parser.add_argument("--input", type=str, default=None,
                         help="Override Stage 1 input path (default: "
-                             "results/{out_dir}/{training_phase}/{e2_llm}/e2_concepts_{config}.json)")
+                             "results/{out_dir}/e2/{e2_llm}/e2_concepts_{config}.json)")
     parser.add_argument(
         "--e2-llm",
         type=str,
         default="gpt-5-mini",
         dest="e2_llm",
         help="OpenAI model used for E2 Stage 2 ranking AND the run subfolder name. "
-             "Stage 1 input and Stage 2 outputs live under results/{out_dir}/{training_phase}/{e2_llm}/ "
+             "Stage 1 input and Stage 2 outputs live under results/{out_dir}/e2/{e2_llm}/ "
              "(sanitized; default: %(default)s). Must match the directory used by e2_extract_concepts.py.",
     )
 
@@ -944,21 +936,17 @@ def run_one_phase(
 ) -> None:
     logger.info("=" * 70)
     logger.info("E2 Stage 2 — LLM-Based Concept Ranking")
-    if total_phases > 1:
-        logger.info("  Phase %d / %d: %s", phase_index + 1, total_phases, training_phase)
     logger.info("  Model: %s", args.model)
-    logger.info("  Training phase: %s", training_phase)
     logger.info("  HarmBench config: %s", args.config)
-    logger.info("  Phase results root: %s", model_results_root(args.model, training_phase))
-    logger.info("  E2 output root (--e2-llm): %s",
-                label_run_root(args.model, training_phase, args.e2_llm))
+    logger.info("  E2 root (--e2-llm, stage-independent): %s",
+                e2_llm_root(args.model, args.e2_llm))
     logger.info("  Rank LLM (--e2-llm): %s", args.e2_llm)
     logger.info("  Rank prompt version: %s", RANK_PROMPT_VERSION)
     logger.info("=" * 70)
 
     try:
         records = load_stage1_results(
-            args.model, input_path, training_phase, config=args.config,
+            args.model, input_path, config=args.config,
             e2_llm=args.e2_llm,
         )
     except FileNotFoundError as e:
@@ -981,7 +969,7 @@ def run_one_phase(
         batch_id = args.batch_id
         if not batch_id:
             meta_path = os.path.join(
-                label_run_root(args.model, training_phase, args.e2_llm),
+                e2_llm_root(args.model, args.e2_llm),
                 "batch_e2_rank",
                 "batch_metadata.json",
             )
@@ -1010,17 +998,10 @@ def main():
     args = parse_args()
     logger = setup_logger(args.model, "e2_rank_concepts", config=args.config)
 
-    phases = (
-        list(training_phases_when_all(args.model))
-        if args.training_phase == "all"
-        else [args.training_phase]
-    )
-    effective_input = None if (args.training_phase == "all" and args.input) else args.input
-
-    if args.training_phase == "all" and args.input:
-        logger.warning(
-            "--input is ignored when --training-phase all (using default JSON path per phase).",
-        )
+    # Stage 2 outputs are stage-independent; --training-phase is cosmetic.
+    # We always run exactly one phase.
+    phases = [args.training_phase]
+    effective_input = args.input
 
     # Init OpenAI client
     api_key = os.environ.get("OPENAI_API_KEY")
@@ -1030,11 +1011,6 @@ def main():
     client = OpenAI(api_key=api_key)
 
     n = len(phases)
-    if n > 1 and args.collect and args.batch_id:
-        logger.warning(
-            "--batch_id is set: the same ID will be used for every phase. "
-            "Usually omit --batch_id so each phase loads its own batch_metadata.json."
-        )
     for i, tp in enumerate(phases):
         run_one_phase(
             args,
