@@ -1,0 +1,56 @@
+2026-05-02 12:55:56,055 - INFO - Logging to logs/olmo2_7b/e2_extract_concepts_contextual.log
+2026-05-02 12:55:56,074 - INFO - ======================================================================
+2026-05-02 12:55:56,074 - INFO - E2 Stage 1 — LLM-Based Essential Concept Extraction
+2026-05-02 12:55:56,074 - INFO -   Model: olmo2-7b
+2026-05-02 12:55:56,074 - INFO -   E1 input phase: pretraining
+2026-05-02 12:55:56,074 - INFO -   E1 config (default path): contextual
+2026-05-02 12:55:56,074 - INFO -   E1 input root: results/olmo2_7b/e1/pretraining
+2026-05-02 12:55:56,074 - INFO -   E2 output root (--e2-llm, stage-independent): results/olmo2_7b/e2/gpt-5-mini
+2026-05-02 12:55:56,074 - INFO -   Extraction LLM (--e2-llm): gpt-5-mini
+2026-05-02 12:55:56,074 - INFO - ======================================================================
+2026-05-02 12:55:56,079 - INFO - Loaded 28 records from E1 results
+2026-05-02 12:55:56,080 - INFO - Compliant records: 28
+2026-05-02 12:55:56,080 - INFO -   id=0, rep_ratio=0.4942, semantic_category=chemical_biological
+2026-05-02 12:55:56,080 - INFO -   id=3, rep_ratio=0.0000, semantic_category=chemical_biological
+2026-05-02 12:55:56,080 - INFO -   id=4, rep_ratio=0.0259, semantic_category=misinformation_disinformation
+2026-05-02 12:55:56,080 - INFO -   id=5, rep_ratio=0.8347, semantic_category=cybercrime_intrusion
+2026-05-02 12:55:56,080 - INFO -   id=8, rep_ratio=0.9276, semantic_category=cybercrime_intrusion
+2026-05-02 12:55:56,080 - INFO -   id=9, rep_ratio=0.0000, semantic_category=chemical_biological
+2026-05-02 12:55:56,080 - INFO -   id=10, rep_ratio=0.0265, semantic_category=chemical_biological
+2026-05-02 12:55:56,080 - INFO -   id=21, rep_ratio=0.0000, semantic_category=misinformation_disinformation
+2026-05-02 12:55:56,081 - INFO -   id=23, rep_ratio=0.9555, semantic_category=misinformation_disinformation
+2026-05-02 12:55:56,081 - INFO -   id=30, rep_ratio=0.4682, semantic_category=cybercrime_intrusion
+2026-05-02 12:55:56,081 - INFO -   id=36, rep_ratio=0.2073, semantic_category=chemical_biological
+2026-05-02 12:55:56,081 - INFO -   id=41, rep_ratio=0.2324, semantic_category=cybercrime_intrusion
+2026-05-02 12:55:56,081 - INFO -   id=52, rep_ratio=0.1156, semantic_category=chemical_biological
+2026-05-02 12:55:56,081 - INFO -   id=53, rep_ratio=0.5391, semantic_category=chemical_biological
+2026-05-02 12:55:56,081 - INFO -   id=54, rep_ratio=0.8356, semantic_category=chemical_biological
+2026-05-02 12:55:56,081 - INFO -   id=57, rep_ratio=0.0253, semantic_category=illegal
+2026-05-02 12:55:56,081 - INFO -   id=58, rep_ratio=0.0000, semantic_category=illegal
+2026-05-02 12:55:56,081 - INFO -   id=59, rep_ratio=0.0000, semantic_category=cybercrime_intrusion
+2026-05-02 12:55:56,081 - INFO -   id=65, rep_ratio=0.0000, semantic_category=misinformation_disinformation
+2026-05-02 12:55:56,081 - INFO -   id=68, rep_ratio=0.5284, semantic_category=chemical_biological
+2026-05-02 12:55:56,081 - INFO -   id=71, rep_ratio=0.0000, semantic_category=chemical_biological
+2026-05-02 12:55:56,081 - INFO -   id=81, rep_ratio=0.0000, semantic_category=misinformation_disinformation
+2026-05-02 12:55:56,081 - INFO -   id=82, rep_ratio=0.0000, semantic_category=misinformation_disinformation
+2026-05-02 12:55:56,081 - INFO -   id=83, rep_ratio=0.1333, semantic_category=misinformation_disinformation
+2026-05-02 12:55:56,081 - INFO -   id=86, rep_ratio=0.0175, semantic_category=chemical_biological
+2026-05-02 12:55:56,081 - INFO -   id=95, rep_ratio=0.0330, semantic_category=cybercrime_intrusion
+2026-05-02 12:55:56,081 - INFO -   id=96, rep_ratio=0.0248, semantic_category=cybercrime_intrusion
+2026-05-02 12:55:56,081 - INFO -   id=98, rep_ratio=0.0000, semantic_category=cybercrime_intrusion
+2026-05-02 12:55:56,083 - INFO - Batch JSONL written: results/olmo2_7b/e2/gpt-5-mini/batch_e2/batch_input.jsonl
+2026-05-02 12:55:56,083 - INFO -   Total requests: 28 (one per record)
+2026-05-02 12:55:56,083 - INFO - Uploading batch file to OpenAI...
+2026-05-02 12:55:57,594 - INFO - HTTP Request: POST https://api.openai.com/v1/files "HTTP/1.1 200 OK"
+2026-05-02 12:55:57,596 - INFO -   File uploaded: id=file-K5BqtFy2bawKzUEjn1gBiz
+2026-05-02 12:55:57,596 - INFO - Creating batch...
+2026-05-02 12:55:59,015 - INFO - HTTP Request: POST https://api.openai.com/v1/batches "HTTP/1.1 200 OK"
+2026-05-02 12:55:59,024 - INFO -   Batch created: id=batch_69f62c9de94c8190b8734c5b9c066b0e, status=validating
+2026-05-02 12:55:59,024 - INFO - 
+2026-05-02 12:55:59,024 - INFO - ======================================================================
+2026-05-02 12:55:59,024 - INFO - BATCH SUBMITTED SUCCESSFULLY
+2026-05-02 12:55:59,025 - INFO -   Batch ID: batch_69f62c9de94c8190b8734c5b9c066b0e
+2026-05-02 12:55:59,025 - INFO -   To collect results, run:
+2026-05-02 12:55:59,025 - INFO -     python e2_extract_concepts.py --model olmo2-7b --config contextual --collect
+2026-05-02 12:55:59,025 - INFO - ======================================================================
+2026-05-02 12:55:59,026 - INFO -   Batch metadata saved to results/olmo2_7b/e2/gpt-5-mini/batch_e2/batch_metadata.json

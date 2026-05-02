@@ -17,7 +17,7 @@ Usage:
     python e2_extract_concepts.py --model olmo2-7b-instruct --training-phase pretraining --config standard --test --record_id 30
 
     # Batch mode: submit all compliant records to Batch API
-    python e2_extract_concepts.py --model olmo2-1b-instruct --training-phase post_training --config standard --batch
+    python e2_extract_concepts.py --model olmo2-1b --training-phase pretraining --config contextual --batch
 
     # Collect mode: retrieve batch results and save JSON
     python e2_extract_concepts.py --model olmo2-7b-instruct --training-phase mid_training --config standard --collect

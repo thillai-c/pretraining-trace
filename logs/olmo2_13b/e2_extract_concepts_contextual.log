@@ -1,0 +1,62 @@
+2026-05-02 12:56:29,489 - INFO - Logging to logs/olmo2_13b/e2_extract_concepts_contextual.log
+2026-05-02 12:56:29,507 - INFO - ======================================================================
+2026-05-02 12:56:29,507 - INFO - E2 Stage 1 — LLM-Based Essential Concept Extraction
+2026-05-02 12:56:29,507 - INFO -   Model: olmo2-13b
+2026-05-02 12:56:29,507 - INFO -   E1 input phase: pretraining
+2026-05-02 12:56:29,507 - INFO -   E1 config (default path): contextual
+2026-05-02 12:56:29,508 - INFO -   E1 input root: results/olmo2_13b/e1/pretraining
+2026-05-02 12:56:29,508 - INFO -   E2 output root (--e2-llm, stage-independent): results/olmo2_13b/e2/gpt-5-mini
+2026-05-02 12:56:29,508 - INFO -   Extraction LLM (--e2-llm): gpt-5-mini
+2026-05-02 12:56:29,508 - INFO - ======================================================================
+2026-05-02 12:56:29,516 - INFO - Loaded 34 records from E1 results
+2026-05-02 12:56:29,518 - INFO - Compliant records: 34
+2026-05-02 12:56:29,518 - INFO -   id=0, rep_ratio=0.6805, semantic_category=chemical_biological
+2026-05-02 12:56:29,518 - INFO -   id=1, rep_ratio=0.1914, semantic_category=chemical_biological
+2026-05-02 12:56:29,518 - INFO -   id=2, rep_ratio=0.0000, semantic_category=chemical_biological
+2026-05-02 12:56:29,518 - INFO -   id=3, rep_ratio=0.0948, semantic_category=chemical_biological
+2026-05-02 12:56:29,518 - INFO -   id=6, rep_ratio=0.0702, semantic_category=chemical_biological
+2026-05-02 12:56:29,518 - INFO -   id=7, rep_ratio=0.0000, semantic_category=illegal
+2026-05-02 12:56:29,518 - INFO -   id=9, rep_ratio=0.1148, semantic_category=chemical_biological
+2026-05-02 12:56:29,518 - INFO -   id=10, rep_ratio=0.0000, semantic_category=chemical_biological
+2026-05-02 12:56:29,518 - INFO -   id=18, rep_ratio=0.9009, semantic_category=misinformation_disinformation
+2026-05-02 12:56:29,518 - INFO -   id=29, rep_ratio=0.0000, semantic_category=harassment_bullying
+2026-05-02 12:56:29,518 - INFO -   id=31, rep_ratio=0.0028, semantic_category=harassment_bullying
+2026-05-02 12:56:29,518 - INFO -   id=34, rep_ratio=0.6246, semantic_category=illegal
+2026-05-02 12:56:29,518 - INFO -   id=36, rep_ratio=0.0616, semantic_category=chemical_biological
+2026-05-02 12:56:29,518 - INFO -   id=37, rep_ratio=0.0051, semantic_category=illegal
+2026-05-02 12:56:29,518 - INFO -   id=41, rep_ratio=0.1529, semantic_category=cybercrime_intrusion
+2026-05-02 12:56:29,518 - INFO -   id=44, rep_ratio=0.0173, semantic_category=chemical_biological
+2026-05-02 12:56:29,518 - INFO -   id=47, rep_ratio=0.0912, semantic_category=chemical_biological
+2026-05-02 12:56:29,518 - INFO -   id=49, rep_ratio=0.0628, semantic_category=chemical_biological
+2026-05-02 12:56:29,518 - INFO -   id=50, rep_ratio=0.0198, semantic_category=chemical_biological
+2026-05-02 12:56:29,518 - INFO -   id=53, rep_ratio=0.0831, semantic_category=chemical_biological
+2026-05-02 12:56:29,518 - INFO -   id=55, rep_ratio=0.0406, semantic_category=chemical_biological
+2026-05-02 12:56:29,518 - INFO -   id=56, rep_ratio=0.0000, semantic_category=cybercrime_intrusion
+2026-05-02 12:56:29,518 - INFO -   id=66, rep_ratio=0.1768, semantic_category=chemical_biological
+2026-05-02 12:56:29,518 - INFO -   id=67, rep_ratio=0.2628, semantic_category=chemical_biological
+2026-05-02 12:56:29,518 - INFO -   id=68, rep_ratio=0.0101, semantic_category=chemical_biological
+2026-05-02 12:56:29,519 - INFO -   id=70, rep_ratio=0.9742, semantic_category=chemical_biological
+2026-05-02 12:56:29,519 - INFO -   id=71, rep_ratio=0.1108, semantic_category=chemical_biological
+2026-05-02 12:56:29,519 - INFO -   id=73, rep_ratio=0.0000, semantic_category=misinformation_disinformation
+2026-05-02 12:56:29,519 - INFO -   id=74, rep_ratio=0.7511, semantic_category=misinformation_disinformation
+2026-05-02 12:56:29,519 - INFO -   id=75, rep_ratio=0.0315, semantic_category=misinformation_disinformation
+2026-05-02 12:56:29,519 - INFO -   id=85, rep_ratio=0.2466, semantic_category=chemical_biological
+2026-05-02 12:56:29,519 - INFO -   id=93, rep_ratio=0.8051, semantic_category=cybercrime_intrusion
+2026-05-02 12:56:29,519 - INFO -   id=95, rep_ratio=0.0554, semantic_category=cybercrime_intrusion
+2026-05-02 12:56:29,519 - INFO -   id=98, rep_ratio=0.0000, semantic_category=cybercrime_intrusion
+2026-05-02 12:56:29,522 - INFO - Batch JSONL written: results/olmo2_13b/e2/gpt-5-mini/batch_e2/batch_input.jsonl
+2026-05-02 12:56:29,522 - INFO -   Total requests: 34 (one per record)
+2026-05-02 12:56:29,522 - INFO - Uploading batch file to OpenAI...
+2026-05-02 12:56:30,677 - INFO - HTTP Request: POST https://api.openai.com/v1/files "HTTP/1.1 200 OK"
+2026-05-02 12:56:30,682 - INFO -   File uploaded: id=file-Uvuq4naT4rvqea8xbaXYsi
+2026-05-02 12:56:30,682 - INFO - Creating batch...
+2026-05-02 12:56:31,986 - INFO - HTTP Request: POST https://api.openai.com/v1/batches "HTTP/1.1 200 OK"
+2026-05-02 12:56:31,993 - INFO -   Batch created: id=batch_69f62cbef2e08190b74796a59c689fcb, status=validating
+2026-05-02 12:56:31,994 - INFO - 
+2026-05-02 12:56:31,994 - INFO - ======================================================================
+2026-05-02 12:56:31,994 - INFO - BATCH SUBMITTED SUCCESSFULLY
+2026-05-02 12:56:31,994 - INFO -   Batch ID: batch_69f62cbef2e08190b74796a59c689fcb
+2026-05-02 12:56:31,994 - INFO -   To collect results, run:
+2026-05-02 12:56:31,994 - INFO -     python e2_extract_concepts.py --model olmo2-13b --config contextual --collect
+2026-05-02 12:56:31,994 - INFO - ======================================================================
+2026-05-02 12:56:31,996 - INFO -   Batch metadata saved to results/olmo2_13b/e2/gpt-5-mini/batch_e2/batch_metadata.json
