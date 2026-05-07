@@ -188,9 +188,9 @@ def parse_args():
                         help="Enable Phase 2: retrieve corpus snippets for top-K spans")
     parser.add_argument("--max_docs_per_span", type=int, default=10,
                         help="Max documents to retrieve per span (OLMoTrace default: 10)")
-    parser.add_argument("--max_disp_len", type=int, default=80,
+    parser.add_argument("--max_disp_len", type=int, default=160,
                         help="Max tokens to display per document snippet "
-                             "(OLMoTrace default: 80)")
+                             "(default: 160; OLMoTrace original: 80)")
 
     # Processing
     parser.add_argument("--limit", type=int, default=None,
@@ -367,26 +367,62 @@ def filter_top_k_spans(engine, response_ids, maximal_spans, top_k_ratio,
 # ===========================================================================
 # Phase 2: Retrieve corpus snippets for top-K spans (OLMoTrace Step 3)
 # ===========================================================================
-def retrieve_snippets_for_span(engine, span_ids, max_docs, max_disp_len, tokenizer):
-    """
-    Retrieve up to max_docs document snippets containing the given span.
-      - Uses engine.find() → engine.get_doc_by_rank() for each occurrence.
-      - If span occurs more than max_docs times, randomly samples max_docs.
+def _join_with_boundary_space(pre: str, match: str, post: str) -> str:
+    """Join ``pre + match + post`` with a single space at any non-empty
+    boundary, defensively avoiding double spaces.
 
-    Robustness (added 2026-04-30 after blocked-snippet diagnosis):
-      - Every snippet record carries a ``blocked`` field (default False).
-      - API responses with ``blocked=True`` are preserved as marker entries
-        (snippet_text="") instead of being silently dropped.
-      - The API ``spans`` field is ``[(text, label), ...]`` where
-        ``label is None`` marks context segments and ``label == '0'`` marks
-        the matched needle. Response-level keeps PRE-context only (the
-        downstream labeler uses ~50-150 tokens of pre-needle context);
-        post-context is intentionally dropped to keep schema stable across
-        the 8 OLMo 2 models already labeled. Iteration stops at the first
-        ``label is not None`` segment.
-      - Rare server-side text loss (``text is None`` inside a label=None
-        segment) is replaced with "" and a single warning is emitted so
-        silent loss is detectable.
+    The infini-gram API tokenizer can split mid-word (e.g. "the199Os"),
+    so naive concatenation produces unreadable boundaries. This helper:
+      - skips empty parts entirely (no leading/trailing space artifact)
+      - uses ``rstrip()`` on ``pre`` and ``lstrip()`` on ``post`` so that
+        already-whitespace-padded boundaries don't double up
+      - leaves ``match`` untouched (it's the decoded query span, kept raw)
+
+    Raw segments remain available in ``pre_context_text`` / ``match_text``
+    / ``post_context_text`` for analyses that need exact boundaries.
+    """
+    parts = []
+    if pre:
+        parts.append(pre.rstrip())
+    if match:
+        parts.append(match)
+    if post:
+        parts.append(post.lstrip())
+    return " ".join(parts)
+
+
+def retrieve_snippets_for_span(engine, span_ids, max_docs, max_disp_len, tokenizer):
+    """Retrieve up to ``max_docs`` document snippets containing the given span,
+    each split into pre / match / post segments.
+
+    Per-snippet schema:
+        - doc_ix, doc_len, metadata          (engine-provided identity)
+        - blocked: bool                      (defensive marker; default False)
+        - pre_context_text:  str             (label=None segment(s) before match)
+        - match_text:        str             (label='0' segment, == decoded span_ids)
+        - post_context_text: str             (label=None segment(s) after match,
+                                              "" if needle is at doc end)
+        - snippet_text:      str             (pre/match/post joined with a
+                                              defensive single space at each
+                                              non-empty boundary; see
+                                              ``_join_with_boundary_space``)
+        - snippet_token_ids: list[int]       (raw token_ids returned by engine)
+
+    Backend handling:
+      - API mode (``InfiniGramAPIEngine``): parses ``spans = [(text, label), ...]``
+        where ``label is None`` marks context segments and ``label == '0'``
+        marks the matched needle. Multi-occurrence docs keep the FIRST match
+        and treat all label=None segments before/after it as pre/post.
+      - Local mode: splits ``token_ids`` via ``needle_offset`` (if the engine
+        provides it) and decodes each segment. Falls back to decoding the full
+        window into ``match_text`` if no offset info is available.
+
+    Robustness:
+      - ``blocked=True`` docs become marker entries (all *_text fields ""),
+        never silently dropped.
+      - Per-segment ``text`` of ``None`` (rare) is replaced with ``""`` and a
+        single warning is emitted so silent loss is detectable.
+      - Outer ``except`` logs unexpected per-doc errors but continues.
     """
     _log = logging.getLogger(__name__)
     find_result = engine.find(input_ids=span_ids)
@@ -416,9 +452,14 @@ def retrieve_snippets_for_span(engine, span_ids, max_docs, max_disp_len, tokeniz
                 break
             try:
                 if isinstance(engine, InfiniGramAPIEngine):
-                    doc = engine.get_doc_by_rank(s=s, rank=rank, max_disp_len=max_disp_len, query_ids=span_ids)
+                    doc = engine.get_doc_by_rank(
+                        s=s, rank=rank, max_disp_len=max_disp_len,
+                        query_ids=span_ids,
+                    )
                 else:
-                    doc = engine.get_doc_by_rank(s=s, rank=rank, max_disp_len=max_disp_len)
+                    doc = engine.get_doc_by_rank(
+                        s=s, rank=rank, max_disp_len=max_disp_len,
+                    )
 
                 if "error" in doc:
                     continue
@@ -434,52 +475,107 @@ def retrieve_snippets_for_span(engine, span_ids, max_docs, max_disp_len, tokeniz
 
                 if is_blocked:
                     # Preserve as marker entry — never silently drop.
-                    snippet_info["snippet_text"] = ""
-                    snippet_info["snippet_token_ids"] = []
+                    snippet_info.update({
+                        "pre_context_text": "",
+                        "match_text": "",
+                        "post_context_text": "",
+                        "snippet_text": "",
+                        "snippet_token_ids": [],
+                    })
                     snippets.append(snippet_info)
                     docs_retrieved += 1
                     continue
 
                 if isinstance(engine, InfiniGramAPIEngine) and "spans" in doc:
-                    # API mode: server returns spans = [(text, label), ...]
-                    # tuples — label=None marks context segments, label='0'
-                    # marks the matched needle. Response-level keeps
-                    # PRE-context only; iteration stops at the first
-                    # non-None label (i.e., when match begins).
+                    # API mode: parse the (text, label) segment list.
                     spans_data = doc.get("spans") or []
                     pre_text = ""
+                    match_text = ""
+                    post_text = ""
                     none_text_count = 0
+                    seen_match = False
                     for seg in spans_data:
                         if not seg or len(seg) < 2:
                             continue
                         text, label = seg[0], seg[1]
-                        if label is not None:
-                            break
                         if text is None:
                             none_text_count += 1
                             text = ""
-                        pre_text += text
+                        if label == "0" and not seen_match:
+                            match_text = text
+                            seen_match = True
+                        elif seen_match:
+                            post_text += text
+                        else:
+                            pre_text += text
                     if none_text_count > 0:
                         _log.warning(
-                            "doc_ix=%s has %d context segments with None text "
-                            "(non-blocked); pre-context reconstruction is partial",
+                            "doc_ix=%s has %d segments with None text "
+                            "(non-blocked); reconstruction is partial",
                             doc.get("doc_ix"), none_text_count,
                         )
-                    snippet_info["snippet_text"] = pre_text
+                    snippet_info["pre_context_text"] = pre_text
+                    snippet_info["match_text"] = match_text
+                    snippet_info["post_context_text"] = post_text
+                    snippet_info["snippet_text"] = _join_with_boundary_space(
+                        pre_text, match_text, post_text)
                     snippet_info["snippet_token_ids"] = doc.get("token_ids", [])
+
                 elif "token_ids" in doc and tokenizer is not None:
-                    # Local mode: decode token_ids
-                    try:
-                        snippet_info["snippet_text"] = tokenizer.decode(
-                            doc["token_ids"], skip_special_tokens=False
-                        )
-                        snippet_info["snippet_token_ids"] = doc["token_ids"]
-                    except Exception:
-                        snippet_info["snippet_text"] = ""
-                        snippet_info["snippet_token_ids"] = doc.get("token_ids", [])
+                    # Local engine: no spans field; split via needle_offset.
+                    tids = doc.get("token_ids", []) or []
+                    needle_offset = doc.get("needle_offset")
+                    needle_len = len(span_ids)
+                    pre_text = match_text = post_text = ""
+                    if (needle_offset is not None
+                            and isinstance(needle_offset, int)
+                            and needle_offset >= 0
+                            and needle_offset + needle_len <= len(tids)):
+                        try:
+                            pre_ids = tids[:needle_offset]
+                            match_ids = tids[needle_offset:needle_offset + needle_len]
+                            post_ids = tids[needle_offset + needle_len:]
+                            if pre_ids:
+                                pre_text = tokenizer.decode(
+                                    pre_ids, skip_special_tokens=False)
+                            if match_ids:
+                                match_text = tokenizer.decode(
+                                    match_ids, skip_special_tokens=False)
+                            if post_ids:
+                                post_text = tokenizer.decode(
+                                    post_ids, skip_special_tokens=False)
+                        except Exception as exc:
+                            _log.warning(
+                                "Local-mode decode failed for doc_ix=%s: %s",
+                                doc.get("doc_ix"), exc,
+                            )
+                            try:
+                                match_text = tokenizer.decode(
+                                    tids, skip_special_tokens=False)
+                            except Exception:
+                                match_text = ""
+                    else:
+                        # No needle offset info — best effort: decode full window.
+                        try:
+                            match_text = tokenizer.decode(
+                                tids, skip_special_tokens=False)
+                        except Exception:
+                            match_text = ""
+                    snippet_info["pre_context_text"] = pre_text
+                    snippet_info["match_text"] = match_text
+                    snippet_info["post_context_text"] = post_text
+                    snippet_info["snippet_text"] = _join_with_boundary_space(
+                        pre_text, match_text, post_text)
+                    snippet_info["snippet_token_ids"] = tids
+
                 else:
-                    snippet_info["snippet_text"] = ""
-                    snippet_info["snippet_token_ids"] = doc.get("token_ids", [])
+                    snippet_info.update({
+                        "pre_context_text": "",
+                        "match_text": "",
+                        "post_context_text": "",
+                        "snippet_text": "",
+                        "snippet_token_ids": doc.get("token_ids", []),
+                    })
 
                 snippets.append(snippet_info)
                 docs_retrieved += 1

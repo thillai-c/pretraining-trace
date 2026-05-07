@@ -168,8 +168,8 @@ def parse_args():
                         help="Phase 2: retrieve corpus snippets for top-K spans.")
     parser.add_argument("--max_docs_per_span", type=int, default=10,
                         help="Max documents to retrieve per span (default: 10).")
-    parser.add_argument("--max_disp_len", type=int, default=80,
-                        help="Max tokens to display per snippet (default: 80).")
+    parser.add_argument("--max_disp_len", type=int, default=160,
+                        help="Max tokens to display per snippet (default: 160).")
 
     # Test mode
     parser.add_argument("--test", action="store_true",

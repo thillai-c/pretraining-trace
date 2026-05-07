@@ -10,7 +10,7 @@ Usage:
     python e1_retrieve_snippets.py --model olmo2-1b
 
     # Multiple HarmBench configs in one run (same rules as e1_verbatim_trace.py for paths)
-    python e1_retrieve_snippets.py --model olmo2-7b --configs contextual
+    python e1_retrieve_snippets.py --model olmo2-32b --configs contextual --max_disp_len 160
 
     # GPT-J (local Pile index -> flat results/{model_dir}/e1/, same as Phase 1)
     python e1_retrieve_snippets.py --model gpt-j --index_dir ./index
@@ -139,8 +139,8 @@ def parse_args():
                         help="Tokenizer matching the infini-gram index")
     parser.add_argument("--max_docs_per_span", type=int, default=10,
                         help="Max documents to retrieve per span (default: 10)")
-    parser.add_argument("--max_disp_len", type=int, default=80,
-                        help="Max tokens per document snippet (default: 80)")
+    parser.add_argument("--max_disp_len", type=int, default=160,
+                        help="Max tokens per document snippet (default: 160)")
 
     return parser.parse_args()
 
