@@ -3,8 +3,9 @@ import json
 import csv
 import numpy as np
 
-def display_record(e1_result, id=None, index=None, *, config=None, model_dir=None, compact=False, 
-                   hide_prompt=False, show_e1=True, show_e2=False, indent=2):
+def display_record(e1_result, id=None, index=None, *, config=None, model_dir=None, compact=False,
+                   hide_prompt=False, show_e1=True, show_e2=False, indent=2,
+                   show_example_snippets=True):
     if config is not None or model_dir is not None:
         filtered = []
         for r in e1_result:
@@ -100,7 +101,7 @@ def display_record(e1_result, id=None, index=None, *, config=None, model_dir=Non
                 if key in e1_data:
                     e1_filtered[key] = e1_data[key]
 
-            if 'ExampleSnippets' in e1_data:
+            if show_example_snippets and 'ExampleSnippets' in e1_data:
                 span_text_counts = {}
                 for snippet in e1_data['ExampleSnippets']:
                     t = snippet.get('span_text', '')
@@ -308,6 +309,176 @@ def display_snippets(record, span_idx=None, max_snippet_chars=None):
     unique_total = sum(len(set(s.get('snippet_text', '') for s in sp.get('snippets', []))) for sp in shown_spans)
     print(f"Total: {len(shown_spans)} unique spans, {unique_total} unique / {total_snips} total snippets")
     print()
+
+
+def display_longest_match(record, max_snippet_chars=400, max_snippets=3):
+    """Compact display of the single LONGEST verbatim span + its corpus snippets.
+
+    Shows only the LongestMatchLen span (one with maximum span_length among
+    ExampleSnippets), plus the matched snippets + source identifiers. Omits
+    per-token frequency metadata, doc_len, blocked flags, and other clutter.
+    """
+    unique_spans = extract_unique_spans(record)
+    e1 = record['e1']
+    rid = record['id']
+
+    print(f"Record id={rid}    "
+          f"LongestMatchLen={e1.get('LongestMatchLen')}    "
+          f"num_maximal_spans={e1.get('num_maximal_spans')}    "
+          f"num_top_k_spans={e1.get('num_top_k_spans')}")
+    print()
+
+    if not unique_spans:
+        print('(no spans available)')
+        return
+
+    # Pick the single longest span (first one if tied).
+    sp = max(unique_spans, key=lambda s: s.get('span_length', 0))
+    span_text = sp.get('span_text', '')
+    span_len  = sp.get('span_length', 0)
+    print(f'Longest span (length={span_len}): '
+          f'{json.dumps(span_text, ensure_ascii=False)}')
+
+    # Dedup snippets by text, preserving order of first occurrence.
+    seen = set()
+    unique_snips = []
+    for sn in sp.get('snippets', []):
+        t = sn.get('snippet_text', '')
+        if t not in seen:
+            seen.add(t)
+            unique_snips.append(sn)
+
+    for sn in unique_snips[:max_snippets]:
+        stxt = sn.get('snippet_text', '')
+
+        # Source: prefer inner-metadata URL, fall back to outer corpus path.
+        md = sn.get('metadata')
+        if isinstance(md, str):
+            try:
+                md = json.loads(md)
+            except json.JSONDecodeError:
+                md = {}
+        md = md if isinstance(md, dict) else {}
+
+        inner = md.get('metadata')
+        if isinstance(inner, str):
+            try:
+                inner = json.loads(inner)
+            except json.JSONDecodeError:
+                inner = {}
+        inner = inner if isinstance(inner, dict) else {}
+
+        source = inner.get('id') or inner.get('url') or md.get('path') or '(no source)'
+
+        display_text = stxt
+        if max_snippet_chars and len(display_text) > max_snippet_chars:
+            display_text = display_text[:max_snippet_chars] + '…'
+
+        print(f"  • source:  {source}")
+        print(f"    snippet: {json.dumps(display_text, ensure_ascii=False)}")
+
+    if len(unique_snips) > max_snippets:
+        print(f"  (... {len(unique_snips) - max_snippets} more unique snippets omitted)")
+    print()
+
+
+def inspect_longest_match(mk, rid, *, df, all_e1, all_e2, repo_root,
+                          config='standard', top_n=10,
+                          max_snippet_chars=400, max_snippets=3):
+    """Inspect a single (model, id) record at the LongestMatchLen-span granularity.
+
+    Prints union metrics + response content + the single longest verbatim span
+    (with its corpus snippets) + E2 ranked concepts. Mirrors the per-record
+    block of the Phase 4 inspection loop, but focused on one record at a time
+    and only the LML span (not all maximal spans).
+
+    Args:
+        mk:                model key, e.g. 'olmo2-32b' / 'olmo2-1b-instruct'.
+        rid:               record id (int).
+        df:                joint pandas DataFrame (one row per (model, id)).
+        all_e1:            dict[mk] -> dict[rid] -> synth best-stage E1 record.
+        all_e2:            dict[mk] -> dict[rid] -> unioned E2 record.
+        repo_root:         pathlib.Path to repo root (for per-stage E1 file lookup).
+        config:            HarmBench config (default 'standard').
+        top_n:             how many ranked concepts to print.
+        max_snippet_chars: passed to display_longest_match.
+        max_snippets:      passed to display_longest_match.
+
+    Per-stage E1 record (the stage that contains the longest single span) is
+    used for display because synth_record drops top_k_spans / snippets — those
+    are stage-specific. Union metrics in df are still authoritative.
+    """
+    from utils import MODEL_CONFIGS, e1_phase_root  # deferred to avoid circular import
+
+    is_inst = (MODEL_CONFIGS[mk]['model_type'] == 'instruct')
+    stages  = (('pretraining', 'mid_training', 'post_training') if is_inst
+               else ('pretraining', 'mid_training'))
+
+    sub = df[(df['model'] == mk) & (df['id'] == rid)]
+    if len(sub) == 0:
+        print(f'[NOT FOUND in df] {mk} #{rid}')
+        return
+    r = sub.iloc[0]
+
+    print('\n' + '=' * 100)
+    print(f'  {mk} #{rid}    classifier_output=Type {r["type"]}')
+    print(f'  Union metrics (from joint df):')
+    print(f'    E1: LML={r["LML"]:.0f}  Cov_L8={r["Cov_L8"]:.3f}  num_spans={r["num_spans"]:.0f}')
+    print(f'    E2: nz_100={r["nz_100"]:.3f}  all0={r["all0"]:.0f}  '
+          f'log_cooc={r.get("log_cooc_100", float("nan")):.2f}')
+    print('=' * 100)
+
+    # Find per-stage record holding the longest single span (LML source).
+    best_stage   = None
+    best_rec     = None
+    best_max_len = -1
+    for ph in stages:
+        fp = repo_root / e1_phase_root(mk, ph) / f'e1_verbatim_{config}.json'
+        if not fp.is_file():
+            continue
+        with fp.open() as f:
+            for rec in json.load(f):
+                if rec.get('id') == rid:
+                    spans = rec.get('e1', {}).get('all_maximal_spans', [])
+                    max_len = max((s['end'] - s['begin'] for s in spans), default=0)
+                    if max_len > best_max_len:
+                        best_max_len = max_len
+                        best_stage   = ph
+                        best_rec     = rec
+                    break
+
+    if best_rec is None:
+        print('  (no per-stage record found)')
+        return
+
+    print(f'\n--- Display source: stage = {best_stage} '
+          f'(longest span lives here; top_k_spans + snippets are stage-specific) ---')
+
+    print('\n--- Response ---')
+    try:
+        display_record([best_rec], id=rid, compact=False, show_example_snippets=False)
+    except Exception as exc:
+        print(f'  display_record failed: {exc}')
+
+    print('\n--- Longest verbatim span + corpus snippets ---')
+    try:
+        display_longest_match(best_rec,
+                              max_snippet_chars=max_snippet_chars,
+                              max_snippets=max_snippets)
+    except Exception as exc:
+        print(f'  display_longest_match failed: {exc}')
+
+    e2_rec = all_e2.get(mk, {}).get(rid)
+    if e2_rec is not None:
+        ranked = e2_rec.get('e2', {}).get('ranked_concepts', [])[:top_n]
+        print(f'\n--- E2 top-{top_n} ranked concepts (3-stage union) ---')
+        for c in ranked:
+            text     = c.get('text', '?')
+            tier     = c.get('centrality', '?')
+            isolated = c.get('all_pairs_zero', False)
+            mark     = '  [ISOLATED]' if isolated else ''
+            print(f'  {tier:<11}  {text}{mark}')
+
 
 # ============================================================
 # Phase 2: Interactive Labeling

@@ -10,7 +10,7 @@ Usage:
     python e1_auto_label.py --model olmo2-7b --training-phase pretraining --test --record_id 30
 
     # Batch mode: submit all records to Batch API
-    python e1_auto_label.py --model olmo2-7b --training-phase pretraining --batch
+    python e1_auto_label.py --model olmo2-32b --training-phase pretraining --batch
 
     # Collect mode: retrieve batch results and save CSV
     python e1_auto_label.py --model olmo2-7b --training-phase pretraining --collect
@@ -1070,7 +1070,7 @@ def parse_args():
         "--training-phase",
         type=str,
         required=True,
-        choices=list(TRAINING_PHASES),
+        choices=("pretraining", "mid_training", "post_training", "all"),
         dest="training_phase",
         help="Phase folder for E1 input and label outputs: "
              "results/{out_dir}/e1/{phase}/e1_verbatim_{config}.json for input; "

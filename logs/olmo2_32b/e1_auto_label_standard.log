@@ -1,0 +1,2144 @@
+2026-05-04 14:24:58,004 - INFO - Logging to logs/olmo2_32b/e1_auto_label_standard.log
+2026-05-04 14:24:58,033 - INFO - ======================================================================
+2026-05-04 14:24:58,033 - INFO - E1 LLM-Assisted Span-Level Safety Labeling
+2026-05-04 14:24:58,034 - INFO -   Model: olmo2-32b
+2026-05-04 14:24:58,034 - INFO -   Config: standard
+2026-05-04 14:24:58,034 - INFO -   Training phase: pretraining
+2026-05-04 14:24:58,034 - INFO -   E1 input root: results/olmo2_32b/e1/pretraining
+2026-05-04 14:24:58,034 - INFO -   Label run root: results/olmo2_32b/e1/pretraining/gpt-4.1-mini
+2026-05-04 14:24:58,034 - INFO -   Label LLM (--e1-llm): gpt-4.1-mini
+2026-05-04 14:24:58,034 - INFO -   dotenv path: /Users/sol/Desktop/Natural Language Processing/Codes/pretraining-trace/.env
+2026-05-04 14:24:58,034 - INFO -   dotenv loaded: True
+2026-05-04 14:24:58,034 - INFO -   OPENAI_API_KEY: ****...vr0A
+2026-05-04 14:24:58,034 - INFO - ======================================================================
+2026-05-04 14:24:58,241 - INFO - Loaded 39 records from E1 results
+2026-05-04 14:24:58,246 - INFO - Compliant records: 39
+2026-05-04 14:24:58,247 - INFO -   id=0, rep_ratio=0.0060, pairs=73
+2026-05-04 14:24:58,248 - INFO -   id=3, rep_ratio=0.9686, pairs=194
+2026-05-04 14:24:58,248 - INFO -   id=11, rep_ratio=0.0187, pairs=48
+2026-05-04 14:24:58,249 - INFO -   id=12, rep_ratio=0.2162, pairs=126
+2026-05-04 14:24:58,250 - INFO -   id=25, rep_ratio=0.9776, pairs=68
+2026-05-04 14:24:58,250 - INFO -   id=30, rep_ratio=0.0456, pairs=65
+2026-05-04 14:24:58,251 - INFO -   id=31, rep_ratio=0.6040, pairs=101
+2026-05-04 14:24:58,251 - INFO -   id=41, rep_ratio=0.0000, pairs=23
+2026-05-04 14:24:58,252 - INFO -   id=42, rep_ratio=0.5533, pairs=163
+2026-05-04 14:24:58,253 - INFO -   id=50, rep_ratio=0.0000, pairs=61
+2026-05-04 14:24:58,254 - INFO -   id=52, rep_ratio=0.0000, pairs=207
+2026-05-04 14:24:58,255 - INFO -   id=56, rep_ratio=0.6861, pairs=116
+2026-05-04 14:24:58,256 - INFO -   id=79, rep_ratio=0.8658, pairs=130
+2026-05-04 14:24:58,257 - INFO -   id=80, rep_ratio=0.9161, pairs=111
+2026-05-04 14:24:58,257 - INFO -   id=84, rep_ratio=0.5720, pairs=91
+2026-05-04 14:24:58,258 - INFO -   id=87, rep_ratio=0.8659, pairs=71
+2026-05-04 14:24:58,259 - INFO -   id=91, rep_ratio=0.8474, pairs=133
+2026-05-04 14:24:58,259 - INFO -   id=99, rep_ratio=0.0645, pairs=23
+2026-05-04 14:24:58,260 - INFO -   id=101, rep_ratio=0.9743, pairs=100
+2026-05-04 14:24:58,260 - INFO -   id=117, rep_ratio=0.7598, pairs=83
+2026-05-04 14:24:58,261 - INFO -   id=119, rep_ratio=0.8667, pairs=81
+2026-05-04 14:24:58,262 - INFO -   id=128, rep_ratio=0.9733, pairs=97
+2026-05-04 14:24:58,263 - INFO -   id=135, rep_ratio=0.3517, pairs=125
+2026-05-04 14:24:58,264 - INFO -   id=143, rep_ratio=0.0358, pairs=165
+2026-05-04 14:24:58,264 - INFO -   id=150, rep_ratio=0.0613, pairs=43
+2026-05-04 14:24:58,265 - INFO -   id=153, rep_ratio=0.9169, pairs=100
+2026-05-04 14:24:58,266 - INFO -   id=154, rep_ratio=0.9059, pairs=67
+2026-05-04 14:24:58,267 - INFO -   id=156, rep_ratio=0.0223, pairs=145
+2026-05-04 14:24:58,269 - INFO -   id=159, rep_ratio=0.9755, pairs=338
+2026-05-04 14:24:58,270 - INFO -   id=162, rep_ratio=0.5801, pairs=129
+2026-05-04 14:24:58,271 - INFO -   id=165, rep_ratio=0.4052, pairs=100
+2026-05-04 14:24:58,271 - INFO -   id=166, rep_ratio=0.9000, pairs=85
+2026-05-04 14:24:58,272 - INFO -   id=174, rep_ratio=0.0944, pairs=96
+2026-05-04 14:24:58,273 - INFO -   id=188, rep_ratio=0.1070, pairs=65
+2026-05-04 14:24:58,274 - INFO -   id=191, rep_ratio=0.7831, pairs=130
+2026-05-04 14:24:58,274 - INFO -   id=192, rep_ratio=0.1188, pairs=83
+2026-05-04 14:24:58,275 - INFO -   id=193, rep_ratio=0.0398, pairs=92
+2026-05-04 14:24:58,275 - INFO -   id=196, rep_ratio=0.0000, pairs=16
+2026-05-04 14:24:58,276 - INFO -   id=197, rep_ratio=0.8767, pairs=178
+2026-05-04 14:24:58,317 - INFO - Batch JSONL written: results/olmo2_32b/e1/pretraining/gpt-4.1-mini/batch_e1/batch_input.jsonl
+2026-05-04 14:24:58,318 - INFO -   Records: 39, Total (span, snippet) pairs: 4122, API requests: 78
+2026-05-04 14:24:58,318 - INFO - Uploading batch file to OpenAI...
+2026-05-04 14:25:01,337 - INFO - HTTP Request: POST https://api.openai.com/v1/files "HTTP/1.1 200 OK"
+2026-05-04 14:25:01,340 - INFO -   File uploaded: id=file-1kby7yQJsSoiaWNu42N2JD
+2026-05-04 14:25:01,340 - INFO - Creating batch...
+2026-05-04 14:25:02,538 - INFO - HTTP Request: POST https://api.openai.com/v1/batches "HTTP/1.1 200 OK"
+2026-05-04 14:25:02,542 - INFO -   Batch created: id=batch_69f8e47d9c6c8190b0280cd55c2734ef, status=validating
+2026-05-04 14:25:02,542 - INFO - 
+2026-05-04 14:25:02,542 - INFO - ======================================================================
+2026-05-04 14:25:02,542 - INFO - BATCH SUBMITTED SUCCESSFULLY
+2026-05-04 14:25:02,542 - INFO -   Batch ID: batch_69f8e47d9c6c8190b0280cd55c2734ef
+2026-05-04 14:25:02,542 - INFO -   To collect results, run:
+2026-05-04 14:25:02,542 - INFO -     python e1_auto_label.py --model olmo2-32b --training-phase pretraining --e1-llm gpt-4.1-mini --collect --batch_id batch_69f8e47d9c6c8190b0280cd55c2734ef
+2026-05-04 14:25:02,543 - INFO - ======================================================================
+2026-05-04 14:25:02,543 - INFO -   Batch metadata saved to results/olmo2_32b/e1/pretraining/gpt-4.1-mini/batch_e1/batch_metadata.json
+2026-05-04 14:25:17,546 - INFO - Logging to logs/olmo2_32b/e1_auto_label_standard.log
+2026-05-04 14:25:17,565 - INFO - ======================================================================
+2026-05-04 14:25:17,565 - INFO - E1 LLM-Assisted Span-Level Safety Labeling
+2026-05-04 14:25:17,565 - INFO -   Model: olmo2-32b
+2026-05-04 14:25:17,565 - INFO -   Config: standard
+2026-05-04 14:25:17,565 - INFO -   Training phase: mid_training
+2026-05-04 14:25:17,565 - INFO -   E1 input root: results/olmo2_32b/e1/mid_training
+2026-05-04 14:25:17,565 - INFO -   Label run root: results/olmo2_32b/e1/mid_training/gpt-4.1-mini
+2026-05-04 14:25:17,565 - INFO -   Label LLM (--e1-llm): gpt-4.1-mini
+2026-05-04 14:25:17,565 - INFO -   dotenv path: /Users/sol/Desktop/Natural Language Processing/Codes/pretraining-trace/.env
+2026-05-04 14:25:17,565 - INFO -   dotenv loaded: True
+2026-05-04 14:25:17,565 - INFO -   OPENAI_API_KEY: ****...vr0A
+2026-05-04 14:25:17,565 - INFO - ======================================================================
+2026-05-04 14:25:17,683 - INFO - Loaded 39 records from E1 results
+2026-05-04 14:25:17,688 - INFO - Compliant records: 39
+2026-05-04 14:25:17,689 - INFO -   id=0, rep_ratio=0.0060, pairs=84
+2026-05-04 14:25:17,696 - INFO -   id=3, rep_ratio=0.9686, pairs=397
+2026-05-04 14:25:17,696 - INFO -   id=11, rep_ratio=0.0187, pairs=73
+2026-05-04 14:25:17,697 - INFO -   id=12, rep_ratio=0.2162, pairs=188
+2026-05-04 14:25:17,700 - INFO -   id=25, rep_ratio=0.9776, pairs=360
+2026-05-04 14:25:17,701 - INFO -   id=30, rep_ratio=0.0456, pairs=106
+2026-05-04 14:25:17,702 - INFO -   id=31, rep_ratio=0.6040, pairs=170
+2026-05-04 14:25:17,702 - INFO -   id=41, rep_ratio=0.0000, pairs=31
+2026-05-04 14:25:17,704 - INFO -   id=42, rep_ratio=0.5533, pairs=178
+2026-05-04 14:25:17,705 - INFO -   id=50, rep_ratio=0.0000, pairs=78
+2026-05-04 14:25:17,706 - INFO -   id=52, rep_ratio=0.0000, pairs=278
+2026-05-04 14:25:17,707 - INFO -   id=56, rep_ratio=0.6861, pairs=189
+2026-05-04 14:25:17,708 - INFO -   id=79, rep_ratio=0.8658, pairs=186
+2026-05-04 14:25:17,709 - INFO -   id=80, rep_ratio=0.9161, pairs=135
+2026-05-04 14:25:17,710 - INFO -   id=84, rep_ratio=0.5720, pairs=166
+2026-05-04 14:25:17,711 - INFO -   id=87, rep_ratio=0.8659, pairs=75
+2026-05-04 14:25:17,711 - INFO -   id=91, rep_ratio=0.8474, pairs=74
+2026-05-04 14:25:17,711 - INFO -   id=99, rep_ratio=0.0645, pairs=19
+2026-05-04 14:25:17,711 - INFO -   id=101, rep_ratio=0.9743, pairs=65
+2026-05-04 14:25:17,712 - INFO -   id=117, rep_ratio=0.7598, pairs=80
+2026-05-04 14:25:17,713 - INFO -   id=119, rep_ratio=0.8667, pairs=222
+2026-05-04 14:25:17,713 - INFO -   id=128, rep_ratio=0.9733, pairs=56
+2026-05-04 14:25:17,714 - INFO -   id=135, rep_ratio=0.3517, pairs=172
+2026-05-04 14:25:17,715 - INFO -   id=143, rep_ratio=0.0358, pairs=135
+2026-05-04 14:25:17,715 - INFO -   id=150, rep_ratio=0.0613, pairs=54
+2026-05-04 14:25:17,717 - INFO -   id=153, rep_ratio=0.9169, pairs=73
+2026-05-04 14:25:17,717 - INFO -   id=154, rep_ratio=0.9059, pairs=140
+2026-05-04 14:25:17,719 - INFO -   id=156, rep_ratio=0.0223, pairs=147
+2026-05-04 14:25:17,720 - INFO -   id=159, rep_ratio=0.9755, pairs=238
+2026-05-04 14:25:17,721 - INFO -   id=162, rep_ratio=0.5801, pairs=151
+2026-05-04 14:25:17,722 - INFO -   id=165, rep_ratio=0.4052, pairs=212
+2026-05-04 14:25:17,722 - INFO -   id=166, rep_ratio=0.9000, pairs=83
+2026-05-04 14:25:17,723 - INFO -   id=174, rep_ratio=0.0944, pairs=141
+2026-05-04 14:25:17,724 - INFO -   id=188, rep_ratio=0.1070, pairs=98
+2026-05-04 14:25:17,724 - INFO -   id=191, rep_ratio=0.7831, pairs=135
+2026-05-04 14:25:17,725 - INFO -   id=192, rep_ratio=0.1188, pairs=125
+2026-05-04 14:25:17,726 - INFO -   id=193, rep_ratio=0.0398, pairs=110
+2026-05-04 14:25:17,726 - INFO -   id=196, rep_ratio=0.0000, pairs=17
+2026-05-04 14:25:17,728 - INFO -   id=197, rep_ratio=0.8767, pairs=203
+2026-05-04 14:25:17,788 - INFO - Batch JSONL written: results/olmo2_32b/e1/mid_training/gpt-4.1-mini/batch_e1/batch_input.jsonl
+2026-05-04 14:25:17,788 - INFO -   Records: 39, Total (span, snippet) pairs: 5444, API requests: 78
+2026-05-04 14:25:17,788 - INFO - Uploading batch file to OpenAI...
+2026-05-04 14:25:20,184 - INFO - HTTP Request: POST https://api.openai.com/v1/files "HTTP/1.1 200 OK"
+2026-05-04 14:25:20,188 - INFO -   File uploaded: id=file-A5k5SMJj7FzJ89Vh6MPpDw
+2026-05-04 14:25:20,188 - INFO - Creating batch...
+2026-05-04 14:25:21,108 - INFO - HTTP Request: POST https://api.openai.com/v1/batches "HTTP/1.1 200 OK"
+2026-05-04 14:25:21,115 - INFO -   Batch created: id=batch_69f8e49086788190a1c999b90a75aede, status=validating
+2026-05-04 14:25:21,116 - INFO - 
+2026-05-04 14:25:21,116 - INFO - ======================================================================
+2026-05-04 14:25:21,116 - INFO - BATCH SUBMITTED SUCCESSFULLY
+2026-05-04 14:25:21,116 - INFO -   Batch ID: batch_69f8e49086788190a1c999b90a75aede
+2026-05-04 14:25:21,116 - INFO -   To collect results, run:
+2026-05-04 14:25:21,116 - INFO -     python e1_auto_label.py --model olmo2-32b --training-phase mid_training --e1-llm gpt-4.1-mini --collect --batch_id batch_69f8e49086788190a1c999b90a75aede
+2026-05-04 14:25:21,116 - INFO - ======================================================================
+2026-05-04 14:25:21,117 - INFO -   Batch metadata saved to results/olmo2_32b/e1/mid_training/gpt-4.1-mini/batch_e1/batch_metadata.json2026-05-05 13:46:30,296 - INFO - Logging to logs/olmo2_32b/e1_auto_label_standard.log
+2026-05-05 13:46:30,325 - INFO - ======================================================================
+2026-05-05 13:46:30,325 - INFO - E1 LLM-Assisted Span-Level Safety Labeling
+2026-05-05 13:46:30,325 - INFO -   Model: olmo2-32b
+2026-05-05 13:46:30,325 - INFO -   Config: standard
+2026-05-05 13:46:30,326 - INFO -   Training phase: pretraining
+2026-05-05 13:46:30,326 - INFO -   E1 input root: results/olmo2_32b/e1/pretraining
+2026-05-05 13:46:30,326 - INFO -   Label run root: results/olmo2_32b/e1/pretraining/gpt-4.1-mini
+2026-05-05 13:46:30,326 - INFO -   Label LLM (--e1-llm): gpt-4.1-mini
+2026-05-05 13:46:30,326 - INFO -   dotenv path: /Users/sol/Desktop/Natural Language Processing/Codes/pretraining-trace/.env
+2026-05-05 13:46:30,326 - INFO -   dotenv loaded: True
+2026-05-05 13:46:30,326 - INFO -   OPENAI_API_KEY: ****...vr0A
+2026-05-05 13:46:30,326 - INFO - ======================================================================
+2026-05-05 13:46:30,496 - INFO - Loaded 39 records from E1 results
+2026-05-05 13:46:30,500 - INFO - Compliant records: 39
+2026-05-05 13:46:30,501 - INFO -   id=0, rep_ratio=0.0060, pairs=73
+2026-05-05 13:46:30,503 - INFO -   id=3, rep_ratio=0.9686, pairs=194
+2026-05-05 13:46:30,503 - INFO -   id=11, rep_ratio=0.0187, pairs=48
+2026-05-05 13:46:30,504 - INFO -   id=12, rep_ratio=0.2162, pairs=126
+2026-05-05 13:46:30,504 - INFO -   id=25, rep_ratio=0.9776, pairs=68
+2026-05-05 13:46:30,505 - INFO -   id=30, rep_ratio=0.0456, pairs=65
+2026-05-05 13:46:30,506 - INFO -   id=31, rep_ratio=0.6040, pairs=101
+2026-05-05 13:46:30,508 - INFO -   id=41, rep_ratio=0.0000, pairs=23
+2026-05-05 13:46:30,509 - INFO -   id=42, rep_ratio=0.5533, pairs=163
+2026-05-05 13:46:30,509 - INFO -   id=50, rep_ratio=0.0000, pairs=61
+2026-05-05 13:46:30,511 - INFO -   id=52, rep_ratio=0.0000, pairs=207
+2026-05-05 13:46:30,511 - INFO -   id=56, rep_ratio=0.6861, pairs=116
+2026-05-05 13:46:30,512 - INFO -   id=79, rep_ratio=0.8658, pairs=130
+2026-05-05 13:46:30,513 - INFO -   id=80, rep_ratio=0.9161, pairs=111
+2026-05-05 13:46:30,514 - INFO -   id=84, rep_ratio=0.5720, pairs=91
+2026-05-05 13:46:30,514 - INFO -   id=87, rep_ratio=0.8659, pairs=71
+2026-05-05 13:46:30,515 - INFO -   id=91, rep_ratio=0.8474, pairs=133
+2026-05-05 13:46:30,515 - INFO -   id=99, rep_ratio=0.0645, pairs=23
+2026-05-05 13:46:30,516 - INFO -   id=101, rep_ratio=0.9743, pairs=100
+2026-05-05 13:46:30,516 - INFO -   id=117, rep_ratio=0.7598, pairs=83
+2026-05-05 13:46:30,517 - INFO -   id=119, rep_ratio=0.8667, pairs=81
+2026-05-05 13:46:30,518 - INFO -   id=128, rep_ratio=0.9733, pairs=97
+2026-05-05 13:46:30,519 - INFO -   id=135, rep_ratio=0.3517, pairs=125
+2026-05-05 13:46:30,520 - INFO -   id=143, rep_ratio=0.0358, pairs=165
+2026-05-05 13:46:30,521 - INFO -   id=150, rep_ratio=0.0613, pairs=43
+2026-05-05 13:46:30,522 - INFO -   id=153, rep_ratio=0.9169, pairs=100
+2026-05-05 13:46:30,522 - INFO -   id=154, rep_ratio=0.9059, pairs=67
+2026-05-05 13:46:30,523 - INFO -   id=156, rep_ratio=0.0223, pairs=145
+2026-05-05 13:46:30,525 - INFO -   id=159, rep_ratio=0.9755, pairs=338
+2026-05-05 13:46:30,526 - INFO -   id=162, rep_ratio=0.5801, pairs=129
+2026-05-05 13:46:30,527 - INFO -   id=165, rep_ratio=0.4052, pairs=100
+2026-05-05 13:46:30,527 - INFO -   id=166, rep_ratio=0.9000, pairs=85
+2026-05-05 13:46:30,528 - INFO -   id=174, rep_ratio=0.0944, pairs=96
+2026-05-05 13:46:30,529 - INFO -   id=188, rep_ratio=0.1070, pairs=65
+2026-05-05 13:46:30,530 - INFO -   id=191, rep_ratio=0.7831, pairs=130
+2026-05-05 13:46:30,530 - INFO -   id=192, rep_ratio=0.1188, pairs=83
+2026-05-05 13:46:30,531 - INFO -   id=193, rep_ratio=0.0398, pairs=92
+2026-05-05 13:46:30,531 - INFO -   id=196, rep_ratio=0.0000, pairs=16
+2026-05-05 13:46:30,532 - INFO -   id=197, rep_ratio=0.8767, pairs=178
+2026-05-05 13:46:30,533 - INFO - Loaded batch_id from metadata: batch_69f8e47d9c6c8190b0280cd55c2734ef
+2026-05-05 13:46:30,533 - INFO - Checking batch status for batch_69f8e47d9c6c8190b0280cd55c2734ef ...
+2026-05-05 13:46:31,764 - INFO - HTTP Request: GET https://api.openai.com/v1/batches/batch_69f8e47d9c6c8190b0280cd55c2734ef "HTTP/1.1 200 OK"
+2026-05-05 13:46:31,769 - INFO -   Status: in_progress
+2026-05-05 13:46:31,769 - INFO -   Request counts: BatchRequestCounts(completed=0, failed=0, total=78)
+2026-05-05 13:46:31,770 - INFO -   Batch still processing. Try again later.
+2026-05-05 13:51:52,433 - INFO - Logging to logs/olmo2_32b/e1_auto_label_standard.log
+2026-05-05 13:51:52,466 - INFO - ======================================================================
+2026-05-05 13:51:52,466 - INFO - E1 LLM-Assisted Span-Level Safety Labeling
+2026-05-05 13:51:52,466 - INFO -   Model: olmo2-32b
+2026-05-05 13:51:52,466 - INFO -   Config: standard
+2026-05-05 13:51:52,466 - INFO -   Training phase: mid_training
+2026-05-05 13:51:52,466 - INFO -   E1 input root: results/olmo2_32b/e1/mid_training
+2026-05-05 13:51:52,466 - INFO -   Label run root: results/olmo2_32b/e1/mid_training/gpt-4.1-mini
+2026-05-05 13:51:52,466 - INFO -   Label LLM (--e1-llm): gpt-4.1-mini
+2026-05-05 13:51:52,466 - INFO -   dotenv path: /Users/sol/Desktop/Natural Language Processing/Codes/pretraining-trace/.env
+2026-05-05 13:51:52,466 - INFO -   dotenv loaded: True
+2026-05-05 13:51:52,466 - INFO -   OPENAI_API_KEY: ****...vr0A
+2026-05-05 13:51:52,466 - INFO - ======================================================================
+2026-05-05 13:51:52,597 - INFO - Loaded 39 records from E1 results
+2026-05-05 13:51:52,602 - INFO - Compliant records: 39
+2026-05-05 13:51:52,602 - INFO -   id=0, rep_ratio=0.0060, pairs=84
+2026-05-05 13:51:52,609 - INFO -   id=3, rep_ratio=0.9686, pairs=397
+2026-05-05 13:51:52,610 - INFO -   id=11, rep_ratio=0.0187, pairs=73
+2026-05-05 13:51:52,610 - INFO -   id=12, rep_ratio=0.2162, pairs=188
+2026-05-05 13:51:52,613 - INFO -   id=25, rep_ratio=0.9776, pairs=360
+2026-05-05 13:51:52,614 - INFO -   id=30, rep_ratio=0.0456, pairs=106
+2026-05-05 13:51:52,615 - INFO -   id=31, rep_ratio=0.6040, pairs=170
+2026-05-05 13:51:52,615 - INFO -   id=41, rep_ratio=0.0000, pairs=31
+2026-05-05 13:51:52,617 - INFO -   id=42, rep_ratio=0.5533, pairs=178
+2026-05-05 13:51:52,618 - INFO -   id=50, rep_ratio=0.0000, pairs=78
+2026-05-05 13:51:52,620 - INFO -   id=52, rep_ratio=0.0000, pairs=278
+2026-05-05 13:51:52,621 - INFO -   id=56, rep_ratio=0.6861, pairs=189
+2026-05-05 13:51:52,622 - INFO -   id=79, rep_ratio=0.8658, pairs=186
+2026-05-05 13:51:52,622 - INFO -   id=80, rep_ratio=0.9161, pairs=135
+2026-05-05 13:51:52,624 - INFO -   id=84, rep_ratio=0.5720, pairs=166
+2026-05-05 13:51:52,624 - INFO -   id=87, rep_ratio=0.8659, pairs=75
+2026-05-05 13:51:52,624 - INFO -   id=91, rep_ratio=0.8474, pairs=74
+2026-05-05 13:51:52,625 - INFO -   id=99, rep_ratio=0.0645, pairs=19
+2026-05-05 13:51:52,625 - INFO -   id=101, rep_ratio=0.9743, pairs=65
+2026-05-05 13:51:52,625 - INFO -   id=117, rep_ratio=0.7598, pairs=80
+2026-05-05 13:51:52,626 - INFO -   id=119, rep_ratio=0.8667, pairs=222
+2026-05-05 13:51:52,627 - INFO -   id=128, rep_ratio=0.9733, pairs=56
+2026-05-05 13:51:52,629 - INFO -   id=135, rep_ratio=0.3517, pairs=172
+2026-05-05 13:51:52,629 - INFO -   id=143, rep_ratio=0.0358, pairs=135
+2026-05-05 13:51:52,629 - INFO -   id=150, rep_ratio=0.0613, pairs=54
+2026-05-05 13:51:52,630 - INFO -   id=153, rep_ratio=0.9169, pairs=73
+2026-05-05 13:51:52,631 - INFO -   id=154, rep_ratio=0.9059, pairs=140
+2026-05-05 13:51:52,632 - INFO -   id=156, rep_ratio=0.0223, pairs=147
+2026-05-05 13:51:52,634 - INFO -   id=159, rep_ratio=0.9755, pairs=238
+2026-05-05 13:51:52,634 - INFO -   id=162, rep_ratio=0.5801, pairs=151
+2026-05-05 13:51:52,636 - INFO -   id=165, rep_ratio=0.4052, pairs=212
+2026-05-05 13:51:52,636 - INFO -   id=166, rep_ratio=0.9000, pairs=83
+2026-05-05 13:51:52,637 - INFO -   id=174, rep_ratio=0.0944, pairs=141
+2026-05-05 13:51:52,638 - INFO -   id=188, rep_ratio=0.1070, pairs=98
+2026-05-05 13:51:52,639 - INFO -   id=191, rep_ratio=0.7831, pairs=135
+2026-05-05 13:51:52,639 - INFO -   id=192, rep_ratio=0.1188, pairs=125
+2026-05-05 13:51:52,640 - INFO -   id=193, rep_ratio=0.0398, pairs=110
+2026-05-05 13:51:52,640 - INFO -   id=196, rep_ratio=0.0000, pairs=17
+2026-05-05 13:51:52,642 - INFO -   id=197, rep_ratio=0.8767, pairs=203
+2026-05-05 13:51:52,643 - INFO - Loaded batch_id from metadata: batch_69f8e49086788190a1c999b90a75aede
+2026-05-05 13:51:52,643 - INFO - Checking batch status for batch_69f8e49086788190a1c999b90a75aede ...
+2026-05-05 13:51:53,115 - INFO - HTTP Request: GET https://api.openai.com/v1/batches/batch_69f8e49086788190a1c999b90a75aede "HTTP/1.1 200 OK"
+2026-05-05 13:51:53,121 - INFO -   Status: completed
+2026-05-05 13:51:53,121 - INFO -   Request counts: BatchRequestCounts(completed=78, failed=0, total=78)
+2026-05-05 13:51:53,121 - INFO -   Downloading output file: file-2XbKSsVQhQdQMCq7mDkcDC
+2026-05-05 13:51:54,401 - INFO - HTTP Request: GET https://api.openai.com/v1/files/file-2XbKSsVQhQdQMCq7mDkcDC/content "HTTP/1.1 200 OK"
+2026-05-05 13:51:55,402 - INFO -   Raw output saved to results/olmo2_32b/e1/mid_training/gpt-4.1-mini/batch_e1/batch_output.jsonl
+2026-05-05 13:51:55,468 - WARNING - Expected 397 labels, got 21
+2026-05-05 13:51:55,468 - WARNING - Expected 397 labels, got 11
+2026-05-05 13:51:55,469 - WARNING - Expected 188 labels, got 187
+2026-05-05 13:51:55,470 - WARNING - Expected 188 labels, got 187
+2026-05-05 13:51:55,470 - WARNING - Expected 360 labels, got 238
+2026-05-05 13:51:55,471 - WARNING - Expected 360 labels, got 93
+2026-05-05 13:51:55,472 - WARNING - Expected 170 labels, got 169
+2026-05-05 13:51:55,473 - WARNING - Expected 170 labels, got 126
+2026-05-05 13:51:55,475 - WARNING - Expected 178 labels, got 176
+2026-05-05 13:51:55,476 - WARNING - Expected 278 labels, got 268
+2026-05-05 13:51:55,476 - WARNING - Expected 278 labels, got 116
+2026-05-05 13:51:55,478 - WARNING - Expected 189 labels, got 186
+2026-05-05 13:51:55,478 - WARNING - Expected 189 labels, got 70
+2026-05-05 13:51:55,478 - WARNING - Expected 186 labels, got 188
+2026-05-05 13:51:55,479 - WARNING - Expected 186 labels, got 168
+2026-05-05 13:51:55,479 - WARNING - Expected 135 labels, got 128
+2026-05-05 13:51:55,480 - WARNING - Expected 135 labels, got 95
+2026-05-05 13:51:55,483 - WARNING - Expected 80 labels, got 66
+2026-05-05 13:51:55,483 - WARNING - Expected 222 labels, got 142
+2026-05-05 13:51:55,483 - WARNING - Expected 222 labels, got 89
+2026-05-05 13:51:55,484 - WARNING - Expected 172 labels, got 19
+2026-05-05 13:51:55,484 - WARNING - Expected 172 labels, got 108
+2026-05-05 13:51:55,486 - WARNING - Expected 73 labels, got 67
+2026-05-05 13:51:55,488 - WARNING - Expected 238 labels, got 2
+2026-05-05 13:51:55,488 - WARNING - Expected 238 labels, got 80
+2026-05-05 13:51:55,491 - WARNING - Expected 212 labels, got 210
+2026-05-05 13:51:55,491 - WARNING - Expected 141 labels, got 140
+2026-05-05 13:51:55,492 - WARNING - Expected 141 labels, got 121
+2026-05-05 13:51:55,493 - WARNING - Expected 135 labels, got 103
+2026-05-05 13:51:55,493 - WARNING - Expected 135 labels, got 103
+2026-05-05 13:51:55,494 - WARNING - Expected 125 labels, got 77
+2026-05-05 13:51:55,495 - WARNING - Expected 203 labels, got 204
+2026-05-05 13:51:55,496 - WARNING - Expected 203 labels, got 85
+2026-05-05 13:51:55,496 - WARNING - No context label found for span_idx=3, doc_ix=110652565
+2026-05-05 13:51:55,496 - WARNING - No context label found for span_idx=3, doc_ix=112204342
+2026-05-05 13:51:55,496 - WARNING - No context label found for span_idx=3, doc_ix=114730212
+2026-05-05 13:51:55,496 - WARNING - No context label found for span_idx=3, doc_ix=78418531
+2026-05-05 13:51:55,496 - WARNING - No context label found for span_idx=3, doc_ix=84768577
+2026-05-05 13:51:55,496 - WARNING - No context label found for span_idx=3, doc_ix=108980412
+2026-05-05 13:51:55,496 - WARNING - No context label found for span_idx=3, doc_ix=80878218
+2026-05-05 13:51:55,496 - WARNING - No context label found for span_idx=3, doc_ix=89369592
+2026-05-05 13:51:55,496 - WARNING - No context label found for span_idx=3, doc_ix=110286632
+2026-05-05 13:51:55,496 - WARNING - No context label found for span_idx=4, doc_ix=113618708
+2026-05-05 13:51:55,496 - WARNING - No context label found for span_idx=20, doc_ix=14395897
+2026-05-05 13:51:55,496 - WARNING - No context label found for span_idx=20, doc_ix=20519207
+2026-05-05 13:51:55,496 - WARNING - No context label found for span_idx=20, doc_ix=27078320
+2026-05-05 13:51:55,496 - WARNING - No context label found for span_idx=20, doc_ix=14826120
+2026-05-05 13:51:55,496 - WARNING - No context label found for span_idx=20, doc_ix=20308780
+2026-05-05 13:51:55,496 - WARNING - No context label found for span_idx=20, doc_ix=117118975
+2026-05-05 13:51:55,496 - WARNING - No context label found for span_idx=20, doc_ix=26413728
+2026-05-05 13:51:55,497 - WARNING - No context label found for span_idx=20, doc_ix=16306477
+2026-05-05 13:51:55,497 - WARNING - No context label found for span_idx=20, doc_ix=13683691
+2026-05-05 13:51:55,497 - WARNING - No context label found for span_idx=21, doc_ix=6954946
+2026-05-05 13:51:55,497 - WARNING - No context label found for span_idx=21, doc_ix=114386316
+2026-05-05 13:51:55,497 - WARNING - No context label found for span_idx=22, doc_ix=20519207
+2026-05-05 13:51:55,497 - WARNING - No context label found for span_idx=22, doc_ix=20154476
+2026-05-05 13:51:55,497 - WARNING - No context label found for span_idx=22, doc_ix=15541533
+2026-05-05 13:51:55,497 - WARNING - No context label found for span_idx=22, doc_ix=20898893
+2026-05-05 13:51:55,497 - WARNING - No context label found for span_idx=22, doc_ix=16156874
+2026-05-05 13:51:55,497 - WARNING - No context label found for span_idx=22, doc_ix=26413728
+2026-05-05 13:51:55,497 - WARNING - No context label found for span_idx=22, doc_ix=7007085
+2026-05-05 13:51:55,497 - WARNING - No context label found for span_idx=22, doc_ix=6275410
+2026-05-05 13:51:55,497 - WARNING - No context label found for span_idx=22, doc_ix=6610592
+2026-05-05 13:51:55,497 - WARNING - No context label found for span_idx=22, doc_ix=16594721
+2026-05-05 13:51:55,497 - WARNING - No context label found for span_idx=23, doc_ix=6954946
+2026-05-05 13:51:55,497 - WARNING - No context label found for span_idx=23, doc_ix=114386316
+2026-05-05 13:51:55,497 - WARNING - No context label found for span_idx=24, doc_ix=20519207
+2026-05-05 13:51:55,497 - WARNING - No context label found for span_idx=24, doc_ix=15149340
+2026-05-05 13:51:55,497 - WARNING - No context label found for span_idx=24, doc_ix=15541533
+2026-05-05 13:51:55,497 - WARNING - No context label found for span_idx=24, doc_ix=16156874
+2026-05-05 13:51:55,497 - WARNING - No context label found for span_idx=24, doc_ix=7364995
+2026-05-05 13:51:55,497 - WARNING - No context label found for span_idx=24, doc_ix=27085267
+2026-05-05 13:51:55,497 - WARNING - No context label found for span_idx=24, doc_ix=6610592
+2026-05-05 13:51:55,497 - WARNING - No context label found for span_idx=24, doc_ix=16204953
+2026-05-05 13:51:55,497 - WARNING - No context label found for span_idx=24, doc_ix=16594721
+2026-05-05 13:51:55,497 - WARNING - No context label found for span_idx=24, doc_ix=13683691
+2026-05-05 13:51:55,497 - WARNING - No context label found for span_idx=25, doc_ix=6954946
+2026-05-05 13:51:55,497 - WARNING - No context label found for span_idx=25, doc_ix=114386316
+2026-05-05 13:51:55,497 - WARNING - No context label found for span_idx=26, doc_ix=20308780
+2026-05-05 13:51:55,497 - WARNING - No context label found for span_idx=26, doc_ix=14090342
+2026-05-05 13:51:55,497 - WARNING - No context label found for span_idx=26, doc_ix=27078320
+2026-05-05 13:51:55,497 - WARNING - No context label found for span_idx=26, doc_ix=14826120
+2026-05-05 13:51:55,497 - WARNING - No context label found for span_idx=26, doc_ix=15149340
+2026-05-05 13:51:55,497 - WARNING - No context label found for span_idx=26, doc_ix=15864080
+2026-05-05 13:51:55,497 - WARNING - No context label found for span_idx=26, doc_ix=20898893
+2026-05-05 13:51:55,497 - WARNING - No context label found for span_idx=26, doc_ix=26413728
+2026-05-05 13:51:55,497 - WARNING - No context label found for span_idx=26, doc_ix=7007085
+2026-05-05 13:51:55,497 - WARNING - No context label found for span_idx=27, doc_ix=6954946
+2026-05-05 13:51:55,497 - WARNING - No context label found for span_idx=27, doc_ix=114386316
+2026-05-05 13:51:55,497 - WARNING - No context label found for span_idx=28, doc_ix=15149340
+2026-05-05 13:51:55,497 - WARNING - No context label found for span_idx=28, doc_ix=16465074
+2026-05-05 13:51:55,497 - WARNING - No context label found for span_idx=28, doc_ix=14090342
+2026-05-05 13:51:55,497 - WARNING - No context label found for span_idx=28, doc_ix=20308780
+2026-05-05 13:51:55,497 - WARNING - No context label found for span_idx=28, doc_ix=27078320
+2026-05-05 13:51:55,497 - WARNING - No context label found for span_idx=28, doc_ix=15188998
+2026-05-05 13:51:55,497 - WARNING - No context label found for span_idx=28, doc_ix=15858075
+2026-05-05 13:51:55,497 - WARNING - No context label found for span_idx=29, doc_ix=6954946
+2026-05-05 13:51:55,497 - WARNING - No context label found for span_idx=29, doc_ix=114386316
+2026-05-05 13:51:55,497 - WARNING - No context label found for span_idx=30, doc_ix=20154476
+2026-05-05 13:51:55,497 - WARNING - No context label found for span_idx=30, doc_ix=20154476
+2026-05-05 13:51:55,497 - WARNING - No context label found for span_idx=30, doc_ix=15864080
+2026-05-05 13:51:55,497 - WARNING - No context label found for span_idx=30, doc_ix=26413728
+2026-05-05 13:51:55,497 - WARNING - No context label found for span_idx=30, doc_ix=15188998
+2026-05-05 13:51:55,497 - WARNING - No context label found for span_idx=30, doc_ix=15262855
+2026-05-05 13:51:55,497 - WARNING - No context label found for span_idx=30, doc_ix=15756244
+2026-05-05 13:51:55,497 - WARNING - No context label found for span_idx=30, doc_ix=15858075
+2026-05-05 13:51:55,497 - WARNING - No context label found for span_idx=30, doc_ix=13086014
+2026-05-05 13:51:55,497 - WARNING - No context label found for span_idx=31, doc_ix=6954946
+2026-05-05 13:51:55,497 - WARNING - No context label found for span_idx=31, doc_ix=114386316
+2026-05-05 13:51:55,497 - WARNING - No context label found for span_idx=32, doc_ix=20154476
+2026-05-05 13:51:55,497 - WARNING - No context label found for span_idx=32, doc_ix=20154476
+2026-05-05 13:51:55,497 - WARNING - No context label found for span_idx=32, doc_ix=15541533
+2026-05-05 13:51:55,497 - WARNING - No context label found for span_idx=32, doc_ix=117118975
+2026-05-05 13:51:55,498 - WARNING - No context label found for span_idx=32, doc_ix=26413728
+2026-05-05 13:51:55,498 - WARNING - No context label found for span_idx=32, doc_ix=6275410
+2026-05-05 13:51:55,498 - WARNING - No context label found for span_idx=32, doc_ix=27085267
+2026-05-05 13:51:55,498 - WARNING - No context label found for span_idx=32, doc_ix=6610592
+2026-05-05 13:51:55,498 - WARNING - No context label found for span_idx=32, doc_ix=16594721
+2026-05-05 13:51:55,498 - WARNING - No context label found for span_idx=32, doc_ix=26541087
+2026-05-05 13:51:55,498 - WARNING - No context label found for span_idx=33, doc_ix=6954946
+2026-05-05 13:51:55,498 - WARNING - No context label found for span_idx=33, doc_ix=114386316
+2026-05-05 13:51:55,498 - WARNING - No context label found for span_idx=34, doc_ix=15149340
+2026-05-05 13:51:55,498 - WARNING - No context label found for span_idx=34, doc_ix=16465074
+2026-05-05 13:51:55,498 - WARNING - No context label found for span_idx=34, doc_ix=14875195
+2026-05-05 13:51:55,498 - WARNING - No context label found for span_idx=34, doc_ix=117118975
+2026-05-05 13:51:55,498 - WARNING - No context label found for span_idx=34, doc_ix=16156874
+2026-05-05 13:51:55,498 - WARNING - No context label found for span_idx=34, doc_ix=26413728
+2026-05-05 13:51:55,498 - WARNING - No context label found for span_idx=34, doc_ix=15188998
+2026-05-05 13:51:55,498 - WARNING - No context label found for span_idx=34, doc_ix=6610592
+2026-05-05 13:51:55,498 - WARNING - No context label found for span_idx=34, doc_ix=26806260
+2026-05-05 13:51:55,498 - WARNING - No context label found for span_idx=34, doc_ix=15858075
+2026-05-05 13:51:55,498 - WARNING - No context label found for span_idx=35, doc_ix=6954946
+2026-05-05 13:51:55,498 - WARNING - No context label found for span_idx=35, doc_ix=114386316
+2026-05-05 13:51:55,498 - WARNING - No context label found for span_idx=36, doc_ix=20519207
+2026-05-05 13:51:55,498 - WARNING - No context label found for span_idx=36, doc_ix=27078320
+2026-05-05 13:51:55,498 - WARNING - No context label found for span_idx=36, doc_ix=14826120
+2026-05-05 13:51:55,498 - WARNING - No context label found for span_idx=36, doc_ix=15864080
+2026-05-05 13:51:55,498 - WARNING - No context label found for span_idx=36, doc_ix=14875195
+2026-05-05 13:51:55,498 - WARNING - No context label found for span_idx=36, doc_ix=26413728
+2026-05-05 13:51:55,498 - WARNING - No context label found for span_idx=36, doc_ix=15188998
+2026-05-05 13:51:55,498 - WARNING - No context label found for span_idx=36, doc_ix=6610592
+2026-05-05 13:51:55,498 - WARNING - No context label found for span_idx=36, doc_ix=15756244
+2026-05-05 13:51:55,498 - WARNING - No context label found for span_idx=36, doc_ix=27075917
+2026-05-05 13:51:55,498 - WARNING - No context label found for span_idx=37, doc_ix=6954946
+2026-05-05 13:51:55,498 - WARNING - No context label found for span_idx=37, doc_ix=114386316
+2026-05-05 13:51:55,498 - WARNING - No context label found for span_idx=38, doc_ix=20308780
+2026-05-05 13:51:55,498 - WARNING - No context label found for span_idx=38, doc_ix=16465074
+2026-05-05 13:51:55,498 - WARNING - No context label found for span_idx=38, doc_ix=26616141
+2026-05-05 13:51:55,498 - WARNING - No context label found for span_idx=38, doc_ix=27078320
+2026-05-05 13:51:55,498 - WARNING - No context label found for span_idx=38, doc_ix=27078320
+2026-05-05 13:51:55,498 - WARNING - No context label found for span_idx=38, doc_ix=15541533
+2026-05-05 13:51:55,498 - WARNING - No context label found for span_idx=38, doc_ix=16306477
+2026-05-05 13:51:55,498 - WARNING - No context label found for span_idx=38, doc_ix=15262855
+2026-05-05 13:51:55,498 - WARNING - No context label found for span_idx=38, doc_ix=16204953
+2026-05-05 13:51:55,498 - WARNING - No context label found for span_idx=38, doc_ix=13683691
+2026-05-05 13:51:55,498 - WARNING - No context label found for span_idx=39, doc_ix=6954946
+2026-05-05 13:51:55,498 - WARNING - No context label found for span_idx=39, doc_ix=114386316
+2026-05-05 13:51:55,498 - WARNING - No context label found for span_idx=40, doc_ix=16465074
+2026-05-05 13:51:55,498 - WARNING - No context label found for span_idx=40, doc_ix=20154476
+2026-05-05 13:51:55,498 - WARNING - No context label found for span_idx=40, doc_ix=15541533
+2026-05-05 13:51:55,498 - WARNING - No context label found for span_idx=40, doc_ix=20898893
+2026-05-05 13:51:55,498 - WARNING - No context label found for span_idx=40, doc_ix=15407528
+2026-05-05 13:51:55,498 - WARNING - No context label found for span_idx=40, doc_ix=16306477
+2026-05-05 13:51:55,498 - WARNING - No context label found for span_idx=40, doc_ix=15188998
+2026-05-05 13:51:55,498 - WARNING - No context label found for span_idx=40, doc_ix=6610592
+2026-05-05 13:51:55,498 - WARNING - No context label found for span_idx=40, doc_ix=16594721
+2026-05-05 13:51:55,498 - WARNING - No context label found for span_idx=40, doc_ix=13086014
+2026-05-05 13:51:55,498 - WARNING - No context label found for span_idx=41, doc_ix=6954946
+2026-05-05 13:51:55,498 - WARNING - No context label found for span_idx=41, doc_ix=114386316
+2026-05-05 13:51:55,498 - WARNING - No context label found for span_idx=42, doc_ix=20519207
+2026-05-05 13:51:55,498 - WARNING - No context label found for span_idx=42, doc_ix=14826120
+2026-05-05 13:51:55,498 - WARNING - No context label found for span_idx=42, doc_ix=20154476
+2026-05-05 13:51:55,498 - WARNING - No context label found for span_idx=42, doc_ix=117118975
+2026-05-05 13:51:55,498 - WARNING - No context label found for span_idx=42, doc_ix=26413728
+2026-05-05 13:51:55,498 - WARNING - No context label found for span_idx=42, doc_ix=7007085
+2026-05-05 13:51:55,498 - WARNING - No context label found for span_idx=42, doc_ix=6275410
+2026-05-05 13:51:55,498 - WARNING - No context label found for span_idx=42, doc_ix=15188998
+2026-05-05 13:51:55,498 - WARNING - No context label found for span_idx=42, doc_ix=15756244
+2026-05-05 13:51:55,499 - WARNING - No context label found for span_idx=43, doc_ix=6954946
+2026-05-05 13:51:55,499 - WARNING - No context label found for span_idx=43, doc_ix=114386316
+2026-05-05 13:51:55,499 - WARNING - No context label found for span_idx=44, doc_ix=27078320
+2026-05-05 13:51:55,499 - WARNING - No context label found for span_idx=44, doc_ix=15864080
+2026-05-05 13:51:55,499 - WARNING - No context label found for span_idx=44, doc_ix=117118975
+2026-05-05 13:51:55,499 - WARNING - No context label found for span_idx=44, doc_ix=26413728
+2026-05-05 13:51:55,499 - WARNING - No context label found for span_idx=44, doc_ix=7364995
+2026-05-05 13:51:55,499 - WARNING - No context label found for span_idx=44, doc_ix=6275410
+2026-05-05 13:51:55,499 - WARNING - No context label found for span_idx=44, doc_ix=6610592
+2026-05-05 13:51:55,499 - WARNING - No context label found for span_idx=44, doc_ix=15756244
+2026-05-05 13:51:55,499 - WARNING - No context label found for span_idx=44, doc_ix=26541087
+2026-05-05 13:51:55,499 - WARNING - No context label found for span_idx=44, doc_ix=15858075
+2026-05-05 13:51:55,499 - WARNING - No context label found for span_idx=36, doc_ix=18577246
+2026-05-05 13:51:55,499 - WARNING - No context label found for span_idx=37, doc_ix=109305731
+2026-05-05 13:51:55,499 - WARNING - No context label found for span_idx=38, doc_ix=123162400
+2026-05-05 13:51:55,499 - WARNING - No context label found for span_idx=38, doc_ix=113522205
+2026-05-05 13:51:55,499 - WARNING - No context label found for span_idx=38, doc_ix=110249652
+2026-05-05 13:51:55,499 - WARNING - No context label found for span_idx=39, doc_ix=13710205
+2026-05-05 13:51:55,499 - WARNING - No context label found for span_idx=40, doc_ix=109305731
+2026-05-05 13:51:55,499 - WARNING - No context label found for span_idx=41, doc_ix=15876735
+2026-05-05 13:51:55,499 - WARNING - No context label found for span_idx=41, doc_ix=16589412
+2026-05-05 13:51:55,499 - WARNING - No context label found for span_idx=41, doc_ix=16242317
+2026-05-05 13:51:55,499 - WARNING - No context label found for span_idx=41, doc_ix=19043565
+2026-05-05 13:51:55,499 - WARNING - No context label found for span_idx=41, doc_ix=15992056
+2026-05-05 13:51:55,499 - WARNING - No context label found for span_idx=41, doc_ix=14785457
+2026-05-05 13:51:55,499 - WARNING - No context label found for span_idx=41, doc_ix=15453713
+2026-05-05 13:51:55,499 - WARNING - No context label found for span_idx=41, doc_ix=21817634
+2026-05-05 13:51:55,499 - WARNING - No context label found for span_idx=41, doc_ix=10070648
+2026-05-05 13:51:55,499 - WARNING - No context label found for span_idx=42, doc_ix=29143013
+2026-05-05 13:51:55,499 - WARNING - No context label found for span_idx=44, doc_ix=16589412
+2026-05-05 13:51:55,499 - WARNING - No context label found for span_idx=44, doc_ix=16242317
+2026-05-05 13:51:55,499 - WARNING - No context label found for span_idx=44, doc_ix=19043565
+2026-05-05 13:51:55,499 - WARNING - No context label found for span_idx=44, doc_ix=15992056
+2026-05-05 13:51:55,499 - WARNING - No context label found for span_idx=44, doc_ix=14785457
+2026-05-05 13:51:55,499 - WARNING - No context label found for span_idx=44, doc_ix=15453713
+2026-05-05 13:51:55,499 - WARNING - No context label found for span_idx=44, doc_ix=21817634
+2026-05-05 13:51:55,499 - WARNING - No context label found for span_idx=44, doc_ix=10070648
+2026-05-05 13:51:55,499 - WARNING - No context label found for span_idx=45, doc_ix=29143013
+2026-05-05 13:51:55,499 - WARNING - No context label found for span_idx=46, doc_ix=109305731
+2026-05-05 13:51:55,499 - WARNING - No context label found for span_idx=47, doc_ix=15876735
+2026-05-05 13:51:55,499 - WARNING - No context label found for span_idx=47, doc_ix=16589412
+2026-05-05 13:51:55,499 - WARNING - No context label found for span_idx=47, doc_ix=16242317
+2026-05-05 13:51:55,499 - WARNING - No context label found for span_idx=47, doc_ix=15992056
+2026-05-05 13:51:55,499 - WARNING - No context label found for span_idx=47, doc_ix=14785457
+2026-05-05 13:51:55,499 - WARNING - No context label found for span_idx=47, doc_ix=15453713
+2026-05-05 13:51:55,499 - WARNING - No context label found for span_idx=47, doc_ix=21817634
+2026-05-05 13:51:55,499 - WARNING - No context label found for span_idx=47, doc_ix=10070648
+2026-05-05 13:51:55,499 - WARNING - No context label found for span_idx=48, doc_ix=29143013
+2026-05-05 13:51:55,499 - WARNING - No context label found for span_idx=49, doc_ix=109305731
+2026-05-05 13:51:55,499 - WARNING - No context label found for span_idx=50, doc_ix=15876735
+2026-05-05 13:51:55,499 - WARNING - No context label found for span_idx=50, doc_ix=16589412
+2026-05-05 13:51:55,500 - WARNING - No context label found for span_idx=50, doc_ix=16242317
+2026-05-05 13:51:55,500 - WARNING - No context label found for span_idx=50, doc_ix=19043565
+2026-05-05 13:51:55,500 - WARNING - No context label found for span_idx=50, doc_ix=15992056
+2026-05-05 13:51:55,500 - WARNING - No context label found for span_idx=50, doc_ix=14785457
+2026-05-05 13:51:55,500 - WARNING - No context label found for span_idx=50, doc_ix=21817634
+2026-05-05 13:51:55,500 - WARNING - No context label found for span_idx=50, doc_ix=10070648
+2026-05-05 13:51:55,500 - WARNING - No context label found for span_idx=51, doc_ix=29143013
+2026-05-05 13:51:55,500 - WARNING - No context label found for span_idx=52, doc_ix=109305731
+2026-05-05 13:51:55,500 - WARNING - No context label found for span_idx=53, doc_ix=15876735
+2026-05-05 13:51:55,500 - WARNING - No context label found for span_idx=53, doc_ix=16589412
+2026-05-05 13:51:55,500 - WARNING - No context label found for span_idx=53, doc_ix=16242317
+2026-05-05 13:51:55,500 - WARNING - No context label found for span_idx=53, doc_ix=19043565
+2026-05-05 13:51:55,500 - WARNING - No context label found for span_idx=53, doc_ix=15992056
+2026-05-05 13:51:55,500 - WARNING - No context label found for span_idx=53, doc_ix=14785457
+2026-05-05 13:51:55,500 - WARNING - No context label found for span_idx=53, doc_ix=15453713
+2026-05-05 13:51:55,500 - WARNING - No context label found for span_idx=53, doc_ix=21817634
+2026-05-05 13:51:55,500 - WARNING - No context label found for span_idx=53, doc_ix=10070648
+2026-05-05 13:51:55,500 - WARNING - No context label found for span_idx=54, doc_ix=29143013
+2026-05-05 13:51:55,500 - WARNING - No context label found for span_idx=55, doc_ix=109305731
+2026-05-05 13:51:55,500 - WARNING - No context label found for span_idx=56, doc_ix=15876735
+2026-05-05 13:51:55,500 - WARNING - No context label found for span_idx=56, doc_ix=16242317
+2026-05-05 13:51:55,500 - WARNING - No context label found for span_idx=56, doc_ix=19043565
+2026-05-05 13:51:55,500 - WARNING - No context label found for span_idx=56, doc_ix=15992056
+2026-05-05 13:51:55,500 - WARNING - No context label found for span_idx=56, doc_ix=14785457
+2026-05-05 13:51:55,500 - WARNING - No context label found for span_idx=56, doc_ix=15453713
+2026-05-05 13:51:55,500 - WARNING - No context label found for span_idx=56, doc_ix=21817634
+2026-05-05 13:51:55,500 - WARNING - No context label found for span_idx=56, doc_ix=10070648
+2026-05-05 13:51:55,500 - WARNING - No context label found for span_idx=57, doc_ix=29143013
+2026-05-05 13:51:55,500 - WARNING - No context label found for span_idx=45, doc_ix=16907946
+2026-05-05 13:51:55,500 - WARNING - No context label found for span_idx=45, doc_ix=6508736
+2026-05-05 13:51:55,500 - WARNING - No context label found for span_idx=17, doc_ix=125078197
+2026-05-05 13:51:55,500 - WARNING - No context label found for span_idx=18, doc_ix=108979201
+2026-05-05 13:51:55,500 - WARNING - No context label found for span_idx=19, doc_ix=113010139
+2026-05-05 13:51:55,500 - WARNING - No context label found for span_idx=19, doc_ix=113010139
+2026-05-05 13:51:55,500 - WARNING - No context label found for span_idx=19, doc_ix=116283485
+2026-05-05 13:51:55,500 - WARNING - No context label found for span_idx=19, doc_ix=116596684
+2026-05-05 13:51:55,500 - WARNING - No context label found for span_idx=19, doc_ix=115845154
+2026-05-05 13:51:55,500 - WARNING - No context label found for span_idx=19, doc_ix=103045474
+2026-05-05 13:51:55,500 - WARNING - No context label found for span_idx=19, doc_ix=103045474
+2026-05-05 13:51:55,500 - WARNING - No context label found for span_idx=19, doc_ix=115845154
+2026-05-05 13:51:55,500 - WARNING - No context label found for span_idx=19, doc_ix=115845154
+2026-05-05 13:51:55,500 - WARNING - No context label found for span_idx=20, doc_ix=116867133
+2026-05-05 13:51:55,500 - WARNING - No context label found for span_idx=21, doc_ix=108979201
+2026-05-05 13:51:55,500 - WARNING - No context label found for span_idx=22, doc_ix=111213803
+2026-05-05 13:51:55,500 - WARNING - No context label found for span_idx=22, doc_ix=115845154
+2026-05-05 13:51:55,500 - WARNING - No context label found for span_idx=22, doc_ix=115845154
+2026-05-05 13:51:55,501 - WARNING - No context label found for span_idx=22, doc_ix=117014085
+2026-05-05 13:51:55,501 - WARNING - No context label found for span_idx=22, doc_ix=116596684
+2026-05-05 13:51:55,501 - WARNING - No context label found for span_idx=22, doc_ix=115845154
+2026-05-05 13:51:55,501 - WARNING - No context label found for span_idx=22, doc_ix=115845154
+2026-05-05 13:51:55,501 - WARNING - No context label found for span_idx=22, doc_ix=115845154
+2026-05-05 13:51:55,501 - WARNING - No context label found for span_idx=23, doc_ix=112095828
+2026-05-05 13:51:55,501 - WARNING - No context label found for span_idx=24, doc_ix=108979201
+2026-05-05 13:51:55,501 - WARNING - No context label found for span_idx=25, doc_ix=111213803
+2026-05-05 13:51:55,501 - WARNING - No context label found for span_idx=25, doc_ix=111213803
+2026-05-05 13:51:55,501 - WARNING - No context label found for span_idx=25, doc_ix=115845154
+2026-05-05 13:51:55,501 - WARNING - No context label found for span_idx=25, doc_ix=112299579
+2026-05-05 13:51:55,501 - WARNING - No context label found for span_idx=25, doc_ix=110112410
+2026-05-05 13:51:55,501 - WARNING - No context label found for span_idx=25, doc_ix=117014085
+2026-05-05 13:51:55,501 - WARNING - No context label found for span_idx=25, doc_ix=115845154
+2026-05-05 13:51:55,501 - WARNING - No context label found for span_idx=26, doc_ix=112095828
+2026-05-05 13:51:55,501 - WARNING - No context label found for span_idx=27, doc_ix=108979201
+2026-05-05 13:51:55,501 - WARNING - No context label found for span_idx=28, doc_ix=115845154
+2026-05-05 13:51:55,501 - WARNING - No context label found for span_idx=28, doc_ix=115845154
+2026-05-05 13:51:55,501 - WARNING - No context label found for span_idx=28, doc_ix=115845154
+2026-05-05 13:51:55,501 - WARNING - No context label found for span_idx=28, doc_ix=113010139
+2026-05-05 13:51:55,501 - WARNING - No context label found for span_idx=28, doc_ix=115845154
+2026-05-05 13:51:55,501 - WARNING - No context label found for span_idx=28, doc_ix=110112410
+2026-05-05 13:51:55,501 - WARNING - No context label found for span_idx=28, doc_ix=125078197
+2026-05-05 13:51:55,501 - WARNING - No context label found for span_idx=28, doc_ix=116596684
+2026-05-05 13:51:55,501 - WARNING - No context label found for span_idx=28, doc_ix=115845154
+2026-05-05 13:51:55,501 - WARNING - No context label found for span_idx=28, doc_ix=115845154
+2026-05-05 13:51:55,501 - WARNING - No context label found for span_idx=29, doc_ix=112095828
+2026-05-05 13:51:55,501 - WARNING - No context label found for span_idx=30, doc_ix=108979201
+2026-05-05 13:51:55,501 - WARNING - No context label found for span_idx=31, doc_ix=111213803
+2026-05-05 13:51:55,501 - WARNING - No context label found for span_idx=31, doc_ix=111213803
+2026-05-05 13:51:55,501 - WARNING - No context label found for span_idx=31, doc_ix=116283485
+2026-05-05 13:51:55,501 - WARNING - No context label found for span_idx=31, doc_ix=116596684
+2026-05-05 13:51:55,501 - WARNING - No context label found for span_idx=33, doc_ix=19449757
+2026-05-05 13:51:55,501 - WARNING - No context label found for span_idx=35, doc_ix=113010139
+2026-05-05 13:51:55,501 - WARNING - No context label found for span_idx=35, doc_ix=115845154
+2026-05-05 13:51:55,501 - WARNING - No context label found for span_idx=35, doc_ix=110013601
+2026-05-05 13:51:55,501 - WARNING - No context label found for span_idx=35, doc_ix=112299579
+2026-05-05 13:51:55,501 - WARNING - No context label found for span_idx=35, doc_ix=110760949
+2026-05-05 13:51:55,501 - WARNING - No context label found for span_idx=35, doc_ix=117014085
+2026-05-05 13:51:55,501 - WARNING - No context label found for span_idx=35, doc_ix=117014085
+2026-05-05 13:51:55,501 - WARNING - No context label found for span_idx=35, doc_ix=115845154
+2026-05-05 13:51:55,501 - WARNING - No context label found for span_idx=35, doc_ix=115845154
+2026-05-05 13:51:55,501 - WARNING - No context label found for span_idx=36, doc_ix=112095828
+2026-05-05 13:51:55,501 - WARNING - No context label found for span_idx=37, doc_ix=111269764
+2026-05-05 13:51:55,501 - WARNING - No context label found for span_idx=37, doc_ix=111269764
+2026-05-05 13:51:55,501 - WARNING - No context label found for span_idx=38, doc_ix=108979201
+2026-05-05 13:51:55,501 - WARNING - No context label found for span_idx=39, doc_ix=103045474
+2026-05-05 13:51:55,501 - WARNING - No context label found for span_idx=39, doc_ix=115845154
+2026-05-05 13:51:55,501 - WARNING - No context label found for span_idx=39, doc_ix=115845154
+2026-05-05 13:51:55,501 - WARNING - No context label found for span_idx=39, doc_ix=116596684
+2026-05-05 13:51:55,501 - WARNING - No context label found for span_idx=39, doc_ix=117014085
+2026-05-05 13:51:55,501 - WARNING - No context label found for span_idx=39, doc_ix=103045474
+2026-05-05 13:51:55,501 - WARNING - No context label found for span_idx=39, doc_ix=115845154
+2026-05-05 13:51:55,501 - WARNING - No context label found for span_idx=39, doc_ix=115845154
+2026-05-05 13:51:55,501 - WARNING - No context label found for span_idx=39, doc_ix=115845154
+2026-05-05 13:51:55,502 - WARNING - No context label found for span_idx=40, doc_ix=112095828
+2026-05-05 13:51:55,502 - WARNING - No context label found for span_idx=41, doc_ix=108979201
+2026-05-05 13:51:55,502 - WARNING - No context label found for span_idx=42, doc_ix=111213803
+2026-05-05 13:51:55,502 - WARNING - No context label found for span_idx=42, doc_ix=103045474
+2026-05-05 13:51:55,502 - WARNING - No context label found for span_idx=42, doc_ix=113010139
+2026-05-05 13:51:55,502 - WARNING - No context label found for span_idx=42, doc_ix=103045474
+2026-05-05 13:51:55,502 - WARNING - No context label found for span_idx=45, doc_ix=115845154
+2026-05-05 13:51:55,502 - WARNING - No context label found for span_idx=45, doc_ix=115845154
+2026-05-05 13:51:55,502 - WARNING - No context label found for span_idx=45, doc_ix=113010139
+2026-05-05 13:51:55,502 - WARNING - No context label found for span_idx=45, doc_ix=112299579
+2026-05-05 13:51:55,502 - WARNING - No context label found for span_idx=45, doc_ix=116283485
+2026-05-05 13:51:55,502 - WARNING - No context label found for span_idx=45, doc_ix=125078197
+2026-05-05 13:51:55,502 - WARNING - No context label found for span_idx=45, doc_ix=115845154
+2026-05-05 13:51:55,502 - WARNING - No context label found for span_idx=45, doc_ix=115845154
+2026-05-05 13:51:55,502 - WARNING - No context label found for span_idx=46, doc_ix=112095828
+2026-05-05 13:51:55,502 - WARNING - No context label found for span_idx=47, doc_ix=116773137
+2026-05-05 13:51:55,502 - WARNING - No context label found for span_idx=47, doc_ix=113181090
+2026-05-05 13:51:55,502 - WARNING - No context label found for span_idx=47, doc_ix=34279586
+2026-05-05 13:51:55,502 - WARNING - No context label found for span_idx=47, doc_ix=123649008
+2026-05-05 13:51:55,502 - WARNING - No context label found for span_idx=47, doc_ix=116305373
+2026-05-05 13:51:55,502 - WARNING - No context label found for span_idx=47, doc_ix=86906962
+2026-05-05 13:51:55,502 - WARNING - No context label found for span_idx=47, doc_ix=103957295
+2026-05-05 13:51:55,502 - WARNING - No context label found for span_idx=47, doc_ix=121379990
+2026-05-05 13:51:55,502 - WARNING - No context label found for span_idx=47, doc_ix=114774429
+2026-05-05 13:51:55,502 - WARNING - No context label found for span_idx=48, doc_ix=111190826
+2026-05-05 13:51:55,502 - WARNING - No context label found for span_idx=48, doc_ix=115880974
+2026-05-05 13:51:55,502 - WARNING - No context label found for span_idx=50, doc_ix=113010139
+2026-05-05 13:51:55,502 - WARNING - No context label found for span_idx=50, doc_ix=113010139
+2026-05-05 13:51:55,502 - WARNING - No context label found for span_idx=50, doc_ix=116596684
+2026-05-05 13:51:55,502 - WARNING - No context label found for span_idx=50, doc_ix=103045474
+2026-05-05 13:51:55,502 - WARNING - No context label found for span_idx=50, doc_ix=103045474
+2026-05-05 13:51:55,502 - WARNING - No context label found for span_idx=50, doc_ix=115513019
+2026-05-05 13:51:55,502 - WARNING - No context label found for span_idx=52, doc_ix=26624508
+2026-05-05 13:51:55,502 - WARNING - No context label found for span_idx=52, doc_ix=33878486
+2026-05-05 13:51:55,502 - WARNING - No context label found for span_idx=52, doc_ix=114515048
+2026-05-05 13:51:55,502 - WARNING - No context label found for span_idx=52, doc_ix=119837987
+2026-05-05 13:51:55,502 - WARNING - No context label found for span_idx=52, doc_ix=119835349
+2026-05-05 13:51:55,502 - WARNING - No context label found for span_idx=52, doc_ix=113220283
+2026-05-05 13:51:55,502 - WARNING - No context label found for span_idx=52, doc_ix=102056443
+2026-05-05 13:51:55,502 - WARNING - No context label found for span_idx=52, doc_ix=110198018
+2026-05-05 13:51:55,502 - WARNING - No context label found for span_idx=52, doc_ix=114722288
+2026-05-05 13:51:55,502 - WARNING - No context label found for span_idx=53, doc_ix=108979201
+2026-05-05 13:51:55,502 - WARNING - No context label found for span_idx=54, doc_ix=103045474
+2026-05-05 13:51:55,502 - WARNING - No context label found for span_idx=54, doc_ix=115845154
+2026-05-05 13:51:55,502 - WARNING - No context label found for span_idx=54, doc_ix=116596684
+2026-05-05 13:51:55,502 - WARNING - No context label found for span_idx=54, doc_ix=115845154
+2026-05-05 13:51:55,502 - WARNING - No context label found for span_idx=54, doc_ix=112299579
+2026-05-05 13:51:55,502 - WARNING - No context label found for span_idx=54, doc_ix=116596684
+2026-05-05 13:51:55,502 - WARNING - No context label found for span_idx=54, doc_ix=115845154
+2026-05-05 13:51:55,502 - WARNING - No context label found for span_idx=54, doc_ix=115845154
+2026-05-05 13:51:55,502 - WARNING - No context label found for span_idx=54, doc_ix=115513019
+2026-05-05 13:51:55,502 - WARNING - No context label found for span_idx=55, doc_ix=112095828
+2026-05-05 13:51:55,502 - WARNING - No context label found for span_idx=56, doc_ix=115224802
+2026-05-05 13:51:55,502 - WARNING - No context label found for span_idx=56, doc_ix=18019767
+2026-05-05 13:51:55,502 - WARNING - No context label found for span_idx=56, doc_ix=14328076
+2026-05-05 13:51:55,502 - WARNING - No context label found for span_idx=56, doc_ix=16579626
+2026-05-05 13:51:55,502 - WARNING - No context label found for span_idx=56, doc_ix=109571046
+2026-05-05 13:51:55,502 - WARNING - No context label found for span_idx=56, doc_ix=110594682
+2026-05-05 13:51:55,502 - WARNING - No context label found for span_idx=56, doc_ix=8631222
+2026-05-05 13:51:55,502 - WARNING - No context label found for span_idx=56, doc_ix=108227
+2026-05-05 13:51:55,502 - WARNING - No context label found for span_idx=56, doc_ix=116387401
+2026-05-05 13:51:55,502 - WARNING - No context label found for span_idx=56, doc_ix=117084598
+2026-05-05 13:51:55,502 - WARNING - No context label found for span_idx=59, doc_ix=110760949
+2026-05-05 13:51:55,502 - WARNING - No context label found for span_idx=59, doc_ix=117014085
+2026-05-05 13:51:55,503 - WARNING - No context label found for span_idx=61, doc_ix=33129353
+2026-05-05 13:51:55,503 - WARNING - No context label found for span_idx=61, doc_ix=113183014
+2026-05-05 13:51:55,503 - WARNING - No context label found for span_idx=61, doc_ix=115308254
+2026-05-05 13:51:55,503 - WARNING - No context label found for span_idx=61, doc_ix=29894083
+2026-05-05 13:51:55,503 - WARNING - No context label found for span_idx=61, doc_ix=96063846
+2026-05-05 13:51:55,503 - WARNING - No context label found for span_idx=61, doc_ix=16788190
+2026-05-05 13:51:55,503 - WARNING - No context label found for span_idx=61, doc_ix=115090772
+2026-05-05 13:51:55,503 - WARNING - No context label found for span_idx=61, doc_ix=120682005
+2026-05-05 13:51:55,503 - WARNING - No context label found for span_idx=61, doc_ix=110379996
+2026-05-05 13:51:55,503 - WARNING - No context label found for span_idx=62, doc_ix=108979201
+2026-05-05 13:51:55,503 - WARNING - No context label found for span_idx=63, doc_ix=103045474
+2026-05-05 13:51:55,503 - WARNING - No context label found for span_idx=63, doc_ix=115845154
+2026-05-05 13:51:55,503 - WARNING - No context label found for span_idx=63, doc_ix=111213803
+2026-05-05 13:51:55,503 - WARNING - No context label found for span_idx=63, doc_ix=116283485
+2026-05-05 13:51:55,503 - WARNING - No context label found for span_idx=63, doc_ix=115845154
+2026-05-05 13:51:55,503 - WARNING - No context label found for span_idx=63, doc_ix=117014085
+2026-05-05 13:51:55,503 - WARNING - No context label found for span_idx=63, doc_ix=115845154
+2026-05-05 13:51:55,503 - WARNING - No context label found for span_idx=63, doc_ix=115845154
+2026-05-05 13:51:55,503 - WARNING - No context label found for span_idx=63, doc_ix=103045474
+2026-05-05 13:51:55,503 - WARNING - No context label found for span_idx=64, doc_ix=112095828
+2026-05-05 13:51:55,503 - WARNING - No context label found for span_idx=65, doc_ix=108979201
+2026-05-05 13:51:55,503 - WARNING - No context label found for span_idx=66, doc_ix=111213803
+2026-05-05 13:51:55,503 - WARNING - No context label found for span_idx=66, doc_ix=116596684
+2026-05-05 13:51:55,503 - WARNING - No context label found for span_idx=66, doc_ix=113010139
+2026-05-05 13:51:55,503 - WARNING - No context label found for span_idx=66, doc_ix=113010139
+2026-05-05 13:51:55,503 - WARNING - No context label found for span_idx=66, doc_ix=116090521
+2026-05-05 13:51:55,503 - WARNING - No context label found for span_idx=66, doc_ix=117014085
+2026-05-05 13:51:55,503 - WARNING - No context label found for span_idx=66, doc_ix=115845154
+2026-05-05 13:51:55,503 - WARNING - No context label found for span_idx=66, doc_ix=117014085
+2026-05-05 13:51:55,503 - WARNING - No context label found for span_idx=66, doc_ix=103045474
+2026-05-05 13:51:55,503 - WARNING - No context label found for span_idx=66, doc_ix=103045474
+2026-05-05 13:51:55,503 - WARNING - No context label found for span_idx=67, doc_ix=112095828
+2026-05-05 13:51:55,503 - WARNING - No context label found for span_idx=5, doc_ix=59287970
+2026-05-05 13:51:55,503 - WARNING - No context label found for span_idx=8, doc_ix=59287970
+2026-05-05 13:51:55,503 - WARNING - No context label found for span_idx=9, doc_ix=59939351
+2026-05-05 13:51:55,503 - WARNING - No context label found for span_idx=9, doc_ix=59257949
+2026-05-05 13:51:55,503 - WARNING - No context label found for span_idx=9, doc_ix=59457241
+2026-05-05 13:51:55,503 - WARNING - No context label found for span_idx=9, doc_ix=59375457
+2026-05-05 13:51:55,503 - WARNING - No context label found for span_idx=9, doc_ix=58788148
+2026-05-05 13:51:55,503 - WARNING - No context label found for span_idx=9, doc_ix=59939351
+2026-05-05 13:51:55,503 - WARNING - No context label found for span_idx=10, doc_ix=58834828
+2026-05-05 13:51:55,503 - WARNING - No context label found for span_idx=10, doc_ix=59031550
+2026-05-05 13:51:55,503 - WARNING - No context label found for span_idx=10, doc_ix=60214375
+2026-05-05 13:51:55,503 - WARNING - No context label found for span_idx=10, doc_ix=59443679
+2026-05-05 13:51:55,503 - WARNING - No context label found for span_idx=10, doc_ix=60089003
+2026-05-05 13:51:55,503 - WARNING - No context label found for span_idx=11, doc_ix=59456433
+2026-05-05 13:51:55,503 - WARNING - No context label found for span_idx=11, doc_ix=58903550
+2026-05-05 13:51:55,503 - WARNING - No context label found for span_idx=11, doc_ix=59461506
+2026-05-05 13:51:55,504 - WARNING - No context label found for span_idx=11, doc_ix=59065555
+2026-05-05 13:51:55,504 - WARNING - No context label found for span_idx=11, doc_ix=113423108
+2026-05-05 13:51:55,504 - WARNING - No context label found for span_idx=11, doc_ix=119346437
+2026-05-05 13:51:55,504 - WARNING - No context label found for span_idx=11, doc_ix=58873247
+2026-05-05 13:51:55,504 - WARNING - No context label found for span_idx=11, doc_ix=118522310
+2026-05-05 13:51:55,504 - WARNING - No context label found for span_idx=11, doc_ix=59833525
+2026-05-05 13:51:55,504 - WARNING - No context label found for span_idx=12, doc_ix=112002286
+2026-05-05 13:51:55,504 - WARNING - No context label found for span_idx=12, doc_ix=109465618
+2026-05-05 13:51:55,504 - WARNING - No context label found for span_idx=12, doc_ix=88653663
+2026-05-05 13:51:55,504 - WARNING - No context label found for span_idx=12, doc_ix=112451045
+2026-05-05 13:51:55,504 - WARNING - No context label found for span_idx=12, doc_ix=109438205
+2026-05-05 13:51:55,504 - WARNING - No context label found for span_idx=12, doc_ix=110343021
+2026-05-05 13:51:55,504 - WARNING - No context label found for span_idx=12, doc_ix=110847638
+2026-05-05 13:51:55,504 - WARNING - No context label found for span_idx=12, doc_ix=113203841
+2026-05-05 13:51:55,504 - WARNING - No context label found for span_idx=12, doc_ix=114875698
+2026-05-05 13:51:55,504 - WARNING - No context label found for span_idx=13, doc_ix=116533913
+2026-05-05 13:51:55,504 - WARNING - No context label found for span_idx=13, doc_ix=110432598
+2026-05-05 13:51:55,504 - WARNING - No context label found for span_idx=15, doc_ix=59287970
+2026-05-05 13:51:55,504 - WARNING - No context label found for span_idx=16, doc_ix=59939351
+2026-05-05 13:51:55,504 - WARNING - No context label found for span_idx=16, doc_ix=59257949
+2026-05-05 13:51:55,504 - WARNING - No context label found for span_idx=16, doc_ix=59457241
+2026-05-05 13:51:55,504 - WARNING - No context label found for span_idx=16, doc_ix=59375457
+2026-05-05 13:51:55,504 - WARNING - No context label found for span_idx=16, doc_ix=58788148
+2026-05-05 13:51:55,504 - WARNING - No context label found for span_idx=16, doc_ix=59939351
+2026-05-05 13:51:55,504 - WARNING - No context label found for span_idx=17, doc_ix=114014536
+2026-05-05 13:51:55,504 - WARNING - No context label found for span_idx=17, doc_ix=113862801
+2026-05-05 13:51:55,504 - WARNING - No context label found for span_idx=17, doc_ix=114949736
+2026-05-05 13:51:55,504 - WARNING - No context label found for span_idx=17, doc_ix=113125128
+2026-05-05 13:51:55,504 - WARNING - No context label found for span_idx=17, doc_ix=91406940
+2026-05-05 13:51:55,504 - WARNING - No context label found for span_idx=17, doc_ix=116298847
+2026-05-05 13:51:55,504 - WARNING - No context label found for span_idx=17, doc_ix=113431892
+2026-05-05 13:51:55,504 - WARNING - No context label found for span_idx=17, doc_ix=13845431
+2026-05-05 13:51:55,504 - WARNING - No context label found for span_idx=18, doc_ix=59287970
+2026-05-05 13:51:55,505 - WARNING - No context label found for span_idx=19, doc_ix=59939351
+2026-05-05 13:51:55,505 - WARNING - No context label found for span_idx=19, doc_ix=59257949
+2026-05-05 13:51:55,505 - WARNING - No context label found for span_idx=19, doc_ix=59457241
+2026-05-05 13:51:55,505 - WARNING - No context label found for span_idx=19, doc_ix=59375457
+2026-05-05 13:51:55,505 - WARNING - No context label found for span_idx=19, doc_ix=58788148
+2026-05-05 13:51:55,505 - WARNING - No context label found for span_idx=19, doc_ix=59939351
+2026-05-05 13:51:55,505 - WARNING - No context label found for span_idx=20, doc_ix=59901764
+2026-05-05 13:51:55,505 - WARNING - No context label found for span_idx=22, doc_ix=59287970
+2026-05-05 13:51:55,505 - WARNING - No context label found for span_idx=23, doc_ix=119602592
+2026-05-05 13:51:55,505 - WARNING - No context label found for span_idx=23, doc_ix=117493383
+2026-05-05 13:51:55,505 - WARNING - No context label found for span_idx=23, doc_ix=119338623
+2026-05-05 13:51:55,505 - WARNING - No context label found for span_idx=23, doc_ix=59015667
+2026-05-05 13:51:55,505 - WARNING - No context label found for span_idx=23, doc_ix=59731540
+2026-05-05 13:51:55,505 - WARNING - No context label found for span_idx=23, doc_ix=118973991
+2026-05-05 13:51:55,505 - WARNING - No context label found for span_idx=23, doc_ix=117865109
+2026-05-05 13:51:55,505 - WARNING - No context label found for span_idx=23, doc_ix=58930228
+2026-05-05 13:51:55,505 - WARNING - No context label found for span_idx=23, doc_ix=118555861
+2026-05-05 13:51:55,505 - WARNING - No context label found for span_idx=24, doc_ix=114031902
+2026-05-05 13:51:55,505 - WARNING - No context label found for span_idx=24, doc_ix=111667297
+2026-05-05 13:51:55,505 - WARNING - No context label found for span_idx=24, doc_ix=111349137
+2026-05-05 13:51:55,505 - WARNING - No context label found for span_idx=24, doc_ix=89013386
+2026-05-05 13:51:55,505 - WARNING - No context label found for span_idx=24, doc_ix=116122231
+2026-05-05 13:51:55,505 - WARNING - No context label found for span_idx=24, doc_ix=110741997
+2026-05-05 13:51:55,505 - WARNING - No context label found for span_idx=24, doc_ix=109686729
+2026-05-05 13:51:55,505 - WARNING - No context label found for span_idx=24, doc_ix=112764291
+2026-05-05 13:51:55,505 - WARNING - No context label found for span_idx=24, doc_ix=112541000
+2026-05-05 13:51:55,505 - WARNING - No context label found for span_idx=25, doc_ix=116533913
+2026-05-05 13:51:55,505 - WARNING - No context label found for span_idx=25, doc_ix=110432598
+2026-05-05 13:51:55,505 - WARNING - No context label found for span_idx=27, doc_ix=116397180
+2026-05-05 13:51:55,505 - WARNING - No context label found for span_idx=27, doc_ix=111442970
+2026-05-05 13:51:55,505 - WARNING - No context label found for span_idx=27, doc_ix=115574164
+2026-05-05 13:51:55,505 - WARNING - No context label found for span_idx=27, doc_ix=81852500
+2026-05-05 13:51:55,505 - WARNING - No context label found for span_idx=27, doc_ix=112581988
+2026-05-05 13:51:55,505 - WARNING - No context label found for span_idx=27, doc_ix=110432598
+2026-05-05 13:51:55,505 - WARNING - No context label found for span_idx=27, doc_ix=101762623
+2026-05-05 13:51:55,505 - WARNING - No context label found for span_idx=27, doc_ix=113974622
+2026-05-05 13:51:55,505 - WARNING - No context label found for span_idx=36, doc_ix=114017602
+2026-05-05 13:51:55,505 - WARNING - No context label found for span_idx=37, doc_ix=111263445
+2026-05-05 13:51:55,505 - WARNING - No context label found for span_idx=38, doc_ix=109849694
+2026-05-05 13:51:55,505 - WARNING - No context label found for span_idx=39, doc_ix=115366727
+2026-05-05 13:51:55,505 - WARNING - No context label found for span_idx=40, doc_ix=114871436
+2026-05-05 13:51:55,505 - WARNING - No context label found for span_idx=41, doc_ix=110059721
+2026-05-05 13:51:55,505 - WARNING - No context label found for span_idx=42, doc_ix=114017602
+2026-05-05 13:51:55,505 - WARNING - No context label found for span_idx=43, doc_ix=111263445
+2026-05-05 13:51:55,505 - WARNING - No context label found for span_idx=44, doc_ix=109849694
+2026-05-05 13:51:55,505 - WARNING - No context label found for span_idx=45, doc_ix=115366727
+2026-05-05 13:51:55,505 - WARNING - No context label found for span_idx=46, doc_ix=114871436
+2026-05-05 13:51:55,505 - WARNING - No context label found for span_idx=47, doc_ix=110059721
+2026-05-05 13:51:55,505 - WARNING - No context label found for span_idx=48, doc_ix=114017602
+2026-05-05 13:51:55,505 - WARNING - No context label found for span_idx=49, doc_ix=111263445
+2026-05-05 13:51:55,505 - WARNING - No context label found for span_idx=50, doc_ix=109849694
+2026-05-05 13:51:55,505 - WARNING - No context label found for span_idx=51, doc_ix=115366727
+2026-05-05 13:51:55,505 - WARNING - No context label found for span_idx=52, doc_ix=114871436
+2026-05-05 13:51:55,505 - WARNING - No context label found for span_idx=53, doc_ix=110059721
+2026-05-05 13:51:55,505 - WARNING - No context label found for span_idx=54, doc_ix=114017602
+2026-05-05 13:51:55,505 - WARNING - No context label found for span_idx=55, doc_ix=111263445
+2026-05-05 13:51:55,505 - WARNING - No context label found for span_idx=56, doc_ix=109849694
+2026-05-05 13:51:55,505 - WARNING - No context label found for span_idx=57, doc_ix=115366727
+2026-05-05 13:51:55,505 - WARNING - No context label found for span_idx=58, doc_ix=114871436
+2026-05-05 13:51:55,505 - WARNING - No context label found for span_idx=59, doc_ix=110059721
+2026-05-05 13:51:55,505 - WARNING - No context label found for span_idx=60, doc_ix=114017602
+2026-05-05 13:51:55,506 - WARNING - No context label found for span_idx=61, doc_ix=111263445
+2026-05-05 13:51:55,506 - WARNING - No context label found for span_idx=19, doc_ix=43284762
+2026-05-05 13:51:55,506 - WARNING - No context label found for span_idx=52, doc_ix=117468366
+2026-05-05 13:51:55,506 - WARNING - No context label found for span_idx=52, doc_ix=118498458
+2026-05-05 13:51:55,506 - WARNING - No context label found for span_idx=52, doc_ix=118801401
+2026-05-05 13:51:55,506 - WARNING - No context label found for span_idx=52, doc_ix=13220300
+2026-05-05 13:51:55,506 - WARNING - No context label found for span_idx=52, doc_ix=118735770
+2026-05-05 13:51:55,506 - WARNING - No context label found for span_idx=52, doc_ix=119581650
+2026-05-05 13:51:55,506 - WARNING - No context label found for span_idx=53, doc_ix=13911708
+2026-05-05 13:51:55,506 - WARNING - No context label found for span_idx=53, doc_ix=13782254
+2026-05-05 13:51:55,506 - WARNING - No context label found for span_idx=53, doc_ix=13701869
+2026-05-05 13:51:55,506 - WARNING - No context label found for span_idx=53, doc_ix=20067159
+2026-05-05 13:51:55,506 - WARNING - No context label found for span_idx=54, doc_ix=6577020
+2026-05-05 13:51:55,506 - WARNING - No context label found for span_idx=55, doc_ix=43284762
+2026-05-05 13:51:55,506 - WARNING - No context label found for span_idx=55, doc_ix=16118875
+2026-05-05 13:51:55,506 - WARNING - No context label found for span_idx=55, doc_ix=16603369
+2026-05-05 13:51:55,506 - WARNING - No context label found for span_idx=55, doc_ix=15555545
+2026-05-05 13:51:55,506 - WARNING - No context label found for span_idx=55, doc_ix=15365322
+2026-05-05 13:51:55,506 - WARNING - No context label found for span_idx=55, doc_ix=16461583
+2026-05-05 13:51:55,506 - WARNING - No context label found for span_idx=55, doc_ix=219971
+2026-05-05 13:51:55,506 - WARNING - No context label found for span_idx=56, doc_ix=118543644
+2026-05-05 13:51:55,506 - WARNING - No context label found for span_idx=57, doc_ix=117379489
+2026-05-05 13:51:55,506 - WARNING - No context label found for span_idx=57, doc_ix=118130333
+2026-05-05 13:51:55,506 - WARNING - No context label found for span_idx=49, doc_ix=114637426
+2026-05-05 13:51:55,506 - WARNING - No context label found for span_idx=50, doc_ix=37282617
+2026-05-05 13:51:55,506 - WARNING - No context label found for span_idx=50, doc_ix=37527183
+2026-05-05 13:51:55,506 - WARNING - No context label found for span_idx=50, doc_ix=32834655
+2026-05-05 13:51:55,506 - WARNING - No context label found for span_idx=51, doc_ix=120403575
+2026-05-05 13:51:55,506 - WARNING - No context label found for span_idx=51, doc_ix=120508996
+2026-05-05 13:51:55,506 - WARNING - No context label found for span_idx=52, doc_ix=115685255
+2026-05-05 13:51:55,506 - WARNING - No context label found for span_idx=52, doc_ix=91968910
+2026-05-05 13:51:55,506 - WARNING - No context label found for span_idx=52, doc_ix=26403164
+2026-05-05 13:51:55,506 - WARNING - No context label found for span_idx=52, doc_ix=116523478
+2026-05-05 13:51:55,506 - WARNING - No context label found for span_idx=53, doc_ix=116059278
+2026-05-05 13:51:55,506 - WARNING - No context label found for span_idx=54, doc_ix=112075932
+2026-05-05 13:51:55,506 - WARNING - No context label found for span_idx=55, doc_ix=110733880
+2026-05-05 13:51:55,506 - WARNING - No context label found for span_idx=56, doc_ix=115958123
+2026-05-05 13:51:55,506 - WARNING - No context label found for span_idx=56, doc_ix=49453959
+2026-05-05 13:51:55,506 - WARNING - No context label found for span_idx=56, doc_ix=112012518
+2026-05-05 13:51:55,506 - WARNING - No context label found for span_idx=56, doc_ix=111470133
+2026-05-05 13:51:55,506 - WARNING - No context label found for span_idx=57, doc_ix=55801799
+2026-05-05 13:51:55,506 - WARNING - No context label found for span_idx=57, doc_ix=42574297
+2026-05-05 13:51:55,506 - WARNING - No context label found for span_idx=57, doc_ix=54487780
+2026-05-05 13:51:55,506 - WARNING - No context label found for span_idx=58, doc_ix=114637426
+2026-05-05 13:51:55,506 - WARNING - No context label found for span_idx=59, doc_ix=37282617
+2026-05-05 13:51:55,506 - WARNING - No context label found for span_idx=59, doc_ix=37527183
+2026-05-05 13:51:55,506 - WARNING - No context label found for span_idx=59, doc_ix=32834655
+2026-05-05 13:51:55,506 - WARNING - No context label found for span_idx=60, doc_ix=120403575
+2026-05-05 13:51:55,506 - WARNING - No context label found for span_idx=60, doc_ix=120508996
+2026-05-05 13:51:55,506 - WARNING - No context label found for span_idx=61, doc_ix=115685255
+2026-05-05 13:51:55,506 - WARNING - No context label found for span_idx=61, doc_ix=91968910
+2026-05-05 13:51:55,506 - WARNING - No context label found for span_idx=61, doc_ix=26403164
+2026-05-05 13:51:55,507 - WARNING - No context label found for span_idx=61, doc_ix=116523478
+2026-05-05 13:51:55,507 - WARNING - No context label found for span_idx=62, doc_ix=116059278
+2026-05-05 13:51:55,507 - WARNING - No context label found for span_idx=63, doc_ix=112075932
+2026-05-05 13:51:55,507 - WARNING - No context label found for span_idx=64, doc_ix=110733880
+2026-05-05 13:51:55,507 - WARNING - No context label found for span_idx=46, doc_ix=117237247
+2026-05-05 13:51:55,507 - WARNING - No context label found for span_idx=47, doc_ix=111703668
+2026-05-05 13:51:55,507 - WARNING - No context label found for span_idx=47, doc_ix=6147359
+2026-05-05 13:51:55,507 - WARNING - No context label found for span_idx=48, doc_ix=101304955
+2026-05-05 13:51:55,507 - WARNING - No context label found for span_idx=49, doc_ix=119849536
+2026-05-05 13:51:55,507 - WARNING - No context label found for span_idx=50, doc_ix=116357372
+2026-05-05 13:51:55,507 - WARNING - No context label found for span_idx=51, doc_ix=115921706
+2026-05-05 13:51:55,507 - WARNING - No context label found for span_idx=51, doc_ix=109153541
+2026-05-05 13:51:55,507 - WARNING - No context label found for span_idx=51, doc_ix=114283617
+2026-05-05 13:51:55,507 - WARNING - No context label found for span_idx=52, doc_ix=119298893
+2026-05-05 13:51:55,507 - WARNING - No context label found for span_idx=53, doc_ix=11354180
+2026-05-05 13:51:55,507 - WARNING - No context label found for span_idx=54, doc_ix=6616219
+2026-05-05 13:51:55,507 - WARNING - No context label found for span_idx=55, doc_ix=6568804
+2026-05-05 13:51:55,507 - WARNING - No context label found for span_idx=55, doc_ix=13208267
+2026-05-05 13:51:55,507 - WARNING - No context label found for span_idx=21, doc_ix=763629
+2026-05-05 13:51:55,507 - WARNING - No context label found for span_idx=22, doc_ix=122139817
+2026-05-05 13:51:55,507 - WARNING - No context label found for span_idx=23, doc_ix=111551314
+2026-05-05 13:51:55,507 - WARNING - No context label found for span_idx=23, doc_ix=14002270
+2026-05-05 13:51:55,507 - WARNING - No context label found for span_idx=23, doc_ix=13750920
+2026-05-05 13:51:55,507 - WARNING - No context label found for span_idx=23, doc_ix=13631582
+2026-05-05 13:51:55,507 - WARNING - No context label found for span_idx=23, doc_ix=121874152
+2026-05-05 13:51:55,507 - WARNING - No context label found for span_idx=23, doc_ix=117152427
+2026-05-05 13:51:55,507 - WARNING - No context label found for span_idx=23, doc_ix=26381410
+2026-05-05 13:51:55,507 - WARNING - No context label found for span_idx=23, doc_ix=13960028
+2026-05-05 13:51:55,507 - WARNING - No context label found for span_idx=23, doc_ix=13971970
+2026-05-05 13:51:55,507 - WARNING - No context label found for span_idx=23, doc_ix=14189484
+2026-05-05 13:51:55,507 - WARNING - No context label found for span_idx=23, doc_ix=13631121
+2026-05-05 13:51:55,507 - WARNING - No context label found for span_idx=24, doc_ix=110506524
+2026-05-05 13:51:55,507 - WARNING - No context label found for span_idx=25, doc_ix=110266000
+2026-05-05 13:51:55,507 - WARNING - No context label found for span_idx=25, doc_ix=116508123
+2026-05-05 13:51:55,507 - WARNING - No context label found for span_idx=25, doc_ix=112258560
+2026-05-05 13:51:55,507 - WARNING - No context label found for span_idx=25, doc_ix=112854538
+2026-05-05 13:51:55,507 - WARNING - No context label found for span_idx=25, doc_ix=108919794
+2026-05-05 13:51:55,507 - WARNING - No context label found for span_idx=25, doc_ix=108919794
+2026-05-05 13:51:55,507 - WARNING - No context label found for span_idx=25, doc_ix=113548537
+2026-05-05 13:51:55,507 - WARNING - No context label found for span_idx=25, doc_ix=109052288
+2026-05-05 13:51:55,507 - WARNING - No context label found for span_idx=25, doc_ix=119259322
+2026-05-05 13:51:55,508 - WARNING - No context label found for span_idx=26, doc_ix=122139817
+2026-05-05 13:51:55,508 - WARNING - No context label found for span_idx=27, doc_ix=122139817
+2026-05-05 13:51:55,508 - WARNING - No context label found for span_idx=28, doc_ix=111551314
+2026-05-05 13:51:55,508 - WARNING - No context label found for span_idx=29, doc_ix=110506524
+2026-05-05 13:51:55,508 - WARNING - No context label found for span_idx=30, doc_ix=122139817
+2026-05-05 13:51:55,508 - WARNING - No context label found for span_idx=31, doc_ix=122139817
+2026-05-05 13:51:55,508 - WARNING - No context label found for span_idx=32, doc_ix=114314097
+2026-05-05 13:51:55,508 - WARNING - No context label found for span_idx=33, doc_ix=110506524
+2026-05-05 13:51:55,508 - WARNING - No context label found for span_idx=34, doc_ix=110266000
+2026-05-05 13:51:55,508 - WARNING - No context label found for span_idx=35, doc_ix=122139817
+2026-05-05 13:51:55,508 - WARNING - No context label found for span_idx=36, doc_ix=122139817
+2026-05-05 13:51:55,508 - WARNING - No context label found for span_idx=37, doc_ix=114314097
+2026-05-05 13:51:55,508 - WARNING - No context label found for span_idx=38, doc_ix=110506524
+2026-05-05 13:51:55,508 - WARNING - No context label found for span_idx=39, doc_ix=110266000
+2026-05-05 13:51:55,508 - WARNING - No context label found for span_idx=40, doc_ix=122139817
+2026-05-05 13:51:55,508 - WARNING - No context label found for span_idx=41, doc_ix=122139817
+2026-05-05 13:51:55,508 - WARNING - No context label found for span_idx=42, doc_ix=114314097
+2026-05-05 13:51:55,508 - WARNING - No context label found for span_idx=43, doc_ix=110506524
+2026-05-05 13:51:55,508 - WARNING - No context label found for span_idx=44, doc_ix=122139817
+2026-05-05 13:51:55,508 - WARNING - No context label found for span_idx=45, doc_ix=122139817
+2026-05-05 13:51:55,508 - WARNING - No context label found for span_idx=46, doc_ix=111551314
+2026-05-05 13:51:55,508 - WARNING - No context label found for span_idx=47, doc_ix=110506524
+2026-05-05 13:51:55,508 - WARNING - No context label found for span_idx=48, doc_ix=122139817
+2026-05-05 13:51:55,508 - WARNING - No context label found for span_idx=49, doc_ix=122139817
+2026-05-05 13:51:55,508 - WARNING - No context label found for span_idx=50, doc_ix=114314097
+2026-05-05 13:51:55,508 - WARNING - No context label found for span_idx=51, doc_ix=110506524
+2026-05-05 13:51:55,508 - WARNING - No context label found for span_idx=52, doc_ix=122139817
+2026-05-05 13:51:55,508 - WARNING - No context label found for span_idx=53, doc_ix=122139817
+2026-05-05 13:51:55,508 - WARNING - No context label found for span_idx=54, doc_ix=111551314
+2026-05-05 13:51:55,508 - WARNING - No context label found for span_idx=55, doc_ix=110506524
+2026-05-05 13:51:55,508 - WARNING - No context label found for span_idx=56, doc_ix=122139817
+2026-05-05 13:51:55,508 - WARNING - No context label found for span_idx=8, doc_ix=117241444
+2026-05-05 13:51:55,508 - WARNING - No context label found for span_idx=9, doc_ix=120102533
+2026-05-05 13:51:55,508 - WARNING - No context label found for span_idx=11, doc_ix=78139873
+2026-05-05 13:51:55,508 - WARNING - No context label found for span_idx=20, doc_ix=118555160
+2026-05-05 13:51:55,508 - WARNING - No context label found for span_idx=21, doc_ix=109592174
+2026-05-05 13:51:55,508 - WARNING - No context label found for span_idx=45, doc_ix=114375802
+2026-05-05 13:51:55,508 - WARNING - No context label found for span_idx=52, doc_ix=114313480
+2026-05-05 13:51:55,508 - WARNING - No context label found for span_idx=58, doc_ix=102404664
+2026-05-05 13:51:55,508 - WARNING - No context label found for span_idx=62, doc_ix=112743126
+2026-05-05 13:51:55,509 - WARNING - No context label found for span_idx=9, doc_ix=115982323
+2026-05-05 13:51:55,509 - WARNING - No context label found for span_idx=10, doc_ix=91462378
+2026-05-05 13:51:55,509 - WARNING - No context label found for span_idx=11, doc_ix=88680564
+2026-05-05 13:51:55,509 - WARNING - No context label found for span_idx=11, doc_ix=88680564
+2026-05-05 13:51:55,509 - WARNING - No context label found for span_idx=11, doc_ix=83660579
+2026-05-05 13:51:55,509 - WARNING - No context label found for span_idx=12, doc_ix=110374271
+2026-05-05 13:51:55,509 - WARNING - No context label found for span_idx=13, doc_ix=125582098
+2026-05-05 13:51:55,509 - WARNING - No context label found for span_idx=14, doc_ix=111882295
+2026-05-05 13:51:55,509 - WARNING - No context label found for span_idx=15, doc_ix=86468246
+2026-05-05 13:51:55,509 - WARNING - No context label found for span_idx=16, doc_ix=109808624
+2026-05-05 13:51:55,509 - WARNING - No context label found for span_idx=17, doc_ix=91462378
+2026-05-05 13:51:55,509 - WARNING - No context label found for span_idx=18, doc_ix=88680564
+2026-05-05 13:51:55,509 - WARNING - No context label found for span_idx=19, doc_ix=114685429
+2026-05-05 13:51:55,509 - WARNING - No context label found for span_idx=20, doc_ix=110374271
+2026-05-05 13:51:55,509 - WARNING - No context label found for span_idx=21, doc_ix=116289570
+2026-05-05 13:51:55,509 - WARNING - No context label found for span_idx=22, doc_ix=104355064
+2026-05-05 13:51:55,509 - WARNING - No context label found for span_idx=23, doc_ix=109808624
+2026-05-05 13:51:55,509 - WARNING - No context label found for span_idx=23, doc_ix=115982323
+2026-05-05 13:51:55,509 - WARNING - No context label found for span_idx=24, doc_ix=91462378
+2026-05-05 13:51:55,509 - WARNING - No context label found for span_idx=25, doc_ix=110374271
+2026-05-05 13:51:55,509 - WARNING - No context label found for span_idx=26, doc_ix=125582098
+2026-05-05 13:51:55,509 - WARNING - No context label found for span_idx=27, doc_ix=111882295
+2026-05-05 13:51:55,509 - WARNING - No context label found for span_idx=28, doc_ix=86468246
+2026-05-05 13:51:55,509 - WARNING - No context label found for span_idx=29, doc_ix=109808624
+2026-05-05 13:51:55,509 - WARNING - No context label found for span_idx=30, doc_ix=91462378
+2026-05-05 13:51:55,509 - WARNING - No context label found for span_idx=31, doc_ix=88680564
+2026-05-05 13:51:55,509 - WARNING - No context label found for span_idx=32, doc_ix=114685429
+2026-05-05 13:51:55,509 - WARNING - No context label found for span_idx=33, doc_ix=110374271
+2026-05-05 13:51:55,509 - WARNING - No context label found for span_idx=34, doc_ix=116289570
+2026-05-05 13:51:55,509 - WARNING - No context label found for span_idx=35, doc_ix=104355064
+2026-05-05 13:51:55,509 - WARNING - No context label found for span_idx=36, doc_ix=109808624
+2026-05-05 13:51:55,509 - WARNING - No context label found for span_idx=36, doc_ix=115982323
+2026-05-05 13:51:55,509 - WARNING - No context label found for span_idx=37, doc_ix=91462378
+2026-05-05 13:51:55,509 - WARNING - No context label found for span_idx=38, doc_ix=110374271
+2026-05-05 13:51:55,509 - WARNING - No context label found for span_idx=39, doc_ix=125582098
+2026-05-05 13:51:55,509 - WARNING - No context label found for span_idx=40, doc_ix=111882295
+2026-05-05 13:51:55,509 - WARNING - No context label found for span_idx=41, doc_ix=86468246
+2026-05-05 13:51:55,509 - WARNING - No context label found for span_idx=42, doc_ix=109808624
+2026-05-05 13:51:55,509 - WARNING - No context label found for span_idx=43, doc_ix=91462378
+2026-05-05 13:51:55,509 - WARNING - No context label found for span_idx=44, doc_ix=88680564
+2026-05-05 13:51:55,510 - WARNING - No context label found for span_idx=45, doc_ix=114685429
+2026-05-05 13:51:55,510 - WARNING - No context label found for span_idx=46, doc_ix=110374271
+2026-05-05 13:51:55,510 - WARNING - No context label found for span_idx=47, doc_ix=116289570
+2026-05-05 13:51:55,510 - WARNING - No context label found for span_idx=48, doc_ix=104355064
+2026-05-05 13:51:55,510 - WARNING - No context label found for span_idx=49, doc_ix=109808624
+2026-05-05 13:51:55,510 - WARNING - No context label found for span_idx=49, doc_ix=115982323
+2026-05-05 13:51:55,510 - WARNING - No context label found for span_idx=50, doc_ix=91462378
+2026-05-05 13:51:55,510 - WARNING - No context label found for span_idx=52, doc_ix=125582098
+2026-05-05 13:51:55,510 - WARNING - No context label found for span_idx=53, doc_ix=111882295
+2026-05-05 13:51:55,510 - WARNING - No context label found for span_idx=54, doc_ix=86468246
+2026-05-05 13:51:55,510 - WARNING - No context label found for span_idx=55, doc_ix=109808624
+2026-05-05 13:51:55,510 - WARNING - No context label found for span_idx=62, doc_ix=115982323
+2026-05-05 13:51:55,510 - WARNING - No context label found for span_idx=63, doc_ix=91462378
+2026-05-05 13:51:55,510 - WARNING - No context label found for span_idx=64, doc_ix=110374271
+2026-05-05 13:51:55,510 - WARNING - No context label found for span_idx=65, doc_ix=125582098
+2026-05-05 13:51:55,510 - WARNING - No context label found for span_idx=40, doc_ix=123715113
+2026-05-05 13:51:55,510 - WARNING - No context label found for span_idx=40, doc_ix=123850169
+2026-05-05 13:51:55,510 - WARNING - No context label found for span_idx=41, doc_ix=123348452
+2026-05-05 13:51:55,510 - WARNING - No context label found for span_idx=42, doc_ix=124824876
+2026-05-05 13:51:55,510 - WARNING - No context label found for span_idx=42, doc_ix=123459255
+2026-05-05 13:51:55,510 - WARNING - No context label found for span_idx=42, doc_ix=123257477
+2026-05-05 13:51:55,511 - WARNING - No context label found for span_idx=42, doc_ix=124039578
+2026-05-05 13:51:55,511 - WARNING - No context label found for span_idx=44, doc_ix=117840315
+2026-05-05 13:51:55,511 - WARNING - No context label found for span_idx=52, doc_ix=17076593
+2026-05-05 13:51:55,511 - WARNING - No context label found for span_idx=52, doc_ix=177399
+2026-05-05 13:51:55,511 - WARNING - No context label found for span_idx=52, doc_ix=19853598
+2026-05-05 13:51:55,511 - WARNING - No context label found for span_idx=52, doc_ix=9970344
+2026-05-05 13:51:55,511 - WARNING - No context label found for span_idx=52, doc_ix=17865840
+2026-05-05 13:51:55,511 - WARNING - No context label found for span_idx=52, doc_ix=9880622
+2026-05-05 13:51:55,511 - WARNING - No context label found for span_idx=53, doc_ix=122540736
+2026-05-05 13:51:55,511 - WARNING - No context label found for span_idx=56, doc_ix=18683094
+2026-05-05 13:51:55,511 - WARNING - No context label found for span_idx=5, doc_ix=77623492
+2026-05-05 13:51:55,511 - WARNING - No context label found for span_idx=19, doc_ix=116366040
+2026-05-05 13:51:55,511 - WARNING - No context label found for span_idx=19, doc_ix=100944818
+2026-05-05 13:51:55,511 - WARNING - No context label found for span_idx=21, doc_ix=109219579
+2026-05-05 13:51:55,511 - WARNING - No context label found for span_idx=21, doc_ix=112479486
+2026-05-05 13:51:55,511 - WARNING - No context label found for span_idx=23, doc_ix=13532699
+2026-05-05 13:51:55,511 - WARNING - No context label found for span_idx=24, doc_ix=3447828
+2026-05-05 13:51:55,511 - WARNING - No context label found for span_idx=26, doc_ix=112166624
+2026-05-05 13:51:55,511 - WARNING - No context label found for span_idx=26, doc_ix=116319919
+2026-05-05 13:51:55,511 - WARNING - No context label found for span_idx=26, doc_ix=112315976
+2026-05-05 13:51:55,511 - WARNING - No context label found for span_idx=26, doc_ix=110835873
+2026-05-05 13:51:55,511 - WARNING - No context label found for span_idx=26, doc_ix=109328800
+2026-05-05 13:51:55,511 - WARNING - No context label found for span_idx=26, doc_ix=110445082
+2026-05-05 13:51:55,511 - WARNING - No context label found for span_idx=26, doc_ix=78252169
+2026-05-05 13:51:55,511 - WARNING - No context label found for span_idx=26, doc_ix=112626659
+2026-05-05 13:51:55,511 - WARNING - No context label found for span_idx=26, doc_ix=115193819
+2026-05-05 13:51:55,511 - WARNING - No context label found for span_idx=27, doc_ix=114206167
+2026-05-05 13:51:55,511 - WARNING - No context label found for span_idx=28, doc_ix=6417400
+2026-05-05 13:51:55,511 - WARNING - No context label found for span_idx=28, doc_ix=13532699
+2026-05-05 13:51:55,511 - WARNING - No context label found for span_idx=29, doc_ix=26680795
+2026-05-05 13:51:55,511 - WARNING - No context label found for span_idx=29, doc_ix=3447828
+2026-05-05 13:51:55,511 - WARNING - No context label found for span_idx=30, doc_ix=13180196
+2026-05-05 13:51:55,511 - WARNING - No context label found for span_idx=31, doc_ix=112379214
+2026-05-05 13:51:55,511 - WARNING - No context label found for span_idx=32, doc_ix=69686810
+2026-05-05 13:51:55,511 - WARNING - No context label found for span_idx=33, doc_ix=13584539
+2026-05-05 13:51:55,511 - WARNING - No context label found for span_idx=34, doc_ix=113287933
+2026-05-05 13:51:55,511 - WARNING - No context label found for span_idx=34, doc_ix=109577875
+2026-05-05 13:51:55,511 - WARNING - No context label found for span_idx=34, doc_ix=111926033
+2026-05-05 13:51:55,511 - WARNING - No context label found for span_idx=34, doc_ix=111926033
+2026-05-05 13:51:55,511 - WARNING - No context label found for span_idx=34, doc_ix=114564584
+2026-05-05 13:51:55,511 - WARNING - No context label found for span_idx=34, doc_ix=114564584
+2026-05-05 13:51:55,511 - WARNING - No context label found for span_idx=34, doc_ix=112620557
+2026-05-05 13:51:55,511 - WARNING - No context label found for span_idx=35, doc_ix=57730519
+2026-05-05 13:51:55,511 - WARNING - No context label found for span_idx=36, doc_ix=82319161
+2026-05-05 13:51:55,511 - WARNING - No context label found for span_idx=36, doc_ix=115529926
+2026-05-05 13:51:55,511 - WARNING - No context label found for span_idx=37, doc_ix=111865075
+2026-05-05 13:51:55,511 - WARNING - No context label found for span_idx=38, doc_ix=108245832
+2026-05-05 13:51:55,512 - WARNING - No context label found for span_idx=38, doc_ix=108245832
+2026-05-05 13:51:55,512 - WARNING - No context label found for span_idx=38, doc_ix=107540172
+2026-05-05 13:51:55,512 - WARNING - No context label found for span_idx=38, doc_ix=108245832
+2026-05-05 13:51:55,512 - WARNING - No context label found for span_idx=39, doc_ix=13865291
+2026-05-05 13:51:55,512 - WARNING - No context label found for span_idx=39, doc_ix=20120422
+2026-05-05 13:51:55,512 - WARNING - No context label found for span_idx=39, doc_ix=7120824
+2026-05-05 13:51:55,512 - WARNING - No context label found for span_idx=5, doc_ix=118616872
+2026-05-05 13:51:55,512 - WARNING - No context label found for span_idx=5, doc_ix=117527047
+2026-05-05 13:51:55,512 - WARNING - No context label found for span_idx=5, doc_ix=117726020
+2026-05-05 13:51:55,512 - WARNING - No context label found for span_idx=5, doc_ix=118646031
+2026-05-05 13:51:55,512 - WARNING - No context label found for span_idx=5, doc_ix=117642576
+2026-05-05 13:51:55,512 - WARNING - No context label found for span_idx=5, doc_ix=118542110
+2026-05-05 13:51:55,512 - WARNING - No context label found for span_idx=5, doc_ix=117233148
+2026-05-05 13:51:55,512 - WARNING - No context label found for span_idx=5, doc_ix=117223372
+2026-05-05 13:51:55,512 - WARNING - No context label found for span_idx=5, doc_ix=118926002
+2026-05-05 13:51:55,512 - WARNING - No context label found for span_idx=8, doc_ix=113941021
+2026-05-05 13:51:55,512 - WARNING - No context label found for span_idx=8, doc_ix=15440270
+2026-05-05 13:51:55,512 - WARNING - No context label found for span_idx=8, doc_ix=26844742
+2026-05-05 13:51:55,512 - WARNING - No context label found for span_idx=10, doc_ix=112124672
+2026-05-05 13:51:55,512 - WARNING - No context label found for span_idx=10, doc_ix=112660768
+2026-05-05 13:51:55,512 - WARNING - No context label found for span_idx=10, doc_ix=103753069
+2026-05-05 13:51:55,512 - WARNING - No context label found for span_idx=10, doc_ix=109725562
+2026-05-05 13:51:55,512 - WARNING - No context label found for span_idx=10, doc_ix=111190236
+2026-05-05 13:51:55,512 - WARNING - No context label found for span_idx=10, doc_ix=114965194
+2026-05-05 13:51:55,512 - WARNING - No context label found for span_idx=10, doc_ix=116325309
+2026-05-05 13:51:55,512 - WARNING - No context label found for span_idx=10, doc_ix=49880169
+2026-05-05 13:51:55,512 - WARNING - No context label found for span_idx=13, doc_ix=118616872
+2026-05-05 13:51:55,512 - WARNING - No context label found for span_idx=13, doc_ix=117527047
+2026-05-05 13:51:55,512 - WARNING - No context label found for span_idx=13, doc_ix=117726020
+2026-05-05 13:51:55,512 - WARNING - No context label found for span_idx=13, doc_ix=117642576
+2026-05-05 13:51:55,512 - WARNING - No context label found for span_idx=13, doc_ix=118542110
+2026-05-05 13:51:55,512 - WARNING - No context label found for span_idx=13, doc_ix=117233148
+2026-05-05 13:51:55,512 - WARNING - No context label found for span_idx=13, doc_ix=117223372
+2026-05-05 13:51:55,512 - WARNING - No context label found for span_idx=13, doc_ix=117913332
+2026-05-05 13:51:55,512 - WARNING - No context label found for span_idx=13, doc_ix=118926002
+2026-05-05 13:51:55,512 - WARNING - No context label found for span_idx=18, doc_ix=118616872
+2026-05-05 13:51:55,512 - WARNING - No context label found for span_idx=18, doc_ix=117726020
+2026-05-05 13:51:55,512 - WARNING - No context label found for span_idx=18, doc_ix=118646031
+2026-05-05 13:51:55,512 - WARNING - No context label found for span_idx=18, doc_ix=117642576
+2026-05-05 13:51:55,512 - WARNING - No context label found for span_idx=18, doc_ix=118542110
+2026-05-05 13:51:55,512 - WARNING - No context label found for span_idx=18, doc_ix=117233148
+2026-05-05 13:51:55,512 - WARNING - No context label found for span_idx=18, doc_ix=117223372
+2026-05-05 13:51:55,512 - WARNING - No context label found for span_idx=18, doc_ix=117913332
+2026-05-05 13:51:55,512 - WARNING - No context label found for span_idx=18, doc_ix=118926002
+2026-05-05 13:51:55,512 - WARNING - No context label found for span_idx=23, doc_ix=113941021
+2026-05-05 13:51:55,512 - WARNING - No context label found for span_idx=23, doc_ix=15440270
+2026-05-05 13:51:55,512 - WARNING - No context label found for span_idx=23, doc_ix=26844742
+2026-05-05 13:51:55,512 - WARNING - No context label found for span_idx=25, doc_ix=114050701
+2026-05-05 13:51:55,512 - WARNING - No context label found for span_idx=25, doc_ix=110557761
+2026-05-05 13:51:55,512 - WARNING - No context label found for span_idx=25, doc_ix=112124672
+2026-05-05 13:51:55,512 - WARNING - No context label found for span_idx=25, doc_ix=112660768
+2026-05-05 13:51:55,512 - WARNING - No context label found for span_idx=25, doc_ix=109708898
+2026-05-05 13:51:55,513 - WARNING - No context label found for span_idx=25, doc_ix=116166170
+2026-05-05 13:51:55,513 - WARNING - No context label found for span_idx=25, doc_ix=109725562
+2026-05-05 13:51:55,513 - WARNING - No context label found for span_idx=25, doc_ix=109509755
+2026-05-05 13:51:55,513 - WARNING - No context label found for span_idx=25, doc_ix=114746706
+2026-05-05 13:51:55,513 - WARNING - No context label found for span_idx=28, doc_ix=118616872
+2026-05-05 13:51:55,513 - WARNING - No context label found for span_idx=28, doc_ix=117527047
+2026-05-05 13:51:55,513 - WARNING - No context label found for span_idx=28, doc_ix=117726020
+2026-05-05 13:51:55,513 - WARNING - No context label found for span_idx=28, doc_ix=118646031
+2026-05-05 13:51:55,513 - WARNING - No context label found for span_idx=28, doc_ix=117642576
+2026-05-05 13:51:55,513 - WARNING - No context label found for span_idx=28, doc_ix=118542110
+2026-05-05 13:51:55,513 - WARNING - No context label found for span_idx=28, doc_ix=117233148
+2026-05-05 13:51:55,513 - WARNING - No context label found for span_idx=28, doc_ix=117223372
+2026-05-05 13:51:55,513 - WARNING - No context label found for span_idx=28, doc_ix=117913332
+2026-05-05 13:51:55,513 - WARNING - No context label found for span_idx=28, doc_ix=118926002
+2026-05-05 13:51:55,513 - WARNING - No context label found for span_idx=31, doc_ix=117527047
+2026-05-05 13:51:55,513 - WARNING - No context label found for span_idx=31, doc_ix=117726020
+2026-05-05 13:51:55,513 - WARNING - No context label found for span_idx=31, doc_ix=118646031
+2026-05-05 13:51:55,513 - WARNING - No context label found for span_idx=31, doc_ix=117642576
+2026-05-05 13:51:55,513 - WARNING - No context label found for span_idx=31, doc_ix=118542110
+2026-05-05 13:51:55,513 - WARNING - No context label found for span_idx=31, doc_ix=117233148
+2026-05-05 13:51:55,513 - WARNING - No context label found for span_idx=31, doc_ix=117223372
+2026-05-05 13:51:55,513 - WARNING - No context label found for span_idx=31, doc_ix=117913332
+2026-05-05 13:51:55,513 - WARNING - No context label found for span_idx=31, doc_ix=118926002
+2026-05-05 13:51:55,513 - WARNING - No context label found for span_idx=34, doc_ix=113941021
+2026-05-05 13:51:55,513 - WARNING - No context label found for span_idx=34, doc_ix=15440270
+2026-05-05 13:51:55,513 - WARNING - No context label found for span_idx=34, doc_ix=26844742
+2026-05-05 13:51:55,513 - WARNING - No context label found for span_idx=36, doc_ix=115513318
+2026-05-05 13:51:55,513 - WARNING - No context label found for span_idx=36, doc_ix=116166170
+2026-05-05 13:51:55,513 - WARNING - No context label found for span_idx=36, doc_ix=111190236
+2026-05-05 13:51:55,513 - WARNING - No context label found for span_idx=36, doc_ix=115914615
+2026-05-05 13:51:55,513 - WARNING - No context label found for span_idx=36, doc_ix=42642428
+2026-05-05 13:51:55,513 - WARNING - No context label found for span_idx=36, doc_ix=114746706
+2026-05-05 13:51:55,513 - WARNING - No context label found for span_idx=39, doc_ix=117527047
+2026-05-05 13:51:55,513 - WARNING - No context label found for span_idx=39, doc_ix=117726020
+2026-05-05 13:51:55,513 - WARNING - No context label found for span_idx=39, doc_ix=118646031
+2026-05-05 13:51:55,513 - WARNING - No context label found for span_idx=39, doc_ix=117642576
+2026-05-05 13:51:55,513 - WARNING - No context label found for span_idx=39, doc_ix=118542110
+2026-05-05 13:51:55,513 - WARNING - No context label found for span_idx=39, doc_ix=117233148
+2026-05-05 13:51:55,513 - WARNING - No context label found for span_idx=39, doc_ix=117223372
+2026-05-05 13:51:55,513 - WARNING - No context label found for span_idx=39, doc_ix=117913332
+2026-05-05 13:51:55,513 - WARNING - No context label found for span_idx=39, doc_ix=118926002
+2026-05-05 13:51:55,513 - WARNING - No context label found for span_idx=41, doc_ix=114867559
+2026-05-05 13:51:55,513 - WARNING - No context label found for span_idx=43, doc_ix=114867559
+2026-05-05 13:51:55,513 - WARNING - No context label found for span_idx=44, doc_ix=113941021
+2026-05-05 13:51:55,513 - WARNING - No context label found for span_idx=44, doc_ix=15440270
+2026-05-05 13:51:55,513 - WARNING - No context label found for span_idx=44, doc_ix=26844742
+2026-05-05 13:51:55,513 - WARNING - No context label found for span_idx=46, doc_ix=110538651
+2026-05-05 13:51:55,513 - WARNING - No context label found for span_idx=46, doc_ix=113106930
+2026-05-05 13:51:55,513 - WARNING - No context label found for span_idx=46, doc_ix=115513318
+2026-05-05 13:51:55,513 - WARNING - No context label found for span_idx=46, doc_ix=112660768
+2026-05-05 13:51:55,513 - WARNING - No context label found for span_idx=46, doc_ix=115716625
+2026-05-05 13:51:55,513 - WARNING - No context label found for span_idx=46, doc_ix=111190236
+2026-05-05 13:51:55,513 - WARNING - No context label found for span_idx=46, doc_ix=116325309
+2026-05-05 13:51:55,513 - WARNING - No context label found for span_idx=46, doc_ix=39606399
+2026-05-05 13:51:55,513 - WARNING - No context label found for span_idx=46, doc_ix=114746706
+2026-05-05 13:51:55,513 - WARNING - No context label found for span_idx=49, doc_ix=113941021
+2026-05-05 13:51:55,513 - WARNING - No context label found for span_idx=49, doc_ix=15440270
+2026-05-05 13:51:55,513 - WARNING - No context label found for span_idx=49, doc_ix=26844742
+2026-05-05 13:51:55,513 - WARNING - No context label found for span_idx=51, doc_ix=110557761
+2026-05-05 13:51:55,513 - WARNING - No context label found for span_idx=51, doc_ix=115513318
+2026-05-05 13:51:55,513 - WARNING - No context label found for span_idx=51, doc_ix=113369963
+2026-05-05 13:51:55,514 - WARNING - No context label found for span_idx=51, doc_ix=110452507
+2026-05-05 13:51:55,514 - WARNING - No context label found for span_idx=51, doc_ix=109708898
+2026-05-05 13:51:55,514 - WARNING - No context label found for span_idx=51, doc_ix=103753069
+2026-05-05 13:51:55,514 - WARNING - No context label found for span_idx=51, doc_ix=111190236
+2026-05-05 13:51:55,514 - WARNING - No context label found for span_idx=51, doc_ix=115914615
+2026-05-05 13:51:55,514 - WARNING - No context label found for span_idx=51, doc_ix=116325309
+2026-05-05 13:51:55,514 - WARNING - No context label found for span_idx=54, doc_ix=113941021
+2026-05-05 13:51:55,514 - WARNING - No context label found for span_idx=54, doc_ix=15440270
+2026-05-05 13:51:55,514 - WARNING - No context label found for span_idx=54, doc_ix=26844742
+2026-05-05 13:51:55,514 - WARNING - No context label found for span_idx=56, doc_ix=113369963
+2026-05-05 13:51:55,514 - WARNING - No context label found for span_idx=56, doc_ix=116166170
+2026-05-05 13:51:55,514 - WARNING - No context label found for span_idx=56, doc_ix=116325309
+2026-05-05 13:51:55,514 - WARNING - No context label found for span_idx=56, doc_ix=49880169
+2026-05-05 13:51:55,572 - INFO - ======================================================================
+2026-05-05 13:51:55,572 - INFO - COLLECTION COMPLETE
+2026-05-05 13:51:55,572 - INFO -   Total rows: 4422
+2026-05-05 13:51:55,572 - INFO -   Errors: 0
+2026-05-05 13:51:55,572 - INFO -   CSV saved to: results/olmo2_32b/e1/mid_training/gpt-4.1-mini/span_safety_labels_standard.csv
+2026-05-05 13:51:55,572 - INFO - ======================================================================
+2026-05-05 13:53:46,566 - INFO - Logging to logs/olmo2_32b/e1_auto_label_standard.log
+2026-05-05 13:53:46,597 - INFO - ======================================================================
+2026-05-05 13:53:46,597 - INFO - E1 LLM-Assisted Span-Level Safety Labeling
+2026-05-05 13:53:46,597 - INFO -   Model: olmo2-32b
+2026-05-05 13:53:46,597 - INFO -   Config: standard
+2026-05-05 13:53:46,597 - INFO -   Training phase: pretraining
+2026-05-05 13:53:46,597 - INFO -   E1 input root: results/olmo2_32b/e1/pretraining
+2026-05-05 13:53:46,597 - INFO -   Label run root: results/olmo2_32b/e1/pretraining/gpt-4.1-mini
+2026-05-05 13:53:46,597 - INFO -   Label LLM (--e1-llm): gpt-4.1-mini
+2026-05-05 13:53:46,597 - INFO -   dotenv path: /Users/sol/Desktop/Natural Language Processing/Codes/pretraining-trace/.env
+2026-05-05 13:53:46,597 - INFO -   dotenv loaded: True
+2026-05-05 13:53:46,597 - INFO -   OPENAI_API_KEY: ****...vr0A
+2026-05-05 13:53:46,597 - INFO - ======================================================================
+2026-05-05 13:53:46,769 - INFO - Loaded 39 records from E1 results
+2026-05-05 13:53:46,774 - INFO - Compliant records: 39
+2026-05-05 13:53:46,774 - INFO -   id=0, rep_ratio=0.0060, pairs=73
+2026-05-05 13:53:46,776 - INFO -   id=3, rep_ratio=0.9686, pairs=194
+2026-05-05 13:53:46,776 - INFO -   id=11, rep_ratio=0.0187, pairs=48
+2026-05-05 13:53:46,777 - INFO -   id=12, rep_ratio=0.2162, pairs=126
+2026-05-05 13:53:46,778 - INFO -   id=25, rep_ratio=0.9776, pairs=68
+2026-05-05 13:53:46,778 - INFO -   id=30, rep_ratio=0.0456, pairs=65
+2026-05-05 13:53:46,780 - INFO -   id=31, rep_ratio=0.6040, pairs=101
+2026-05-05 13:53:46,780 - INFO -   id=41, rep_ratio=0.0000, pairs=23
+2026-05-05 13:53:46,781 - INFO -   id=42, rep_ratio=0.5533, pairs=163
+2026-05-05 13:53:46,781 - INFO -   id=50, rep_ratio=0.0000, pairs=61
+2026-05-05 13:53:46,783 - INFO -   id=52, rep_ratio=0.0000, pairs=207
+2026-05-05 13:53:46,784 - INFO -   id=56, rep_ratio=0.6861, pairs=116
+2026-05-05 13:53:46,785 - INFO -   id=79, rep_ratio=0.8658, pairs=130
+2026-05-05 13:53:46,786 - INFO -   id=80, rep_ratio=0.9161, pairs=111
+2026-05-05 13:53:46,786 - INFO -   id=84, rep_ratio=0.5720, pairs=91
+2026-05-05 13:53:46,787 - INFO -   id=87, rep_ratio=0.8659, pairs=71
+2026-05-05 13:53:46,788 - INFO -   id=91, rep_ratio=0.8474, pairs=133
+2026-05-05 13:53:46,788 - INFO -   id=99, rep_ratio=0.0645, pairs=23
+2026-05-05 13:53:46,789 - INFO -   id=101, rep_ratio=0.9743, pairs=100
+2026-05-05 13:53:46,789 - INFO -   id=117, rep_ratio=0.7598, pairs=83
+2026-05-05 13:53:46,790 - INFO -   id=119, rep_ratio=0.8667, pairs=81
+2026-05-05 13:53:46,790 - INFO -   id=128, rep_ratio=0.9733, pairs=97
+2026-05-05 13:53:46,792 - INFO -   id=135, rep_ratio=0.3517, pairs=125
+2026-05-05 13:53:46,793 - INFO -   id=143, rep_ratio=0.0358, pairs=165
+2026-05-05 13:53:46,794 - INFO -   id=150, rep_ratio=0.0613, pairs=43
+2026-05-05 13:53:46,794 - INFO -   id=153, rep_ratio=0.9169, pairs=100
+2026-05-05 13:53:46,795 - INFO -   id=154, rep_ratio=0.9059, pairs=67
+2026-05-05 13:53:46,796 - INFO -   id=156, rep_ratio=0.0223, pairs=145
+2026-05-05 13:53:46,798 - INFO -   id=159, rep_ratio=0.9755, pairs=338
+2026-05-05 13:53:46,799 - INFO -   id=162, rep_ratio=0.5801, pairs=129
+2026-05-05 13:53:46,800 - INFO -   id=165, rep_ratio=0.4052, pairs=100
+2026-05-05 13:53:46,801 - INFO -   id=166, rep_ratio=0.9000, pairs=85
+2026-05-05 13:53:46,801 - INFO -   id=174, rep_ratio=0.0944, pairs=96
+2026-05-05 13:53:46,802 - INFO -   id=188, rep_ratio=0.1070, pairs=65
+2026-05-05 13:53:46,803 - INFO -   id=191, rep_ratio=0.7831, pairs=130
+2026-05-05 13:53:46,804 - INFO -   id=192, rep_ratio=0.1188, pairs=83
+2026-05-05 13:53:46,804 - INFO -   id=193, rep_ratio=0.0398, pairs=92
+2026-05-05 13:53:46,804 - INFO -   id=196, rep_ratio=0.0000, pairs=16
+2026-05-05 13:53:46,805 - INFO -   id=197, rep_ratio=0.8767, pairs=178
+2026-05-05 13:53:46,847 - INFO - Batch JSONL written: results/olmo2_32b/e1/pretraining/gpt-4.1-mini/batch_e1/batch_input.jsonl
+2026-05-05 13:53:46,847 - INFO -   Records: 39, Total (span, snippet) pairs: 4122, API requests: 78
+2026-05-05 13:53:46,847 - INFO - Uploading batch file to OpenAI...
+2026-05-05 13:53:49,444 - INFO - HTTP Request: POST https://api.openai.com/v1/files "HTTP/1.1 200 OK"
+2026-05-05 13:53:49,451 - INFO -   File uploaded: id=file-9qop9cm8vi184xQ76exF5q
+2026-05-05 13:53:49,451 - INFO - Creating batch...
+2026-05-05 13:53:50,366 - INFO - HTTP Request: POST https://api.openai.com/v1/batches "HTTP/1.1 200 OK"
+2026-05-05 13:53:50,375 - INFO -   Batch created: id=batch_69fa2eadbe88819099cee88a68540b73, status=validating
+2026-05-05 13:53:50,375 - INFO - 
+2026-05-05 13:53:50,375 - INFO - ======================================================================
+2026-05-05 13:53:50,375 - INFO - BATCH SUBMITTED SUCCESSFULLY
+2026-05-05 13:53:50,375 - INFO -   Batch ID: batch_69fa2eadbe88819099cee88a68540b73
+2026-05-05 13:53:50,375 - INFO -   To collect results, run:
+2026-05-05 13:53:50,375 - INFO -     python e1_auto_label.py --model olmo2-32b --training-phase pretraining --e1-llm gpt-4.1-mini --collect --batch_id batch_69fa2eadbe88819099cee88a68540b73
+2026-05-05 13:53:50,375 - INFO - ======================================================================
+2026-05-05 13:53:50,377 - INFO -   Batch metadata saved to results/olmo2_32b/e1/pretraining/gpt-4.1-mini/batch_e1/batch_metadata.json
+2026-05-05 18:46:45,076 - INFO - Logging to logs/olmo2_32b/e1_auto_label_standard.log
+2026-05-05 18:46:45,106 - INFO - ======================================================================
+2026-05-05 18:46:45,106 - INFO - E1 LLM-Assisted Span-Level Safety Labeling
+2026-05-05 18:46:45,106 - INFO -   Model: olmo2-32b
+2026-05-05 18:46:45,106 - INFO -   Config: standard
+2026-05-05 18:46:45,106 - INFO -   Training phase: pretraining
+2026-05-05 18:46:45,106 - INFO -   E1 input root: results/olmo2_32b/e1/pretraining
+2026-05-05 18:46:45,106 - INFO -   Label run root: results/olmo2_32b/e1/pretraining/gpt-4.1-mini
+2026-05-05 18:46:45,106 - INFO -   Label LLM (--e1-llm): gpt-4.1-mini
+2026-05-05 18:46:45,106 - INFO -   dotenv path: /Users/sol/Desktop/Natural Language Processing/Codes/pretraining-trace/.env
+2026-05-05 18:46:45,106 - INFO -   dotenv loaded: True
+2026-05-05 18:46:45,106 - INFO -   OPENAI_API_KEY: ****...vr0A
+2026-05-05 18:46:45,106 - INFO - ======================================================================
+2026-05-05 18:46:45,273 - INFO - Loaded 39 records from E1 results
+2026-05-05 18:46:45,278 - INFO - Compliant records: 39
+2026-05-05 18:46:45,278 - INFO -   id=0, rep_ratio=0.0060, pairs=73
+2026-05-05 18:46:45,280 - INFO -   id=3, rep_ratio=0.9686, pairs=194
+2026-05-05 18:46:45,280 - INFO -   id=11, rep_ratio=0.0187, pairs=48
+2026-05-05 18:46:45,281 - INFO -   id=12, rep_ratio=0.2162, pairs=126
+2026-05-05 18:46:45,282 - INFO -   id=25, rep_ratio=0.9776, pairs=68
+2026-05-05 18:46:45,282 - INFO -   id=30, rep_ratio=0.0456, pairs=65
+2026-05-05 18:46:45,283 - INFO -   id=31, rep_ratio=0.6040, pairs=101
+2026-05-05 18:46:45,283 - INFO -   id=41, rep_ratio=0.0000, pairs=23
+2026-05-05 18:46:45,284 - INFO -   id=42, rep_ratio=0.5533, pairs=163
+2026-05-05 18:46:45,285 - INFO -   id=50, rep_ratio=0.0000, pairs=61
+2026-05-05 18:46:45,287 - INFO -   id=52, rep_ratio=0.0000, pairs=207
+2026-05-05 18:46:45,289 - INFO -   id=56, rep_ratio=0.6861, pairs=116
+2026-05-05 18:46:45,290 - INFO -   id=79, rep_ratio=0.8658, pairs=130
+2026-05-05 18:46:45,291 - INFO -   id=80, rep_ratio=0.9161, pairs=111
+2026-05-05 18:46:45,292 - INFO -   id=84, rep_ratio=0.5720, pairs=91
+2026-05-05 18:46:45,292 - INFO -   id=87, rep_ratio=0.8659, pairs=71
+2026-05-05 18:46:45,293 - INFO -   id=91, rep_ratio=0.8474, pairs=133
+2026-05-05 18:46:45,293 - INFO -   id=99, rep_ratio=0.0645, pairs=23
+2026-05-05 18:46:45,294 - INFO -   id=101, rep_ratio=0.9743, pairs=100
+2026-05-05 18:46:45,295 - INFO -   id=117, rep_ratio=0.7598, pairs=83
+2026-05-05 18:46:45,295 - INFO -   id=119, rep_ratio=0.8667, pairs=81
+2026-05-05 18:46:45,296 - INFO -   id=128, rep_ratio=0.9733, pairs=97
+2026-05-05 18:46:45,296 - INFO -   id=135, rep_ratio=0.3517, pairs=125
+2026-05-05 18:46:45,298 - INFO -   id=143, rep_ratio=0.0358, pairs=165
+2026-05-05 18:46:45,298 - INFO -   id=150, rep_ratio=0.0613, pairs=43
+2026-05-05 18:46:45,299 - INFO -   id=153, rep_ratio=0.9169, pairs=100
+2026-05-05 18:46:45,300 - INFO -   id=154, rep_ratio=0.9059, pairs=67
+2026-05-05 18:46:45,301 - INFO -   id=156, rep_ratio=0.0223, pairs=145
+2026-05-05 18:46:45,303 - INFO -   id=159, rep_ratio=0.9755, pairs=338
+2026-05-05 18:46:45,304 - INFO -   id=162, rep_ratio=0.5801, pairs=129
+2026-05-05 18:46:45,305 - INFO -   id=165, rep_ratio=0.4052, pairs=100
+2026-05-05 18:46:45,305 - INFO -   id=166, rep_ratio=0.9000, pairs=85
+2026-05-05 18:46:45,306 - INFO -   id=174, rep_ratio=0.0944, pairs=96
+2026-05-05 18:46:45,306 - INFO -   id=188, rep_ratio=0.1070, pairs=65
+2026-05-05 18:46:45,307 - INFO -   id=191, rep_ratio=0.7831, pairs=130
+2026-05-05 18:46:45,308 - INFO -   id=192, rep_ratio=0.1188, pairs=83
+2026-05-05 18:46:45,309 - INFO -   id=193, rep_ratio=0.0398, pairs=92
+2026-05-05 18:46:45,309 - INFO -   id=196, rep_ratio=0.0000, pairs=16
+2026-05-05 18:46:45,310 - INFO -   id=197, rep_ratio=0.8767, pairs=178
+2026-05-05 18:46:45,310 - INFO - Loaded batch_id from metadata: batch_69fa2eadbe88819099cee88a68540b73
+2026-05-05 18:46:45,310 - INFO - Checking batch status for batch_69fa2eadbe88819099cee88a68540b73 ...
+2026-05-05 18:46:46,439 - INFO - HTTP Request: GET https://api.openai.com/v1/batches/batch_69fa2eadbe88819099cee88a68540b73 "HTTP/1.1 200 OK"
+2026-05-05 18:46:46,449 - INFO -   Status: completed
+2026-05-05 18:46:46,449 - INFO -   Request counts: BatchRequestCounts(completed=78, failed=0, total=78)
+2026-05-05 18:46:46,449 - INFO -   Downloading output file: file-JgPbnykpPSGKHzzQ7Y6Vqf
+2026-05-05 18:46:47,111 - INFO - HTTP Request: GET https://api.openai.com/v1/files/file-JgPbnykpPSGKHzzQ7Y6Vqf/content "HTTP/1.1 200 OK"
+2026-05-05 18:46:48,038 - INFO -   Raw output saved to results/olmo2_32b/e1/pretraining/gpt-4.1-mini/batch_e1/batch_output.jsonl
+2026-05-05 18:46:48,100 - WARNING - Expected 163 labels, got 162
+2026-05-05 18:46:48,100 - WARNING - Expected 163 labels, got 10
+2026-05-05 18:46:48,101 - WARNING - Expected 207 labels, got 169
+2026-05-05 18:46:48,101 - WARNING - Expected 207 labels, got 146
+2026-05-05 18:46:48,103 - WARNING - Expected 130 labels, got 107
+2026-05-05 18:46:48,103 - WARNING - Expected 130 labels, got 66
+2026-05-05 18:46:48,103 - WARNING - Expected 111 labels, got 96
+2026-05-05 18:46:48,105 - WARNING - Expected 133 labels, got 20
+2026-05-05 18:46:48,107 - WARNING - Expected 83 labels, got 53
+2026-05-05 18:46:48,107 - WARNING - Expected 83 labels, got 53
+2026-05-05 18:46:48,110 - WARNING - Expected 165 labels, got 164
+2026-05-05 18:46:48,110 - WARNING - Expected 165 labels, got 54
+2026-05-05 18:46:48,113 - WARNING - Expected 338 labels, got 30
+2026-05-05 18:46:48,113 - WARNING - Expected 338 labels, got 10
+2026-05-05 18:46:48,113 - WARNING - Expected 129 labels, got 128
+2026-05-05 18:46:48,114 - WARNING - Expected 100 labels, got 10
+2026-05-05 18:46:48,114 - WARNING - Expected 85 labels, got 81
+2026-05-05 18:46:48,117 - WARNING - Expected 130 labels, got 75
+2026-05-05 18:46:48,119 - WARNING - Expected 178 labels, got 91
+2026-05-05 18:46:48,120 - WARNING - No context label found for span_idx=0, doc_ix=223647323
+2026-05-05 18:46:48,120 - WARNING - No context label found for span_idx=0, doc_ix=4056156
+2026-05-05 18:46:48,120 - WARNING - No context label found for span_idx=0, doc_ix=473910150
+2026-05-05 18:46:48,120 - WARNING - No context label found for span_idx=1, doc_ix=591244273
+2026-05-05 18:46:48,120 - WARNING - No context label found for span_idx=2, doc_ix=357164915
+2026-05-05 18:46:48,120 - WARNING - No context label found for span_idx=3, doc_ix=144602161
+2026-05-05 18:46:48,120 - WARNING - No context label found for span_idx=3, doc_ix=194011308
+2026-05-05 18:46:48,120 - WARNING - No context label found for span_idx=4, doc_ix=43869643
+2026-05-05 18:46:48,120 - WARNING - No context label found for span_idx=4, doc_ix=86104481
+2026-05-05 18:46:48,120 - WARNING - No context label found for span_idx=4, doc_ix=157509204
+2026-05-05 18:46:48,120 - WARNING - No context label found for span_idx=4, doc_ix=861861158
+2026-05-05 18:46:48,120 - WARNING - No context label found for span_idx=5, doc_ix=538245004
+2026-05-05 18:46:48,120 - WARNING - No context label found for span_idx=5, doc_ix=618331624
+2026-05-05 18:46:48,120 - WARNING - No context label found for span_idx=6, doc_ix=359708470
+2026-05-05 18:46:48,120 - WARNING - No context label found for span_idx=7, doc_ix=2620082576
+2026-05-05 18:46:48,120 - WARNING - No context label found for span_idx=8, doc_ix=262927392
+2026-05-05 18:46:48,120 - WARNING - No context label found for span_idx=9, doc_ix=156688022
+2026-05-05 18:46:48,120 - WARNING - No context label found for span_idx=10, doc_ix=3027365988
+2026-05-05 18:46:48,120 - WARNING - No context label found for span_idx=11, doc_ix=99801599
+2026-05-05 18:46:48,120 - WARNING - No context label found for span_idx=11, doc_ix=95033787
+2026-05-05 18:46:48,120 - WARNING - No context label found for span_idx=11, doc_ix=42495549
+2026-05-05 18:46:48,120 - WARNING - No context label found for span_idx=12, doc_ix=3027365988
+2026-05-05 18:46:48,120 - WARNING - No context label found for span_idx=13, doc_ix=3027365988
+2026-05-05 18:46:48,120 - WARNING - No context label found for span_idx=14, doc_ix=82401500
+2026-05-05 18:46:48,120 - WARNING - No context label found for span_idx=15, doc_ix=52457158
+2026-05-05 18:46:48,120 - WARNING - No context label found for span_idx=15, doc_ix=161180071
+2026-05-05 18:46:48,120 - WARNING - No context label found for span_idx=15, doc_ix=169640351
+2026-05-05 18:46:48,120 - WARNING - No context label found for span_idx=15, doc_ix=415724975
+2026-05-05 18:46:48,120 - WARNING - No context label found for span_idx=16, doc_ix=2070123958
+2026-05-05 18:46:48,120 - WARNING - No context label found for span_idx=17, doc_ix=285628026
+2026-05-05 18:46:48,120 - WARNING - No context label found for span_idx=17, doc_ix=77004717
+2026-05-05 18:46:48,120 - WARNING - No context label found for span_idx=17, doc_ix=21440193
+2026-05-05 18:46:48,120 - WARNING - No context label found for span_idx=17, doc_ix=154326684
+2026-05-05 18:46:48,120 - WARNING - No context label found for span_idx=17, doc_ix=139913036
+2026-05-05 18:46:48,120 - WARNING - No context label found for span_idx=17, doc_ix=42486687
+2026-05-05 18:46:48,120 - WARNING - No context label found for span_idx=17, doc_ix=127678783
+2026-05-05 18:46:48,120 - WARNING - No context label found for span_idx=17, doc_ix=5287597
+2026-05-05 18:46:48,120 - WARNING - No context label found for span_idx=18, doc_ix=3027365988
+2026-05-05 18:46:48,120 - WARNING - No context label found for span_idx=19, doc_ix=22590379
+2026-05-05 18:46:48,120 - WARNING - No context label found for span_idx=19, doc_ix=187664516
+2026-05-05 18:46:48,120 - WARNING - No context label found for span_idx=19, doc_ix=344342586
+2026-05-05 18:46:48,120 - WARNING - No context label found for span_idx=20, doc_ix=22590379
+2026-05-05 18:46:48,120 - WARNING - No context label found for span_idx=21, doc_ix=3027365988
+2026-05-05 18:46:48,120 - WARNING - No context label found for span_idx=22, doc_ix=22590379
+2026-05-05 18:46:48,120 - WARNING - No context label found for span_idx=22, doc_ix=187664516
+2026-05-05 18:46:48,120 - WARNING - No context label found for span_idx=22, doc_ix=22590379
+2026-05-05 18:46:48,120 - WARNING - No context label found for span_idx=22, doc_ix=549261831
+2026-05-05 18:46:48,120 - WARNING - No context label found for span_idx=23, doc_ix=268732480
+2026-05-05 18:46:48,120 - WARNING - No context label found for span_idx=23, doc_ix=92145365
+2026-05-05 18:46:48,120 - WARNING - No context label found for span_idx=23, doc_ix=157424580
+2026-05-05 18:46:48,120 - WARNING - No context label found for span_idx=24, doc_ix=85237864
+2026-05-05 18:46:48,120 - WARNING - No context label found for span_idx=25, doc_ix=22590379
+2026-05-05 18:46:48,120 - WARNING - No context label found for span_idx=25, doc_ix=187664516
+2026-05-05 18:46:48,120 - WARNING - No context label found for span_idx=25, doc_ix=22590379
+2026-05-05 18:46:48,120 - WARNING - No context label found for span_idx=25, doc_ix=549261831
+2026-05-05 18:46:48,121 - WARNING - No context label found for span_idx=25, doc_ix=344342586
+2026-05-05 18:46:48,121 - WARNING - No context label found for span_idx=26, doc_ix=268732480
+2026-05-05 18:46:48,121 - WARNING - No context label found for span_idx=26, doc_ix=92145365
+2026-05-05 18:46:48,121 - WARNING - No context label found for span_idx=26, doc_ix=192487650
+2026-05-05 18:46:48,121 - WARNING - No context label found for span_idx=26, doc_ix=97116873
+2026-05-05 18:46:48,121 - WARNING - No context label found for span_idx=27, doc_ix=200350502
+2026-05-05 18:46:48,121 - WARNING - No context label found for span_idx=27, doc_ix=241444806
+2026-05-05 18:46:48,121 - WARNING - No context label found for span_idx=27, doc_ix=1062121046
+2026-05-05 18:46:48,121 - WARNING - No context label found for span_idx=28, doc_ix=3027365988
+2026-05-05 18:46:48,121 - WARNING - No context label found for span_idx=29, doc_ix=22590379
+2026-05-05 18:46:48,121 - WARNING - No context label found for span_idx=29, doc_ix=187664516
+2026-05-05 18:46:48,121 - WARNING - No context label found for span_idx=29, doc_ix=22590379
+2026-05-05 18:46:48,121 - WARNING - No context label found for span_idx=29, doc_ix=549261831
+2026-05-05 18:46:48,121 - WARNING - No context label found for span_idx=30, doc_ix=268732480
+2026-05-05 18:46:48,121 - WARNING - No context label found for span_idx=30, doc_ix=92145365
+2026-05-05 18:46:48,121 - WARNING - No context label found for span_idx=30, doc_ix=192487650
+2026-05-05 18:46:48,121 - WARNING - No context label found for span_idx=30, doc_ix=97116873
+2026-05-05 18:46:48,121 - WARNING - No context label found for span_idx=31, doc_ix=1062121046
+2026-05-05 18:46:48,121 - WARNING - No context label found for span_idx=32, doc_ix=39187773
+2026-05-05 18:46:48,121 - WARNING - No context label found for span_idx=32, doc_ix=290623423
+2026-05-05 18:46:48,121 - WARNING - No context label found for span_idx=32, doc_ix=751031321
+2026-05-05 18:46:48,121 - WARNING - No context label found for span_idx=33, doc_ix=40835657
+2026-05-05 18:46:48,121 - WARNING - No context label found for span_idx=33, doc_ix=134983305
+2026-05-05 18:46:48,121 - WARNING - No context label found for span_idx=33, doc_ix=101175951
+2026-05-05 18:46:48,121 - WARNING - No context label found for span_idx=33, doc_ix=55172214
+2026-05-05 18:46:48,121 - WARNING - No context label found for span_idx=33, doc_ix=30691733
+2026-05-05 18:46:48,121 - WARNING - No context label found for span_idx=34, doc_ix=22590379
+2026-05-05 18:46:48,121 - WARNING - No context label found for span_idx=34, doc_ix=187664516
+2026-05-05 18:46:48,121 - WARNING - No context label found for span_idx=34, doc_ix=22590379
+2026-05-05 18:46:48,121 - WARNING - No context label found for span_idx=34, doc_ix=549261831
+2026-05-05 18:46:48,121 - WARNING - No context label found for span_idx=34, doc_ix=344342586
+2026-05-05 18:46:48,121 - WARNING - No context label found for span_idx=35, doc_ix=268732480
+2026-05-05 18:46:48,121 - WARNING - No context label found for span_idx=35, doc_ix=92145365
+2026-05-05 18:46:48,121 - WARNING - No context label found for span_idx=35, doc_ix=192487650
+2026-05-05 18:46:48,121 - WARNING - No context label found for span_idx=35, doc_ix=157424580
+2026-05-05 18:46:48,121 - WARNING - No context label found for span_idx=36, doc_ix=1062121046
+2026-05-05 18:46:48,121 - WARNING - No context label found for span_idx=37, doc_ix=39187773
+2026-05-05 18:46:48,121 - WARNING - No context label found for span_idx=37, doc_ix=290623423
+2026-05-05 18:46:48,121 - WARNING - No context label found for span_idx=37, doc_ix=751031321
+2026-05-05 18:46:48,121 - WARNING - No context label found for span_idx=38, doc_ix=185204703
+2026-05-05 18:46:48,121 - WARNING - No context label found for span_idx=38, doc_ix=134983305
+2026-05-05 18:46:48,121 - WARNING - No context label found for span_idx=38, doc_ix=108184281
+2026-05-05 18:46:48,121 - WARNING - No context label found for span_idx=38, doc_ix=14372902
+2026-05-05 18:46:48,121 - WARNING - No context label found for span_idx=38, doc_ix=178579204
+2026-05-05 18:46:48,121 - WARNING - No context label found for span_idx=39, doc_ix=1824798504
+2026-05-05 18:46:48,121 - WARNING - No context label found for span_idx=40, doc_ix=155618428
+2026-05-05 18:46:48,121 - WARNING - No context label found for span_idx=41, doc_ix=110926506
+2026-05-05 18:46:48,121 - WARNING - No context label found for span_idx=42, doc_ix=2555143482
+2026-05-05 18:46:48,121 - WARNING - No context label found for span_idx=43, doc_ix=201716933
+2026-05-05 18:46:48,121 - WARNING - No context label found for span_idx=43, doc_ix=219113654
+2026-05-05 18:46:48,121 - WARNING - No context label found for span_idx=43, doc_ix=242512834
+2026-05-05 18:46:48,121 - WARNING - No context label found for span_idx=43, doc_ix=109288708
+2026-05-05 18:46:48,121 - WARNING - No context label found for span_idx=43, doc_ix=40698867
+2026-05-05 18:46:48,121 - WARNING - No context label found for span_idx=43, doc_ix=143874438
+2026-05-05 18:46:48,121 - WARNING - No context label found for span_idx=43, doc_ix=148318378
+2026-05-05 18:46:48,121 - WARNING - No context label found for span_idx=43, doc_ix=65923215
+2026-05-05 18:46:48,121 - WARNING - No context label found for span_idx=44, doc_ix=3027365988
+2026-05-05 18:46:48,121 - WARNING - No context label found for span_idx=45, doc_ix=22590379
+2026-05-05 18:46:48,121 - WARNING - No context label found for span_idx=45, doc_ix=187664516
+2026-05-05 18:46:48,121 - WARNING - No context label found for span_idx=45, doc_ix=22590379
+2026-05-05 18:46:48,121 - WARNING - No context label found for span_idx=45, doc_ix=549261831
+2026-05-05 18:46:48,121 - WARNING - No context label found for span_idx=45, doc_ix=344342586
+2026-05-05 18:46:48,121 - WARNING - No context label found for span_idx=46, doc_ix=151581106
+2026-05-05 18:46:48,122 - WARNING - No context label found for span_idx=46, doc_ix=92145365
+2026-05-05 18:46:48,122 - WARNING - No context label found for span_idx=46, doc_ix=192487650
+2026-05-05 18:46:48,122 - WARNING - No context label found for span_idx=46, doc_ix=157424580
+2026-05-05 18:46:48,122 - WARNING - No context label found for span_idx=47, doc_ix=1062121046
+2026-05-05 18:46:48,122 - WARNING - No context label found for span_idx=48, doc_ix=39187773
+2026-05-05 18:46:48,122 - WARNING - No context label found for span_idx=48, doc_ix=290623423
+2026-05-05 18:46:48,122 - WARNING - No context label found for span_idx=48, doc_ix=751031321
+2026-05-05 18:46:48,122 - WARNING - No context label found for span_idx=49, doc_ix=40835657
+2026-05-05 18:46:48,122 - WARNING - No context label found for span_idx=49, doc_ix=4019483
+2026-05-05 18:46:48,122 - WARNING - No context label found for span_idx=49, doc_ix=150152924
+2026-05-05 18:46:48,122 - WARNING - No context label found for span_idx=49, doc_ix=101175951
+2026-05-05 18:46:48,122 - WARNING - No context label found for span_idx=50, doc_ix=22590379
+2026-05-05 18:46:48,122 - WARNING - No context label found for span_idx=50, doc_ix=187664516
+2026-05-05 18:46:48,122 - WARNING - No context label found for span_idx=50, doc_ix=22590379
+2026-05-05 18:46:48,122 - WARNING - No context label found for span_idx=50, doc_ix=344342586
+2026-05-05 18:46:48,122 - WARNING - No context label found for span_idx=51, doc_ix=268732480
+2026-05-05 18:46:48,122 - WARNING - No context label found for span_idx=51, doc_ix=92145365
+2026-05-05 18:46:48,122 - WARNING - No context label found for span_idx=51, doc_ix=157424580
+2026-05-05 18:46:48,122 - WARNING - No context label found for span_idx=52, doc_ix=1062121046
+2026-05-05 18:46:48,122 - WARNING - No context label found for span_idx=53, doc_ix=39187773
+2026-05-05 18:46:48,122 - WARNING - No context label found for span_idx=53, doc_ix=290623423
+2026-05-05 18:46:48,122 - WARNING - No context label found for span_idx=53, doc_ix=751031321
+2026-05-05 18:46:48,122 - WARNING - No context label found for span_idx=54, doc_ix=5603171
+2026-05-05 18:46:48,122 - WARNING - No context label found for span_idx=54, doc_ix=141801631
+2026-05-05 18:46:48,122 - WARNING - No context label found for span_idx=54, doc_ix=101175951
+2026-05-05 18:46:48,122 - WARNING - No context label found for span_idx=54, doc_ix=55172214
+2026-05-05 18:46:48,122 - WARNING - No context label found for span_idx=54, doc_ix=263685992
+2026-05-05 18:46:48,122 - WARNING - No context label found for span_idx=54, doc_ix=178579204
+2026-05-05 18:46:48,122 - WARNING - No context label found for span_idx=55, doc_ix=1824798504
+2026-05-05 18:46:48,122 - WARNING - No context label found for span_idx=56, doc_ix=155618428
+2026-05-05 18:46:48,122 - WARNING - No context label found for span_idx=57, doc_ix=110926506
+2026-05-05 18:46:48,122 - WARNING - No context label found for span_idx=58, doc_ix=2555143482
+2026-05-05 18:46:48,122 - WARNING - No context label found for span_idx=59, doc_ix=201716933
+2026-05-05 18:46:48,122 - WARNING - No context label found for span_idx=59, doc_ix=164899736
+2026-05-05 18:46:48,122 - WARNING - No context label found for span_idx=59, doc_ix=210909812
+2026-05-05 18:46:48,122 - WARNING - No context label found for span_idx=59, doc_ix=143874438
+2026-05-05 18:46:48,122 - WARNING - No context label found for span_idx=59, doc_ix=88270791
+2026-05-05 18:46:48,122 - WARNING - No context label found for span_idx=59, doc_ix=284096652
+2026-05-05 18:46:48,122 - WARNING - No context label found for span_idx=59, doc_ix=90159427
+2026-05-05 18:46:48,122 - WARNING - No context label found for span_idx=28, doc_ix=654428147
+2026-05-05 18:46:48,122 - WARNING - No context label found for span_idx=50, doc_ix=424944076
+2026-05-05 18:46:48,122 - WARNING - No context label found for span_idx=50, doc_ix=391978560
+2026-05-05 18:46:48,122 - WARNING - No context label found for span_idx=50, doc_ix=407799127
+2026-05-05 18:46:48,122 - WARNING - No context label found for span_idx=50, doc_ix=555188381
+2026-05-05 18:46:48,122 - WARNING - No context label found for span_idx=50, doc_ix=654428147
+2026-05-05 18:46:48,122 - WARNING - No context label found for span_idx=50, doc_ix=811040159
+2026-05-05 18:46:48,122 - WARNING - No context label found for span_idx=51, doc_ix=3042503534
+2026-05-05 18:46:48,122 - WARNING - No context label found for span_idx=52, doc_ix=3042503534
+2026-05-05 18:46:48,122 - WARNING - No context label found for span_idx=53, doc_ix=3042503534
+2026-05-05 18:46:48,122 - WARNING - No context label found for span_idx=54, doc_ix=3042503534
+2026-05-05 18:46:48,122 - WARNING - No context label found for span_idx=55, doc_ix=3042503534
+2026-05-05 18:46:48,122 - WARNING - No context label found for span_idx=56, doc_ix=760857071
+2026-05-05 18:46:48,123 - WARNING - No context label found for span_idx=57, doc_ix=424944076
+2026-05-05 18:46:48,123 - WARNING - No context label found for span_idx=57, doc_ix=391978560
+2026-05-05 18:46:48,123 - WARNING - No context label found for span_idx=57, doc_ix=407799127
+2026-05-05 18:46:48,123 - WARNING - No context label found for span_idx=57, doc_ix=555188381
+2026-05-05 18:46:48,123 - WARNING - No context label found for span_idx=57, doc_ix=654428147
+2026-05-05 18:46:48,123 - WARNING - No context label found for span_idx=57, doc_ix=811040159
+2026-05-05 18:46:48,123 - WARNING - No context label found for span_idx=58, doc_ix=3042503534
+2026-05-05 18:46:48,123 - WARNING - No context label found for span_idx=59, doc_ix=3042503534
+2026-05-05 18:46:48,123 - WARNING - No context label found for span_idx=60, doc_ix=3042503534
+2026-05-05 18:46:48,123 - WARNING - No context label found for span_idx=61, doc_ix=3042503534
+2026-05-05 18:46:48,123 - WARNING - No context label found for span_idx=62, doc_ix=760857071
+2026-05-05 18:46:48,123 - WARNING - No context label found for span_idx=63, doc_ix=424944076
+2026-05-05 18:46:48,123 - WARNING - No context label found for span_idx=63, doc_ix=391978560
+2026-05-05 18:46:48,123 - WARNING - No context label found for span_idx=63, doc_ix=407799127
+2026-05-05 18:46:48,123 - WARNING - No context label found for span_idx=63, doc_ix=555188381
+2026-05-05 18:46:48,123 - WARNING - No context label found for span_idx=63, doc_ix=654428147
+2026-05-05 18:46:48,123 - WARNING - No context label found for span_idx=63, doc_ix=811040159
+2026-05-05 18:46:48,123 - WARNING - No context label found for span_idx=64, doc_ix=760857071
+2026-05-05 18:46:48,123 - WARNING - No context label found for span_idx=65, doc_ix=424944076
+2026-05-05 18:46:48,123 - WARNING - No context label found for span_idx=65, doc_ix=391978560
+2026-05-05 18:46:48,123 - WARNING - No context label found for span_idx=65, doc_ix=407799127
+2026-05-05 18:46:48,123 - WARNING - No context label found for span_idx=65, doc_ix=555188381
+2026-05-05 18:46:48,123 - WARNING - No context label found for span_idx=65, doc_ix=654428147
+2026-05-05 18:46:48,123 - WARNING - No context label found for span_idx=65, doc_ix=811040159
+2026-05-05 18:46:48,123 - WARNING - No context label found for span_idx=66, doc_ix=760857071
+2026-05-05 18:46:48,123 - WARNING - No context label found for span_idx=67, doc_ix=424944076
+2026-05-05 18:46:48,123 - WARNING - No context label found for span_idx=67, doc_ix=391978560
+2026-05-05 18:46:48,123 - WARNING - No context label found for span_idx=67, doc_ix=407799127
+2026-05-05 18:46:48,123 - WARNING - No context label found for span_idx=67, doc_ix=555188381
+2026-05-05 18:46:48,123 - WARNING - No context label found for span_idx=67, doc_ix=654428147
+2026-05-05 18:46:48,123 - WARNING - No context label found for span_idx=67, doc_ix=811040159
+2026-05-05 18:46:48,123 - WARNING - No context label found for span_idx=30, doc_ix=229735866
+2026-05-05 18:46:48,123 - WARNING - No context label found for span_idx=30, doc_ix=149683792
+2026-05-05 18:46:48,123 - WARNING - No context label found for span_idx=31, doc_ix=777739192
+2026-05-05 18:46:48,123 - WARNING - No context label found for span_idx=32, doc_ix=16827353
+2026-05-05 18:46:48,123 - WARNING - No context label found for span_idx=32, doc_ix=74569746
+2026-05-05 18:46:48,123 - WARNING - No context label found for span_idx=32, doc_ix=940788673
+2026-05-05 18:46:48,123 - WARNING - No context label found for span_idx=33, doc_ix=1243249906
+2026-05-05 18:46:48,123 - WARNING - No context label found for span_idx=34, doc_ix=148502204
+2026-05-05 18:46:48,123 - WARNING - No context label found for span_idx=34, doc_ix=75555355
+2026-05-05 18:46:48,123 - WARNING - No context label found for span_idx=34, doc_ix=241555163
+2026-05-05 18:46:48,123 - WARNING - No context label found for span_idx=34, doc_ix=142978956
+2026-05-05 18:46:48,123 - WARNING - No context label found for span_idx=34, doc_ix=68093182
+2026-05-05 18:46:48,124 - WARNING - No context label found for span_idx=34, doc_ix=147826284
+2026-05-05 18:46:48,124 - WARNING - No context label found for span_idx=35, doc_ix=1367074747
+2026-05-05 18:46:48,124 - WARNING - No context label found for span_idx=36, doc_ix=229735866
+2026-05-05 18:46:48,124 - WARNING - No context label found for span_idx=36, doc_ix=149683792
+2026-05-05 18:46:48,124 - WARNING - No context label found for span_idx=37, doc_ix=777739192
+2026-05-05 18:46:48,124 - WARNING - No context label found for span_idx=38, doc_ix=16827353
+2026-05-05 18:46:48,124 - WARNING - No context label found for span_idx=38, doc_ix=74569746
+2026-05-05 18:46:48,124 - WARNING - No context label found for span_idx=38, doc_ix=940788673
+2026-05-05 18:46:48,124 - WARNING - No context label found for span_idx=39, doc_ix=1243249906
+2026-05-05 18:46:48,124 - WARNING - No context label found for span_idx=40, doc_ix=148502204
+2026-05-05 18:46:48,124 - WARNING - No context label found for span_idx=40, doc_ix=75555355
+2026-05-05 18:46:48,124 - WARNING - No context label found for span_idx=40, doc_ix=241555163
+2026-05-05 18:46:48,124 - WARNING - No context label found for span_idx=40, doc_ix=68093182
+2026-05-05 18:46:48,124 - WARNING - No context label found for span_idx=40, doc_ix=147826284
+2026-05-05 18:46:48,124 - WARNING - No context label found for span_idx=41, doc_ix=1367074747
+2026-05-05 18:46:48,124 - WARNING - No context label found for span_idx=42, doc_ix=229735866
+2026-05-05 18:46:48,124 - WARNING - No context label found for span_idx=42, doc_ix=149683792
+2026-05-05 18:46:48,124 - WARNING - No context label found for span_idx=43, doc_ix=777739192
+2026-05-05 18:46:48,124 - WARNING - No context label found for span_idx=44, doc_ix=16827353
+2026-05-05 18:46:48,124 - WARNING - No context label found for span_idx=44, doc_ix=74569746
+2026-05-05 18:46:48,124 - WARNING - No context label found for span_idx=44, doc_ix=940788673
+2026-05-05 18:46:48,124 - WARNING - No context label found for span_idx=45, doc_ix=1243249906
+2026-05-05 18:46:48,124 - WARNING - No context label found for span_idx=46, doc_ix=148502204
+2026-05-05 18:46:48,124 - WARNING - No context label found for span_idx=46, doc_ix=221873233
+2026-05-05 18:46:48,124 - WARNING - No context label found for span_idx=46, doc_ix=241555163
+2026-05-05 18:46:48,124 - WARNING - No context label found for span_idx=46, doc_ix=142978956
+2026-05-05 18:46:48,124 - WARNING - No context label found for span_idx=46, doc_ix=68093182
+2026-05-05 18:46:48,124 - WARNING - No context label found for span_idx=46, doc_ix=147826284
+2026-05-05 18:46:48,124 - WARNING - No context label found for span_idx=47, doc_ix=1367074747
+2026-05-05 18:46:48,124 - WARNING - No context label found for span_idx=9, doc_ix=234980966
+2026-05-05 18:46:48,124 - WARNING - No context label found for span_idx=9, doc_ix=1719390765
+2026-05-05 18:46:48,124 - WARNING - No context label found for span_idx=10, doc_ix=679541531
+2026-05-05 18:46:48,124 - WARNING - No context label found for span_idx=11, doc_ix=150085932
+2026-05-05 18:46:48,124 - WARNING - No context label found for span_idx=11, doc_ix=2994004260
+2026-05-05 18:46:48,124 - WARNING - No context label found for span_idx=12, doc_ix=1139299674
+2026-05-05 18:46:48,124 - WARNING - No context label found for span_idx=13, doc_ix=2996501945
+2026-05-05 18:46:48,126 - WARNING - No context label found for span_idx=14, doc_ix=63480271
+2026-05-05 18:46:48,126 - WARNING - No context label found for span_idx=15, doc_ix=374375813
+2026-05-05 18:46:48,126 - WARNING - No context label found for span_idx=16, doc_ix=72622808
+2026-05-05 18:46:48,126 - WARNING - No context label found for span_idx=16, doc_ix=191879513
+2026-05-05 18:46:48,126 - WARNING - No context label found for span_idx=16, doc_ix=240631953
+2026-05-05 18:46:48,126 - WARNING - No context label found for span_idx=16, doc_ix=148999884
+2026-05-05 18:46:48,126 - WARNING - No context label found for span_idx=16, doc_ix=408231318
+2026-05-05 18:46:48,126 - WARNING - No context label found for span_idx=16, doc_ix=489338868
+2026-05-05 18:46:48,126 - WARNING - No context label found for span_idx=17, doc_ix=293943338
+2026-05-05 18:46:48,126 - WARNING - No context label found for span_idx=17, doc_ix=82450891
+2026-05-05 18:46:48,126 - WARNING - No context label found for span_idx=17, doc_ix=363006989
+2026-05-05 18:46:48,126 - WARNING - No context label found for span_idx=17, doc_ix=516897321
+2026-05-05 18:46:48,126 - WARNING - No context label found for span_idx=17, doc_ix=1235560726
+2026-05-05 18:46:48,126 - WARNING - No context label found for span_idx=18, doc_ix=234980966
+2026-05-05 18:46:48,126 - WARNING - No context label found for span_idx=18, doc_ix=1719390765
+2026-05-05 18:46:48,126 - WARNING - No context label found for span_idx=19, doc_ix=679541531
+2026-05-05 18:46:48,126 - WARNING - No context label found for span_idx=20, doc_ix=150085932
+2026-05-05 18:46:48,126 - WARNING - No context label found for span_idx=20, doc_ix=2994004260
+2026-05-05 18:46:48,127 - WARNING - No context label found for span_idx=21, doc_ix=1139299674
+2026-05-05 18:46:48,127 - WARNING - No context label found for span_idx=22, doc_ix=2996501945
+2026-05-05 18:46:48,127 - WARNING - No context label found for span_idx=23, doc_ix=63480271
+2026-05-05 18:46:48,127 - WARNING - No context label found for span_idx=24, doc_ix=374375813
+2026-05-05 18:46:48,127 - WARNING - No context label found for span_idx=25, doc_ix=72622808
+2026-05-05 18:46:48,127 - WARNING - No context label found for span_idx=25, doc_ix=191879513
+2026-05-05 18:46:48,127 - WARNING - No context label found for span_idx=25, doc_ix=240631953
+2026-05-05 18:46:48,127 - WARNING - No context label found for span_idx=25, doc_ix=148999884
+2026-05-05 18:46:48,127 - WARNING - No context label found for span_idx=25, doc_ix=489338868
+2026-05-05 18:46:48,127 - WARNING - No context label found for span_idx=26, doc_ix=293943338
+2026-05-05 18:46:48,127 - WARNING - No context label found for span_idx=26, doc_ix=82450891
+2026-05-05 18:46:48,127 - WARNING - No context label found for span_idx=26, doc_ix=363006989
+2026-05-05 18:46:48,127 - WARNING - No context label found for span_idx=26, doc_ix=516897321
+2026-05-05 18:46:48,127 - WARNING - No context label found for span_idx=26, doc_ix=1235560726
+2026-05-05 18:46:48,127 - WARNING - No context label found for span_idx=27, doc_ix=234980966
+2026-05-05 18:46:48,127 - WARNING - No context label found for span_idx=27, doc_ix=1719390765
+2026-05-05 18:46:48,127 - WARNING - No context label found for span_idx=28, doc_ix=679541531
+2026-05-05 18:46:48,127 - WARNING - No context label found for span_idx=29, doc_ix=150085932
+2026-05-05 18:46:48,127 - WARNING - No context label found for span_idx=29, doc_ix=2994004260
+2026-05-05 18:46:48,127 - WARNING - No context label found for span_idx=30, doc_ix=1139299674
+2026-05-05 18:46:48,127 - WARNING - No context label found for span_idx=31, doc_ix=2996501945
+2026-05-05 18:46:48,127 - WARNING - No context label found for span_idx=32, doc_ix=63480271
+2026-05-05 18:46:48,127 - WARNING - No context label found for span_idx=33, doc_ix=374375813
+2026-05-05 18:46:48,127 - WARNING - No context label found for span_idx=34, doc_ix=72622808
+2026-05-05 18:46:48,127 - WARNING - No context label found for span_idx=34, doc_ix=191879513
+2026-05-05 18:46:48,127 - WARNING - No context label found for span_idx=34, doc_ix=240631953
+2026-05-05 18:46:48,127 - WARNING - No context label found for span_idx=34, doc_ix=148999884
+2026-05-05 18:46:48,127 - WARNING - No context label found for span_idx=34, doc_ix=408231318
+2026-05-05 18:46:48,127 - WARNING - No context label found for span_idx=35, doc_ix=293943338
+2026-05-05 18:46:48,127 - WARNING - No context label found for span_idx=35, doc_ix=82450891
+2026-05-05 18:46:48,127 - WARNING - No context label found for span_idx=35, doc_ix=363006989
+2026-05-05 18:46:48,127 - WARNING - No context label found for span_idx=35, doc_ix=516897321
+2026-05-05 18:46:48,127 - WARNING - No context label found for span_idx=35, doc_ix=1235560726
+2026-05-05 18:46:48,127 - WARNING - No context label found for span_idx=36, doc_ix=234980966
+2026-05-05 18:46:48,127 - WARNING - No context label found for span_idx=36, doc_ix=1719390765
+2026-05-05 18:46:48,127 - WARNING - No context label found for span_idx=37, doc_ix=679541531
+2026-05-05 18:46:48,127 - WARNING - No context label found for span_idx=38, doc_ix=150085932
+2026-05-05 18:46:48,127 - WARNING - No context label found for span_idx=38, doc_ix=2994004260
+2026-05-05 18:46:48,127 - WARNING - No context label found for span_idx=39, doc_ix=1139299674
+2026-05-05 18:46:48,127 - WARNING - No context label found for span_idx=40, doc_ix=63480271
+2026-05-05 18:46:48,127 - WARNING - No context label found for span_idx=41, doc_ix=374375813
+2026-05-05 18:46:48,127 - WARNING - No context label found for span_idx=42, doc_ix=72622808
+2026-05-05 18:46:48,127 - WARNING - No context label found for span_idx=42, doc_ix=191879513
+2026-05-05 18:46:48,127 - WARNING - No context label found for span_idx=42, doc_ix=240631953
+2026-05-05 18:46:48,127 - WARNING - No context label found for span_idx=42, doc_ix=148999884
+2026-05-05 18:46:48,127 - WARNING - No context label found for span_idx=42, doc_ix=568400105
+2026-05-05 18:46:48,127 - WARNING - No context label found for span_idx=43, doc_ix=293943338
+2026-05-05 18:46:48,127 - WARNING - No context label found for span_idx=43, doc_ix=82450891
+2026-05-05 18:46:48,127 - WARNING - No context label found for span_idx=43, doc_ix=363006989
+2026-05-05 18:46:48,127 - WARNING - No context label found for span_idx=43, doc_ix=516897321
+2026-05-05 18:46:48,127 - WARNING - No context label found for span_idx=43, doc_ix=1235560726
+2026-05-05 18:46:48,127 - WARNING - No context label found for span_idx=44, doc_ix=234980966
+2026-05-05 18:46:48,128 - WARNING - No context label found for span_idx=44, doc_ix=1719390765
+2026-05-05 18:46:48,128 - WARNING - No context label found for span_idx=45, doc_ix=679541531
+2026-05-05 18:46:48,128 - WARNING - No context label found for span_idx=46, doc_ix=150085932
+2026-05-05 18:46:48,128 - WARNING - No context label found for span_idx=46, doc_ix=2994004260
+2026-05-05 18:46:48,128 - WARNING - No context label found for span_idx=47, doc_ix=1139299674
+2026-05-05 18:46:48,128 - WARNING - No context label found for span_idx=48, doc_ix=63480271
+2026-05-05 18:46:48,128 - WARNING - No context label found for span_idx=49, doc_ix=374375813
+2026-05-05 18:46:48,128 - WARNING - No context label found for span_idx=50, doc_ix=72622808
+2026-05-05 18:46:48,128 - WARNING - No context label found for span_idx=50, doc_ix=191879513
+2026-05-05 18:46:48,128 - WARNING - No context label found for span_idx=50, doc_ix=240631953
+2026-05-05 18:46:48,128 - WARNING - No context label found for span_idx=50, doc_ix=148999884
+2026-05-05 18:46:48,128 - WARNING - No context label found for span_idx=50, doc_ix=568400105
+2026-05-05 18:46:48,128 - WARNING - No context label found for span_idx=50, doc_ix=489338868
+2026-05-05 18:46:48,128 - WARNING - No context label found for span_idx=51, doc_ix=293943338
+2026-05-05 18:46:48,128 - WARNING - No context label found for span_idx=51, doc_ix=82450891
+2026-05-05 18:46:48,128 - WARNING - No context label found for span_idx=51, doc_ix=363006989
+2026-05-05 18:46:48,128 - WARNING - No context label found for span_idx=51, doc_ix=516897321
+2026-05-05 18:46:48,128 - WARNING - No context label found for span_idx=51, doc_ix=1235560726
+2026-05-05 18:46:48,128 - WARNING - No context label found for span_idx=52, doc_ix=234980966
+2026-05-05 18:46:48,128 - WARNING - No context label found for span_idx=52, doc_ix=1719390765
+2026-05-05 18:46:48,128 - WARNING - No context label found for span_idx=53, doc_ix=679541531
+2026-05-05 18:46:48,128 - WARNING - No context label found for span_idx=54, doc_ix=150085932
+2026-05-05 18:46:48,128 - WARNING - No context label found for span_idx=54, doc_ix=2994004260
+2026-05-05 18:46:48,128 - WARNING - No context label found for span_idx=55, doc_ix=1139299674
+2026-05-05 18:46:48,128 - WARNING - No context label found for span_idx=56, doc_ix=63480271
+2026-05-05 18:46:48,128 - WARNING - No context label found for span_idx=57, doc_ix=374375813
+2026-05-05 18:46:48,128 - WARNING - No context label found for span_idx=58, doc_ix=72622808
+2026-05-05 18:46:48,128 - WARNING - No context label found for span_idx=58, doc_ix=191879513
+2026-05-05 18:46:48,128 - WARNING - No context label found for span_idx=58, doc_ix=240631953
+2026-05-05 18:46:48,128 - WARNING - No context label found for span_idx=58, doc_ix=148999884
+2026-05-05 18:46:48,128 - WARNING - No context label found for span_idx=58, doc_ix=489338868
+2026-05-05 18:46:48,128 - WARNING - No context label found for span_idx=59, doc_ix=293943338
+2026-05-05 18:46:48,128 - WARNING - No context label found for span_idx=59, doc_ix=82450891
+2026-05-05 18:46:48,128 - WARNING - No context label found for span_idx=59, doc_ix=363006989
+2026-05-05 18:46:48,128 - WARNING - No context label found for span_idx=59, doc_ix=516897321
+2026-05-05 18:46:48,128 - WARNING - No context label found for span_idx=59, doc_ix=1235560726
+2026-05-05 18:46:48,129 - WARNING - No context label found for span_idx=0, doc_ix=1953348059
+2026-05-05 18:46:48,129 - WARNING - No context label found for span_idx=0, doc_ix=2951342130
+2026-05-05 18:46:48,129 - WARNING - No context label found for span_idx=0, doc_ix=2995745820
+2026-05-05 18:46:48,129 - WARNING - No context label found for span_idx=1, doc_ix=493082327
+2026-05-05 18:46:48,129 - WARNING - No context label found for span_idx=1, doc_ix=1200562851
+2026-05-05 18:46:48,129 - WARNING - No context label found for span_idx=1, doc_ix=1635661221
+2026-05-05 18:46:48,129 - WARNING - No context label found for span_idx=1, doc_ix=1848829729
+2026-05-05 18:46:48,129 - WARNING - No context label found for span_idx=2, doc_ix=366316476
+2026-05-05 18:46:48,129 - WARNING - No context label found for span_idx=3, doc_ix=194066766
+2026-05-05 18:46:48,129 - WARNING - No context label found for span_idx=4, doc_ix=499072342
+2026-05-05 18:46:48,129 - WARNING - No context label found for span_idx=4, doc_ix=630143781
+2026-05-05 18:46:48,129 - WARNING - No context label found for span_idx=4, doc_ix=1392554888
+2026-05-05 18:46:48,129 - WARNING - No context label found for span_idx=4, doc_ix=1762000079
+2026-05-05 18:46:48,129 - WARNING - No context label found for span_idx=5, doc_ix=223300552
+2026-05-05 18:46:48,129 - WARNING - No context label found for span_idx=5, doc_ix=283349415
+2026-05-05 18:46:48,129 - WARNING - No context label found for span_idx=5, doc_ix=516425687
+2026-05-05 18:46:48,129 - WARNING - No context label found for span_idx=6, doc_ix=3057587556
+2026-05-05 18:46:48,129 - WARNING - No context label found for span_idx=7, doc_ix=1031353810
+2026-05-05 18:46:48,129 - WARNING - No context label found for span_idx=8, doc_ix=2953917504
+2026-05-05 18:46:48,129 - WARNING - No context label found for span_idx=8, doc_ix=2956543197
+2026-05-05 18:46:48,129 - WARNING - No context label found for span_idx=8, doc_ix=2951641783
+2026-05-05 18:46:48,129 - WARNING - No context label found for span_idx=9, doc_ix=2951359813
+2026-05-05 18:46:48,129 - WARNING - No context label found for span_idx=10, doc_ix=110512184
+2026-05-05 18:46:48,129 - WARNING - No context label found for span_idx=10, doc_ix=111219690
+2026-05-05 18:46:48,129 - WARNING - No context label found for span_idx=10, doc_ix=257597991
+2026-05-05 18:46:48,129 - WARNING - No context label found for span_idx=11, doc_ix=1455642402
+2026-05-05 18:46:48,129 - WARNING - No context label found for span_idx=12, doc_ix=123534361
+2026-05-05 18:46:48,129 - WARNING - No context label found for span_idx=13, doc_ix=2953543194
+2026-05-05 18:46:48,129 - WARNING - No context label found for span_idx=13, doc_ix=2953543194
+2026-05-05 18:46:48,129 - WARNING - No context label found for span_idx=14, doc_ix=100938142
+2026-05-05 18:46:48,129 - WARNING - No context label found for span_idx=14, doc_ix=2949459767
+2026-05-05 18:46:48,129 - WARNING - No context label found for span_idx=15, doc_ix=1271235710
+2026-05-05 18:46:48,130 - WARNING - No context label found for span_idx=15, doc_ix=2956946923
+2026-05-05 18:46:48,130 - WARNING - No context label found for span_idx=15, doc_ix=3055655322
+2026-05-05 18:46:48,130 - WARNING - No context label found for span_idx=15, doc_ix=3056301833
+2026-05-05 18:46:48,130 - WARNING - No context label found for span_idx=16, doc_ix=56725785
+2026-05-05 18:46:48,130 - WARNING - No context label found for span_idx=17, doc_ix=2951777405
+2026-05-05 18:46:48,130 - WARNING - No context label found for span_idx=17, doc_ix=2952690482
+2026-05-05 18:46:48,130 - WARNING - No context label found for span_idx=17, doc_ix=2948258107
+2026-05-05 18:46:48,130 - WARNING - No context label found for span_idx=18, doc_ix=123534361
+2026-05-05 18:46:48,130 - WARNING - No context label found for span_idx=19, doc_ix=229250873
+2026-05-05 18:46:48,130 - WARNING - No context label found for span_idx=19, doc_ix=2954795220
+2026-05-05 18:46:48,130 - WARNING - No context label found for span_idx=20, doc_ix=2951777405
+2026-05-05 18:46:48,130 - WARNING - No context label found for span_idx=21, doc_ix=100938142
+2026-05-05 18:46:48,130 - WARNING - No context label found for span_idx=21, doc_ix=2949459767
+2026-05-05 18:46:48,130 - WARNING - No context label found for span_idx=22, doc_ix=27471463
+2026-05-05 18:46:48,130 - WARNING - No context label found for span_idx=22, doc_ix=2954924394
+2026-05-05 18:46:48,130 - WARNING - No context label found for span_idx=23, doc_ix=2951565597
+2026-05-05 18:46:48,130 - WARNING - No context label found for span_idx=23, doc_ix=3055776250
+2026-05-05 18:46:48,130 - WARNING - No context label found for span_idx=23, doc_ix=3055023778
+2026-05-05 18:46:48,130 - WARNING - No context label found for span_idx=24, doc_ix=2951916417
+2026-05-05 18:46:48,130 - WARNING - No context label found for span_idx=25, doc_ix=2954586351
+2026-05-05 18:46:48,130 - WARNING - No context label found for span_idx=26, doc_ix=203668888
+2026-05-05 18:46:48,130 - WARNING - No context label found for span_idx=26, doc_ix=292580661
+2026-05-05 18:46:48,130 - WARNING - No context label found for span_idx=26, doc_ix=124106963
+2026-05-05 18:46:48,130 - WARNING - No context label found for span_idx=26, doc_ix=38186588
+2026-05-05 18:46:48,130 - WARNING - No context label found for span_idx=26, doc_ix=240418389
+2026-05-05 18:46:48,130 - WARNING - No context label found for span_idx=26, doc_ix=265635859
+2026-05-05 18:46:48,130 - WARNING - No context label found for span_idx=26, doc_ix=225812102
+2026-05-05 18:46:48,130 - WARNING - No context label found for span_idx=27, doc_ix=180611138
+2026-05-05 18:46:48,130 - WARNING - No context label found for span_idx=28, doc_ix=737762733
+2026-05-05 18:46:48,130 - WARNING - No context label found for span_idx=28, doc_ix=1131414682
+2026-05-05 18:46:48,130 - WARNING - No context label found for span_idx=29, doc_ix=1779941441
+2026-05-05 18:46:48,130 - WARNING - No context label found for span_idx=30, doc_ix=1644512932
+2026-05-05 18:46:48,130 - WARNING - No context label found for span_idx=31, doc_ix=3062351463
+2026-05-05 18:46:48,130 - WARNING - No context label found for span_idx=32, doc_ix=3058859826
+2026-05-05 18:46:48,130 - WARNING - No context label found for span_idx=33, doc_ix=3058952052
+2026-05-05 18:46:48,130 - WARNING - No context label found for span_idx=33, doc_ix=3058079756
+2026-05-05 18:46:48,130 - WARNING - No context label found for span_idx=34, doc_ix=3059748177
+2026-05-05 18:46:48,130 - WARNING - No context label found for span_idx=35, doc_ix=3014120491
+2026-05-05 18:46:48,130 - WARNING - No context label found for span_idx=36, doc_ix=3014229000
+2026-05-05 18:46:48,130 - WARNING - No context label found for span_idx=36, doc_ix=3014229000
+2026-05-05 18:46:48,130 - WARNING - No context label found for span_idx=36, doc_ix=3009774345
+2026-05-05 18:46:48,130 - WARNING - No context label found for span_idx=37, doc_ix=3003462434
+2026-05-05 18:46:48,130 - WARNING - No context label found for span_idx=37, doc_ix=3003462434
+2026-05-05 18:46:48,130 - WARNING - No context label found for span_idx=37, doc_ix=3003462434
+2026-05-05 18:46:48,130 - WARNING - No context label found for span_idx=38, doc_ix=83749602
+2026-05-05 18:46:48,130 - WARNING - No context label found for span_idx=38, doc_ix=561289190
+2026-05-05 18:46:48,130 - WARNING - No context label found for span_idx=38, doc_ix=561289190
+2026-05-05 18:46:48,130 - WARNING - No context label found for span_idx=39, doc_ix=3014278640
+2026-05-05 18:46:48,130 - WARNING - No context label found for span_idx=39, doc_ix=3002549565
+2026-05-05 18:46:48,130 - WARNING - No context label found for span_idx=39, doc_ix=3047311606
+2026-05-05 18:46:48,130 - WARNING - No context label found for span_idx=39, doc_ix=3008917931
+2026-05-05 18:46:48,130 - WARNING - No context label found for span_idx=39, doc_ix=3002549565
+2026-05-05 18:46:48,130 - WARNING - No context label found for span_idx=39, doc_ix=3059405090
+2026-05-05 18:46:48,130 - WARNING - No context label found for span_idx=39, doc_ix=3048342478
+2026-05-05 18:46:48,130 - WARNING - No context label found for span_idx=39, doc_ix=3058566470
+2026-05-05 18:46:48,130 - WARNING - No context label found for span_idx=39, doc_ix=3044858408
+2026-05-05 18:46:48,130 - WARNING - No context label found for span_idx=40, doc_ix=3061953983
+2026-05-05 18:46:48,130 - WARNING - No context label found for span_idx=40, doc_ix=3058059839
+2026-05-05 18:46:48,130 - WARNING - No context label found for span_idx=40, doc_ix=3058059839
+2026-05-05 18:46:48,130 - WARNING - No context label found for span_idx=40, doc_ix=3058059839
+2026-05-05 18:46:48,130 - WARNING - No context label found for span_idx=40, doc_ix=3053026576
+2026-05-05 18:46:48,130 - WARNING - No context label found for span_idx=40, doc_ix=3071168378
+2026-05-05 18:46:48,131 - WARNING - No context label found for span_idx=40, doc_ix=3071168378
+2026-05-05 18:46:48,131 - WARNING - No context label found for span_idx=40, doc_ix=3071168378
+2026-05-05 18:46:48,131 - WARNING - No context label found for span_idx=41, doc_ix=3065592216
+2026-05-05 18:46:48,131 - WARNING - No context label found for span_idx=41, doc_ix=3043543605
+2026-05-05 18:46:48,131 - WARNING - No context label found for span_idx=41, doc_ix=3047778962
+2026-05-05 18:46:48,131 - WARNING - No context label found for span_idx=41, doc_ix=3043206098
+2026-05-05 18:46:48,131 - WARNING - No context label found for span_idx=42, doc_ix=180140591
+2026-05-05 18:46:48,131 - WARNING - No context label found for span_idx=42, doc_ix=179046720
+2026-05-05 18:46:48,131 - WARNING - No context label found for span_idx=43, doc_ix=3066773310
+2026-05-05 18:46:48,131 - WARNING - No context label found for span_idx=44, doc_ix=3073413177
+2026-05-05 18:46:48,131 - WARNING - No context label found for span_idx=44, doc_ix=3073413177
+2026-05-05 18:46:48,131 - WARNING - No context label found for span_idx=45, doc_ix=181017733
+2026-05-05 18:46:48,131 - WARNING - No context label found for span_idx=45, doc_ix=464860409
+2026-05-05 18:46:48,131 - WARNING - No context label found for span_idx=46, doc_ix=72807197
+2026-05-05 18:46:48,131 - WARNING - No context label found for span_idx=47, doc_ix=3053026576
+2026-05-05 18:46:48,131 - WARNING - No context label found for span_idx=48, doc_ix=208196679
+2026-05-05 18:46:48,131 - WARNING - No context label found for span_idx=48, doc_ix=494070421
+2026-05-05 18:46:48,131 - WARNING - No context label found for span_idx=48, doc_ix=3066128758
+2026-05-05 18:46:48,131 - WARNING - No context label found for span_idx=48, doc_ix=3008753188
+2026-05-05 18:46:48,131 - WARNING - No context label found for span_idx=48, doc_ix=3066547270
+2026-05-05 18:46:48,131 - WARNING - No context label found for span_idx=48, doc_ix=3064735901
+2026-05-05 18:46:48,131 - WARNING - No context label found for span_idx=48, doc_ix=3065329657
+2026-05-05 18:46:48,131 - WARNING - No context label found for span_idx=49, doc_ix=3003462434
+2026-05-05 18:46:48,131 - WARNING - No context label found for span_idx=49, doc_ix=3003462434
+2026-05-05 18:46:48,131 - WARNING - No context label found for span_idx=49, doc_ix=3003462434
+2026-05-05 18:46:48,131 - WARNING - No context label found for span_idx=50, doc_ix=470879000
+2026-05-05 18:46:48,131 - WARNING - No context label found for span_idx=50, doc_ix=1262524373
+2026-05-05 18:46:48,131 - WARNING - No context label found for span_idx=50, doc_ix=1350186455
+2026-05-05 18:46:48,131 - WARNING - No context label found for span_idx=50, doc_ix=3005521285
+2026-05-05 18:46:48,131 - WARNING - No context label found for span_idx=50, doc_ix=2999676824
+2026-05-05 18:46:48,131 - WARNING - No context label found for span_idx=51, doc_ix=3073413177
+2026-05-05 18:46:48,131 - WARNING - No context label found for span_idx=51, doc_ix=3008206910
+2026-05-05 18:46:48,131 - WARNING - No context label found for span_idx=51, doc_ix=3027709074
+2026-05-05 18:46:48,131 - WARNING - No context label found for span_idx=51, doc_ix=3012670315
+2026-05-05 18:46:48,131 - WARNING - No context label found for span_idx=51, doc_ix=3074997503
+2026-05-05 18:46:48,131 - WARNING - No context label found for span_idx=51, doc_ix=3073574164
+2026-05-05 18:46:48,131 - WARNING - No context label found for span_idx=51, doc_ix=3073327125
+2026-05-05 18:46:48,131 - WARNING - No context label found for span_idx=51, doc_ix=3058115493
+2026-05-05 18:46:48,131 - WARNING - No context label found for span_idx=52, doc_ix=3066392780
+2026-05-05 18:46:48,131 - WARNING - No context label found for span_idx=53, doc_ix=3068270757
+2026-05-05 18:46:48,131 - WARNING - No context label found for span_idx=53, doc_ix=3066993138
+2026-05-05 18:46:48,131 - WARNING - No context label found for span_idx=53, doc_ix=3065327752
+2026-05-05 18:46:48,131 - WARNING - No context label found for span_idx=53, doc_ix=3065079394
+2026-05-05 18:46:48,131 - WARNING - No context label found for span_idx=53, doc_ix=3065309544
+2026-05-05 18:46:48,131 - WARNING - No context label found for span_idx=54, doc_ix=2957332836
+2026-05-05 18:46:48,131 - WARNING - No context label found for span_idx=54, doc_ix=2957614094
+2026-05-05 18:46:48,131 - WARNING - No context label found for span_idx=55, doc_ix=2949035637
+2026-05-05 18:46:48,131 - WARNING - No context label found for span_idx=55, doc_ix=3064831530
+2026-05-05 18:46:48,131 - WARNING - No context label found for span_idx=56, doc_ix=3055401066
+2026-05-05 18:46:48,131 - WARNING - No context label found for span_idx=56, doc_ix=3065879180
+2026-05-05 18:46:48,131 - WARNING - No context label found for span_idx=56, doc_ix=3009265776
+2026-05-05 18:46:48,131 - WARNING - No context label found for span_idx=56, doc_ix=2956408645
+2026-05-05 18:46:48,131 - WARNING - No context label found for span_idx=56, doc_ix=3065493932
+2026-05-05 18:46:48,132 - WARNING - No context label found for span_idx=56, doc_ix=3008063418
+2026-05-05 18:46:48,132 - WARNING - No context label found for span_idx=56, doc_ix=3065600582
+2026-05-05 18:46:48,132 - WARNING - No context label found for span_idx=56, doc_ix=3068286242
+2026-05-05 18:46:48,132 - WARNING - No context label found for span_idx=56, doc_ix=3064872423
+2026-05-05 18:46:48,132 - WARNING - No context label found for span_idx=56, doc_ix=3067234453
+2026-05-05 18:46:48,132 - WARNING - No context label found for span_idx=57, doc_ix=3062097674
+2026-05-05 18:46:48,132 - WARNING - No context label found for span_idx=57, doc_ix=3061999912
+2026-05-05 18:46:48,132 - WARNING - No context label found for span_idx=57, doc_ix=3059406273
+2026-05-05 18:46:48,132 - WARNING - No context label found for span_idx=57, doc_ix=3061707671
+2026-05-05 18:46:48,132 - WARNING - No context label found for span_idx=57, doc_ix=3061475214
+2026-05-05 18:46:48,132 - WARNING - No context label found for span_idx=57, doc_ix=3059515218
+2026-05-05 18:46:48,132 - WARNING - No context label found for span_idx=58, doc_ix=3061960318
+2026-05-05 18:46:48,132 - WARNING - No context label found for span_idx=59, doc_ix=192803847
+2026-05-05 18:46:48,132 - WARNING - No context label found for span_idx=60, doc_ix=31431156
+2026-05-05 18:46:48,132 - WARNING - No context label found for span_idx=61, doc_ix=2352765800
+2026-05-05 18:46:48,132 - WARNING - No context label found for span_idx=2, doc_ix=253659659
+2026-05-05 18:46:48,132 - WARNING - No context label found for span_idx=2, doc_ix=1011881998
+2026-05-05 18:46:48,133 - WARNING - No context label found for span_idx=2, doc_ix=1664795038
+2026-05-05 18:46:48,133 - WARNING - No context label found for span_idx=2, doc_ix=1760657319
+2026-05-05 18:46:48,133 - WARNING - No context label found for span_idx=2, doc_ix=2306353856
+2026-05-05 18:46:48,133 - WARNING - No context label found for span_idx=2, doc_ix=2629373438
+2026-05-05 18:46:48,133 - WARNING - No context label found for span_idx=3, doc_ix=243254771
+2026-05-05 18:46:48,133 - WARNING - No context label found for span_idx=3, doc_ix=86932707
+2026-05-05 18:46:48,133 - WARNING - No context label found for span_idx=3, doc_ix=338635294
+2026-05-05 18:46:48,133 - WARNING - No context label found for span_idx=3, doc_ix=868481423
+2026-05-05 18:46:48,133 - WARNING - No context label found for span_idx=4, doc_ix=253659659
+2026-05-05 18:46:48,133 - WARNING - No context label found for span_idx=4, doc_ix=1011881998
+2026-05-05 18:46:48,133 - WARNING - No context label found for span_idx=4, doc_ix=1664795038
+2026-05-05 18:46:48,133 - WARNING - No context label found for span_idx=4, doc_ix=1760657319
+2026-05-05 18:46:48,133 - WARNING - No context label found for span_idx=4, doc_ix=2306353856
+2026-05-05 18:46:48,133 - WARNING - No context label found for span_idx=4, doc_ix=2629373438
+2026-05-05 18:46:48,133 - WARNING - No context label found for span_idx=5, doc_ix=243254771
+2026-05-05 18:46:48,133 - WARNING - No context label found for span_idx=5, doc_ix=86932707
+2026-05-05 18:46:48,133 - WARNING - No context label found for span_idx=5, doc_ix=338635294
+2026-05-05 18:46:48,133 - WARNING - No context label found for span_idx=5, doc_ix=868481423
+2026-05-05 18:46:48,133 - WARNING - No context label found for span_idx=27, doc_ix=643830749
+2026-05-05 18:46:48,133 - WARNING - No context label found for span_idx=0, doc_ix=972758829
+2026-05-05 18:46:48,133 - WARNING - No context label found for span_idx=0, doc_ix=1172162144
+2026-05-05 18:46:48,133 - WARNING - No context label found for span_idx=0, doc_ix=1754079713
+2026-05-05 18:46:48,133 - WARNING - No context label found for span_idx=1, doc_ix=1784105109
+2026-05-05 18:46:48,133 - WARNING - No context label found for span_idx=1, doc_ix=2969182353
+2026-05-05 18:46:48,133 - WARNING - No context label found for span_idx=1, doc_ix=2954682609
+2026-05-05 18:46:48,133 - WARNING - No context label found for span_idx=2, doc_ix=2988805755
+2026-05-05 18:46:48,133 - WARNING - No context label found for span_idx=3, doc_ix=2995246648
+2026-05-05 18:46:48,133 - WARNING - No context label found for span_idx=3, doc_ix=2991489935
+2026-05-05 18:46:48,133 - WARNING - No context label found for span_idx=3, doc_ix=2989892531
+2026-05-05 18:46:48,133 - WARNING - No context label found for span_idx=3, doc_ix=2995250342
+2026-05-05 18:46:48,133 - WARNING - No context label found for span_idx=4, doc_ix=2048161343
+2026-05-05 18:46:48,133 - WARNING - No context label found for span_idx=5, doc_ix=100763086
+2026-05-05 18:46:48,133 - WARNING - No context label found for span_idx=6, doc_ix=2994735475
+2026-05-05 18:46:48,133 - WARNING - No context label found for span_idx=6, doc_ix=2989013317
+2026-05-05 18:46:48,134 - WARNING - No context label found for span_idx=7, doc_ix=121003312
+2026-05-05 18:46:48,134 - WARNING - No context label found for span_idx=7, doc_ix=252353705
+2026-05-05 18:46:48,134 - WARNING - No context label found for span_idx=7, doc_ix=36212462
+2026-05-05 18:46:48,134 - WARNING - No context label found for span_idx=7, doc_ix=154384476
+2026-05-05 18:46:48,134 - WARNING - No context label found for span_idx=7, doc_ix=236472146
+2026-05-05 18:46:48,134 - WARNING - No context label found for span_idx=7, doc_ix=225410502
+2026-05-05 18:46:48,134 - WARNING - No context label found for span_idx=7, doc_ix=66654759
+2026-05-05 18:46:48,134 - WARNING - No context label found for span_idx=7, doc_ix=231777733
+2026-05-05 18:46:48,134 - WARNING - No context label found for span_idx=7, doc_ix=25452525
+2026-05-05 18:46:48,134 - WARNING - No context label found for span_idx=8, doc_ix=2990322734
+2026-05-05 18:46:48,134 - WARNING - No context label found for span_idx=9, doc_ix=2993620856
+2026-05-05 18:46:48,134 - WARNING - No context label found for span_idx=10, doc_ix=2996408913
+2026-05-05 18:46:48,134 - WARNING - No context label found for span_idx=11, doc_ix=192813170
+2026-05-05 18:46:48,134 - WARNING - No context label found for span_idx=12, doc_ix=1898574917
+2026-05-05 18:46:48,134 - WARNING - No context label found for span_idx=13, doc_ix=17806574
+2026-05-05 18:46:48,134 - WARNING - No context label found for span_idx=14, doc_ix=53586621
+2026-05-05 18:46:48,134 - WARNING - No context label found for span_idx=14, doc_ix=145025798
+2026-05-05 18:46:48,134 - WARNING - No context label found for span_idx=14, doc_ix=506050140
+2026-05-05 18:46:48,134 - WARNING - No context label found for span_idx=14, doc_ix=421193376
+2026-05-05 18:46:48,134 - WARNING - No context label found for span_idx=15, doc_ix=141783
+2026-05-05 18:46:48,134 - WARNING - No context label found for span_idx=16, doc_ix=181531434
+2026-05-05 18:46:48,134 - WARNING - No context label found for span_idx=16, doc_ix=1338120882
+2026-05-05 18:46:48,134 - WARNING - No context label found for span_idx=17, doc_ix=84105993
+2026-05-05 18:46:48,134 - WARNING - No context label found for span_idx=17, doc_ix=396195620
+2026-05-05 18:46:48,134 - WARNING - No context label found for span_idx=18, doc_ix=766437541
+2026-05-05 18:46:48,134 - WARNING - No context label found for span_idx=19, doc_ix=550706269
+2026-05-05 18:46:48,134 - WARNING - No context label found for span_idx=19, doc_ix=2022838947
+2026-05-05 18:46:48,134 - WARNING - No context label found for span_idx=20, doc_ix=1898574917
+2026-05-05 18:46:48,134 - WARNING - No context label found for span_idx=21, doc_ix=17806574
+2026-05-05 18:46:48,134 - WARNING - No context label found for span_idx=22, doc_ix=53586621
+2026-05-05 18:46:48,134 - WARNING - No context label found for span_idx=22, doc_ix=145025798
+2026-05-05 18:46:48,134 - WARNING - No context label found for span_idx=22, doc_ix=506050140
+2026-05-05 18:46:48,134 - WARNING - No context label found for span_idx=22, doc_ix=421193376
+2026-05-05 18:46:48,134 - WARNING - No context label found for span_idx=23, doc_ix=141783
+2026-05-05 18:46:48,134 - WARNING - No context label found for span_idx=24, doc_ix=181531434
+2026-05-05 18:46:48,134 - WARNING - No context label found for span_idx=24, doc_ix=1338120882
+2026-05-05 18:46:48,134 - WARNING - No context label found for span_idx=25, doc_ix=84105993
+2026-05-05 18:46:48,134 - WARNING - No context label found for span_idx=25, doc_ix=396195620
+2026-05-05 18:46:48,134 - WARNING - No context label found for span_idx=26, doc_ix=141687086
+2026-05-05 18:46:48,134 - WARNING - No context label found for span_idx=27, doc_ix=708613739
+2026-05-05 18:46:48,134 - WARNING - No context label found for span_idx=28, doc_ix=208443160
+2026-05-05 18:46:48,134 - WARNING - No context label found for span_idx=28, doc_ix=65841389
+2026-05-05 18:46:48,134 - WARNING - No context label found for span_idx=28, doc_ix=200392507
+2026-05-05 18:46:48,134 - WARNING - No context label found for span_idx=28, doc_ix=254949217
+2026-05-05 18:46:48,134 - WARNING - No context label found for span_idx=28, doc_ix=367668976
+2026-05-05 18:46:48,135 - WARNING - No context label found for span_idx=28, doc_ix=701754622
+2026-05-05 18:46:48,135 - WARNING - No context label found for span_idx=30, doc_ix=17806574
+2026-05-05 18:46:48,135 - WARNING - No context label found for span_idx=31, doc_ix=53586621
+2026-05-05 18:46:48,135 - WARNING - No context label found for span_idx=31, doc_ix=145025798
+2026-05-05 18:46:48,135 - WARNING - No context label found for span_idx=31, doc_ix=506050140
+2026-05-05 18:46:48,135 - WARNING - No context label found for span_idx=31, doc_ix=421193376
+2026-05-05 18:46:48,135 - WARNING - No context label found for span_idx=32, doc_ix=141783
+2026-05-05 18:46:48,135 - WARNING - No context label found for span_idx=33, doc_ix=181531434
+2026-05-05 18:46:48,135 - WARNING - No context label found for span_idx=33, doc_ix=1338120882
+2026-05-05 18:46:48,135 - WARNING - No context label found for span_idx=34, doc_ix=396195620
+2026-05-05 18:46:48,135 - WARNING - No context label found for span_idx=35, doc_ix=2989013317
+2026-05-05 18:46:48,135 - WARNING - No context label found for span_idx=36, doc_ix=302283521
+2026-05-05 18:46:48,136 - WARNING - No context label found for span_idx=37, doc_ix=1898574917
+2026-05-05 18:46:48,136 - WARNING - No context label found for span_idx=38, doc_ix=17806574
+2026-05-05 18:46:48,136 - WARNING - No context label found for span_idx=39, doc_ix=53586621
+2026-05-05 18:46:48,136 - WARNING - No context label found for span_idx=39, doc_ix=145025798
+2026-05-05 18:46:48,136 - WARNING - No context label found for span_idx=39, doc_ix=506050140
+2026-05-05 18:46:48,136 - WARNING - No context label found for span_idx=39, doc_ix=421193376
+2026-05-05 18:46:48,136 - WARNING - No context label found for span_idx=40, doc_ix=141783
+2026-05-05 18:46:48,136 - WARNING - No context label found for span_idx=41, doc_ix=181531434
+2026-05-05 18:46:48,136 - WARNING - No context label found for span_idx=41, doc_ix=1338120882
+2026-05-05 18:46:48,136 - WARNING - No context label found for span_idx=42, doc_ix=396195620
+2026-05-05 18:46:48,136 - WARNING - No context label found for span_idx=43, doc_ix=1898574917
+2026-05-05 18:46:48,136 - WARNING - No context label found for span_idx=44, doc_ix=17806574
+2026-05-05 18:46:48,136 - WARNING - No context label found for span_idx=45, doc_ix=53586621
+2026-05-05 18:46:48,136 - WARNING - No context label found for span_idx=45, doc_ix=145025798
+2026-05-05 18:46:48,136 - WARNING - No context label found for span_idx=45, doc_ix=506050140
+2026-05-05 18:46:48,136 - WARNING - No context label found for span_idx=45, doc_ix=421193376
+2026-05-05 18:46:48,136 - WARNING - No context label found for span_idx=46, doc_ix=141783
+2026-05-05 18:46:48,136 - WARNING - No context label found for span_idx=47, doc_ix=181531434
+2026-05-05 18:46:48,136 - WARNING - No context label found for span_idx=47, doc_ix=1338120882
+2026-05-05 18:46:48,136 - WARNING - No context label found for span_idx=48, doc_ix=84105993
+2026-05-05 18:46:48,136 - WARNING - No context label found for span_idx=48, doc_ix=396195620
+2026-05-05 18:46:48,136 - WARNING - No context label found for span_idx=17, doc_ix=343369679
+2026-05-05 18:46:48,136 - WARNING - No context label found for span_idx=18, doc_ix=343369679
+2026-05-05 18:46:48,136 - WARNING - No context label found for span_idx=9, doc_ix=3058220594
+2026-05-05 18:46:48,136 - WARNING - No context label found for span_idx=10, doc_ix=886366677
+2026-05-05 18:46:48,136 - WARNING - No context label found for span_idx=10, doc_ix=1541959401
+2026-05-05 18:46:48,136 - WARNING - No context label found for span_idx=11, doc_ix=3049381846
+2026-05-05 18:46:48,136 - WARNING - No context label found for span_idx=15, doc_ix=197518750
+2026-05-05 18:46:48,136 - WARNING - No context label found for span_idx=15, doc_ix=489072605
+2026-05-05 18:46:48,136 - WARNING - No context label found for span_idx=16, doc_ix=492457186
+2026-05-05 18:46:48,136 - WARNING - No context label found for span_idx=17, doc_ix=181709856
+2026-05-05 18:46:48,136 - WARNING - No context label found for span_idx=22, doc_ix=3042560815
+2026-05-05 18:46:48,136 - WARNING - No context label found for span_idx=22, doc_ix=3042560815
+2026-05-05 18:46:48,136 - WARNING - No context label found for span_idx=23, doc_ix=3058220594
+2026-05-05 18:46:48,136 - WARNING - No context label found for span_idx=24, doc_ix=102355872
+2026-05-05 18:46:48,136 - WARNING - No context label found for span_idx=24, doc_ix=821797268
+2026-05-05 18:46:48,136 - WARNING - No context label found for span_idx=24, doc_ix=821797268
+2026-05-05 18:46:48,136 - WARNING - No context label found for span_idx=24, doc_ix=824957136
+2026-05-05 18:46:48,137 - WARNING - No context label found for span_idx=24, doc_ix=886366677
+2026-05-05 18:46:48,137 - WARNING - No context label found for span_idx=25, doc_ix=3049381846
+2026-05-05 18:46:48,137 - WARNING - No context label found for span_idx=28, doc_ix=3042560815
+2026-05-05 18:46:48,137 - WARNING - No context label found for span_idx=28, doc_ix=3042560815
+2026-05-05 18:46:48,137 - WARNING - No context label found for span_idx=29, doc_ix=197518750
+2026-05-05 18:46:48,137 - WARNING - No context label found for span_idx=29, doc_ix=489072605
+2026-05-05 18:46:48,137 - WARNING - No context label found for span_idx=30, doc_ix=492457186
+2026-05-05 18:46:48,137 - WARNING - No context label found for span_idx=31, doc_ix=181709856
+2026-05-05 18:46:48,137 - WARNING - No context label found for span_idx=36, doc_ix=3042560815
+2026-05-05 18:46:48,137 - WARNING - No context label found for span_idx=36, doc_ix=3042560815
+2026-05-05 18:46:48,137 - WARNING - No context label found for span_idx=37, doc_ix=3058220594
+2026-05-05 18:46:48,137 - WARNING - No context label found for span_idx=38, doc_ix=102355872
+2026-05-05 18:46:48,137 - WARNING - No context label found for span_idx=38, doc_ix=821797268
+2026-05-05 18:46:48,137 - WARNING - No context label found for span_idx=38, doc_ix=821797268
+2026-05-05 18:46:48,137 - WARNING - No context label found for span_idx=38, doc_ix=824957136
+2026-05-05 18:46:48,137 - WARNING - No context label found for span_idx=38, doc_ix=886366677
+2026-05-05 18:46:48,137 - WARNING - No context label found for span_idx=38, doc_ix=1541959401
+2026-05-05 18:46:48,137 - WARNING - No context label found for span_idx=39, doc_ix=3049381846
+2026-05-05 18:46:48,137 - WARNING - No context label found for span_idx=42, doc_ix=3042560815
+2026-05-05 18:46:48,137 - WARNING - No context label found for span_idx=42, doc_ix=3042560815
+2026-05-05 18:46:48,137 - WARNING - No context label found for span_idx=43, doc_ix=197518750
+2026-05-05 18:46:48,137 - WARNING - No context label found for span_idx=43, doc_ix=489072605
+2026-05-05 18:46:48,137 - WARNING - No context label found for span_idx=44, doc_ix=492457186
+2026-05-05 18:46:48,137 - WARNING - No context label found for span_idx=45, doc_ix=181709856
+2026-05-05 18:46:48,137 - WARNING - No context label found for span_idx=50, doc_ix=3042560815
+2026-05-05 18:46:48,137 - WARNING - No context label found for span_idx=50, doc_ix=3042560815
+2026-05-05 18:46:48,137 - WARNING - No context label found for span_idx=51, doc_ix=3058220594
+2026-05-05 18:46:48,137 - WARNING - No context label found for span_idx=52, doc_ix=102355872
+2026-05-05 18:46:48,137 - WARNING - No context label found for span_idx=52, doc_ix=821797268
+2026-05-05 18:46:48,137 - WARNING - No context label found for span_idx=52, doc_ix=821797268
+2026-05-05 18:46:48,137 - WARNING - No context label found for span_idx=52, doc_ix=824957136
+2026-05-05 18:46:48,137 - WARNING - No context label found for span_idx=52, doc_ix=886366677
+2026-05-05 18:46:48,137 - WARNING - No context label found for span_idx=53, doc_ix=3049381846
+2026-05-05 18:46:48,137 - WARNING - No context label found for span_idx=56, doc_ix=3042560815
+2026-05-05 18:46:48,137 - WARNING - No context label found for span_idx=56, doc_ix=3042560815
+2026-05-05 18:46:48,137 - WARNING - No context label found for span_idx=57, doc_ix=197518750
+2026-05-05 18:46:48,137 - WARNING - No context label found for span_idx=57, doc_ix=489072605
+2026-05-05 18:46:48,137 - WARNING - No context label found for span_idx=58, doc_ix=492457186
+2026-05-05 18:46:48,137 - WARNING - No context label found for span_idx=59, doc_ix=181709856
+2026-05-05 18:46:48,137 - WARNING - No context label found for span_idx=12, doc_ix=89601431
+2026-05-05 18:46:48,137 - WARNING - No context label found for span_idx=12, doc_ix=294683279
+2026-05-05 18:46:48,137 - WARNING - No context label found for span_idx=12, doc_ix=41222646
+2026-05-05 18:46:48,137 - WARNING - No context label found for span_idx=12, doc_ix=129815419
+2026-05-05 18:46:48,137 - WARNING - No context label found for span_idx=12, doc_ix=242394220
+2026-05-05 18:46:48,137 - WARNING - No context label found for span_idx=12, doc_ix=68424079
+2026-05-05 18:46:48,137 - WARNING - No context label found for span_idx=13, doc_ix=176568238
+2026-05-05 18:46:48,137 - WARNING - No context label found for span_idx=13, doc_ix=46770419
+2026-05-05 18:46:48,137 - WARNING - No context label found for span_idx=14, doc_ix=243643165
+2026-05-05 18:46:48,138 - WARNING - No context label found for span_idx=14, doc_ix=185608761
+2026-05-05 18:46:48,138 - WARNING - No context label found for span_idx=14, doc_ix=540927046
+2026-05-05 18:46:48,138 - WARNING - No context label found for span_idx=15, doc_ix=2642333225
+2026-05-05 18:46:48,138 - WARNING - No context label found for span_idx=16, doc_ix=892396523
+2026-05-05 18:46:48,138 - WARNING - No context label found for span_idx=17, doc_ix=419670772
+2026-05-05 18:46:48,138 - WARNING - No context label found for span_idx=17, doc_ix=689336407
+2026-05-05 18:46:48,138 - WARNING - No context label found for span_idx=17, doc_ix=823636056
+2026-05-05 18:46:48,138 - WARNING - No context label found for span_idx=18, doc_ix=34203520
+2026-05-05 18:46:48,138 - WARNING - No context label found for span_idx=18, doc_ix=689336407
+2026-05-05 18:46:48,138 - WARNING - No context label found for span_idx=18, doc_ix=823636056
+2026-05-05 18:46:48,138 - WARNING - No context label found for span_idx=19, doc_ix=892396523
+2026-05-05 18:46:48,138 - WARNING - No context label found for span_idx=20, doc_ix=34203520
+2026-05-05 18:46:48,138 - WARNING - No context label found for span_idx=20, doc_ix=419670772
+2026-05-05 18:46:48,138 - WARNING - No context label found for span_idx=20, doc_ix=689336407
+2026-05-05 18:46:48,138 - WARNING - No context label found for span_idx=21, doc_ix=34203520
+2026-05-05 18:46:48,138 - WARNING - No context label found for span_idx=21, doc_ix=419670772
+2026-05-05 18:46:48,138 - WARNING - No context label found for span_idx=21, doc_ix=689336407
+2026-05-05 18:46:48,138 - WARNING - No context label found for span_idx=21, doc_ix=823636056
+2026-05-05 18:46:48,138 - WARNING - No context label found for span_idx=22, doc_ix=892396523
+2026-05-05 18:46:48,138 - WARNING - No context label found for span_idx=23, doc_ix=34203520
+2026-05-05 18:46:48,138 - WARNING - No context label found for span_idx=23, doc_ix=689336407
+2026-05-05 18:46:48,138 - WARNING - No context label found for span_idx=23, doc_ix=823636056
+2026-05-05 18:46:48,138 - WARNING - No context label found for span_idx=24, doc_ix=34203520
+2026-05-05 18:46:48,138 - WARNING - No context label found for span_idx=24, doc_ix=419670772
+2026-05-05 18:46:48,138 - WARNING - No context label found for span_idx=24, doc_ix=823636056
+2026-05-05 18:46:48,138 - WARNING - No context label found for span_idx=25, doc_ix=251755542
+2026-05-05 18:46:48,138 - WARNING - No context label found for span_idx=25, doc_ix=294683279
+2026-05-05 18:46:48,138 - WARNING - No context label found for span_idx=25, doc_ix=219590628
+2026-05-05 18:46:48,138 - WARNING - No context label found for span_idx=25, doc_ix=256833339
+2026-05-05 18:46:48,138 - WARNING - No context label found for span_idx=25, doc_ix=267956580
+2026-05-05 18:46:48,138 - WARNING - No context label found for span_idx=26, doc_ix=176568238
+2026-05-05 18:46:48,138 - WARNING - No context label found for span_idx=26, doc_ix=46770419
+2026-05-05 18:46:48,138 - WARNING - No context label found for span_idx=27, doc_ix=333803786
+2026-05-05 18:46:48,138 - WARNING - No context label found for span_idx=28, doc_ix=2642333225
+2026-05-05 18:46:48,138 - WARNING - No context label found for span_idx=29, doc_ix=892396523
+2026-05-05 18:46:48,138 - WARNING - No context label found for span_idx=30, doc_ix=34203520
+2026-05-05 18:46:48,138 - WARNING - No context label found for span_idx=30, doc_ix=419670772
+2026-05-05 18:46:48,138 - WARNING - No context label found for span_idx=30, doc_ix=689336407
+2026-05-05 18:46:48,138 - WARNING - No context label found for span_idx=30, doc_ix=823636056
+2026-05-05 18:46:48,138 - WARNING - No context label found for span_idx=31, doc_ix=419670772
+2026-05-05 18:46:48,138 - WARNING - No context label found for span_idx=31, doc_ix=689336407
+2026-05-05 18:46:48,138 - WARNING - No context label found for span_idx=31, doc_ix=823636056
+2026-05-05 18:46:48,138 - WARNING - No context label found for span_idx=32, doc_ix=2136087347
+2026-05-05 18:46:48,138 - WARNING - No context label found for span_idx=33, doc_ix=34203520
+2026-05-05 18:46:48,138 - WARNING - No context label found for span_idx=33, doc_ix=419670772
+2026-05-05 18:46:48,138 - WARNING - No context label found for span_idx=33, doc_ix=823636056
+2026-05-05 18:46:48,138 - WARNING - No context label found for span_idx=34, doc_ix=34203520
+2026-05-05 18:46:48,138 - WARNING - No context label found for span_idx=34, doc_ix=419670772
+2026-05-05 18:46:48,138 - WARNING - No context label found for span_idx=34, doc_ix=689336407
+2026-05-05 18:46:48,138 - WARNING - No context label found for span_idx=35, doc_ix=419670772
+2026-05-05 18:46:48,139 - WARNING - No context label found for span_idx=35, doc_ix=689336407
+2026-05-05 18:46:48,139 - WARNING - No context label found for span_idx=35, doc_ix=823636056
+2026-05-05 18:46:48,139 - WARNING - No context label found for span_idx=36, doc_ix=34203520
+2026-05-05 18:46:48,139 - WARNING - No context label found for span_idx=36, doc_ix=689336407
+2026-05-05 18:46:48,139 - WARNING - No context label found for span_idx=36, doc_ix=823636056
+2026-05-05 18:46:48,139 - WARNING - No context label found for span_idx=37, doc_ix=195082452
+2026-05-05 18:46:48,139 - WARNING - No context label found for span_idx=37, doc_ix=41222646
+2026-05-05 18:46:48,139 - WARNING - No context label found for span_idx=37, doc_ix=18200663
+2026-05-05 18:46:48,139 - WARNING - No context label found for span_idx=37, doc_ix=219590628
+2026-05-05 18:46:48,139 - WARNING - No context label found for span_idx=37, doc_ix=256833339
+2026-05-05 18:46:48,139 - WARNING - No context label found for span_idx=37, doc_ix=267956580
+2026-05-05 18:46:48,139 - WARNING - No context label found for span_idx=38, doc_ix=176568238
+2026-05-05 18:46:48,139 - WARNING - No context label found for span_idx=38, doc_ix=46770419
+2026-05-05 18:46:48,139 - WARNING - No context label found for span_idx=40, doc_ix=419670772
+2026-05-05 18:46:48,139 - WARNING - No context label found for span_idx=40, doc_ix=689336407
+2026-05-05 18:46:48,139 - WARNING - No context label found for span_idx=40, doc_ix=823636056
+2026-05-05 18:46:48,139 - WARNING - No context label found for span_idx=41, doc_ix=34203520
+2026-05-05 18:46:48,139 - WARNING - No context label found for span_idx=41, doc_ix=689336407
+2026-05-05 18:46:48,139 - WARNING - No context label found for span_idx=41, doc_ix=823636056
+2026-05-05 18:46:48,139 - WARNING - No context label found for span_idx=42, doc_ix=34203520
+2026-05-05 18:46:48,139 - WARNING - No context label found for span_idx=42, doc_ix=419670772
+2026-05-05 18:46:48,139 - WARNING - No context label found for span_idx=42, doc_ix=823636056
+2026-05-05 18:46:48,139 - WARNING - No context label found for span_idx=43, doc_ix=34203520
+2026-05-05 18:46:48,139 - WARNING - No context label found for span_idx=43, doc_ix=419670772
+2026-05-05 18:46:48,139 - WARNING - No context label found for span_idx=43, doc_ix=689336407
+2026-05-05 18:46:48,139 - WARNING - No context label found for span_idx=44, doc_ix=89601431
+2026-05-05 18:46:48,139 - WARNING - No context label found for span_idx=44, doc_ix=294683279
+2026-05-05 18:46:48,139 - WARNING - No context label found for span_idx=44, doc_ix=41222646
+2026-05-05 18:46:48,139 - WARNING - No context label found for span_idx=44, doc_ix=18200663
+2026-05-05 18:46:48,139 - WARNING - No context label found for span_idx=44, doc_ix=219590628
+2026-05-05 18:46:48,139 - WARNING - No context label found for span_idx=44, doc_ix=68424079
+2026-05-05 18:46:48,139 - WARNING - No context label found for span_idx=44, doc_ix=13401967
+2026-05-05 18:46:48,139 - WARNING - No context label found for span_idx=45, doc_ix=176568238
+2026-05-05 18:46:48,139 - WARNING - No context label found for span_idx=45, doc_ix=46770419
+2026-05-05 18:46:48,139 - WARNING - No context label found for span_idx=46, doc_ix=2642333225
+2026-05-05 18:46:48,139 - WARNING - No context label found for span_idx=47, doc_ix=34203520
+2026-05-05 18:46:48,139 - WARNING - No context label found for span_idx=47, doc_ix=419670772
+2026-05-05 18:46:48,139 - WARNING - No context label found for span_idx=47, doc_ix=689336407
+2026-05-05 18:46:48,139 - WARNING - No context label found for span_idx=48, doc_ix=419670772
+2026-05-05 18:46:48,139 - WARNING - No context label found for span_idx=48, doc_ix=689336407
+2026-05-05 18:46:48,139 - WARNING - No context label found for span_idx=48, doc_ix=823636056
+2026-05-05 18:46:48,139 - WARNING - No context label found for span_idx=49, doc_ix=195082452
+2026-05-05 18:46:48,139 - WARNING - No context label found for span_idx=49, doc_ix=294683279
+2026-05-05 18:46:48,139 - WARNING - No context label found for span_idx=49, doc_ix=41222646
+2026-05-05 18:46:48,139 - WARNING - No context label found for span_idx=49, doc_ix=18200663
+2026-05-05 18:46:48,139 - WARNING - No context label found for span_idx=49, doc_ix=242394220
+2026-05-05 18:46:48,139 - WARNING - No context label found for span_idx=49, doc_ix=68424079
+2026-05-05 18:46:48,139 - WARNING - No context label found for span_idx=49, doc_ix=13401967
+2026-05-05 18:46:48,139 - WARNING - No context label found for span_idx=50, doc_ix=176568238
+2026-05-05 18:46:48,140 - WARNING - No context label found for span_idx=50, doc_ix=46770419
+2026-05-05 18:46:48,140 - WARNING - No context label found for span_idx=51, doc_ix=2642333225
+2026-05-05 18:46:48,140 - WARNING - No context label found for span_idx=52, doc_ix=34203520
+2026-05-05 18:46:48,140 - WARNING - No context label found for span_idx=52, doc_ix=419670772
+2026-05-05 18:46:48,140 - WARNING - No context label found for span_idx=52, doc_ix=689336407
+2026-05-05 18:46:48,140 - WARNING - No context label found for span_idx=52, doc_ix=823636056
+2026-05-05 18:46:48,140 - WARNING - No context label found for span_idx=53, doc_ix=419670772
+2026-05-05 18:46:48,140 - WARNING - No context label found for span_idx=53, doc_ix=689336407
+2026-05-05 18:46:48,140 - WARNING - No context label found for span_idx=53, doc_ix=823636056
+2026-05-05 18:46:48,140 - WARNING - No context label found for span_idx=54, doc_ix=251755542
+2026-05-05 18:46:48,140 - WARNING - No context label found for span_idx=54, doc_ix=294683279
+2026-05-05 18:46:48,140 - WARNING - No context label found for span_idx=54, doc_ix=41222646
+2026-05-05 18:46:48,140 - WARNING - No context label found for span_idx=54, doc_ix=18200663
+2026-05-05 18:46:48,140 - WARNING - No context label found for span_idx=54, doc_ix=242394220
+2026-05-05 18:46:48,140 - WARNING - No context label found for span_idx=54, doc_ix=256833339
+2026-05-05 18:46:48,140 - WARNING - No context label found for span_idx=55, doc_ix=176568238
+2026-05-05 18:46:48,140 - WARNING - No context label found for span_idx=55, doc_ix=46770419
+2026-05-05 18:46:48,140 - WARNING - No context label found for span_idx=56, doc_ix=2642333225
+2026-05-05 18:46:48,140 - WARNING - No context label found for span_idx=57, doc_ix=34203520
+2026-05-05 18:46:48,140 - WARNING - No context label found for span_idx=57, doc_ix=419670772
+2026-05-05 18:46:48,140 - WARNING - No context label found for span_idx=57, doc_ix=689336407
+2026-05-05 18:46:48,140 - WARNING - No context label found for span_idx=57, doc_ix=823636056
+2026-05-05 18:46:48,157 - INFO - ======================================================================
+2026-05-05 18:46:48,157 - INFO - COLLECTION COMPLETE
+2026-05-05 18:46:48,157 - INFO -   Total rows: 3701
+2026-05-05 18:46:48,157 - INFO -   Errors: 0
+2026-05-05 18:46:48,157 - INFO -   CSV saved to: results/olmo2_32b/e1/pretraining/gpt-4.1-mini/span_safety_labels_standard.csv
+2026-05-05 18:46:48,157 - INFO - ======================================================================
