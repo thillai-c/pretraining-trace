@@ -10,7 +10,7 @@ Usage:
     python e1_retrieve_snippets.py --model olmo2-1b
 
     # Multiple HarmBench configs in one run (same rules as e1_verbatim_trace.py for paths)
-    python e1_retrieve_snippets.py --model olmo2-32b --configs contextual --max_disp_len 160
+    python e1_retrieve_snippets.py --model olmo2-7b-instruct --configs contextual
 
     # GPT-J (local Pile index -> flat results/{model_dir}/e1/, same as Phase 1)
     python e1_retrieve_snippets.py --model gpt-j --index_dir ./index

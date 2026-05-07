@@ -22,3 +22,20 @@
 2026-05-06 22:06:28,191 - e1_verbatim_trace.olmo2-7b.copyright - INFO -     Position 400 / 1128 done (current prefix_len=10)
 2026-05-06 22:46:26,489 - e1_verbatim_trace.olmo2-7b.copyright - INFO -     Position 600 / 1128 done (current prefix_len=8)
 2026-05-06 23:36:23,698 - e1_verbatim_trace.olmo2-7b.copyright - INFO -     Position 800 / 1128 done (current prefix_len=9)
+2026-05-06 23:58:54,803 - e1_verbatim_trace.olmo2-7b.copyright - INFO -     Position 1000 / 1128 done (current prefix_len=7)
+2026-05-07 00:28:37,176 - e1_verbatim_trace.olmo2-7b.copyright - INFO -   Raw spans before suppression: 1128
+2026-05-07 00:28:37,177 - e1_verbatim_trace.olmo2-7b.copyright - INFO -   Maximal spans after suppression: 409
+2026-05-07 00:28:37,178 - e1_verbatim_trace.olmo2-7b.copyright - INFO -   Filtering to top-K=57 spans (from 409 maximal spans, L=1128)
+2026-05-07 00:28:50,427 - e1_verbatim_trace.olmo2-7b.copyright - INFO -   Top-K spans selected: 57
+2026-05-07 00:28:50,433 - e1_verbatim_trace.olmo2-7b.copyright - INFO -   E1 results: LongestMatchLen=10, VerbatimCoverage=1.0000, spans=57/409, elapsed=10929.0s
+2026-05-07 00:28:50,433 - e1_verbatim_trace.olmo2-7b.copyright - INFO -   Saving 1 results to results/olmo2_7b/e1/pretraining/e1_verbatim_copyright.json ...
+2026-05-07 00:28:50,437 - e1_verbatim_trace.olmo2-7b.copyright - INFO - ======================================================================
+2026-05-07 00:28:50,438 - e1_verbatim_trace.olmo2-7b.copyright - INFO - SUMMARY
+2026-05-07 00:28:50,438 - e1_verbatim_trace.olmo2-7b.copyright - INFO - ======================================================================
+2026-05-07 00:28:50,438 - e1_verbatim_trace.olmo2-7b.copyright - INFO -   Total processed: 1
+2026-05-07 00:28:50,438 - e1_verbatim_trace.olmo2-7b.copyright - INFO -   Successful: 1
+2026-05-07 00:28:50,438 - e1_verbatim_trace.olmo2-7b.copyright - INFO -   Errors: 0
+2026-05-07 00:28:50,438 - e1_verbatim_trace.olmo2-7b.copyright - INFO -   LongestMatchLen:  min=10, max=10, mean=10.0
+2026-05-07 00:28:50,438 - e1_verbatim_trace.olmo2-7b.copyright - INFO -   VerbatimCoverage: min=1.0000, max=1.0000, mean=1.0000
+2026-05-07 00:28:50,438 - e1_verbatim_trace.olmo2-7b.copyright - INFO - === Job finished at Thu May 07 12:28:50 AM  2026 ===
+2026-05-07 00:28:50,438 - e1_verbatim_trace.olmo2-7b.copyright - INFO - === Elapsed time: 0 days 03:02:09 (total 10929.048 seconds) ===
