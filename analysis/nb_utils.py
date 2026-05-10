@@ -383,14 +383,16 @@ def display_longest_match(record, max_snippet_chars=400, max_snippets=3):
 
 
 def inspect_longest_match(mk, rid, *, df, all_e1, all_e2, repo_root,
+                          all_labels=None,
                           config='standard', top_n=10,
                           max_snippet_chars=400, max_snippets=3):
     """Inspect a single (model, id) record at the LongestMatchLen-span granularity.
 
     Prints union metrics + response content + the single longest verbatim span
-    (with its corpus snippets) + E2 ranked concepts. Mirrors the per-record
-    block of the Phase 4 inspection loop, but focused on one record at a time
-    and only the LML span (not all maximal spans).
+    (with its corpus snippets) + (optionally) the LML span's auto-label
+    safety labels + E2 ranked concepts. Mirrors the per-record block of the
+    Phase 4 inspection loop, but focused on one record at a time and only the
+    LML span (not all maximal spans).
 
     Args:
         mk:                model key, e.g. 'olmo2-32b' / 'olmo2-1b-instruct'.
@@ -399,6 +401,10 @@ def inspect_longest_match(mk, rid, *, df, all_e1, all_e2, repo_root,
         all_e1:            dict[mk] -> dict[rid] -> synth best-stage E1 record.
         all_e2:            dict[mk] -> dict[rid] -> unioned E2 record.
         repo_root:         pathlib.Path to repo root (for per-stage E1 file lookup).
+        all_labels:        optional pandas DataFrame of span-safety labels
+                           (concatenated span_safety_labels_*.csv across models
+                           and phases). If provided, prints the LML span's
+                           span_safety_label and unique context_safety values.
         config:            HarmBench config (default 'standard').
         top_n:             how many ranked concepts to print.
         max_snippet_chars: passed to display_longest_match.
@@ -467,6 +473,31 @@ def inspect_longest_match(mk, rid, *, df, all_e1, all_e2, repo_root,
                               max_snippets=max_snippets)
     except Exception as exc:
         print(f'  display_longest_match failed: {exc}')
+
+    # LML-span auto-label lookup (optional; requires all_labels DataFrame).
+    if all_labels is not None:
+        try:
+            unique_spans = extract_unique_spans(best_rec)
+            if unique_spans:
+                lml_sp     = max(unique_spans, key=lambda s: s.get('span_length', 0))
+                lml_text   = lml_sp.get('span_text', '')
+                sub_labels = all_labels[
+                    (all_labels['model']      == mk) &
+                    (all_labels['record_id']  == rid) &
+                    (all_labels['span_text']  == lml_text)
+                ]
+                print('\n--- LML span auto-label (from auto-label CSV) ---')
+                if len(sub_labels) == 0:
+                    print('  [no row matched span_text in all_labels]')
+                else:
+                    span_lbls = sub_labels['span_safety_label'].dropna().unique().tolist()
+                    ctx_lbls  = sub_labels['context_safety'].dropna().unique().tolist()
+                    n_rows    = len(sub_labels)
+                    print(f'  span_safety_label: {span_lbls}    '
+                          f'(across {n_rows} CSV row(s) — one per snippet)')
+                    print(f'  context_safety   : {ctx_lbls}')
+        except Exception as exc:
+            print(f'  LML label lookup failed: {exc}')
 
     e2_rec = all_e2.get(mk, {}).get(rid)
     if e2_rec is not None:

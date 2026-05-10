@@ -1,14 +1,101 @@
-2026-05-02 12:54:54,135 - INFO - Logging to logs/olmo2_1b/e2_extract_concepts_contextual.log
-2026-05-02 12:54:54,136 - ERROR - OPENAI_API_KEY not set. Export it or add to .env file.
-2026-05-02 12:54:58,242 - INFO - Logging to logs/olmo2_1b/e2_extract_concepts_contextual.log
-2026-05-02 12:54:58,242 - ERROR - OPENAI_API_KEY not set. Export it or add to .env file.
-2026-05-02 12:55:40,380 - INFO - Logging to logs/olmo2_1b/e2_extract_concepts_contextual.log
-2026-05-02 12:55:40,427 - INFO - ======================================================================
-2026-05-02 12:55:40,427 - INFO - E2 Stage 1 — LLM-Based Essential Concept Extraction
-2026-05-02 12:55:40,427 - INFO -   Model: olmo2-1b
-2026-05-02 12:55:40,427 - INFO -   E1 input phase: pretraining
-2026-05-02 12:55:40,427 - INFO -   E1 config (default path): contextual
-2026-05-02 12:55:40,427 - INFO -   E1 input root: results/olmo2_1b/e1/pretraining
-2026-05-02 12:55:40,427 - INFO -   E2 output root (--e2-llm, stage-independent): results/olmo2_1b/e2/gpt-5-mini
-2026-05-02 12:55:40,427 - INFO -   Extraction LLM (--e2-llm): gpt-5-mini
-2026-05-02 12:55:40,427 - INFO - ======================================================================
+2026-05-10 08:18:38,384 - INFO - Logging to logs/olmo2_1b/e2_extract_concepts_contextual.log
+2026-05-10 08:18:38,417 - INFO - ======================================================================
+2026-05-10 08:18:38,417 - INFO - E2 Stage 1 — LLM-Based Essential Concept Extraction
+2026-05-10 08:18:38,417 - INFO -   Model: olmo2-1b
+2026-05-10 08:18:38,417 - INFO -   E1 input phase: pretraining
+2026-05-10 08:18:38,417 - INFO -   E1 config (default path): contextual
+2026-05-10 08:18:38,417 - INFO -   E1 input root: results/olmo2_1b/e1/pretraining
+2026-05-10 08:18:38,418 - INFO -   E2 output root (--e2-llm, stage-independent): results/olmo2_1b/e2/gpt-5-mini
+2026-05-10 08:18:38,418 - INFO -   Extraction LLM (--e2-llm): gpt-5-mini
+2026-05-10 08:18:38,418 - INFO - ======================================================================
+2026-05-10 08:18:38,469 - INFO - Loaded 16 records from E1 results
+2026-05-10 08:18:38,473 - INFO - Compliant records: 16
+2026-05-10 08:18:38,473 - INFO -   id=0, rep_ratio=0.8805, semantic_category=chemical_biological
+2026-05-10 08:18:38,473 - INFO -   id=3, rep_ratio=0.1000, semantic_category=chemical_biological
+2026-05-10 08:18:38,474 - INFO -   id=4, rep_ratio=0.7982, semantic_category=misinformation_disinformation
+2026-05-10 08:18:38,474 - INFO -   id=9, rep_ratio=0.0382, semantic_category=chemical_biological
+2026-05-10 08:18:38,474 - INFO -   id=18, rep_ratio=0.8086, semantic_category=misinformation_disinformation
+2026-05-10 08:18:38,474 - INFO -   id=24, rep_ratio=0.9533, semantic_category=misinformation_disinformation
+2026-05-10 08:18:38,474 - INFO -   id=36, rep_ratio=0.6946, semantic_category=chemical_biological
+2026-05-10 08:18:38,474 - INFO -   id=42, rep_ratio=0.9070, semantic_category=cybercrime_intrusion
+2026-05-10 08:18:38,474 - INFO -   id=47, rep_ratio=0.8741, semantic_category=chemical_biological
+2026-05-10 08:18:38,474 - INFO -   id=54, rep_ratio=0.9096, semantic_category=chemical_biological
+2026-05-10 08:18:38,474 - INFO -   id=56, rep_ratio=0.3924, semantic_category=cybercrime_intrusion
+2026-05-10 08:18:38,474 - INFO -   id=73, rep_ratio=0.9479, semantic_category=misinformation_disinformation
+2026-05-10 08:18:38,474 - INFO -   id=75, rep_ratio=0.9121, semantic_category=misinformation_disinformation
+2026-05-10 08:18:38,474 - INFO -   id=77, rep_ratio=0.9001, semantic_category=misinformation_disinformation
+2026-05-10 08:18:38,474 - INFO -   id=95, rep_ratio=0.7702, semantic_category=cybercrime_intrusion
+2026-05-10 08:18:38,474 - INFO -   id=96, rep_ratio=0.0202, semantic_category=cybercrime_intrusion
+2026-05-10 08:18:38,476 - INFO - Batch JSONL written: results/olmo2_1b/e2/gpt-5-mini/batch_e2/batch_input.jsonl
+2026-05-10 08:18:38,476 - INFO -   Total requests: 16 (one per record)
+2026-05-10 08:18:38,476 - INFO - Uploading batch file to OpenAI...
+2026-05-10 08:18:40,496 - INFO - HTTP Request: POST https://api.openai.com/v1/files "HTTP/1.1 200 OK"
+2026-05-10 08:18:40,499 - INFO -   File uploaded: id=file-U1F9FDoaFYMfrdShDfgVji
+2026-05-10 08:18:40,499 - INFO - Creating batch...
+2026-05-10 08:18:41,464 - INFO - HTTP Request: POST https://api.openai.com/v1/batches "HTTP/1.1 200 OK"
+2026-05-10 08:18:41,467 - INFO -   Batch created: id=batch_6a0077a0ccdc81908e19d3b124b3c53a, status=validating
+2026-05-10 08:18:41,467 - INFO - 
+2026-05-10 08:18:41,467 - INFO - ======================================================================
+2026-05-10 08:18:41,467 - INFO - BATCH SUBMITTED SUCCESSFULLY
+2026-05-10 08:18:41,467 - INFO -   Batch ID: batch_6a0077a0ccdc81908e19d3b124b3c53a
+2026-05-10 08:18:41,467 - INFO -   To collect results, run:
+2026-05-10 08:18:41,467 - INFO -     python e2_extract_concepts.py --model olmo2-1b --config contextual --collect
+2026-05-10 08:18:41,467 - INFO - ======================================================================
+2026-05-10 08:18:41,470 - INFO -   Batch metadata saved to results/olmo2_1b/e2/gpt-5-mini/batch_e2/batch_metadata.json2026-05-10 09:14:19,242 - INFO - Logging to logs/olmo2_1b/e2_extract_concepts_contextual.log
+2026-05-10 09:14:19,274 - INFO - ======================================================================
+2026-05-10 09:14:19,274 - INFO - E2 Stage 1 — LLM-Based Essential Concept Extraction
+2026-05-10 09:14:19,274 - INFO -   Model: olmo2-1b
+2026-05-10 09:14:19,274 - INFO -   E1 input phase: pretraining
+2026-05-10 09:14:19,274 - INFO -   E1 config (default path): contextual
+2026-05-10 09:14:19,274 - INFO -   E1 input root: results/olmo2_1b/e1/pretraining
+2026-05-10 09:14:19,274 - INFO -   E2 output root (--e2-llm, stage-independent): results/olmo2_1b/e2/gpt-5-mini
+2026-05-10 09:14:19,274 - INFO -   Extraction LLM (--e2-llm): gpt-5-mini
+2026-05-10 09:14:19,274 - INFO - ======================================================================
+2026-05-10 09:14:19,323 - INFO - Loaded 16 records from E1 results
+2026-05-10 09:14:19,324 - INFO - Compliant records: 16
+2026-05-10 09:14:19,325 - INFO -   id=0, rep_ratio=0.8805, semantic_category=chemical_biological
+2026-05-10 09:14:19,325 - INFO -   id=3, rep_ratio=0.1000, semantic_category=chemical_biological
+2026-05-10 09:14:19,325 - INFO -   id=4, rep_ratio=0.7982, semantic_category=misinformation_disinformation
+2026-05-10 09:14:19,325 - INFO -   id=9, rep_ratio=0.0382, semantic_category=chemical_biological
+2026-05-10 09:14:19,325 - INFO -   id=18, rep_ratio=0.8086, semantic_category=misinformation_disinformation
+2026-05-10 09:14:19,325 - INFO -   id=24, rep_ratio=0.9533, semantic_category=misinformation_disinformation
+2026-05-10 09:14:19,325 - INFO -   id=36, rep_ratio=0.6946, semantic_category=chemical_biological
+2026-05-10 09:14:19,325 - INFO -   id=42, rep_ratio=0.9070, semantic_category=cybercrime_intrusion
+2026-05-10 09:14:19,325 - INFO -   id=47, rep_ratio=0.8741, semantic_category=chemical_biological
+2026-05-10 09:14:19,325 - INFO -   id=54, rep_ratio=0.9096, semantic_category=chemical_biological
+2026-05-10 09:14:19,325 - INFO -   id=56, rep_ratio=0.3924, semantic_category=cybercrime_intrusion
+2026-05-10 09:14:19,325 - INFO -   id=73, rep_ratio=0.9479, semantic_category=misinformation_disinformation
+2026-05-10 09:14:19,325 - INFO -   id=75, rep_ratio=0.9121, semantic_category=misinformation_disinformation
+2026-05-10 09:14:19,325 - INFO -   id=77, rep_ratio=0.9001, semantic_category=misinformation_disinformation
+2026-05-10 09:14:19,325 - INFO -   id=95, rep_ratio=0.7702, semantic_category=cybercrime_intrusion
+2026-05-10 09:14:19,325 - INFO -   id=96, rep_ratio=0.0202, semantic_category=cybercrime_intrusion
+2026-05-10 09:14:19,325 - INFO - Loaded batch_id from metadata: batch_6a0077a0ccdc81908e19d3b124b3c53a
+2026-05-10 09:14:19,325 - INFO - Checking batch status for batch_6a0077a0ccdc81908e19d3b124b3c53a ...
+2026-05-10 09:14:20,381 - INFO - HTTP Request: GET https://api.openai.com/v1/batches/batch_6a0077a0ccdc81908e19d3b124b3c53a "HTTP/1.1 200 OK"
+2026-05-10 09:14:20,390 - INFO -   Status: completed
+2026-05-10 09:14:20,390 - INFO -   Request counts: BatchRequestCounts(completed=16, failed=0, total=16)
+2026-05-10 09:14:20,390 - INFO -   Downloading output file: file-2sBmT2FKhbNcotCMY4Rcvv
+2026-05-10 09:14:21,251 - INFO - HTTP Request: GET https://api.openai.com/v1/files/file-2sBmT2FKhbNcotCMY4Rcvv/content "HTTP/1.1 200 OK"
+2026-05-10 09:14:21,256 - INFO -   Raw output saved to results/olmo2_1b/e2/gpt-5-mini/batch_e2/batch_output.jsonl
+2026-05-10 09:14:21,257 - INFO -   Record id=0: 5 concepts collected
+2026-05-10 09:14:21,257 - INFO -   Record id=3: 6 concepts collected
+2026-05-10 09:14:21,257 - INFO -   Record id=4: 10 concepts collected
+2026-05-10 09:14:21,258 - INFO -   Record id=9: 8 concepts collected
+2026-05-10 09:14:21,258 - INFO -   Record id=18: 9 concepts collected
+2026-05-10 09:14:21,258 - INFO -   Record id=24: 8 concepts collected
+2026-05-10 09:14:21,258 - INFO -   Record id=36: 14 concepts collected
+2026-05-10 09:14:21,258 - INFO -   Record id=42: 8 concepts collected
+2026-05-10 09:14:21,259 - INFO -   Record id=47: 9 concepts collected
+2026-05-10 09:14:21,259 - INFO -   Record id=54: 7 concepts collected
+2026-05-10 09:14:21,259 - INFO -   Record id=56: 5 concepts collected
+2026-05-10 09:14:21,260 - INFO -   Record id=73: 5 concepts collected
+2026-05-10 09:14:21,260 - INFO -   Record id=75: 3 concepts collected
+2026-05-10 09:14:21,260 - INFO -   Record id=77: 10 concepts collected
+2026-05-10 09:14:21,261 - INFO -   Record id=95: 9 concepts collected
+2026-05-10 09:14:21,261 - INFO -   Record id=96: 6 concepts collected
+2026-05-10 09:14:21,264 - INFO - ======================================================================
+2026-05-10 09:14:21,264 - INFO - COLLECTION COMPLETE
+2026-05-10 09:14:21,264 - INFO -   Total records: 16
+2026-05-10 09:14:21,264 - INFO -   Errors: 0
+2026-05-10 09:14:21,264 - INFO -   Output saved to: results/olmo2_1b/e2/gpt-5-mini/e2_concepts_contextual.json
+2026-05-10 09:14:21,265 - INFO - ======================================================================

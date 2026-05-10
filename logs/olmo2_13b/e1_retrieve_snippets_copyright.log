@@ -1,0 +1,151 @@
+2026-05-08 20:14:01,590 - e1_retrieve_snippets.olmo2-13b.copyright - INFO - Logging to file: logs/olmo2_13b/e1_retrieve_snippets_copyright.log
+2026-05-08 20:14:01,590 - e1_retrieve_snippets.olmo2-13b.copyright - INFO - Loading tokenizer: meta-llama/Llama-2-7b-hf
+2026-05-08 20:14:02,064 - e1_retrieve_snippets.olmo2-13b.copyright - INFO - Using API engine: index=v4_olmo-mix-1124_llama
+2026-05-08 20:14:02,065 - e1_retrieve_snippets.olmo2-13b.copyright - INFO - Querying corpus size from API (empty-string count)...
+2026-05-08 20:14:03,396 - e1_retrieve_snippets.olmo2-13b.copyright - INFO - Corpus size (API, v4_olmo-mix-1124_llama): 4575475702047 tokens
+2026-05-08 20:14:03,396 - e1_retrieve_snippets.olmo2-13b.copyright - INFO - Logging to file: logs/olmo2_13b/e1_retrieve_snippets_copyright.log
+2026-05-08 20:14:03,396 - e1_retrieve_snippets.olmo2-13b.copyright - INFO - === E1 Phase 2: Snippet Retrieval started at Fri May 08 08:14:03 PM  2026 ===
+2026-05-08 20:14:03,397 - e1_retrieve_snippets.olmo2-13b.copyright - INFO - Config: copyright
+2026-05-08 20:14:03,397 - e1_retrieve_snippets.olmo2-13b.copyright - INFO - Arguments: {'model': 'olmo2-13b', 'config': 'copyright', 'configs': ['copyright'], 'input': 'results/olmo2_13b/e1/pretraining/e1_verbatim_copyright.json', 'index_dir': None, 'api_index': 'v4_olmo-mix-1124_llama', 'tokenizer_name': 'meta-llama/Llama-2-7b-hf', 'max_docs_per_span': 10, 'max_disp_len': 160}
+2026-05-08 20:14:03,397 - e1_retrieve_snippets.olmo2-13b.copyright - INFO - Loading Phase 1 results from results/olmo2_13b/e1/pretraining/e1_verbatim_copyright.json ...
+2026-05-08 20:14:03,401 - e1_retrieve_snippets.olmo2-13b.copyright - INFO - Loaded 13 records
+2026-05-08 20:14:03,404 - e1_retrieve_snippets.olmo2-13b.copyright - INFO - ======================================================================
+2026-05-08 20:14:03,404 - e1_retrieve_snippets.olmo2-13b.copyright - INFO - [1/13] Retrieving snippets for record id=0 (59 spans, resuming from 0)
+2026-05-08 20:15:01,899 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Span 10 / 59 done
+2026-05-08 20:16:50,384 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Span 20 / 59 done
+2026-05-08 20:18:35,853 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Span 30 / 59 done
+2026-05-08 20:20:23,112 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Span 40 / 59 done
+2026-05-08 20:22:05,445 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Span 50 / 59 done
+2026-05-08 20:23:39,036 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Done: 59 / 59 spans, 471 snippets, 575.6s
+2026-05-08 20:23:39,037 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Saving to results/olmo2_13b/e1/pretraining/e1_verbatim_copyright.json ...
+2026-05-08 20:23:39,080 - e1_retrieve_snippets.olmo2-13b.copyright - INFO - ======================================================================
+2026-05-08 20:23:39,080 - e1_retrieve_snippets.olmo2-13b.copyright - INFO - [2/13] Retrieving snippets for record id=1 (55 spans, resuming from 0)
+2026-05-08 20:25:37,817 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Span 10 / 55 done
+2026-05-08 20:27:40,681 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Span 20 / 55 done
+2026-05-08 20:29:38,780 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Span 30 / 55 done
+2026-05-08 20:31:37,064 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Span 40 / 55 done
+2026-05-08 20:33:40,142 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Span 50 / 55 done
+2026-05-08 20:34:39,275 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Done: 55 / 55 spans, 550 snippets, 660.2s
+2026-05-08 20:34:39,275 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Saving to results/olmo2_13b/e1/pretraining/e1_verbatim_copyright.json ...
+2026-05-08 20:34:39,352 - e1_retrieve_snippets.olmo2-13b.copyright - INFO - ======================================================================
+2026-05-08 20:34:39,352 - e1_retrieve_snippets.olmo2-13b.copyright - INFO - [3/13] Retrieving snippets for record id=4 (53 spans, resuming from 0)
+2026-05-08 20:35:32,761 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Span 10 / 53 done
+2026-05-08 20:37:17,712 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Span 20 / 53 done
+2026-05-08 20:39:08,745 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Span 30 / 53 done
+2026-05-08 20:41:07,055 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Span 40 / 53 done
+2026-05-08 20:43:10,276 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Span 50 / 53 done
+2026-05-08 20:43:45,612 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Done: 53 / 53 spans, 448 snippets, 546.3s
+2026-05-08 20:43:45,612 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Saving to results/olmo2_13b/e1/pretraining/e1_verbatim_copyright.json ...
+2026-05-08 20:43:45,704 - e1_retrieve_snippets.olmo2-13b.copyright - INFO - ======================================================================
+2026-05-08 20:43:45,704 - e1_retrieve_snippets.olmo2-13b.copyright - INFO - [4/13] Retrieving snippets for record id=5 (63 spans, resuming from 0)
+2026-05-08 20:44:32,197 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Span 10 / 63 done
+2026-05-08 20:45:04,452 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Span 20 / 63 done
+2026-05-08 20:45:37,101 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Span 30 / 63 done
+2026-05-08 20:46:09,257 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Span 40 / 63 done
+2026-05-08 20:46:46,542 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Span 50 / 63 done
+2026-05-08 20:47:18,707 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Span 60 / 63 done
+2026-05-08 20:47:28,344 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Done: 63 / 63 spans, 139 snippets, 222.6s
+2026-05-08 20:47:28,344 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Saving to results/olmo2_13b/e1/pretraining/e1_verbatim_copyright.json ...
+2026-05-08 20:47:28,440 - e1_retrieve_snippets.olmo2-13b.copyright - INFO - ======================================================================
+2026-05-08 20:47:28,440 - e1_retrieve_snippets.olmo2-13b.copyright - INFO - [5/13] Retrieving snippets for record id=7 (59 spans, resuming from 0)
+2026-05-08 20:49:13,504 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Span 10 / 59 done
+2026-05-08 20:50:45,102 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Span 20 / 59 done
+2026-05-08 20:52:04,627 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Span 30 / 59 done
+2026-05-08 20:53:40,203 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Span 40 / 59 done
+2026-05-08 20:55:16,844 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Span 50 / 59 done
+2026-05-08 20:56:39,802 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Done: 59 / 59 spans, 453 snippets, 551.4s
+2026-05-08 20:56:39,804 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Saving to results/olmo2_13b/e1/pretraining/e1_verbatim_copyright.json ...
+2026-05-08 20:56:39,910 - e1_retrieve_snippets.olmo2-13b.copyright - INFO - ======================================================================
+2026-05-08 20:56:39,910 - e1_retrieve_snippets.olmo2-13b.copyright - INFO - [6/13] Retrieving snippets for record id=21 (54 spans, resuming from 0)
+2026-05-08 20:58:10,001 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Span 10 / 54 done
+2026-05-08 20:59:49,317 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Span 20 / 54 done
+2026-05-08 21:01:38,612 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Span 30 / 54 done
+2026-05-08 21:03:41,775 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Span 40 / 54 done
+2026-05-08 21:05:39,812 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Span 50 / 54 done
+2026-05-08 21:06:27,089 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Done: 54 / 54 spans, 486 snippets, 587.2s
+2026-05-08 21:06:27,090 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Saving to results/olmo2_13b/e1/pretraining/e1_verbatim_copyright.json ...
+2026-05-08 21:06:27,211 - e1_retrieve_snippets.olmo2-13b.copyright - INFO - ======================================================================
+2026-05-08 21:06:27,211 - e1_retrieve_snippets.olmo2-13b.copyright - INFO - [7/13] Retrieving snippets for record id=23 (59 spans, resuming from 0)
+2026-05-08 21:07:44,480 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Span 10 / 59 done
+2026-05-08 21:09:04,040 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Span 20 / 59 done
+2026-05-08 21:10:20,119 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Span 30 / 59 done
+2026-05-08 21:11:39,719 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Span 40 / 59 done
+2026-05-08 21:12:43,976 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Span 50 / 59 done
+2026-05-08 21:13:42,061 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Done: 59 / 59 spans, 345 snippets, 434.9s
+2026-05-08 21:13:42,062 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Saving to results/olmo2_13b/e1/pretraining/e1_verbatim_copyright.json ...
+2026-05-08 21:13:42,192 - e1_retrieve_snippets.olmo2-13b.copyright - INFO - ======================================================================
+2026-05-08 21:13:42,192 - e1_retrieve_snippets.olmo2-13b.copyright - INFO - [8/13] Retrieving snippets for record id=27 (60 spans, resuming from 0)
+2026-05-08 21:15:21,939 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Span 10 / 60 done
+2026-05-08 21:17:03,651 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Span 20 / 60 done
+2026-05-08 21:18:47,390 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Span 30 / 60 done
+2026-05-09 14:28:17,686 - e1_retrieve_snippets.olmo2-13b.copyright - INFO - Logging to file: logs/olmo2_13b/e1_retrieve_snippets_copyright.log
+2026-05-09 14:28:17,687 - e1_retrieve_snippets.olmo2-13b.copyright - INFO - Loading tokenizer: meta-llama/Llama-2-7b-hf
+2026-05-09 14:28:18,101 - e1_retrieve_snippets.olmo2-13b.copyright - INFO - Using API engine: index=v4_olmo-mix-1124_llama
+2026-05-09 14:28:18,102 - e1_retrieve_snippets.olmo2-13b.copyright - INFO - Querying corpus size from API (empty-string count)...
+2026-05-09 14:28:19,384 - e1_retrieve_snippets.olmo2-13b.copyright - INFO - Corpus size (API, v4_olmo-mix-1124_llama): 4575475702047 tokens
+2026-05-09 14:28:19,384 - e1_retrieve_snippets.olmo2-13b.copyright - INFO - Logging to file: logs/olmo2_13b/e1_retrieve_snippets_copyright.log
+2026-05-09 14:28:19,384 - e1_retrieve_snippets.olmo2-13b.copyright - INFO - === E1 Phase 2: Snippet Retrieval started at Sat May 09 02:28:19 PM  2026 ===
+2026-05-09 14:28:19,384 - e1_retrieve_snippets.olmo2-13b.copyright - INFO - Config: copyright
+2026-05-09 14:28:19,385 - e1_retrieve_snippets.olmo2-13b.copyright - INFO - Arguments: {'model': 'olmo2-13b', 'config': 'copyright', 'configs': ['copyright'], 'input': 'results/olmo2_13b/e1/pretraining/e1_verbatim_copyright.json', 'index_dir': None, 'api_index': 'v4_olmo-mix-1124_llama', 'tokenizer_name': 'meta-llama/Llama-2-7b-hf', 'max_docs_per_span': 10, 'max_disp_len': 160}
+2026-05-09 14:28:19,385 - e1_retrieve_snippets.olmo2-13b.copyright - INFO - Loading Phase 1 results from results/olmo2_13b/e1/pretraining/e1_verbatim_copyright.json ...
+2026-05-09 14:28:19,444 - e1_retrieve_snippets.olmo2-13b.copyright - INFO - Loaded 13 records
+2026-05-09 14:28:19,445 - e1_retrieve_snippets.olmo2-13b.copyright - INFO - [1/13] Skipping record id=0 (all 59 spans done)
+2026-05-09 14:28:19,445 - e1_retrieve_snippets.olmo2-13b.copyright - INFO - [2/13] Skipping record id=1 (all 55 spans done)
+2026-05-09 14:28:19,445 - e1_retrieve_snippets.olmo2-13b.copyright - INFO - [3/13] Skipping record id=4 (all 53 spans done)
+2026-05-09 14:28:19,445 - e1_retrieve_snippets.olmo2-13b.copyright - INFO - [4/13] Skipping record id=5 (all 63 spans done)
+2026-05-09 14:28:19,445 - e1_retrieve_snippets.olmo2-13b.copyright - INFO - [5/13] Skipping record id=7 (all 59 spans done)
+2026-05-09 14:28:19,445 - e1_retrieve_snippets.olmo2-13b.copyright - INFO - [6/13] Skipping record id=21 (all 54 spans done)
+2026-05-09 14:28:19,445 - e1_retrieve_snippets.olmo2-13b.copyright - INFO - [7/13] Skipping record id=23 (all 59 spans done)
+2026-05-09 14:28:19,448 - e1_retrieve_snippets.olmo2-13b.copyright - INFO - ======================================================================
+2026-05-09 14:28:19,449 - e1_retrieve_snippets.olmo2-13b.copyright - INFO - [8/13] Retrieving snippets for record id=27 (60 spans, resuming from 0)
+2026-05-09 14:29:58,547 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Span 10 / 60 done
+2026-05-09 14:31:39,559 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Span 20 / 60 done
+2026-05-09 14:33:21,249 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Span 30 / 60 done
+2026-05-09 14:35:10,365 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Span 40 / 60 done
+2026-05-09 14:37:08,003 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Span 50 / 60 done
+2026-05-09 14:39:05,512 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Span 60 / 60 done
+2026-05-09 14:39:05,512 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Done: 60 / 60 spans, 543 snippets, 646.1s
+2026-05-09 14:39:05,512 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Saving to results/olmo2_13b/e1/pretraining/e1_verbatim_copyright.json ...
+2026-05-09 14:39:05,679 - e1_retrieve_snippets.olmo2-13b.copyright - INFO - ======================================================================
+2026-05-09 14:39:05,679 - e1_retrieve_snippets.olmo2-13b.copyright - INFO - [9/13] Retrieving snippets for record id=34 (4 spans, resuming from 0)
+2026-05-09 14:39:47,294 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Done: 4 / 4 spans, 30 snippets, 41.6s
+2026-05-09 14:39:47,295 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Saving to results/olmo2_13b/e1/pretraining/e1_verbatim_copyright.json ...
+2026-05-09 14:39:47,447 - e1_retrieve_snippets.olmo2-13b.copyright - INFO - ======================================================================
+2026-05-09 14:39:47,447 - e1_retrieve_snippets.olmo2-13b.copyright - INFO - [10/13] Retrieving snippets for record id=38 (17 spans, resuming from 0)
+2026-05-09 14:41:03,123 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Span 10 / 17 done
+2026-05-09 14:41:53,129 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Done: 17 / 17 spans, 99 snippets, 125.7s
+2026-05-09 14:41:53,130 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Saving to results/olmo2_13b/e1/pretraining/e1_verbatim_copyright.json ...
+2026-05-09 14:41:53,260 - e1_retrieve_snippets.olmo2-13b.copyright - INFO - ======================================================================
+2026-05-09 14:41:53,260 - e1_retrieve_snippets.olmo2-13b.copyright - INFO - [11/13] Retrieving snippets for record id=39 (58 spans, resuming from 0)
+2026-05-09 14:43:22,072 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Span 10 / 58 done
+2026-05-09 14:44:52,259 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Span 20 / 58 done
+2026-05-09 14:46:22,274 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Span 30 / 58 done
+2026-05-09 14:47:53,294 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Span 40 / 58 done
+2026-05-09 14:49:23,386 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Span 50 / 58 done
+2026-05-09 14:50:39,420 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Done: 58 / 58 spans, 432 snippets, 526.2s
+2026-05-09 14:50:39,422 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Saving to results/olmo2_13b/e1/pretraining/e1_verbatim_copyright.json ...
+2026-05-09 14:50:39,584 - e1_retrieve_snippets.olmo2-13b.copyright - INFO - ======================================================================
+2026-05-09 14:50:39,584 - e1_retrieve_snippets.olmo2-13b.copyright - INFO - [12/13] Retrieving snippets for record id=41 (57 spans, resuming from 0)
+2026-05-09 14:51:43,203 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Span 10 / 57 done
+2026-05-09 14:52:36,674 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Span 20 / 57 done
+2026-05-09 14:53:39,973 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Span 30 / 57 done
+2026-05-09 14:54:34,422 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Span 40 / 57 done
+2026-05-09 14:55:19,269 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Span 50 / 57 done
+2026-05-09 14:55:37,595 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Done: 57 / 57 spans, 221 snippets, 298.0s
+2026-05-09 14:55:37,595 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Saving to results/olmo2_13b/e1/pretraining/e1_verbatim_copyright.json ...
+2026-05-09 14:55:37,752 - e1_retrieve_snippets.olmo2-13b.copyright - INFO - ======================================================================
+2026-05-09 14:55:37,752 - e1_retrieve_snippets.olmo2-13b.copyright - INFO - [13/13] Retrieving snippets for record id=42 (62 spans, resuming from 0)
+2026-05-09 14:56:55,693 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Span 10 / 62 done
+2026-05-09 14:58:27,085 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Span 20 / 62 done
+2026-05-09 14:59:52,840 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Span 30 / 62 done
+2026-05-09 15:01:35,091 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Span 40 / 62 done
+2026-05-09 15:02:54,291 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Span 50 / 62 done
+2026-05-09 15:04:20,183 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Span 60 / 62 done
+2026-05-09 15:04:38,444 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Done: 62 / 62 spans, 436 snippets, 540.7s
+2026-05-09 15:04:38,444 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Saving to results/olmo2_13b/e1/pretraining/e1_verbatim_copyright.json ...
+2026-05-09 15:04:38,615 - e1_retrieve_snippets.olmo2-13b.copyright - INFO - ======================================================================
+2026-05-09 15:04:38,615 - e1_retrieve_snippets.olmo2-13b.copyright - INFO - SUMMARY (config=copyright)
+2026-05-09 15:04:38,615 - e1_retrieve_snippets.olmo2-13b.copyright - INFO - ======================================================================
+2026-05-09 15:04:38,615 - e1_retrieve_snippets.olmo2-13b.copyright - INFO -   Records with snippets: 13 / 13
+2026-05-09 15:04:38,615 - e1_retrieve_snippets.olmo2-13b.copyright - INFO - === Finished at Sat May 09 03:04:38 PM  2026 ===
+2026-05-09 15:04:38,616 - e1_retrieve_snippets.olmo2-13b.copyright - INFO - === Elapsed time: 0 days 00:36:19 (total 2179.231 seconds) ===

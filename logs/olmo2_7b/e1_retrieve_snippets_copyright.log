@@ -1,0 +1,26 @@
+2026-05-09 19:31:57,205 - e1_retrieve_snippets.olmo2-7b.copyright - INFO - Logging to file: logs/olmo2_7b/e1_retrieve_snippets_copyright.log
+2026-05-09 19:31:57,205 - e1_retrieve_snippets.olmo2-7b.copyright - INFO - Loading tokenizer: meta-llama/Llama-2-7b-hf
+2026-05-09 19:31:57,621 - e1_retrieve_snippets.olmo2-7b.copyright - INFO - Using API engine: index=v4_olmo-mix-1124_llama
+2026-05-09 19:31:57,621 - e1_retrieve_snippets.olmo2-7b.copyright - INFO - Querying corpus size from API (empty-string count)...
+2026-05-09 19:31:58,917 - e1_retrieve_snippets.olmo2-7b.copyright - INFO - Corpus size (API, v4_olmo-mix-1124_llama): 4575475702047 tokens
+2026-05-09 19:31:58,919 - e1_retrieve_snippets.olmo2-7b.copyright - INFO - Logging to file: logs/olmo2_7b/e1_retrieve_snippets_copyright.log
+2026-05-09 19:31:58,919 - e1_retrieve_snippets.olmo2-7b.copyright - INFO - === E1 Phase 2: Snippet Retrieval started at Sat May 09 07:31:58 PM  2026 ===
+2026-05-09 19:31:58,920 - e1_retrieve_snippets.olmo2-7b.copyright - INFO - Config: copyright
+2026-05-09 19:31:58,920 - e1_retrieve_snippets.olmo2-7b.copyright - INFO - Arguments: {'model': 'olmo2-7b', 'config': 'copyright', 'configs': ['copyright'], 'input': 'results/olmo2_7b/e1/pretraining/e1_verbatim_copyright.json', 'index_dir': None, 'api_index': 'v4_olmo-mix-1124_llama', 'tokenizer_name': 'meta-llama/Llama-2-7b-hf', 'max_docs_per_span': 10, 'max_disp_len': 160}
+2026-05-09 19:31:58,920 - e1_retrieve_snippets.olmo2-7b.copyright - INFO - Loading Phase 1 results from results/olmo2_7b/e1/pretraining/e1_verbatim_copyright.json ...
+2026-05-09 19:31:58,921 - e1_retrieve_snippets.olmo2-7b.copyright - INFO - Loaded 1 records
+2026-05-09 19:31:58,927 - e1_retrieve_snippets.olmo2-7b.copyright - INFO - ======================================================================
+2026-05-09 19:31:58,927 - e1_retrieve_snippets.olmo2-7b.copyright - INFO - [1/1] Retrieving snippets for record id=17 (57 spans, resuming from 0)
+2026-05-09 19:33:56,775 - e1_retrieve_snippets.olmo2-7b.copyright - INFO -   Span 10 / 57 done
+2026-05-09 19:35:54,349 - e1_retrieve_snippets.olmo2-7b.copyright - INFO -   Span 20 / 57 done
+2026-05-09 19:37:52,515 - e1_retrieve_snippets.olmo2-7b.copyright - INFO -   Span 30 / 57 done
+2026-05-09 19:39:50,099 - e1_retrieve_snippets.olmo2-7b.copyright - INFO -   Span 40 / 57 done
+2026-05-09 19:41:47,704 - e1_retrieve_snippets.olmo2-7b.copyright - INFO -   Span 50 / 57 done
+2026-05-09 19:43:10,113 - e1_retrieve_snippets.olmo2-7b.copyright - INFO -   Done: 57 / 57 spans, 570 snippets, 671.2s
+2026-05-09 19:43:10,113 - e1_retrieve_snippets.olmo2-7b.copyright - INFO -   Saving to results/olmo2_7b/e1/pretraining/e1_verbatim_copyright.json ...
+2026-05-09 19:43:10,151 - e1_retrieve_snippets.olmo2-7b.copyright - INFO - ======================================================================
+2026-05-09 19:43:10,151 - e1_retrieve_snippets.olmo2-7b.copyright - INFO - SUMMARY (config=copyright)
+2026-05-09 19:43:10,151 - e1_retrieve_snippets.olmo2-7b.copyright - INFO - ======================================================================
+2026-05-09 19:43:10,151 - e1_retrieve_snippets.olmo2-7b.copyright - INFO -   Records with snippets: 1 / 1
+2026-05-09 19:43:10,152 - e1_retrieve_snippets.olmo2-7b.copyright - INFO - === Finished at Sat May 09 07:43:10 PM  2026 ===
+2026-05-09 19:43:10,152 - e1_retrieve_snippets.olmo2-7b.copyright - INFO - === Elapsed time: 0 days 00:11:11 (total 671.232 seconds) ===

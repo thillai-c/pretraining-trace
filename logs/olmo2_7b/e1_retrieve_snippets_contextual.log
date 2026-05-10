@@ -1,0 +1,191 @@
+2026-05-08 13:18:27,288 - e1_retrieve_snippets.olmo2-7b.contextual - INFO - Logging to file: logs/olmo2_7b/e1_retrieve_snippets_contextual.log
+2026-05-08 13:18:27,288 - e1_retrieve_snippets.olmo2-7b.contextual - INFO - Loading tokenizer: meta-llama/Llama-2-7b-hf
+2026-05-08 13:18:27,760 - e1_retrieve_snippets.olmo2-7b.contextual - INFO - Using API engine: index=v4_olmo-mix-1124_llama
+2026-05-08 13:18:27,760 - e1_retrieve_snippets.olmo2-7b.contextual - INFO - Querying corpus size from API (empty-string count)...
+2026-05-08 13:18:29,003 - e1_retrieve_snippets.olmo2-7b.contextual - INFO - Corpus size (API, v4_olmo-mix-1124_llama): 4575475702047 tokens
+2026-05-08 13:18:29,009 - e1_retrieve_snippets.olmo2-7b.contextual - INFO - Logging to file: logs/olmo2_7b/e1_retrieve_snippets_contextual.log
+2026-05-08 13:18:29,010 - e1_retrieve_snippets.olmo2-7b.contextual - INFO - === E1 Phase 2: Snippet Retrieval started at Fri May 08 01:18:29 PM  2026 ===
+2026-05-08 13:18:29,010 - e1_retrieve_snippets.olmo2-7b.contextual - INFO - Config: contextual
+2026-05-08 13:18:29,010 - e1_retrieve_snippets.olmo2-7b.contextual - INFO - Arguments: {'model': 'olmo2-7b', 'config': 'contextual', 'configs': ['contextual'], 'input': 'results/olmo2_7b/e1/pretraining/e1_verbatim_contextual.json', 'index_dir': None, 'api_index': 'v4_olmo-mix-1124_llama', 'tokenizer_name': 'meta-llama/Llama-2-7b-hf', 'max_docs_per_span': 10, 'max_disp_len': 160}
+2026-05-08 13:18:29,010 - e1_retrieve_snippets.olmo2-7b.contextual - INFO - Loading Phase 1 results from results/olmo2_7b/e1/pretraining/e1_verbatim_contextual.json ...
+2026-05-08 13:18:29,020 - e1_retrieve_snippets.olmo2-7b.contextual - INFO - Loaded 28 records
+2026-05-08 13:18:29,025 - e1_retrieve_snippets.olmo2-7b.contextual - INFO - ======================================================================
+2026-05-08 13:18:29,025 - e1_retrieve_snippets.olmo2-7b.contextual - INFO - [1/28] Retrieving snippets for record id=0 (61 spans, resuming from 0)
+2026-05-08 13:19:06,669 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Span 10 / 61 done
+2026-05-08 13:20:17,550 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Span 20 / 61 done
+2026-05-08 13:20:41,379 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Span 30 / 61 done
+2026-05-08 13:21:02,902 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Span 40 / 61 done
+2026-05-08 13:21:26,463 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Span 50 / 61 done
+2026-05-08 13:21:47,918 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Span 60 / 61 done
+2026-05-08 13:21:50,059 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Done: 61 / 61 spans, 124 snippets, 201.0s
+2026-05-08 13:21:50,060 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Saving to results/olmo2_7b/e1/pretraining/e1_verbatim_contextual.json ...
+2026-05-08 13:21:50,107 - e1_retrieve_snippets.olmo2-7b.contextual - INFO - ======================================================================
+2026-05-08 13:21:50,107 - e1_retrieve_snippets.olmo2-7b.contextual - INFO - [2/28] Retrieving snippets for record id=3 (2 spans, resuming from 0)
+2026-05-08 13:22:09,801 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Done: 2 / 2 spans, 16 snippets, 19.7s
+2026-05-08 13:22:09,801 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Saving to results/olmo2_7b/e1/pretraining/e1_verbatim_contextual.json ...
+2026-05-08 13:22:09,853 - e1_retrieve_snippets.olmo2-7b.contextual - INFO - ======================================================================
+2026-05-08 13:22:09,853 - e1_retrieve_snippets.olmo2-7b.contextual - INFO - [3/28] Retrieving snippets for record id=4 (37 spans, resuming from 0)
+2026-05-08 13:23:33,601 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Span 10 / 37 done
+2026-05-08 13:24:49,705 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Span 20 / 37 done
+2026-05-08 13:26:02,642 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Span 30 / 37 done
+2026-05-08 13:26:51,620 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Done: 37 / 37 spans, 222 snippets, 281.8s
+2026-05-08 13:26:51,621 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Saving to results/olmo2_7b/e1/pretraining/e1_verbatim_contextual.json ...
+2026-05-08 13:26:51,678 - e1_retrieve_snippets.olmo2-7b.contextual - INFO - ======================================================================
+2026-05-08 13:26:51,678 - e1_retrieve_snippets.olmo2-7b.contextual - INFO - [4/28] Retrieving snippets for record id=5 (58 spans, resuming from 0)
+2026-05-08 13:28:17,722 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Span 10 / 58 done
+2026-05-08 13:29:42,548 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Span 20 / 58 done
+2026-05-08 13:31:07,809 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Span 30 / 58 done
+2026-05-08 13:32:38,496 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Span 40 / 58 done
+2026-05-08 13:34:09,120 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Span 50 / 58 done
+2026-05-08 13:35:16,490 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Done: 58 / 58 spans, 412 snippets, 504.8s
+2026-05-08 13:35:16,491 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Saving to results/olmo2_7b/e1/pretraining/e1_verbatim_contextual.json ...
+2026-05-08 13:35:16,566 - e1_retrieve_snippets.olmo2-7b.contextual - INFO - ======================================================================
+2026-05-08 13:35:16,566 - e1_retrieve_snippets.olmo2-7b.contextual - INFO - [5/28] Retrieving snippets for record id=8 (61 spans, resuming from 0)
+2026-05-08 13:36:24,657 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Span 10 / 61 done
+2026-05-08 13:37:52,465 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Span 20 / 61 done
+2026-05-08 13:39:05,480 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Span 30 / 61 done
+2026-05-08 13:40:18,119 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Span 40 / 61 done
+2026-05-08 13:41:31,699 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Span 50 / 61 done
+2026-05-08 13:42:44,384 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Span 60 / 61 done
+2026-05-08 13:42:49,720 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Done: 61 / 61 spans, 347 snippets, 453.2s
+2026-05-08 13:42:49,720 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Saving to results/olmo2_7b/e1/pretraining/e1_verbatim_contextual.json ...
+2026-05-08 13:42:49,797 - e1_retrieve_snippets.olmo2-7b.contextual - INFO - ======================================================================
+2026-05-08 13:42:49,797 - e1_retrieve_snippets.olmo2-7b.contextual - INFO - [6/28] Retrieving snippets for record id=9 (3 spans, resuming from 0)
+2026-05-08 13:43:07,264 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Done: 3 / 3 spans, 13 snippets, 17.5s
+2026-05-08 13:43:07,265 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Saving to results/olmo2_7b/e1/pretraining/e1_verbatim_contextual.json ...
+2026-05-08 13:43:07,341 - e1_retrieve_snippets.olmo2-7b.contextual - INFO - ======================================================================
+2026-05-08 13:43:07,341 - e1_retrieve_snippets.olmo2-7b.contextual - INFO - [7/28] Retrieving snippets for record id=10 (9 spans, resuming from 0)
+2026-05-08 13:44:34,059 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Done: 9 / 9 spans, 71 snippets, 86.7s
+2026-05-08 13:44:34,059 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Saving to results/olmo2_7b/e1/pretraining/e1_verbatim_contextual.json ...
+2026-05-08 13:44:34,139 - e1_retrieve_snippets.olmo2-7b.contextual - INFO - ======================================================================
+2026-05-08 13:44:34,139 - e1_retrieve_snippets.olmo2-7b.contextual - INFO - [8/28] Retrieving snippets for record id=21 (10 spans, resuming from 0)
+2026-05-08 13:46:10,620 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Span 10 / 10 done
+2026-05-08 13:46:10,620 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Done: 10 / 10 spans, 79 snippets, 96.5s
+2026-05-08 13:46:10,620 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Saving to results/olmo2_7b/e1/pretraining/e1_verbatim_contextual.json ...
+2026-05-08 13:46:10,696 - e1_retrieve_snippets.olmo2-7b.contextual - INFO - ======================================================================
+2026-05-08 13:46:10,696 - e1_retrieve_snippets.olmo2-7b.contextual - INFO - [9/28] Retrieving snippets for record id=23 (67 spans, resuming from 0)
+2026-05-08 13:47:23,861 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Span 10 / 67 done
+2026-05-08 13:48:51,785 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Span 20 / 67 done
+2026-05-08 13:50:04,694 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Span 30 / 67 done
+2026-05-08 13:51:32,526 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Span 40 / 67 done
+2026-05-08 13:52:45,435 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Span 50 / 67 done
+2026-05-08 13:54:13,276 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Span 60 / 67 done
+2026-05-08 13:55:16,436 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Done: 67 / 67 spans, 442 snippets, 545.7s
+2026-05-08 13:55:16,437 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Saving to results/olmo2_7b/e1/pretraining/e1_verbatim_contextual.json ...
+2026-05-08 13:55:16,526 - e1_retrieve_snippets.olmo2-7b.contextual - INFO - ======================================================================
+2026-05-08 13:55:16,526 - e1_retrieve_snippets.olmo2-7b.contextual - INFO - [10/28] Retrieving snippets for record id=30 (21 spans, resuming from 0)
+2026-05-08 13:56:34,803 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Span 10 / 21 done
+2026-05-08 13:57:42,560 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Span 20 / 21 done
+2026-05-08 13:57:54,347 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Done: 21 / 21 spans, 125 snippets, 157.8s
+2026-05-08 13:57:54,347 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Saving to results/olmo2_7b/e1/pretraining/e1_verbatim_contextual.json ...
+2026-05-08 13:57:54,443 - e1_retrieve_snippets.olmo2-7b.contextual - INFO - ======================================================================
+2026-05-08 13:57:54,443 - e1_retrieve_snippets.olmo2-7b.contextual - INFO - [11/28] Retrieving snippets for record id=36 (47 spans, resuming from 0)
+2026-05-08 13:59:07,083 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Span 10 / 47 done
+2026-05-08 14:00:23,294 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Span 20 / 47 done
+2026-05-08 14:01:47,735 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Span 30 / 47 done
+2026-05-08 14:02:58,372 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Span 40 / 47 done
+2026-05-08 14:04:02,129 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Done: 47 / 47 spans, 292 snippets, 367.7s
+2026-05-08 14:04:02,129 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Saving to results/olmo2_7b/e1/pretraining/e1_verbatim_contextual.json ...
+2026-05-08 14:04:02,229 - e1_retrieve_snippets.olmo2-7b.contextual - INFO - ======================================================================
+2026-05-08 14:04:02,229 - e1_retrieve_snippets.olmo2-7b.contextual - INFO - [12/28] Retrieving snippets for record id=41 (39 spans, resuming from 0)
+2026-05-08 14:05:07,519 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Span 10 / 39 done
+2026-05-08 14:06:39,868 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Span 20 / 39 done
+2026-05-08 14:07:24,296 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Span 30 / 39 done
+2026-05-08 14:08:44,692 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Done: 39 / 39 spans, 221 snippets, 282.5s
+2026-05-08 14:08:44,693 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Saving to results/olmo2_7b/e1/pretraining/e1_verbatim_contextual.json ...
+2026-05-08 14:08:44,798 - e1_retrieve_snippets.olmo2-7b.contextual - INFO - ======================================================================
+2026-05-08 14:08:44,798 - e1_retrieve_snippets.olmo2-7b.contextual - INFO - [13/28] Retrieving snippets for record id=52 (32 spans, resuming from 0)
+2026-05-08 14:10:03,963 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Span 10 / 32 done
+2026-05-08 14:11:06,693 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Span 20 / 32 done
+2026-05-08 14:12:07,638 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Span 30 / 32 done
+2026-05-08 14:12:24,961 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Done: 32 / 32 spans, 171 snippets, 220.2s
+2026-05-08 14:12:24,961 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Saving to results/olmo2_7b/e1/pretraining/e1_verbatim_contextual.json ...
+2026-05-08 14:12:25,072 - e1_retrieve_snippets.olmo2-7b.contextual - INFO - ======================================================================
+2026-05-08 14:12:25,072 - e1_retrieve_snippets.olmo2-7b.contextual - INFO - [14/28] Retrieving snippets for record id=53 (65 spans, resuming from 0)
+2026-05-08 14:13:41,213 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Span 10 / 65 done
+2026-05-08 14:14:32,306 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Span 20 / 65 done
+2026-05-08 14:15:31,364 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Span 30 / 65 done
+2026-05-08 14:16:37,319 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Span 40 / 65 done
+2026-05-08 14:17:39,293 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Span 50 / 65 done
+2026-05-08 14:18:57,591 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Span 60 / 65 done
+2026-05-08 14:19:29,690 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Done: 65 / 65 spans, 329 snippets, 424.6s
+2026-05-08 14:19:29,690 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Saving to results/olmo2_7b/e1/pretraining/e1_verbatim_contextual.json ...
+2026-05-08 14:19:29,857 - e1_retrieve_snippets.olmo2-7b.contextual - INFO - ======================================================================
+2026-05-08 14:19:29,857 - e1_retrieve_snippets.olmo2-7b.contextual - INFO - [15/28] Retrieving snippets for record id=54 (56 spans, resuming from 0)
+2026-05-08 14:20:36,157 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Span 10 / 56 done
+2026-05-08 14:22:02,528 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Span 20 / 56 done
+2026-05-08 14:23:23,702 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Span 30 / 56 done
+2026-05-08 14:24:35,728 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Span 40 / 56 done
+2026-05-08 14:25:52,837 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Span 50 / 56 done
+2026-05-08 14:26:31,322 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Done: 56 / 56 spans, 336 snippets, 421.5s
+2026-05-08 14:26:31,322 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Saving to results/olmo2_7b/e1/pretraining/e1_verbatim_contextual.json ...
+2026-05-08 14:26:31,448 - e1_retrieve_snippets.olmo2-7b.contextual - INFO - ======================================================================
+2026-05-08 14:26:31,448 - e1_retrieve_snippets.olmo2-7b.contextual - INFO - [16/28] Retrieving snippets for record id=57 (12 spans, resuming from 0)
+2026-05-08 14:27:22,467 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Span 10 / 12 done
+2026-05-08 14:27:46,604 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Done: 12 / 12 spans, 57 snippets, 75.2s
+2026-05-08 14:27:46,604 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Saving to results/olmo2_7b/e1/pretraining/e1_verbatim_contextual.json ...
+2026-05-08 14:27:46,738 - e1_retrieve_snippets.olmo2-7b.contextual - INFO - ======================================================================
+2026-05-08 14:27:46,739 - e1_retrieve_snippets.olmo2-7b.contextual - INFO - [17/28] Retrieving snippets for record id=58 (2 spans, resuming from 0)
+2026-05-08 14:28:01,898 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Done: 2 / 2 spans, 12 snippets, 15.2s
+2026-05-08 14:28:01,898 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Saving to results/olmo2_7b/e1/pretraining/e1_verbatim_contextual.json ...
+2026-05-08 14:28:02,027 - e1_retrieve_snippets.olmo2-7b.contextual - INFO - ======================================================================
+2026-05-08 14:28:02,027 - e1_retrieve_snippets.olmo2-7b.contextual - INFO - [18/28] Retrieving snippets for record id=59 (9 spans, resuming from 0)
+2026-05-08 14:29:12,218 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Done: 9 / 9 spans, 56 snippets, 70.2s
+2026-05-08 14:29:12,219 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Saving to results/olmo2_7b/e1/pretraining/e1_verbatim_contextual.json ...
+2026-05-08 14:29:12,350 - e1_retrieve_snippets.olmo2-7b.contextual - INFO - ======================================================================
+2026-05-08 14:29:12,350 - e1_retrieve_snippets.olmo2-7b.contextual - INFO - [19/28] Retrieving snippets for record id=65 (1 spans, resuming from 0)
+2026-05-08 14:29:24,232 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Done: 1 / 1 spans, 10 snippets, 11.9s
+2026-05-08 14:29:24,232 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Saving to results/olmo2_7b/e1/pretraining/e1_verbatim_contextual.json ...
+2026-05-08 14:29:24,364 - e1_retrieve_snippets.olmo2-7b.contextual - INFO - ======================================================================
+2026-05-08 14:29:24,364 - e1_retrieve_snippets.olmo2-7b.contextual - INFO - [20/28] Retrieving snippets for record id=68 (63 spans, resuming from 0)
+2026-05-08 14:30:47,697 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Span 10 / 63 done
+2026-05-08 14:32:36,406 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Span 20 / 63 done
+2026-05-08 14:34:02,460 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Span 30 / 63 done
+2026-05-08 14:35:28,422 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Span 40 / 63 done
+2026-05-08 14:37:07,459 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Span 50 / 63 done
+2026-05-08 14:38:33,354 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Span 60 / 63 done
+2026-05-08 14:39:08,709 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Done: 63 / 63 spans, 480 snippets, 584.3s
+2026-05-08 14:39:08,709 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Saving to results/olmo2_7b/e1/pretraining/e1_verbatim_contextual.json ...
+2026-05-08 14:39:08,844 - e1_retrieve_snippets.olmo2-7b.contextual - INFO - ======================================================================
+2026-05-08 14:39:08,844 - e1_retrieve_snippets.olmo2-7b.contextual - INFO - [21/28] Retrieving snippets for record id=71 (4 spans, resuming from 0)
+2026-05-08 14:39:37,029 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Done: 4 / 4 spans, 22 snippets, 28.2s
+2026-05-08 14:39:37,030 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Saving to results/olmo2_7b/e1/pretraining/e1_verbatim_contextual.json ...
+2026-05-08 14:39:37,163 - e1_retrieve_snippets.olmo2-7b.contextual - INFO - ======================================================================
+2026-05-08 14:39:37,163 - e1_retrieve_snippets.olmo2-7b.contextual - INFO - [22/28] Retrieving snippets for record id=81 (2 spans, resuming from 0)
+2026-05-08 14:39:55,565 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Done: 2 / 2 spans, 15 snippets, 18.4s
+2026-05-08 14:39:55,566 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Saving to results/olmo2_7b/e1/pretraining/e1_verbatim_contextual.json ...
+2026-05-08 14:39:55,703 - e1_retrieve_snippets.olmo2-7b.contextual - INFO - ======================================================================
+2026-05-08 14:39:55,703 - e1_retrieve_snippets.olmo2-7b.contextual - INFO - [23/28] Retrieving snippets for record id=82 (2 spans, resuming from 0)
+2026-05-08 14:40:13,108 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Done: 2 / 2 spans, 14 snippets, 17.4s
+2026-05-08 14:40:13,109 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Saving to results/olmo2_7b/e1/pretraining/e1_verbatim_contextual.json ...
+2026-05-08 14:40:13,245 - e1_retrieve_snippets.olmo2-7b.contextual - INFO - ======================================================================
+2026-05-08 14:40:13,245 - e1_retrieve_snippets.olmo2-7b.contextual - INFO - [24/28] Retrieving snippets for record id=83 (2 spans, resuming from 0)
+2026-05-08 14:40:37,081 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Done: 2 / 2 spans, 20 snippets, 23.8s
+2026-05-08 14:40:37,081 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Saving to results/olmo2_7b/e1/pretraining/e1_verbatim_contextual.json ...
+2026-05-08 14:40:37,218 - e1_retrieve_snippets.olmo2-7b.contextual - INFO - ======================================================================
+2026-05-08 14:40:37,218 - e1_retrieve_snippets.olmo2-7b.contextual - INFO - [25/28] Retrieving snippets for record id=86 (10 spans, resuming from 0)
+2026-05-08 14:41:29,342 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Span 10 / 10 done
+2026-05-08 14:41:29,343 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Done: 10 / 10 spans, 38 snippets, 52.1s
+2026-05-08 14:41:29,343 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Saving to results/olmo2_7b/e1/pretraining/e1_verbatim_contextual.json ...
+2026-05-08 14:41:29,481 - e1_retrieve_snippets.olmo2-7b.contextual - INFO - ======================================================================
+2026-05-08 14:41:29,481 - e1_retrieve_snippets.olmo2-7b.contextual - INFO - [26/28] Retrieving snippets for record id=95 (21 spans, resuming from 0)
+2026-05-08 14:42:30,500 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Span 10 / 21 done
+2026-05-08 14:43:46,664 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Span 20 / 21 done
+2026-05-08 14:43:58,606 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Done: 21 / 21 spans, 116 snippets, 149.1s
+2026-05-08 14:43:58,607 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Saving to results/olmo2_7b/e1/pretraining/e1_verbatim_contextual.json ...
+2026-05-08 14:43:58,748 - e1_retrieve_snippets.olmo2-7b.contextual - INFO - ======================================================================
+2026-05-08 14:43:58,748 - e1_retrieve_snippets.olmo2-7b.contextual - INFO - [27/28] Retrieving snippets for record id=96 (18 spans, resuming from 0)
+2026-05-08 14:44:56,324 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Span 10 / 18 done
+2026-05-08 14:45:46,018 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Done: 18 / 18 spans, 81 snippets, 107.3s
+2026-05-08 14:45:46,019 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Saving to results/olmo2_7b/e1/pretraining/e1_verbatim_contextual.json ...
+2026-05-08 14:45:46,172 - e1_retrieve_snippets.olmo2-7b.contextual - INFO - ======================================================================
+2026-05-08 14:45:46,172 - e1_retrieve_snippets.olmo2-7b.contextual - INFO - [28/28] Retrieving snippets for record id=98 (16 spans, resuming from 0)
+2026-05-08 14:46:55,928 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Span 10 / 16 done
+2026-05-08 14:47:22,979 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Done: 16 / 16 spans, 73 snippets, 96.8s
+2026-05-08 14:47:22,979 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Saving to results/olmo2_7b/e1/pretraining/e1_verbatim_contextual.json ...
+2026-05-08 14:47:23,126 - e1_retrieve_snippets.olmo2-7b.contextual - INFO - ======================================================================
+2026-05-08 14:47:23,126 - e1_retrieve_snippets.olmo2-7b.contextual - INFO - SUMMARY (config=contextual)
+2026-05-08 14:47:23,126 - e1_retrieve_snippets.olmo2-7b.contextual - INFO - ======================================================================
+2026-05-08 14:47:23,126 - e1_retrieve_snippets.olmo2-7b.contextual - INFO -   Records with snippets: 28 / 28
+2026-05-08 14:47:23,126 - e1_retrieve_snippets.olmo2-7b.contextual - INFO - === Finished at Fri May 08 02:47:23 PM  2026 ===
+2026-05-08 14:47:23,126 - e1_retrieve_snippets.olmo2-7b.contextual - INFO - === Elapsed time: 0 days 01:28:54 (total 5334.117 seconds) ===

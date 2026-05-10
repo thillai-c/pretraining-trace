@@ -1,0 +1,232 @@
+2026-05-10 16:08:07,427 - INFO - Logging to logs/olmo2_1b_instruct/e2_rank_concepts_contextual.log
+2026-05-10 16:08:07,445 - INFO - ======================================================================
+2026-05-10 16:08:07,445 - INFO - E2 Stage 2 — LLM-Based Concept Ranking
+2026-05-10 16:08:07,445 - INFO -   Model: olmo2-1b-instruct
+2026-05-10 16:08:07,446 - INFO -   HarmBench config: contextual
+2026-05-10 16:08:07,446 - INFO -   E2 root (--e2-llm, stage-independent): results/olmo2_1b_instruct/e2/gpt-5-mini
+2026-05-10 16:08:07,446 - INFO -   Rank LLM (--e2-llm): gpt-5-mini
+2026-05-10 16:08:07,446 - INFO -   Rank prompt version: v1_ranking
+2026-05-10 16:08:07,446 - INFO - ======================================================================
+2026-05-10 16:08:07,448 - INFO - Loaded 59 records from Stage 1 output
+2026-05-10 16:08:07,448 - INFO -   id=0, n_concepts=17, semantic_category=chemical_biological
+2026-05-10 16:08:07,448 - INFO -   id=1, n_concepts=26, semantic_category=chemical_biological
+2026-05-10 16:08:07,448 - INFO -   id=2, n_concepts=13, semantic_category=chemical_biological
+2026-05-10 16:08:07,448 - INFO -   id=3, n_concepts=21, semantic_category=chemical_biological
+2026-05-10 16:08:07,448 - INFO -   id=5, n_concepts=12, semantic_category=cybercrime_intrusion
+2026-05-10 16:08:07,448 - INFO -   id=6, n_concepts=26, semantic_category=chemical_biological
+2026-05-10 16:08:07,448 - INFO -   id=8, n_concepts=25, semantic_category=cybercrime_intrusion
+2026-05-10 16:08:07,448 - INFO -   id=9, n_concepts=18, semantic_category=chemical_biological
+2026-05-10 16:08:07,448 - INFO -   id=11, n_concepts=20, semantic_category=cybercrime_intrusion
+2026-05-10 16:08:07,448 - INFO -   id=12, n_concepts=25, semantic_category=misinformation_disinformation
+2026-05-10 16:08:07,448 - INFO -   id=13, n_concepts=18, semantic_category=misinformation_disinformation
+2026-05-10 16:08:07,448 - INFO -   id=14, n_concepts=17, semantic_category=misinformation_disinformation
+2026-05-10 16:08:07,448 - INFO -   id=15, n_concepts=27, semantic_category=misinformation_disinformation
+2026-05-10 16:08:07,448 - INFO -   id=16, n_concepts=16, semantic_category=misinformation_disinformation
+2026-05-10 16:08:07,448 - INFO -   id=21, n_concepts=33, semantic_category=misinformation_disinformation
+2026-05-10 16:08:07,448 - INFO -   id=22, n_concepts=27, semantic_category=misinformation_disinformation
+2026-05-10 16:08:07,448 - INFO -   id=23, n_concepts=16, semantic_category=misinformation_disinformation
+2026-05-10 16:08:07,448 - INFO -   id=25, n_concepts=17, semantic_category=misinformation_disinformation
+2026-05-10 16:08:07,448 - INFO -   id=27, n_concepts=16, semantic_category=misinformation_disinformation
+2026-05-10 16:08:07,448 - INFO -   id=35, n_concepts=17, semantic_category=cybercrime_intrusion
+2026-05-10 16:08:07,448 - INFO -   id=36, n_concepts=18, semantic_category=chemical_biological
+2026-05-10 16:08:07,448 - INFO -   id=40, n_concepts=29, semantic_category=cybercrime_intrusion
+2026-05-10 16:08:07,448 - INFO -   id=41, n_concepts=26, semantic_category=cybercrime_intrusion
+2026-05-10 16:08:07,448 - INFO -   id=43, n_concepts=21, semantic_category=cybercrime_intrusion
+2026-05-10 16:08:07,448 - INFO -   id=44, n_concepts=37, semantic_category=chemical_biological
+2026-05-10 16:08:07,448 - INFO -   id=46, n_concepts=18, semantic_category=chemical_biological
+2026-05-10 16:08:07,448 - INFO -   id=49, n_concepts=32, semantic_category=chemical_biological
+2026-05-10 16:08:07,448 - INFO -   id=52, n_concepts=24, semantic_category=chemical_biological
+2026-05-10 16:08:07,448 - INFO -   id=53, n_concepts=22, semantic_category=chemical_biological
+2026-05-10 16:08:07,448 - INFO -   id=54, n_concepts=18, semantic_category=chemical_biological
+2026-05-10 16:08:07,448 - INFO -   id=55, n_concepts=33, semantic_category=chemical_biological
+2026-05-10 16:08:07,448 - INFO -   id=56, n_concepts=18, semantic_category=cybercrime_intrusion
+2026-05-10 16:08:07,448 - INFO -   id=57, n_concepts=14, semantic_category=illegal
+2026-05-10 16:08:07,448 - INFO -   id=58, n_concepts=24, semantic_category=illegal
+2026-05-10 16:08:07,448 - INFO -   id=62, n_concepts=23, semantic_category=cybercrime_intrusion
+2026-05-10 16:08:07,448 - INFO -   id=63, n_concepts=21, semantic_category=cybercrime_intrusion
+2026-05-10 16:08:07,448 - INFO -   id=64, n_concepts=25, semantic_category=cybercrime_intrusion
+2026-05-10 16:08:07,448 - INFO -   id=67, n_concepts=57, semantic_category=chemical_biological
+2026-05-10 16:08:07,448 - INFO -   id=68, n_concepts=24, semantic_category=chemical_biological
+2026-05-10 16:08:07,448 - INFO -   id=70, n_concepts=22, semantic_category=chemical_biological
+2026-05-10 16:08:07,448 - INFO -   id=71, n_concepts=42, semantic_category=chemical_biological
+2026-05-10 16:08:07,448 - INFO -   id=72, n_concepts=27, semantic_category=chemical_biological
+2026-05-10 16:08:07,448 - INFO -   id=81, n_concepts=23, semantic_category=misinformation_disinformation
+2026-05-10 16:08:07,448 - INFO -   id=82, n_concepts=20, semantic_category=misinformation_disinformation
+2026-05-10 16:08:07,448 - INFO -   id=83, n_concepts=20, semantic_category=misinformation_disinformation
+2026-05-10 16:08:07,449 - INFO -   id=84, n_concepts=35, semantic_category=misinformation_disinformation
+2026-05-10 16:08:07,449 - INFO -   id=85, n_concepts=29, semantic_category=chemical_biological
+2026-05-10 16:08:07,449 - INFO -   id=86, n_concepts=27, semantic_category=chemical_biological
+2026-05-10 16:08:07,449 - INFO -   id=87, n_concepts=24, semantic_category=cybercrime_intrusion
+2026-05-10 16:08:07,449 - INFO -   id=88, n_concepts=33, semantic_category=cybercrime_intrusion
+2026-05-10 16:08:07,449 - INFO -   id=89, n_concepts=30, semantic_category=cybercrime_intrusion
+2026-05-10 16:08:07,449 - INFO -   id=90, n_concepts=36, semantic_category=cybercrime_intrusion
+2026-05-10 16:08:07,449 - INFO -   id=91, n_concepts=34, semantic_category=cybercrime_intrusion
+2026-05-10 16:08:07,449 - INFO -   id=93, n_concepts=25, semantic_category=cybercrime_intrusion
+2026-05-10 16:08:07,449 - INFO -   id=94, n_concepts=31, semantic_category=cybercrime_intrusion
+2026-05-10 16:08:07,449 - INFO -   id=95, n_concepts=19, semantic_category=cybercrime_intrusion
+2026-05-10 16:08:07,449 - INFO -   id=96, n_concepts=16, semantic_category=cybercrime_intrusion
+2026-05-10 16:08:07,449 - INFO -   id=97, n_concepts=6, semantic_category=illegal
+2026-05-10 16:08:07,449 - INFO -   id=98, n_concepts=23, semantic_category=cybercrime_intrusion
+2026-05-10 16:08:07,451 - INFO - Batch JSONL written: results/olmo2_1b_instruct/e2/gpt-5-mini/batch_e2_rank/batch_input.jsonl
+2026-05-10 16:08:07,451 - INFO -   Total requests: 59
+2026-05-10 16:08:07,451 - INFO -   Skipped (zero concepts): 0
+2026-05-10 16:08:07,451 - INFO -   Rank prompt version: v1_ranking
+2026-05-10 16:08:07,451 - INFO - Uploading batch file to OpenAI...
+2026-05-10 16:08:08,354 - INFO - HTTP Request: POST https://api.openai.com/v1/files "HTTP/1.1 200 OK"
+2026-05-10 16:08:08,357 - INFO -   File uploaded: id=file-7Ks6b2TLEwFLgsiZdEQdCK
+2026-05-10 16:08:08,357 - INFO - Creating batch...
+2026-05-10 16:08:09,276 - INFO - HTTP Request: POST https://api.openai.com/v1/batches "HTTP/1.1 200 OK"
+2026-05-10 16:08:09,279 - INFO -   Batch created: id=batch_6a00e5a89ba48190b60d4f237e61988d, status=validating
+2026-05-10 16:08:09,279 - INFO - 
+2026-05-10 16:08:09,279 - INFO - ======================================================================
+2026-05-10 16:08:09,279 - INFO - BATCH SUBMITTED SUCCESSFULLY
+2026-05-10 16:08:09,280 - INFO -   Batch ID: batch_6a00e5a89ba48190b60d4f237e61988d
+2026-05-10 16:08:09,280 - INFO -   To collect results, run:
+2026-05-10 16:08:09,280 - INFO -     python e2_rank_concepts.py --model olmo2-1b-instruct --config contextual --collect
+2026-05-10 16:08:09,280 - INFO - ======================================================================
+2026-05-10 16:08:09,281 - INFO -   Batch metadata saved to results/olmo2_1b_instruct/e2/gpt-5-mini/batch_e2_rank/batch_metadata.json
+2026-05-10 17:16:42,930 - INFO - Logging to logs/olmo2_1b_instruct/e2_rank_concepts_contextual.log
+2026-05-10 17:16:42,950 - INFO - ======================================================================
+2026-05-10 17:16:42,950 - INFO - E2 Stage 2 — LLM-Based Concept Ranking
+2026-05-10 17:16:42,950 - INFO -   Model: olmo2-1b-instruct
+2026-05-10 17:16:42,950 - INFO -   HarmBench config: contextual
+2026-05-10 17:16:42,950 - INFO -   E2 root (--e2-llm, stage-independent): results/olmo2_1b_instruct/e2/gpt-5-mini
+2026-05-10 17:16:42,950 - INFO -   Rank LLM (--e2-llm): gpt-5-mini
+2026-05-10 17:16:42,950 - INFO -   Rank prompt version: v1_ranking
+2026-05-10 17:16:42,950 - INFO - ======================================================================
+2026-05-10 17:16:42,952 - INFO - Loaded 59 records from Stage 1 output
+2026-05-10 17:16:42,952 - INFO -   id=0, n_concepts=17, semantic_category=chemical_biological
+2026-05-10 17:16:42,952 - INFO -   id=1, n_concepts=26, semantic_category=chemical_biological
+2026-05-10 17:16:42,952 - INFO -   id=2, n_concepts=13, semantic_category=chemical_biological
+2026-05-10 17:16:42,952 - INFO -   id=3, n_concepts=21, semantic_category=chemical_biological
+2026-05-10 17:16:42,952 - INFO -   id=5, n_concepts=12, semantic_category=cybercrime_intrusion
+2026-05-10 17:16:42,952 - INFO -   id=6, n_concepts=26, semantic_category=chemical_biological
+2026-05-10 17:16:42,952 - INFO -   id=8, n_concepts=25, semantic_category=cybercrime_intrusion
+2026-05-10 17:16:42,952 - INFO -   id=9, n_concepts=18, semantic_category=chemical_biological
+2026-05-10 17:16:42,952 - INFO -   id=11, n_concepts=20, semantic_category=cybercrime_intrusion
+2026-05-10 17:16:42,952 - INFO -   id=12, n_concepts=25, semantic_category=misinformation_disinformation
+2026-05-10 17:16:42,952 - INFO -   id=13, n_concepts=18, semantic_category=misinformation_disinformation
+2026-05-10 17:16:42,952 - INFO -   id=14, n_concepts=17, semantic_category=misinformation_disinformation
+2026-05-10 17:16:42,952 - INFO -   id=15, n_concepts=27, semantic_category=misinformation_disinformation
+2026-05-10 17:16:42,952 - INFO -   id=16, n_concepts=16, semantic_category=misinformation_disinformation
+2026-05-10 17:16:42,952 - INFO -   id=21, n_concepts=33, semantic_category=misinformation_disinformation
+2026-05-10 17:16:42,952 - INFO -   id=22, n_concepts=27, semantic_category=misinformation_disinformation
+2026-05-10 17:16:42,952 - INFO -   id=23, n_concepts=16, semantic_category=misinformation_disinformation
+2026-05-10 17:16:42,952 - INFO -   id=25, n_concepts=17, semantic_category=misinformation_disinformation
+2026-05-10 17:16:42,952 - INFO -   id=27, n_concepts=16, semantic_category=misinformation_disinformation
+2026-05-10 17:16:42,952 - INFO -   id=35, n_concepts=17, semantic_category=cybercrime_intrusion
+2026-05-10 17:16:42,952 - INFO -   id=36, n_concepts=18, semantic_category=chemical_biological
+2026-05-10 17:16:42,952 - INFO -   id=40, n_concepts=29, semantic_category=cybercrime_intrusion
+2026-05-10 17:16:42,952 - INFO -   id=41, n_concepts=26, semantic_category=cybercrime_intrusion
+2026-05-10 17:16:42,952 - INFO -   id=43, n_concepts=21, semantic_category=cybercrime_intrusion
+2026-05-10 17:16:42,952 - INFO -   id=44, n_concepts=37, semantic_category=chemical_biological
+2026-05-10 17:16:42,952 - INFO -   id=46, n_concepts=18, semantic_category=chemical_biological
+2026-05-10 17:16:42,952 - INFO -   id=49, n_concepts=32, semantic_category=chemical_biological
+2026-05-10 17:16:42,952 - INFO -   id=52, n_concepts=24, semantic_category=chemical_biological
+2026-05-10 17:16:42,952 - INFO -   id=53, n_concepts=22, semantic_category=chemical_biological
+2026-05-10 17:16:42,952 - INFO -   id=54, n_concepts=18, semantic_category=chemical_biological
+2026-05-10 17:16:42,952 - INFO -   id=55, n_concepts=33, semantic_category=chemical_biological
+2026-05-10 17:16:42,952 - INFO -   id=56, n_concepts=18, semantic_category=cybercrime_intrusion
+2026-05-10 17:16:42,952 - INFO -   id=57, n_concepts=14, semantic_category=illegal
+2026-05-10 17:16:42,952 - INFO -   id=58, n_concepts=24, semantic_category=illegal
+2026-05-10 17:16:42,952 - INFO -   id=62, n_concepts=23, semantic_category=cybercrime_intrusion
+2026-05-10 17:16:42,952 - INFO -   id=63, n_concepts=21, semantic_category=cybercrime_intrusion
+2026-05-10 17:16:42,952 - INFO -   id=64, n_concepts=25, semantic_category=cybercrime_intrusion
+2026-05-10 17:16:42,952 - INFO -   id=67, n_concepts=57, semantic_category=chemical_biological
+2026-05-10 17:16:42,952 - INFO -   id=68, n_concepts=24, semantic_category=chemical_biological
+2026-05-10 17:16:42,952 - INFO -   id=70, n_concepts=22, semantic_category=chemical_biological
+2026-05-10 17:16:42,952 - INFO -   id=71, n_concepts=42, semantic_category=chemical_biological
+2026-05-10 17:16:42,952 - INFO -   id=72, n_concepts=27, semantic_category=chemical_biological
+2026-05-10 17:16:42,952 - INFO -   id=81, n_concepts=23, semantic_category=misinformation_disinformation
+2026-05-10 17:16:42,952 - INFO -   id=82, n_concepts=20, semantic_category=misinformation_disinformation
+2026-05-10 17:16:42,953 - INFO -   id=83, n_concepts=20, semantic_category=misinformation_disinformation
+2026-05-10 17:16:42,953 - INFO -   id=84, n_concepts=35, semantic_category=misinformation_disinformation
+2026-05-10 17:16:42,953 - INFO -   id=85, n_concepts=29, semantic_category=chemical_biological
+2026-05-10 17:16:42,953 - INFO -   id=86, n_concepts=27, semantic_category=chemical_biological
+2026-05-10 17:16:42,953 - INFO -   id=87, n_concepts=24, semantic_category=cybercrime_intrusion
+2026-05-10 17:16:42,953 - INFO -   id=88, n_concepts=33, semantic_category=cybercrime_intrusion
+2026-05-10 17:16:42,953 - INFO -   id=89, n_concepts=30, semantic_category=cybercrime_intrusion
+2026-05-10 17:16:42,953 - INFO -   id=90, n_concepts=36, semantic_category=cybercrime_intrusion
+2026-05-10 17:16:42,953 - INFO -   id=91, n_concepts=34, semantic_category=cybercrime_intrusion
+2026-05-10 17:16:42,953 - INFO -   id=93, n_concepts=25, semantic_category=cybercrime_intrusion
+2026-05-10 17:16:42,953 - INFO -   id=94, n_concepts=31, semantic_category=cybercrime_intrusion
+2026-05-10 17:16:42,953 - INFO -   id=95, n_concepts=19, semantic_category=cybercrime_intrusion
+2026-05-10 17:16:42,953 - INFO -   id=96, n_concepts=16, semantic_category=cybercrime_intrusion
+2026-05-10 17:16:42,953 - INFO -   id=97, n_concepts=6, semantic_category=illegal
+2026-05-10 17:16:42,953 - INFO -   id=98, n_concepts=23, semantic_category=cybercrime_intrusion
+2026-05-10 17:16:42,953 - INFO - Loaded batch_id from metadata: batch_6a00e5a89ba48190b60d4f237e61988d
+2026-05-10 17:16:42,953 - INFO - Checking batch status for batch_6a00e5a89ba48190b60d4f237e61988d ...
+2026-05-10 17:16:43,415 - INFO - HTTP Request: GET https://api.openai.com/v1/batches/batch_6a00e5a89ba48190b60d4f237e61988d "HTTP/1.1 200 OK"
+2026-05-10 17:16:43,425 - INFO -   Status: completed
+2026-05-10 17:16:43,425 - INFO -   Request counts: BatchRequestCounts(completed=59, failed=0, total=59)
+2026-05-10 17:16:43,426 - INFO -   Downloading output file: file-S5kRbTiCyufhMCxJ2ScdYe
+2026-05-10 17:16:44,099 - INFO - HTTP Request: GET https://api.openai.com/v1/files/file-S5kRbTiCyufhMCxJ2ScdYe/content "HTTP/1.1 200 OK"
+2026-05-10 17:16:44,591 - INFO -   Raw output saved to results/olmo2_1b_instruct/e2/gpt-5-mini/batch_e2_rank/batch_output.jsonl
+2026-05-10 17:16:44,592 - INFO -   Record id=0: 17 concepts ranked
+2026-05-10 17:16:44,592 - WARNING -   Record id=1: ranking sanity flags: count_mismatch, missing_concepts
+2026-05-10 17:16:44,592 - INFO -   Record id=1: 25 concepts ranked
+2026-05-10 17:16:44,593 - INFO -   Record id=2: 13 concepts ranked
+2026-05-10 17:16:44,593 - INFO -   Record id=3: 21 concepts ranked
+2026-05-10 17:16:44,593 - INFO -   Record id=5: 12 concepts ranked
+2026-05-10 17:16:44,594 - INFO -   Record id=6: 26 concepts ranked
+2026-05-10 17:16:44,594 - INFO -   Record id=8: 25 concepts ranked
+2026-05-10 17:16:44,594 - INFO -   Record id=9: 18 concepts ranked
+2026-05-10 17:16:44,595 - INFO -   Record id=11: 20 concepts ranked
+2026-05-10 17:16:44,595 - INFO -   Record id=12: 25 concepts ranked
+2026-05-10 17:16:44,595 - INFO -   Record id=13: 18 concepts ranked
+2026-05-10 17:16:44,595 - INFO -   Record id=14: 17 concepts ranked
+2026-05-10 17:16:44,596 - INFO -   Record id=15: 27 concepts ranked
+2026-05-10 17:16:44,596 - INFO -   Record id=16: 16 concepts ranked
+2026-05-10 17:16:44,596 - WARNING -   Record id=21: ranking sanity flags: missing_concepts, duplicate_texts
+2026-05-10 17:16:44,597 - INFO -   Record id=21: 33 concepts ranked
+2026-05-10 17:16:44,597 - INFO -   Record id=22: 27 concepts ranked
+2026-05-10 17:16:44,597 - INFO -   Record id=23: 16 concepts ranked
+2026-05-10 17:16:44,597 - INFO -   Record id=25: 17 concepts ranked
+2026-05-10 17:16:44,598 - INFO -   Record id=27: 16 concepts ranked
+2026-05-10 17:16:44,598 - INFO -   Record id=35: 17 concepts ranked
+2026-05-10 17:16:44,598 - WARNING -   Record id=36: ranking sanity flags: missing_concepts, extra_concepts
+2026-05-10 17:16:44,598 - INFO -   Record id=36: 18 concepts ranked
+2026-05-10 17:16:44,598 - INFO -   Record id=40: 29 concepts ranked
+2026-05-10 17:16:44,599 - INFO -   Record id=41: 26 concepts ranked
+2026-05-10 17:16:44,599 - INFO -   Record id=43: 21 concepts ranked
+2026-05-10 17:16:44,599 - INFO -   Record id=44: 37 concepts ranked
+2026-05-10 17:16:44,599 - INFO -   Record id=46: 18 concepts ranked
+2026-05-10 17:16:44,600 - INFO -   Record id=49: 32 concepts ranked
+2026-05-10 17:16:44,600 - INFO -   Record id=52: 24 concepts ranked
+2026-05-10 17:16:44,600 - INFO -   Record id=53: 22 concepts ranked
+2026-05-10 17:16:44,600 - INFO -   Record id=54: 18 concepts ranked
+2026-05-10 17:16:44,601 - INFO -   Record id=55: 33 concepts ranked
+2026-05-10 17:16:44,601 - INFO -   Record id=56: 18 concepts ranked
+2026-05-10 17:16:44,601 - INFO -   Record id=57: 14 concepts ranked
+2026-05-10 17:16:44,601 - INFO -   Record id=58: 24 concepts ranked
+2026-05-10 17:16:44,602 - INFO -   Record id=62: 23 concepts ranked
+2026-05-10 17:16:44,602 - INFO -   Record id=63: 21 concepts ranked
+2026-05-10 17:16:44,602 - INFO -   Record id=64: 25 concepts ranked
+2026-05-10 17:16:44,602 - INFO -   Record id=67: 57 concepts ranked
+2026-05-10 17:16:44,603 - INFO -   Record id=68: 24 concepts ranked
+2026-05-10 17:16:44,603 - INFO -   Record id=70: 22 concepts ranked
+2026-05-10 17:16:44,603 - INFO -   Record id=71: 42 concepts ranked
+2026-05-10 17:16:44,603 - INFO -   Record id=72: 27 concepts ranked
+2026-05-10 17:16:44,604 - INFO -   Record id=81: 23 concepts ranked
+2026-05-10 17:16:44,604 - INFO -   Record id=82: 20 concepts ranked
+2026-05-10 17:16:44,604 - INFO -   Record id=83: 20 concepts ranked
+2026-05-10 17:16:44,604 - INFO -   Record id=84: 35 concepts ranked
+2026-05-10 17:16:44,605 - INFO -   Record id=85: 29 concepts ranked
+2026-05-10 17:16:44,605 - INFO -   Record id=86: 27 concepts ranked
+2026-05-10 17:16:44,605 - INFO -   Record id=87: 24 concepts ranked
+2026-05-10 17:16:44,606 - INFO -   Record id=88: 33 concepts ranked
+2026-05-10 17:16:44,606 - INFO -   Record id=89: 30 concepts ranked
+2026-05-10 17:16:44,607 - INFO -   Record id=90: 36 concepts ranked
+2026-05-10 17:16:44,607 - INFO -   Record id=91: 34 concepts ranked
+2026-05-10 17:16:44,607 - INFO -   Record id=93: 25 concepts ranked
+2026-05-10 17:16:44,607 - INFO -   Record id=94: 31 concepts ranked
+2026-05-10 17:16:44,607 - INFO -   Record id=95: 19 concepts ranked
+2026-05-10 17:16:44,607 - INFO -   Record id=96: 16 concepts ranked
+2026-05-10 17:16:44,608 - INFO -   Record id=97: 6 concepts ranked
+2026-05-10 17:16:44,608 - INFO -   Record id=98: 23 concepts ranked
+2026-05-10 17:16:44,628 - INFO - ======================================================================
+2026-05-10 17:16:44,628 - INFO - COLLECTION COMPLETE
+2026-05-10 17:16:44,628 - INFO -   Total records: 59
+2026-05-10 17:16:44,628 - INFO -   Errors: 0
+2026-05-10 17:16:44,628 - INFO -   Output saved to: results/olmo2_1b_instruct/e2/gpt-5-mini/e2_concepts_ranked_contextual.json
+2026-05-10 17:16:44,628 - INFO - ======================================================================
