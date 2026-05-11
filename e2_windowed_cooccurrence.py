@@ -33,7 +33,7 @@ Usage:
         --compliant_only \
         --windows 100 500 1000
 
-    python e2_windowed_cooccurrence.py --model olmo2-7b --config contextual --training-phase pretraining --api_index v4_olmo-mix-1124_llama --top_n 5 10 15 20 --windows 100 500 1000 --compliant_only --e2-llm gpt-5-mini
+    python e2_windowed_cooccurrence.py --model olmo2-1b-instruct --config contextual --training-phase pretraining --api_index v4_olmo-mix-1124_llama --top_n 5 10 15 20 --windows 100 500 1000 --compliant_only --e2-llm gpt-5-mini
 
     python e2_windowed_cooccurrence.py --model olmo2-1b --config standard --training-phase mid_training --index_dir ./index/dolmino-mix-1124 --top_n 5 10 15 20 --windows 100 500 1000 --compliant_only --e2-llm gpt-5-mini
 
@@ -860,7 +860,6 @@ def run_one_phase(args, training_phase: str, logger, *, phase_index: int, total_
                 "model": record.get("model", ""),
                 "metadata": record.get("metadata", {}),
                 "hb_label": record.get("hb_label"),
-                "e1": record.get("e1", {}),
                 "e2": {
                     **e2_metrics,
                     "rank_model": extraction_meta.get("rank_model", "unknown"),
@@ -895,7 +894,6 @@ def run_one_phase(args, training_phase: str, logger, *, phase_index: int, total_
                 "model": record.get("model", ""),
                 "metadata": record.get("metadata", {}),
                 "hb_label": record.get("hb_label"),
-                "e1": record.get("e1", {}),
                 "e2": {"error": f"{type(exc).__name__}: {exc}"},
             }
 
