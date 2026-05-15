@@ -62,6 +62,9 @@ MODELS = {
 # OpenAI Batch I/O under each label run (distinct from E2 batch dirs).
 E1_BATCH_SUBDIR = "batch_e1"
 
+# Max (span, snippet) pairs per LLM call to avoid output truncation (NaN issue)
+CHUNK_SIZE = 10
+
 # Default OpenAI model for span labeling (override with --e1-llm).
 DEFAULT_LABEL_LLM = "gpt-4.1-mini"
 
@@ -352,6 +355,12 @@ def extract_labeling_pairs(record):
     return pairs
 
 
+def chunk_list(lst, n):
+    """Split a list into chunks of size n."""
+    for i in range(0, len(lst), n):
+        yield lst[i : i + n]
+
+
 def build_user_message(record, pairs):
     """Build the user message for a single record's labeling request.
 
@@ -582,46 +591,48 @@ def run_test(client, model_key, records, logger, training_phase, e1_llm, record_
     logger.info("  Usage: prompt=%d, completion=%d tokens",
                 resp_span.usage.prompt_tokens, resp_span.usage.completion_tokens)
 
-    # --- Call 2: context_safety + context_topic ---
-    logger.info("  [Call 2/2] Labeling context_safety via %s...", e1_llm)
-    start = time.time()
-    try:
-        resp_ctx = client.chat.completions.create(
-            model=e1_llm,
-            messages=[
-                {"role": "system", "content": SYSTEM_PROMPT_CONTEXT},
-                {"role": "user", "content": user_msg},
-            ],
-            **get_model_params(e1_llm),
-        )
-    except Exception as e:
-        logger.error("  Context API call failed: %s", e)
-        return
-
-    elapsed_ctx = time.time() - start
-    logger.info("  Context call completed in %.1f seconds", elapsed_ctx)
-    logger.info("  Usage: prompt=%d, completion=%d tokens",
-                resp_ctx.usage.prompt_tokens, resp_ctx.usage.completion_tokens)
-
-    # Parse and merge
     raw_span = resp_span.choices[0].message.content
-    raw_ctx = resp_ctx.choices[0].message.content
-
-    span_labels = _extract_and_parse(raw_span, len(pairs), logger, mode="span")
-    if span_labels is None:
+    labels_span = _extract_and_parse(raw_span, len(pairs), logger, mode="span")
+    if not labels_span:
         logger.error("  Failed to parse span labels.")
         return
 
-    ctx_labels = _extract_and_parse(raw_ctx, len(pairs), logger, mode="context")
-    if ctx_labels is None:
-        logger.error("  Failed to parse context labels.")
-        return
+    # --- Call 2: context_safety + context_topic ---
+    logger.info("  [Call 2/2] Labeling context_safety via %s...", e1_llm)
+    
+    # CHUNKED Call 2 for Test Mode
+    all_ctx_labels = []
+    for chunk_idx, chunk in enumerate(chunk_list(pairs, CHUNK_SIZE)):
+        logger.info("    Processing chunk %d (%d pairs)...", chunk_idx, len(chunk))
+        chunk_user_msg = build_user_message(rec, chunk)
+        start = time.time()
+        try:
+            resp_ctx = client.chat.completions.create(
+                model=e1_llm,
+                messages=[
+                    {"role": "system", "content": SYSTEM_PROMPT_CONTEXT},
+                    {"role": "user", "content": chunk_user_msg},
+                ],
+                **get_model_params(e1_llm),
+            )
+        except Exception as e:
+            logger.error("  Context API call failed for chunk %d: %s", chunk_idx, e)
+            return
 
-    labels = merge_span_and_context_labels(span_labels, ctx_labels, logger)
+        elapsed_ctx = time.time() - start
+        raw_ctx = resp_ctx.choices[0].message.content
+        chunk_labels = _extract_and_parse(raw_ctx, len(chunk), logger, mode="context")
+        if not chunk_labels:
+            logger.error("  Failed to parse context labels for chunk %d", chunk_idx)
+            return
+        all_ctx_labels.extend(chunk_labels)
 
-    # Merge with pair metadata
+    logger.info("  Context calls completed (all chunks)")
+    # Merge and build results
+    merged = merge_span_and_context_labels(labels_span, all_ctx_labels, logger)
+    
     result_rows = []
-    for lbl, pair in zip(labels, pairs):
+    for lbl, pair in zip(merged, pairs):
         result_rows.append({
             "model": model_key,
             "record_id": rec["id"],
@@ -654,8 +665,7 @@ def run_test(client, model_key, records, logger, training_phase, e1_llm, record_
     with open(test_json, "w", encoding="utf-8") as f:
         json.dump({"record_id": rec["id"],
                    "raw_span_response": raw_span,
-                   "raw_context_response": raw_ctx,
-                   "labels": labels}, f, indent=2)
+                   "labels": merged}, f, indent=2)
     logger.info("  Raw output saved to %s", test_json)
 
 
@@ -684,25 +694,26 @@ def run_batch(client, model_key, records, logger, training_phase, e1_llm, config
                 continue
 
             total_pairs += len(pairs)
-            user_msg = build_user_message(rec, pairs)
-
-            # Two JSONL entries per record: one for span, one for context
+            
+            # Chunking logic for both calls
             for call_type, sys_prompt in [("span", SYSTEM_PROMPT_SPAN),
                                           ("context", SYSTEM_PROMPT_CONTEXT)]:
-                request = {
-                    "custom_id": f"record-{rec['id']}-{call_type}",
-                    "method": "POST",
-                    "url": "/v1/chat/completions",
-                    "body": {
-                        "model": e1_llm,
-                        "messages": [
-                            {"role": "system", "content": sys_prompt},
-                            {"role": "user", "content": user_msg},
-                        ],
-                        **get_model_params(e1_llm),
-                    },
-                }
-                f.write(json.dumps(request) + "\n")
+                for chunk_idx, chunk in enumerate(chunk_list(pairs, CHUNK_SIZE)):
+                    user_msg = build_user_message(rec, chunk)
+                    request = {
+                        "custom_id": f"record-{rec['id']}-{call_type}-chunk-{chunk_idx}",
+                        "method": "POST",
+                        "url": "/v1/chat/completions",
+                        "body": {
+                            "model": e1_llm,
+                            "messages": [
+                                {"role": "system", "content": sys_prompt},
+                                {"role": "user", "content": user_msg},
+                            ],
+                            **get_model_params(e1_llm),
+                        },
+                    }
+                    f.write(json.dumps(request) + "\n")
 
     logger.info("Batch JSONL written: %s", jsonl_path)
     logger.info("  Records: %d, Total (span, snippet) pairs: %d, API requests: %d",
@@ -809,7 +820,7 @@ def run_collect(client, model_key, records, batch_id, logger, training_phase,
         for line_num, line in enumerate(f, 1):
             result = json.loads(line)
             custom_id = result.get("custom_id", "")
-            # Extract record_id and call_type from custom_id "record-{id}-{type}"
+            # Extract record_id and call_type from custom_id "record-{id}-{type}-chunk-{idx}"
             parts = custom_id.split("-")
             try:
                 record_id = int(parts[1])
@@ -841,11 +852,9 @@ def run_collect(client, model_key, records, batch_id, logger, training_phase,
             if record_id not in record_lookup:
                 logger.warning("  Record id=%d not in lookup (maybe filtered out?), skipping.", record_id)
                 continue
-            lookup = record_lookup[record_id]
-            pairs = lookup["pairs"]
-
-            # Parse using mode-aware helper
-            labels = _extract_and_parse(raw_content, len(pairs), logger, mode=call_type)
+            
+            # Parse using mode-aware helper (passing 0 to bypass count check, handled via completeness check)
+            labels = _extract_and_parse(raw_content, 0, logger, mode=call_type)
             if labels is None:
                 logger.error("  Record id=%d (%s): failed to parse labels", record_id, call_type)
                 errors.append({"line": line_num, "record_id": record_id,
@@ -853,23 +862,42 @@ def run_collect(client, model_key, records, batch_id, logger, training_phase,
                 continue
 
             if call_type == "span":
-                span_results[record_id] = labels
+                if record_id not in span_results: span_results[record_id] = []
+                span_results[record_id].extend(labels)
             else:
-                context_results[record_id] = labels
+                if record_id not in context_results: context_results[record_id] = []
+                context_results[record_id].extend(labels)
 
     # Merge span + context per record and build CSV rows
     all_rows = []
     for record_id, span_labels in span_results.items():
         ctx_labels = context_results.get(record_id, [])
-        if not ctx_labels:
-            logger.warning("  Record id=%d: no context labels found, skipping.", record_id)
-            errors.append({"record_id": record_id, "error": "missing context results"})
-            continue
-
-        merged = merge_span_and_context_labels(span_labels, ctx_labels, logger)
-
+        
+        # COMPLETENESS CHECK
         if record_id not in record_lookup:
             continue
+        expected_pairs = record_lookup[record_id]["pairs"]
+        
+        # Verify we have labels for every expected (span_idx, doc_ix)
+        span_keys = {(l["span_idx"], l["doc_ix"]) for l in span_labels}
+        ctx_keys = {(l["span_idx"], l["doc_ix"]) for l in ctx_labels}
+        
+        missing_span = []
+        missing_ctx = []
+        for p in expected_pairs:
+            key = (p["span_idx"], p["doc_ix"])
+            if key not in span_keys: missing_span.append(key)
+            if key not in ctx_keys: missing_ctx.append(key)
+            
+        if missing_span or missing_ctx:
+            logger.error("  Record id=%d: incomplete labels!", record_id)
+            if missing_span: logger.error("    Missing span labels: %s", missing_span)
+            if missing_ctx: logger.error("    Missing context labels: %s", missing_ctx)
+            errors.append({"record_id": record_id, "error": "incomplete labels", 
+                           "missing_span": len(missing_span), "missing_ctx": len(missing_ctx)})
+            # We continue anyway to save what we have
+
+        merged = merge_span_and_context_labels(span_labels, ctx_labels, logger)
         pairs = record_lookup[record_id]["pairs"]
 
         for lbl, pair in zip(merged, pairs):
@@ -979,47 +1007,42 @@ def run_retry(client, model_key, records, logger, training_phase, e1_llm, config
             logger.error("  Record id=%d: span call hit token limit.", record_id)
             continue
 
-        # --- Call 2: context_safety + context_topic ---
+        # Parse Span results
+        labels_span = _extract_and_parse(raw_span, len(pairs), logger, mode="span")
+        if not labels_span:
+            logger.error("  Failed to parse span labels.")
+            continue
+
+        # --- Call 2: context_safety + context_topic (CHUNKED) ---
         logger.info("  [Call 2/2] Labeling context_safety via %s...", e1_llm)
-        start = time.time()
-        try:
-            resp_ctx = client.chat.completions.create(
-                model=e1_llm,
-                messages=[
-                    {"role": "system", "content": SYSTEM_PROMPT_CONTEXT},
-                    {"role": "user", "content": user_msg},
-                ],
-                **get_model_params(e1_llm),
-            )
-        except Exception as e:
-            logger.error("  Context API call failed: %s", e)
-            continue
+        all_ctx_labels = []
+        for chunk_idx, chunk in enumerate(chunk_list(pairs, CHUNK_SIZE)):
+            logger.info("    Processing chunk %d (%d pairs)...", chunk_idx, len(chunk))
+            chunk_user_msg = build_user_message(rec, chunk)
+            start = time.time()
+            try:
+                resp_ctx = client.chat.completions.create(
+                    model=e1_llm,
+                    messages=[
+                        {"role": "system", "content": SYSTEM_PROMPT_CONTEXT},
+                        {"role": "user", "content": chunk_user_msg},
+                    ],
+                    **get_model_params(e1_llm),
+                )
+            except Exception as e:
+                logger.error("  Context API call failed for chunk %d: %s", chunk_idx, e)
+                continue
 
-        elapsed_ctx = time.time() - start
-        logger.info("  Context call completed in %.1f seconds", elapsed_ctx)
+            elapsed_ctx = time.time() - start
+            raw_ctx = resp_ctx.choices[0].message.content
+            chunk_labels = _extract_and_parse(raw_ctx, len(chunk), logger, mode="context")
+            if not chunk_labels:
+                logger.error("  Failed to parse context labels for chunk %d", chunk_idx)
+                continue
+            all_ctx_labels.extend(chunk_labels)
 
-        raw_ctx = resp_ctx.choices[0].message.content
-        finish_reason_ctx = resp_ctx.choices[0].finish_reason
-        logger.info("  finish_reason: %s, content_len: %d", finish_reason_ctx, len(raw_ctx))
-        logger.info("  Usage: prompt=%d, completion=%d tokens",
-                    resp_ctx.usage.prompt_tokens, resp_ctx.usage.completion_tokens)
-
-        if finish_reason_ctx == "length":
-            logger.error("  Record id=%d: context call hit token limit.", record_id)
-            continue
-
-        # Parse and merge
-        span_labels = _extract_and_parse(raw_span, len(pairs), logger, mode="span")
-        if span_labels is None:
-            logger.error("  Record id=%d: failed to parse span labels.", record_id)
-            continue
-
-        ctx_labels = _extract_and_parse(raw_ctx, len(pairs), logger, mode="context")
-        if ctx_labels is None:
-            logger.error("  Record id=%d: failed to parse context labels.", record_id)
-            continue
-
-        labels = merge_span_and_context_labels(span_labels, ctx_labels, logger)
+        # Merge and build results
+        labels = merge_span_and_context_labels(labels_span, all_ctx_labels, logger)
 
         for lbl, pair in zip(labels, pairs):
             all_new_rows.append({
