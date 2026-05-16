@@ -673,8 +673,29 @@ def run_test(client, model_key, records, logger, training_phase, e1_llm, record_
 # Batch mode: submit to OpenAI Batch API
 # ============================================================
 
+def _estimate_enqueued_tokens(request_lines: list[str]) -> int:
+    """Estimate the total enqueued tokens for a list of JSONL request lines.
+
+    OpenAI counts enqueued tokens as (prompt_tokens + max_completion_tokens)
+    per request.  We approximate prompt tokens as len(text) // 4.
+    """
+    total = 0
+    for line in request_lines:
+        req = json.loads(line)
+        body = req["body"]
+        max_tok = body.get("max_tokens", body.get("max_completion_tokens", 4000))
+        prompt_chars = sum(len(m["content"]) for m in body["messages"])
+        total += prompt_chars // 4 + max_tok
+    return total
+
+
+# Target ceiling per sub-batch (leaves headroom below the 2M hard limit).
+_ENQUEUE_CEILING = 1_800_000
+
+
 def run_batch(client, model_key, records, logger, training_phase, e1_llm, config: str):
-    """Submit all records to OpenAI Batch API."""
+    """Submit all records to OpenAI Batch API, auto-splitting into sub-batches
+    if the estimated enqueued token count would exceed the organisation limit."""
     if not records:
         logger.error("No compliant records to batch.")
         return
@@ -682,94 +703,126 @@ def run_batch(client, model_key, records, logger, training_phase, e1_llm, config
     batch_dir = e1_batch_dir(model_key, training_phase, e1_llm)
     os.makedirs(batch_dir, exist_ok=True)
 
-    # Build JSONL file for Batch API
-    jsonl_path = os.path.join(batch_dir, "batch_input.jsonl")
+    # ------------------------------------------------------------------
+    # 1. Build ALL request lines in memory so we can split afterwards.
+    # ------------------------------------------------------------------
+    all_lines: list[str] = []
     total_pairs = 0
 
-    with open(jsonl_path, "w", encoding="utf-8") as f:
-        for rec, rep in records:
-            pairs = extract_labeling_pairs(rec)
-            if not pairs:
-                logger.warning("  Record id=%d has no pairs, skipping.", rec["id"])
-                continue
+    for rec, rep in records:
+        pairs = extract_labeling_pairs(rec)
+        if not pairs:
+            logger.warning("  Record id=%d has no pairs, skipping.", rec["id"])
+            continue
 
-            total_pairs += len(pairs)
-            
-            # Chunking logic for both calls
-            for call_type, sys_prompt in [("span", SYSTEM_PROMPT_SPAN),
-                                          ("context", SYSTEM_PROMPT_CONTEXT)]:
-                for chunk_idx, chunk in enumerate(chunk_list(pairs, CHUNK_SIZE)):
-                    user_msg = build_user_message(rec, chunk)
-                    
-                    params = get_model_params(e1_llm)
-                    # Override max_tokens to avoid hitting the 2M enqueued token limit.
-                    # The utils.py default is 16k, which artificially inflates batch size.
-                    # 50 pairs * ~80 tokens = 4000 tokens maximum needed.
-                    if "max_tokens" in params:
-                        params["max_tokens"] = 4000
-                    elif "max_completion_tokens" in params:
-                        params["max_completion_tokens"] = 4000
-                        
-                    request = {
-                        "custom_id": f"record-{rec['id']}-{call_type}-chunk-{chunk_idx}",
-                        "method": "POST",
-                        "url": "/v1/chat/completions",
-                        "body": {
-                            "model": e1_llm,
-                            "messages": [
-                                {"role": "system", "content": sys_prompt},
-                                {"role": "user", "content": user_msg},
-                            ],
-                            **params,
-                        },
-                    }
-                    f.write(json.dumps(request) + "\n")
+        total_pairs += len(pairs)
 
-    logger.info("Batch JSONL written: %s", jsonl_path)
-    logger.info("  Records: %d, Total (span, snippet) pairs: %d, API requests: %d",
-                len(records), total_pairs, len(records) * 2)
+        for call_type, sys_prompt in [("span", SYSTEM_PROMPT_SPAN),
+                                      ("context", SYSTEM_PROMPT_CONTEXT)]:
+            for chunk_idx, chunk in enumerate(chunk_list(pairs, CHUNK_SIZE)):
+                user_msg = build_user_message(rec, chunk)
 
-    # Upload file
-    logger.info("Uploading batch file to OpenAI...")
-    with open(jsonl_path, "rb") as f:
-        upload = client.files.create(file=f, purpose="batch")
-    logger.info("  File uploaded: id=%s", upload.id)
+                params = get_model_params(e1_llm)
+                if "max_tokens" in params:
+                    params["max_tokens"] = 4000
+                elif "max_completion_tokens" in params:
+                    params["max_completion_tokens"] = 4000
 
-    # Create batch
-    logger.info("Creating batch...")
-    batch = client.batches.create(
-        input_file_id=upload.id,
-        endpoint="/v1/chat/completions",
-        completion_window="24h",
-        metadata={"model_key": model_key, "description": "E1 span safety labeling"},
-    )
-    logger.info("  Batch created: id=%s, status=%s", batch.id, batch.status)
+                request = {
+                    "custom_id": f"record-{rec['id']}-{call_type}-chunk-{chunk_idx}",
+                    "method": "POST",
+                    "url": "/v1/chat/completions",
+                    "body": {
+                        "model": e1_llm,
+                        "messages": [
+                            {"role": "system", "content": sys_prompt},
+                            {"role": "user", "content": user_msg},
+                        ],
+                        **params,
+                    },
+                }
+                all_lines.append(json.dumps(request))
+
+    logger.info("Total request lines: %d, Total pairs: %d", len(all_lines), total_pairs)
+
+    # ------------------------------------------------------------------
+    # 2. Split lines into sub-batches that each stay under the ceiling.
+    # ------------------------------------------------------------------
+    sub_batches: list[list[str]] = []
+    current: list[str] = []
+    current_tokens = 0
+
+    for line in all_lines:
+        line_tokens = _estimate_enqueued_tokens([line])
+        if current and current_tokens + line_tokens > _ENQUEUE_CEILING:
+            sub_batches.append(current)
+            current = []
+            current_tokens = 0
+        current.append(line)
+        current_tokens += line_tokens
+    if current:
+        sub_batches.append(current)
+
+    logger.info("Split into %d sub-batch(es).", len(sub_batches))
+
+    # ------------------------------------------------------------------
+    # 3. Submit each sub-batch and collect batch IDs.
+    # ------------------------------------------------------------------
+    batch_ids = []
+    for part_idx, part_lines in enumerate(sub_batches):
+        part_label = f"part-{part_idx}" if len(sub_batches) > 1 else ""
+        jsonl_name = f"batch_input{('_' + part_label) if part_label else ''}.jsonl"
+        jsonl_path = os.path.join(batch_dir, jsonl_name)
+
+        with open(jsonl_path, "w", encoding="utf-8") as f:
+            f.write("\n".join(part_lines) + "\n")
+
+        est = _estimate_enqueued_tokens(part_lines)
+        logger.info("  Sub-batch %d: %d requests, ~%s estimated enqueued tokens",
+                     part_idx, len(part_lines), f"{est:,}")
+
+        # Upload
+        logger.info("  Uploading %s ...", jsonl_name)
+        with open(jsonl_path, "rb") as f:
+            upload = client.files.create(file=f, purpose="batch")
+        logger.info("    File uploaded: id=%s", upload.id)
+
+        # Create batch
+        batch = client.batches.create(
+            input_file_id=upload.id,
+            endpoint="/v1/chat/completions",
+            completion_window="24h",
+            metadata={"model_key": model_key,
+                      "description": f"E1 span safety labeling {part_label}".strip()},
+        )
+        batch_ids.append(batch.id)
+        logger.info("    Batch created: id=%s, status=%s", batch.id, batch.status)
+
     logger.info("")
     logger.info("=" * 70)
-    logger.info("BATCH SUBMITTED SUCCESSFULLY")
-    logger.info("  Batch ID: %s", batch.id)
+    logger.info("BATCH SUBMITTED SUCCESSFULLY  (%d sub-batch(es))", len(batch_ids))
+    for bid in batch_ids:
+        logger.info("  Batch ID: %s", bid)
     logger.info("  To collect results, run:")
     logger.info(
-        "    python e1_auto_label.py --model %s --training-phase %s --e1-llm %s --collect --batch_id %s",
-        model_key,
-        training_phase,
-        e1_llm,
-        batch.id,
+        "    python e1_auto_label.py --model %s --training-phase %s --e1-llm %s --config %s --collect",
+        model_key, training_phase, e1_llm, config,
     )
     logger.info("=" * 70)
 
-    # Save batch metadata
+    # Save batch metadata (now stores a list of batch_ids)
     meta_path = os.path.join(batch_dir, "batch_metadata.json")
     with open(meta_path, "w") as f:
         json.dump({
-            "batch_id": batch.id,
-            "input_file_id": upload.id,
+            "batch_ids": batch_ids,
+            "batch_id": batch_ids[0],          # backward compat
             "model_key": model_key,
             "training_phase": training_phase,
             "e1_llm": e1_llm,
             "config": config,
             "num_records": len(records),
             "total_pairs": total_pairs,
+            "num_sub_batches": len(batch_ids),
             "submitted_at": datetime.now().isoformat(),
         }, f, indent=2)
     logger.info("  Batch metadata saved to %s", meta_path)
@@ -779,41 +832,54 @@ def run_batch(client, model_key, records, logger, training_phase, e1_llm, config
 # Collect mode: retrieve batch results and save CSV
 # ============================================================
 
-def run_collect(client, model_key, records, batch_id, logger, training_phase,
+def run_collect(client, model_key, records, batch_ids, logger, training_phase,
                 e1_llm, config: str):
-    """Retrieve batch results and convert to CSV."""
+    """Retrieve batch results from one or more sub-batches and convert to CSV."""
     batch_dir = e1_batch_dir(model_key, training_phase, e1_llm)
 
-    # Check batch status
-    logger.info("Checking batch status for %s ...", batch_id)
-    batch = client.batches.retrieve(batch_id)
-    logger.info("  Status: %s", batch.status)
-    logger.info("  Request counts: %s", batch.request_counts)
+    if isinstance(batch_ids, str):
+        batch_ids = [batch_ids]
 
-    if batch.status != "completed":
-        if batch.status == "failed":
-            logger.error("  Batch failed. Errors:")
-            if batch.errors:
-                for err in batch.errors.data:
-                    logger.error("    %s: %s", err.code, err.message)
-        elif batch.status in ("validating", "in_progress", "finalizing"):
-            logger.info("  Batch still processing. Try again later.")
-        else:
-            logger.info("  Batch status: %s. Try again later.", batch.status)
-        return
+    # ------------------------------------------------------------------
+    # Download and merge output from every sub-batch.
+    # ------------------------------------------------------------------
+    all_output_lines = []
+    for sub_idx, batch_id in enumerate(batch_ids):
+        logger.info("Checking batch status for %s (sub-batch %d/%d) ...",
+                    batch_id, sub_idx + 1, len(batch_ids))
+        batch = client.batches.retrieve(batch_id)
+        logger.info("  Status: %s", batch.status)
+        logger.info("  Request counts: %s", batch.request_counts)
 
-    # Download output file
-    output_file_id = batch.output_file_id
-    if not output_file_id:
-        logger.error("  No output file available.")
-        return
+        if batch.status != "completed":
+            if batch.status == "failed":
+                logger.error("  Batch failed. Errors:")
+                if batch.errors:
+                    for err in batch.errors.data:
+                        logger.error("    %s: %s", err.code, err.message)
+            elif batch.status in ("validating", "in_progress", "finalizing"):
+                logger.info("  Batch still processing. Try again later.")
+            else:
+                logger.info("  Batch status: %s. Try again later.", batch.status)
+            return
 
-    logger.info("  Downloading output file: %s", output_file_id)
-    content = client.files.content(output_file_id)
-    raw_output_path = os.path.join(batch_dir, "batch_output.jsonl")
-    with open(raw_output_path, "wb") as f:
-        f.write(content.read())
-    logger.info("  Raw output saved to %s", raw_output_path)
+        output_file_id = batch.output_file_id
+        if not output_file_id:
+            logger.error("  No output file available for %s.", batch_id)
+            return
+
+        logger.info("  Downloading output file: %s", output_file_id)
+        content = client.files.content(output_file_id)
+        suffix = f"_{sub_idx}" if len(batch_ids) > 1 else ""
+        raw_output_path = os.path.join(batch_dir, f"batch_output{suffix}.jsonl")
+        with open(raw_output_path, "wb") as f:
+            f.write(content.read())
+        logger.info("  Raw output saved to %s", raw_output_path)
+
+        with open(raw_output_path, "r", encoding="utf-8") as f:
+            all_output_lines.extend(f.readlines())
+
+    logger.info("Total output lines across all sub-batches: %d", len(all_output_lines))
 
     # Build record lookup: record_id -> (record, pairs)
     record_lookup = {}
@@ -826,57 +892,60 @@ def run_collect(client, model_key, records, batch_id, logger, training_phase,
     context_results = {}  # record_id -> list of context label dicts
     errors = []
 
-    with open(raw_output_path, "r", encoding="utf-8") as f:
-        for line_num, line in enumerate(f, 1):
-            result = json.loads(line)
-            custom_id = result.get("custom_id", "")
-            # Extract record_id and call_type from custom_id "record-{id}-{type}-chunk-{idx}"
-            parts = custom_id.split("-")
-            try:
-                record_id = int(parts[1])
-                call_type = parts[2]  # "span" or "context"
-            except (IndexError, ValueError):
-                logger.error("  Line %d: invalid custom_id: %s", line_num, custom_id)
-                errors.append({"line": line_num, "custom_id": custom_id, "error": "invalid custom_id"})
-                continue
+    for line_num, line in enumerate(all_output_lines, 1):
+        line = line.strip()
+        if not line:
+            continue
+        result = json.loads(line)
+        custom_id = result.get("custom_id", "")
+        # Extract record_id and call_type from custom_id "record-{id}-{type}-chunk-{idx}"
+        parts = custom_id.split("-")
+        try:
+            record_id = int(parts[1])
+            call_type = parts[2]  # "span" or "context"
+        except (IndexError, ValueError):
+            logger.error("  Line %d: invalid custom_id: %s", line_num, custom_id)
+            errors.append({"line": line_num, "custom_id": custom_id, "error": "invalid custom_id"})
+            continue
 
-            # Check for API errors
-            resp_body = result.get("response", {}).get("body", {})
-            if result.get("error"):
-                logger.error("  Record id=%d (%s): API error: %s", record_id, call_type, result["error"])
-                errors.append({"line": line_num, "record_id": record_id,
-                               "call_type": call_type, "error": str(result["error"])})
-                continue
+        # Check for API errors
+        resp_body = result.get("response", {}).get("body", {})
+        if result.get("error"):
+            logger.error("  Record id=%d (%s): API error: %s", record_id, call_type, result["error"])
+            errors.append({"line": line_num, "record_id": record_id,
+                           "call_type": call_type, "error": str(result["error"])})
+            continue
 
-            # Extract response content
-            choices = resp_body.get("choices", [])
-            if not choices:
-                logger.error("  Record id=%d (%s): no choices in response", record_id, call_type)
-                errors.append({"line": line_num, "record_id": record_id,
-                               "call_type": call_type, "error": "no choices"})
-                continue
+        # Extract response content
+        choices = resp_body.get("choices", [])
+        if not choices:
+            logger.error("  Record id=%d (%s): no choices in response", record_id, call_type)
+            errors.append({"line": line_num, "record_id": record_id,
+                           "call_type": call_type, "error": "no choices"})
+            continue
 
-            raw_content = choices[0].get("message", {}).get("content", "")
+        raw_content = choices[0].get("message", {}).get("content", "")
 
-            # Get expected pairs
-            if record_id not in record_lookup:
-                logger.warning("  Record id=%d not in lookup (maybe filtered out?), skipping.", record_id)
-                continue
-            
-            # Parse using mode-aware helper (passing 0 to bypass count check, handled via completeness check)
-            labels = _extract_and_parse(raw_content, 0, logger, mode=call_type)
-            if labels is None:
-                logger.error("  Record id=%d (%s): failed to parse labels", record_id, call_type)
-                errors.append({"line": line_num, "record_id": record_id,
-                               "call_type": call_type, "error": "label parse failure"})
-                continue
+        # Get expected pairs
+        if record_id not in record_lookup:
+            logger.warning("  Record id=%d not in lookup (maybe filtered out?), skipping.", record_id)
+            continue
+        
+        # Parse using mode-aware helper (passing 0 to bypass count check, handled via completeness check)
+        labels = _extract_and_parse(raw_content, 0, logger, mode=call_type)
+        if labels is None:
+            logger.error("  Record id=%d (%s): failed to parse labels", record_id, call_type)
+            errors.append({"line": line_num, "record_id": record_id,
+                           "call_type": call_type, "error": "label parse failure"})
+            continue
 
-            if call_type == "span":
-                if record_id not in span_results: span_results[record_id] = []
-                span_results[record_id].extend(labels)
-            else:
-                if record_id not in context_results: context_results[record_id] = []
-                context_results[record_id].extend(labels)
+        if call_type == "span":
+            if record_id not in span_results: span_results[record_id] = []
+            span_results[record_id].extend(labels)
+        else:
+            if record_id not in context_results: context_results[record_id] = []
+            context_results[record_id].extend(labels)
+
 
     # Merge span + context per record and build CSV rows
     all_rows = []
@@ -1211,8 +1280,8 @@ def run_one_phase(
         run_batch(client, args.model, filtered, logger, training_phase,
                   args.e1_llm, args.config)
     elif args.collect:
-        batch_id = args.batch_id
-        if not batch_id:
+        batch_ids = [args.batch_id] if args.batch_id else None
+        if not batch_ids:
             meta_path = os.path.join(
                 e1_batch_dir(args.model, training_phase, args.e1_llm),
                 "batch_metadata.json",
@@ -1228,18 +1297,18 @@ def run_one_phase(
                         meta_llm,
                         args.e1_llm,
                     )
-                batch_id = meta.get("batch_id")
-                logger.info("Loaded batch_id from metadata: %s", batch_id)
+                batch_ids = meta.get("batch_ids") or [meta.get("batch_id")]
+                logger.info("Loaded batch_ids from metadata: %s", batch_ids)
             else:
                 logger.error(
                     "--batch_id required for --collect mode (no metadata found at %s)",
                     meta_path,
                 )
                 sys.exit(1)
-        if not batch_id:
+        if not batch_ids or not batch_ids[0]:
             logger.error("--batch_id required for --collect mode.")
             sys.exit(1)
-        run_collect(client, args.model, filtered, batch_id, logger,
+        run_collect(client, args.model, filtered, batch_ids, logger,
                     training_phase, args.e1_llm, args.config)
     elif args.retry:
         run_retry(client, args.model, filtered, logger, training_phase,
