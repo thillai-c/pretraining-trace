@@ -700,6 +700,16 @@ def run_batch(client, model_key, records, logger, training_phase, e1_llm, config
                                           ("context", SYSTEM_PROMPT_CONTEXT)]:
                 for chunk_idx, chunk in enumerate(chunk_list(pairs, CHUNK_SIZE)):
                     user_msg = build_user_message(rec, chunk)
+                    
+                    params = get_model_params(e1_llm)
+                    # Override max_tokens to avoid hitting the 2M enqueued token limit.
+                    # The utils.py default is 16k, which artificially inflates batch size.
+                    # 50 pairs * ~80 tokens = 4000 tokens maximum needed.
+                    if "max_tokens" in params:
+                        params["max_tokens"] = 4000
+                    elif "max_completion_tokens" in params:
+                        params["max_completion_tokens"] = 4000
+                        
                     request = {
                         "custom_id": f"record-{rec['id']}-{call_type}-chunk-{chunk_idx}",
                         "method": "POST",
@@ -710,7 +720,7 @@ def run_batch(client, model_key, records, logger, training_phase, e1_llm, config
                                 {"role": "system", "content": sys_prompt},
                                 {"role": "user", "content": user_msg},
                             ],
-                            **get_model_params(e1_llm),
+                            **params,
                         },
                     }
                     f.write(json.dumps(request) + "\n")
