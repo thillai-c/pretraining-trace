@@ -63,7 +63,7 @@ MODELS = {
 E1_BATCH_SUBDIR = "batch_e1"
 
 # Max (span, snippet) pairs per LLM call to avoid output truncation (NaN issue)
-CHUNK_SIZE = 10
+CHUNK_SIZE = 25
 
 # Default OpenAI model for span labeling (override with --e1-llm).
 DEFAULT_LABEL_LLM = "gpt-4.1-mini"
