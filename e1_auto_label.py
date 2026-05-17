@@ -63,7 +63,7 @@ MODELS = {
 E1_BATCH_SUBDIR = "batch_e1"
 
 # Max (span, snippet) pairs per LLM call to avoid output truncation (NaN issue)
-CHUNK_SIZE = 50
+CHUNK_SIZE = 25
 
 # Default OpenAI model for span labeling (override with --e1-llm).
 DEFAULT_LABEL_LLM = "gpt-4.1-mini"
@@ -769,6 +769,8 @@ def run_batch(client, model_key, records, logger, training_phase, e1_llm, config
     # 3. Submit each sub-batch and collect batch IDs.
     # ------------------------------------------------------------------
     batch_ids = []
+    meta_path = os.path.join(batch_dir, "batch_metadata.json")
+
     for part_idx, part_lines in enumerate(sub_batches):
         part_label = f"part-{part_idx}" if len(sub_batches) > 1 else ""
         jsonl_name = f"batch_input{('_' + part_label) if part_label else ''}.jsonl"
@@ -778,8 +780,8 @@ def run_batch(client, model_key, records, logger, training_phase, e1_llm, config
             f.write("\n".join(part_lines) + "\n")
 
         est = _estimate_enqueued_tokens(part_lines)
-        logger.info("  Sub-batch %d: %d requests, ~%s estimated enqueued tokens",
-                     part_idx, len(part_lines), f"{est:,}")
+        logger.info("  Sub-batch %d/%d: %d requests, ~%s estimated enqueued tokens",
+                     part_idx + 1, len(sub_batches), len(part_lines), f"{est:,}")
 
         # Upload
         logger.info("  Uploading %s ...", jsonl_name)
@@ -798,6 +800,16 @@ def run_batch(client, model_key, records, logger, training_phase, e1_llm, config
         batch_ids.append(batch.id)
         logger.info("    Batch created: id=%s, status=%s", batch.id, batch.status)
 
+        # Save metadata incrementally so progress is not lost
+        _save_batch_metadata(meta_path, batch_ids, model_key, training_phase,
+                             e1_llm, config, len(records), total_pairs, len(sub_batches))
+
+        # If there are more sub-batches, wait for this one to complete first
+        if part_idx < len(sub_batches) - 1:
+            logger.info("    Waiting for sub-batch %d/%d to complete before submitting next...",
+                        part_idx + 1, len(sub_batches))
+            _poll_until_done(client, batch.id, logger)
+
     logger.info("")
     logger.info("=" * 70)
     logger.info("BATCH SUBMITTED SUCCESSFULLY  (%d sub-batch(es))", len(batch_ids))
@@ -810,8 +822,30 @@ def run_batch(client, model_key, records, logger, training_phase, e1_llm, config
     )
     logger.info("=" * 70)
 
-    # Save batch metadata (now stores a list of batch_ids)
-    meta_path = os.path.join(batch_dir, "batch_metadata.json")
+    # Final metadata save
+    _save_batch_metadata(meta_path, batch_ids, model_key, training_phase,
+                         e1_llm, config, len(records), total_pairs, len(sub_batches))
+    logger.info("  Batch metadata saved to %s", meta_path)
+
+
+def _poll_until_done(client, batch_id: str, logger, interval: int = 30):
+    """Poll a batch until it reaches a terminal state (completed/failed/expired/cancelled)."""
+    terminal = {"completed", "failed", "expired", "cancelled"}
+    while True:
+        batch = client.batches.retrieve(batch_id)
+        counts = batch.request_counts
+        logger.info("    [poll] %s — %s/%s completed",
+                     batch.status, counts.completed, counts.total)
+        if batch.status in terminal:
+            if batch.status != "completed":
+                logger.error("    Sub-batch %s ended with status: %s", batch_id, batch.status)
+            return
+        time.sleep(interval)
+
+
+def _save_batch_metadata(meta_path, batch_ids, model_key, training_phase,
+                         e1_llm, config, num_records, total_pairs, num_sub_batches):
+    """Write batch metadata to disk (called incrementally so progress is never lost)."""
     with open(meta_path, "w") as f:
         json.dump({
             "batch_ids": batch_ids,
@@ -820,12 +854,11 @@ def run_batch(client, model_key, records, logger, training_phase, e1_llm, config
             "training_phase": training_phase,
             "e1_llm": e1_llm,
             "config": config,
-            "num_records": len(records),
+            "num_records": num_records,
             "total_pairs": total_pairs,
-            "num_sub_batches": len(batch_ids),
+            "num_sub_batches": num_sub_batches,
             "submitted_at": datetime.now().isoformat(),
         }, f, indent=2)
-    logger.info("  Batch metadata saved to %s", meta_path)
 
 
 # ============================================================
